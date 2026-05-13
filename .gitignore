@@ -20,6 +20,14 @@ dist/
 # Slide build outputs (Phase 3)
 slides/**/*.pdf
 slides/**/_build/
+# LaTeX/Beamer aux files
+slides/*.aux
+slides/*.log
+slides/*.nav
+slides/*.out
+slides/*.snm
+slides/*.toc
+slides/*.synctex.gz
 
 # Per-run model caches (re-creatable by re-running the orchestrator)
 runs/*/cache/
