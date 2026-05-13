@@ -20,3 +20,9 @@ dist/
 # Slide build outputs (Phase 3)
 slides/**/*.pdf
 slides/**/_build/
+
+# Per-run model caches (re-creatable by re-running the orchestrator)
+runs/*/cache/
+
+# Claude Code session state inside run dirs
+runs/*/.claude/

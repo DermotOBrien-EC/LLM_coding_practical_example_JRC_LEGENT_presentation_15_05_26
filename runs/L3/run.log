@@ -1,0 +1,95 @@
+[1/6] naive seasonal baseline ...
+      cached — runtime 0.0s
+[2/6] SARIMA ...
+      cached — runtime 88.5s
+      SARIMA runtime: 88.5s
+[3/6] Prophet ...
+      cached — runtime 24.1s
+      Prophet runtime: 24.1s
+[4/6] LightGBM on engineered features ...
+      cached — runtime 57.2s
+      LightGBM runtime: 57.2s
+[5/6] N-BEATS ...
+/Users/doob/dev/LLM_coding_example_jrc_andres/.venv/lib/python3.12/site-packages/pytorch_lightning/trainer/setup.py:177: GPU available but not used. You can set it by doing `Trainer(accelerator='gpu')`.
+/Users/doob/dev/LLM_coding_example_jrc_andres/.venv/lib/python3.12/site-packages/torch/utils/data/dataloader.py:775: UserWarning: 'pin_memory' argument is set as true but not supported on MPS now, device pinned memory won't be used.
+  super().__init__(loader)
+      N-BEATS sel epoch 1/15: train_loss=0.1265 val_loss=0.1510 elapsed=14.6s
+      N-BEATS sel epoch 2/15: train_loss=0.1065 val_loss=0.1303 elapsed=29.2s
+      N-BEATS sel epoch 3/15: train_loss=0.1270 val_loss=0.1252 elapsed=43.5s
+      N-BEATS sel epoch 4/15: train_loss=0.0856 val_loss=0.1155 elapsed=57.8s
+      N-BEATS sel epoch 5/15: train_loss=0.0948 val_loss=0.1239 elapsed=72.0s
+      N-BEATS sel epoch 6/15: train_loss=0.0844 val_loss=0.1090 elapsed=86.3s
+      N-BEATS sel epoch 7/15: train_loss=0.0849 val_loss=0.1148 elapsed=100.5s
+      N-BEATS sel epoch 8/15: train_loss=0.0759 val_loss=0.1060 elapsed=114.8s
+      N-BEATS sel epoch 9/15: train_loss=0.0812 val_loss=0.0988 elapsed=129.0s
+      N-BEATS sel epoch 10/15: train_loss=0.0721 val_loss=0.1019 elapsed=143.3s
+      N-BEATS sel epoch 11/15: train_loss=0.0726 val_loss=0.0952 elapsed=157.5s
+      N-BEATS sel epoch 12/15: train_loss=0.0703 val_loss=0.0955 elapsed=171.7s
+      N-BEATS sel epoch 13/15: train_loss=0.0820 val_loss=0.0983 elapsed=186.0s
+      N-BEATS sel epoch 14/15: train_loss=0.0635 val_loss=0.1017 elapsed=200.2s
+      N-BEATS sel epoch 15/15: train_loss=0.0703 val_loss=0.0945 elapsed=214.4s
+/Users/doob/dev/LLM_coding_example_jrc_andres/.venv/lib/python3.12/site-packages/pytorch_lightning/trainer/setup.py:177: GPU available but not used. You can set it by doing `Trainer(accelerator='gpu')`.
+/Users/doob/dev/LLM_coding_example_jrc_andres/.venv/lib/python3.12/site-packages/torch/utils/data/dataloader.py:775: UserWarning: 'pin_memory' argument is set as true but not supported on MPS now, device pinned memory won't be used.
+  super().__init__(loader)
+      N-BEATS refit epoch 1/15: train_loss=0.1219 val_loss=nan elapsed=14.9s
+      N-BEATS refit epoch 2/15: train_loss=0.0975 val_loss=nan elapsed=29.7s
+      N-BEATS refit epoch 3/15: train_loss=0.0911 val_loss=nan elapsed=44.5s
+      N-BEATS refit epoch 4/15: train_loss=0.1046 val_loss=nan elapsed=59.4s
+      N-BEATS refit epoch 5/15: train_loss=0.0975 val_loss=nan elapsed=74.2s
+      N-BEATS refit epoch 6/15: train_loss=0.0852 val_loss=nan elapsed=89.0s
+      N-BEATS refit epoch 7/15: train_loss=0.0719 val_loss=nan elapsed=103.9s
+      N-BEATS refit epoch 8/15: train_loss=0.0796 val_loss=nan elapsed=118.7s
+      N-BEATS refit epoch 9/15: train_loss=0.0827 val_loss=nan elapsed=133.5s
+      N-BEATS refit epoch 10/15: train_loss=0.0691 val_loss=nan elapsed=148.2s
+      N-BEATS refit epoch 11/15: train_loss=0.0716 val_loss=nan elapsed=163.1s
+      N-BEATS refit epoch 12/15: train_loss=0.0674 val_loss=nan elapsed=177.9s
+      N-BEATS refit epoch 13/15: train_loss=0.0656 val_loss=nan elapsed=192.7s
+      N-BEATS refit epoch 14/15: train_loss=0.0660 val_loss=nan elapsed=207.6s
+      N-BEATS refit epoch 15/15: train_loss=0.0742 val_loss=nan elapsed=222.3s
+      N-BEATS runtime: 437.1s
+[6/6] TSMixer (PatchTST substitute) ...
+/Users/doob/dev/LLM_coding_example_jrc_andres/.venv/lib/python3.12/site-packages/pytorch_lightning/trainer/setup.py:177: GPU available but not used. You can set it by doing `Trainer(accelerator='gpu')`.
+/Users/doob/dev/LLM_coding_example_jrc_andres/.venv/lib/python3.12/site-packages/torch/utils/data/dataloader.py:775: UserWarning: 'pin_memory' argument is set as true but not supported on MPS now, device pinned memory won't be used.
+  super().__init__(loader)
+      TSMixer sel epoch 1/15: train_loss=0.1182 val_loss=0.1422 elapsed=21.9s
+      TSMixer sel epoch 2/15: train_loss=0.1152 val_loss=0.1336 elapsed=43.8s
+      TSMixer sel epoch 3/15: train_loss=0.1147 val_loss=0.1280 elapsed=65.6s
+      TSMixer sel epoch 4/15: train_loss=0.0949 val_loss=0.1248 elapsed=87.5s
+      TSMixer sel epoch 5/15: train_loss=0.0914 val_loss=0.1204 elapsed=109.3s
+      TSMixer sel epoch 6/15: train_loss=0.1164 val_loss=0.1199 elapsed=131.2s
+      TSMixer sel epoch 7/15: train_loss=0.0977 val_loss=0.1159 elapsed=153.1s
+      TSMixer sel epoch 8/15: train_loss=0.1121 val_loss=0.1156 elapsed=175.0s
+      TSMixer sel epoch 9/15: train_loss=0.0993 val_loss=0.1132 elapsed=197.1s
+      TSMixer sel epoch 10/15: train_loss=0.0853 val_loss=0.1135 elapsed=219.0s
+      TSMixer sel epoch 11/15: train_loss=0.0859 val_loss=0.1125 elapsed=240.9s
+      TSMixer sel epoch 12/15: train_loss=0.1142 val_loss=0.1125 elapsed=262.8s
+      TSMixer sel epoch 13/15: train_loss=0.0875 val_loss=0.1106 elapsed=284.7s
+      TSMixer sel epoch 14/15: train_loss=0.1006 val_loss=0.1150 elapsed=306.5s
+      TSMixer sel epoch 15/15: train_loss=0.0958 val_loss=0.1105 elapsed=328.4s
+/Users/doob/dev/LLM_coding_example_jrc_andres/.venv/lib/python3.12/site-packages/pytorch_lightning/trainer/setup.py:177: GPU available but not used. You can set it by doing `Trainer(accelerator='gpu')`.
+/Users/doob/dev/LLM_coding_example_jrc_andres/.venv/lib/python3.12/site-packages/torch/utils/data/dataloader.py:775: UserWarning: 'pin_memory' argument is set as true but not supported on MPS now, device pinned memory won't be used.
+  super().__init__(loader)
+      TSMixer refit epoch 1/15: train_loss=0.1431 val_loss=nan elapsed=22.8s
+      TSMixer refit epoch 2/15: train_loss=0.1161 val_loss=nan elapsed=45.6s
+      TSMixer refit epoch 3/15: train_loss=0.1147 val_loss=nan elapsed=68.4s
+      TSMixer refit epoch 4/15: train_loss=0.1229 val_loss=nan elapsed=91.3s
+      TSMixer refit epoch 5/15: train_loss=0.0954 val_loss=nan elapsed=114.1s
+      TSMixer refit epoch 6/15: train_loss=0.0970 val_loss=nan elapsed=136.8s
+      TSMixer refit epoch 7/15: train_loss=0.0980 val_loss=nan elapsed=159.7s
+      TSMixer refit epoch 8/15: train_loss=0.0982 val_loss=nan elapsed=182.5s
+      TSMixer refit epoch 9/15: train_loss=0.1000 val_loss=nan elapsed=205.3s
+      TSMixer refit epoch 10/15: train_loss=0.1028 val_loss=nan elapsed=228.1s
+      TSMixer refit epoch 11/15: train_loss=0.0980 val_loss=nan elapsed=250.9s
+      TSMixer refit epoch 12/15: train_loss=0.0850 val_loss=nan elapsed=273.6s
+      TSMixer refit epoch 13/15: train_loss=0.0871 val_loss=nan elapsed=296.4s
+      TSMixer refit epoch 14/15: train_loss=0.0834 val_loss=nan elapsed=320.6s
+      TSMixer refit epoch 15/15: train_loss=0.0866 val_loss=nan elapsed=344.6s
+      TSMixer runtime: 673.5s
+Writing figures ...
+/Users/doob/dev/LLM_coding_example_jrc_andres/.venv/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:3824: RuntimeWarning: Mean of empty slice
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/Users/doob/dev/LLM_coding_example_jrc_andres/.venv/lib/python3.12/site-packages/numpy/_core/_methods.py:142: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+
+Winner: lightgbm  (test MAPE 3.426%)
+Total runtime: 1121.9s

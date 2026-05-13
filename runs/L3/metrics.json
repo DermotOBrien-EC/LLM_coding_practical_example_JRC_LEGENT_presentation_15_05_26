@@ -1,0 +1,177 @@
+{
+  "test_start": "2020-01-01",
+  "test_end": "2020-01-07",
+  "n_test_observations": 168,
+  "models": [
+    {
+      "name": "naive",
+      "mape_test_pct": 12.780588824669476,
+      "rmse_test_mw": 8808.602996502907,
+      "mae_test_mw": 7237.976190476191,
+      "mape_jan1_pct": 6.51955384895017,
+      "mape_jan2_to_jan7_pct": 13.824094653956026,
+      "runtime_seconds": 0.0006124159990577027,
+      "hyperparameters": {
+        "lag_hours": 168
+      }
+    },
+    {
+      "name": "sarima",
+      "mape_test_pct": 9.977853072431364,
+      "rmse_test_mw": 6761.703492234742,
+      "mae_test_mw": 5542.083550712608,
+      "mape_jan1_pct": 10.987398430721111,
+      "mape_jan2_to_jan7_pct": 9.809595512716403,
+      "runtime_seconds": 88.5050129170013,
+      "hyperparameters": {
+        "order": [
+          1,
+          0,
+          1
+        ],
+        "seasonal_order": [
+          1,
+          1,
+          1,
+          24
+        ],
+        "train_hours_used": 8760,
+        "validation_mape_by_order": {
+          "(1, 0, 1)x(1, 1, 1, 24)": 11.85472383626462,
+          "(2, 0, 1)x(1, 1, 1, 24)": 11.944262355621008,
+          "(2, 1, 2)x(0, 1, 1, 24)": 52.99571111510144
+        },
+        "selected_validation_mape": 11.85472383626462
+      }
+    },
+    {
+      "name": "prophet",
+      "mape_test_pct": 7.613986192889271,
+      "rmse_test_mw": 4873.081629271273,
+      "mae_test_mw": 3795.4548377725214,
+      "mape_jan1_pct": 13.285018922377665,
+      "mape_jan2_to_jan7_pct": 6.668814071307873,
+      "runtime_seconds": 24.056834833998437,
+      "hyperparameters": {
+        "changepoint_prior_scale": 0.05,
+        "seasonality_prior_scale": 20.0,
+        "country_holidays": "DE",
+        "validation_mape_by_priors": {
+          "cp=0.05, sp=10.0": 5.635830073898914,
+          "cp=0.1, sp=10.0": 5.701042910393261,
+          "cp=0.05, sp=20.0": 5.634824881642701
+        },
+        "selected_validation_mape": 5.634824881642701,
+        "num_samples": 500
+      }
+    },
+    {
+      "name": "lightgbm",
+      "mape_test_pct": 3.426170980764541,
+      "rmse_test_mw": 2326.4000345320833,
+      "mae_test_mw": 1801.0977258799137,
+      "mape_jan1_pct": 3.7221637173101154,
+      "mape_jan2_to_jan7_pct": 3.376838858006945,
+      "runtime_seconds": 57.21181887500279,
+      "hyperparameters": {
+        "n_estimators": 600,
+        "learning_rate": 0.05,
+        "num_leaves": 64,
+        "min_data_in_leaf": 50,
+        "features": [
+          "hour",
+          "day_of_week",
+          "month",
+          "is_weekend",
+          "is_public_holiday_de",
+          "lag_24h",
+          "lag_168h",
+          "lag_8760h",
+          "rollmean_24h",
+          "rollstd_24h",
+          "rollmean_168h",
+          "rollstd_168h"
+        ],
+        "validation_mape_pct": 2.0242436345565533,
+        "feature_importance_gain": {
+          "hour": 1500095708167.0,
+          "day_of_week": 675316400890.0,
+          "month": 268132223872.0,
+          "is_weekend": 1044009208052.0,
+          "is_public_holiday_de": 1428333646654.0,
+          "lag_24h": 2748861593414.0,
+          "lag_168h": 22890884120568.0,
+          "lag_8760h": 381159923982.0,
+          "rollmean_24h": 641163314218.0,
+          "rollstd_24h": 217722336440.0,
+          "rollmean_168h": 383104524522.0,
+          "rollstd_168h": 88877950860.0
+        }
+      }
+    },
+    {
+      "name": "nbeats",
+      "mape_test_pct": 8.191128627962856,
+      "rmse_test_mw": 5770.531146543938,
+      "mae_test_mw": 4284.682261824021,
+      "mape_jan1_pct": 3.902316394624027,
+      "mape_jan2_to_jan7_pct": 8.90593066685266,
+      "runtime_seconds": 437.10331787500036,
+      "hyperparameters": {
+        "input_chunk_length": 168,
+        "output_chunk_length": 168,
+        "epochs_used_refit": 15,
+        "max_epochs_selector": 15,
+        "batch_size": 128,
+        "quantiles": [
+          0.025,
+          0.1,
+          0.25,
+          0.5,
+          0.75,
+          0.9,
+          0.975
+        ],
+        "validation_mape_pct": 8.464334194822161,
+        "scaler": "standard"
+      }
+    },
+    {
+      "name": "patchtst",
+      "mape_test_pct": 10.030064109814232,
+      "rmse_test_mw": 6370.85187253918,
+      "mae_test_mw": 5266.958111880971,
+      "mape_jan1_pct": 4.11266501027032,
+      "mape_jan2_to_jan7_pct": 11.01629729307155,
+      "runtime_seconds": 673.457932207999,
+      "hyperparameters": {
+        "substitute_for": "PatchTST",
+        "darts_model_class": "TSMixerModel",
+        "darts_version": "0.41.0",
+        "input_chunk_length": 168,
+        "output_chunk_length": 168,
+        "epochs_used_refit": 15,
+        "max_epochs_selector": 15,
+        "batch_size": 128,
+        "quantiles": [
+          0.025,
+          0.1,
+          0.25,
+          0.5,
+          0.75,
+          0.9,
+          0.975
+        ],
+        "validation_mape_pct": 10.926302361960841,
+        "scaler": "standard"
+      }
+    }
+  ],
+  "winner": "lightgbm",
+  "winner_coverage_80pct": 0.7976190476190477,
+  "winner_coverage_95pct": 0.9285714285714286,
+  "winner_pinball_loss_q10": 410.69047977419245,
+  "winner_pinball_loss_q50": 840.2657682852653,
+  "winner_pinball_loss_q90": 349.94220813421583,
+  "total_runtime_seconds": 1121.8560643329984
+}
