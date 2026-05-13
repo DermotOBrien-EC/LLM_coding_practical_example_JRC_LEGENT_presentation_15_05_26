@@ -231,7 +231,7 @@ target, or output format.
 ![w:980 center](../runs/L1/forecast.png)
 
 <div class="caption">
-Three simple baselines. Best: <b>seasonal-naive (lag-364d), MAPE 10.76%</b>.<br/>
+Three baselines compared; L1 picked the best of the three: <b>seasonal-naive (lag-364d), MAPE 10.76%</b>.<br/>
 No transcript. No validation set. No prediction intervals.
 </div>
 
