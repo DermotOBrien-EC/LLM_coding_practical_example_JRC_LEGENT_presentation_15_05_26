@@ -1,0 +1,28 @@
+[project]
+name = "llm-coding-example-jrc-andres"
+version = "0.1.0"
+description = "Three-level prompt-engineering demo: univariate German electricity load forecast."
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    "pandas>=2.2,<3",
+    "numpy>=1.26,<3",
+    "matplotlib>=3.8,<4",
+    "statsmodels>=0.14,<1",
+    "pmdarima>=2.0,<3",
+    "u8darts[all]>=0.30,<1",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.6,<1",
+    "mypy>=1.10,<2",
+    "pytest>=8,<9",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.mypy]
+strict = true
+python_version = "3.11"

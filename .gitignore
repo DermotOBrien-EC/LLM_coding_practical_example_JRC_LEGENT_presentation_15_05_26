@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+
+# uv
+.python-version
+
+# IDE / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Slide build outputs (Phase 3)
+slides/**/*.pdf
+slides/**/_build/
