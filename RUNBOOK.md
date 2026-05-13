@@ -50,16 +50,23 @@ it.
 
 ### 4. Let the agent work
 
-Do not interject unless the agent is genuinely stuck. The agent should:
+Do not interject unless the agent is genuinely stuck. The agent's context
+depends on the level:
 
-- Read the data file via `../../data/opsd_de_load.csv`.
-- Write code into `code/`.
-- Produce a figure into `figures/`.
-- Write `transcript.md` and `metrics.json`.
+- **L1**: only the prompt and `opsd_de_load.csv` in the working directory. No
+  `AGENTS.md`, no schema, no constraints. The agent may produce anything (a
+  single script, ad-hoc files, no metrics, no transcript). Capture whatever
+  comes out.
+- **L2**: as L1 plus a minimal `AGENTS.md` mentioning the data file and a
+  couple of library hints. Still no schema or constraints. Likely produces a
+  script and a plot.
+- **L3**: a detailed `AGENTS.md` with the univariate constraint, the
+  `metrics.json` schema, the expected `code/`/`figures/`/`transcript.md`
+  layout, and explicit do-nots. Should produce all four artifacts.
 
 Expected runtime: L1 may finish in under a minute (or hang asking for
-clarification); L2 typically 5–15 minutes; L3 typically 20–60 minutes including
-model fitting.
+clarification); L2 typically 5–15 minutes; L3 typically 20–60 minutes
+including model fitting.
 
 ### 5. Save the chat export
 
@@ -77,14 +84,17 @@ the verbatim chat record. Both are kept.
 ### 6. Verify the artifacts
 
 ```sh
-ls code/ figures/
-cat metrics.json | python -m json.tool
+ls
+cat metrics.json 2>/dev/null | python -m json.tool 2>/dev/null || echo "(no valid metrics.json — that's fine, record it)"
 ```
 
-If `metrics.json` is missing or malformed, do **not** ask the agent to fix it
-— record the omission in `runs/LX/transcript.md` (append manually) and move
-on. The honesty of the comparison depends on capturing what the agent did on
-its own, not what it could be coaxed to produce.
+L3 should have produced `code/`, `figures/`, `metrics.json`, `transcript.md`,
+and `session_export.md`. L1 and L2 may have produced an ad-hoc mix of files.
+**Do not ask the agent to fix or restructure anything after the fact** —
+record whatever is missing (or unexpected) in a `transcript.md` you write
+manually if the agent didn't produce one. The honesty of the comparison
+depends on capturing what the agent did on its own, not what it could be
+coaxed to produce.
 
 ### 7. Close the session and commit
 
