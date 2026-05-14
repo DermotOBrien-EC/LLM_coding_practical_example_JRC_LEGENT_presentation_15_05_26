@@ -32,8 +32,16 @@
 \setbeamerfont{frametitle}{size=\Large,series=\mdseries}
 \setbeamertemplate{itemize item}{\color{jrcblue}\textbullet}
 \setbeamertemplate{itemize subitem}{\color{jrcblue}\textendash}
+% Footer template: slide number bottom-left, EC logo bottom-right
+% (matches the JRC C4 parent deck convention).
 \setbeamertemplate{footline}{%
-  \hfill\raisebox{6pt}{\tiny\color{gray}\insertframenumber\hspace{6mm}}%
+  \leavevmode%
+  \makebox[\paperwidth]{%
+    \hspace{8mm}\raisebox{8pt}{\tiny\color{gray}\insertframenumber}%
+    \hfill%
+    \raisebox{2pt}{\includegraphics[height=0.075\paperheight]{assets/ec_logo.png}}\hspace{6mm}%
+  }%
+  \vspace{2pt}%
 }
 \setbeamertemplate{frametitle}{%
   \vspace{6pt}\hspace{4pt}\insertframetitle\par\vspace{-4pt}%
