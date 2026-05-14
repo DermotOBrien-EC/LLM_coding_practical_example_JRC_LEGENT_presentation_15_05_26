@@ -55,6 +55,20 @@
   \end{tcolorbox}%
 }
 
+% Tight tip card: same as \tipcard but smaller padding and footnotesize body,
+% used on the dense pre-experiment slide (slide 2) to fit five boxes.
+\newcommand{\tipcardtight}[3]{%
+  \begin{tcolorbox}[
+    colback=cardbg, colframe=jrcblue, boxrule=1pt, arc=3pt,
+    left=7pt, right=7pt, top=2pt, bottom=2pt,
+    fontupper=\footnotesize,
+  ]
+    {\textbf{#1}}\\[0.5pt]
+    {\color{jrcblue}\textbf{#2}}\\[2pt]
+    #3
+  \end{tcolorbox}%
+}
+
 % Sub-tip card: lighter chip
 \newcommand{\subtipcard}[3]{%
   \begin{tcolorbox}[
@@ -110,30 +124,32 @@
 % ===== Slide 2 — Tips 1–5 (everything the experiment references) =====
 % Layout: top row wide pair (TIPS 1, 2), bottom row narrow trio (TIPS 3, 4, 5).
 % TIP 2 is the densest tip, so it gets the wider top-right cell.
+% Tip-card padding is scoped tighter on this slide to fit all five boxes
+% without bottom-row clipping.
 \begin{frame}{Seven tips for working with AI}
   \begin{columns}[t,onlytextwidth]
     \begin{column}{0.49\textwidth}
-      \tipcard{TIP 1}{Learn how to program, use your domain knowledge}{%
+      \tipcardtight{TIP 1}{Learn how to program, use your domain knowledge}{%
         AI multiplies what you already know. Bring expertise; AI brings throughput.}
     \end{column}
     \begin{column}{0.49\textwidth}
-      \tipcard{TIP 2}{Be as specific as humanly possible}{%
+      \tipcardtight{TIP 2}{Be as specific as humanly possible}{%
         Most prompts don't give enough context. Paste in docs, references, \texttt{llms.txt}, screenshots.
         Or draft a rough prompt and ask AI to rewrite it \emph{``using LLM best practices.''}}
     \end{column}
   \end{columns}
-  \vspace{4pt}
+  \vspace{-2pt}
   \begin{columns}[t,onlytextwidth]
     \begin{column}{0.32\textwidth}
-      \tipcard{TIP 3}{Smaller tasks beat big ones}{%
+      \tipcardtight{TIP 3}{Smaller tasks beat big ones}{%
         Break problems down. If you can't break it down, you don't understand it yet.}
     \end{column}
     \begin{column}{0.32\textwidth}
-      \tipcard{TIP 4}{Tell the AI what you \emph{don't} want}{%
+      \tipcardtight{TIP 4}{Tell the AI what you \emph{don't} want}{%
         Three-section pattern: \textbf{TASK / BACKGROUND / DO NOT}.}
     \end{column}
     \begin{column}{0.32\textwidth}
-      \tipcard{TIP 5}{Tell AI to remember}{%
+      \tipcardtight{TIP 5}{Tell AI to remember}{%
         \texttt{AGENTS.md} (context) + skills (procedures) in \texttt{.claude/}.
         Ask the agent to draft v1.}
     \end{column}
