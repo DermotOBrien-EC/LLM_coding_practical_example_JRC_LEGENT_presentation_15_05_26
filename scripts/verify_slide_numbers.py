@@ -1,10 +1,10 @@
-"""Verify slides/talk.md against ground truth.
+"""Verify slides/talk_v2.md against ground truth.
 
 Three classes of check:
-1. Every figure path referenced in `talk.md` exists on disk.
+1. Every figure path referenced in `talk_v2.md` exists on disk.
 2. Every quoted MAPE / coverage / runtime / word-count / line-count matches
    the corresponding source file (runs/L*/metrics.*, prompts/L*.md, AGENTS.md).
-3. The winner model name in talk.md matches `runs/L3/metrics.json:winner`.
+3. The winner model name in talk_v2.md matches `runs/L3/metrics.json:winner`.
 
 Run:  uv run python scripts/verify_slide_numbers.py
 Exits non-zero if any check fails.
@@ -20,7 +20,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-TALK = ROOT / "slides" / "talk.md"
+TALK = ROOT / "slides" / "talk_v2.md"
 
 
 @dataclass
@@ -41,13 +41,15 @@ def load_talk() -> str:
 
 
 def check_figure_paths(talk: str) -> list[Check]:
-    """Pull every PNG path mentioned in talk.md and verify it resolves."""
-    # Match the path inside a Marp image directive: `![...](<path>)`.
-    # Catches `../runs/L*/figures/x.png`, `assets/x.png`, `slides/assets/x.png`,
-    # and any other relative PNG reference. All paths are resolved relative
-    # to talk.md's own directory.
-    pattern = re.compile(r"!\[[^\]]*\]\(([^)\s]+\.png)\)")
-    paths = sorted(set(pattern.findall(talk)))
+    """Pull every PNG path mentioned in talk_v2.md and verify it resolves.
+
+    The deck uses two image syntaxes:
+    - Marp markdown image directives:  ![...](<path>)
+    - Raw HTML <img src="..."> tags    (used inside the gallery slide)
+    """
+    md_pattern = re.compile(r"!\[[^\]]*\]\(([^)\s]+\.png)\)")
+    html_pattern = re.compile(r'<img[^>]+src=["\']([^"\']+\.png)["\']')
+    paths = sorted(set(md_pattern.findall(talk)) | set(html_pattern.findall(talk)))
     checks: list[Check] = []
     for p in paths:
         abs_path = (TALK.parent / p).resolve()
@@ -59,9 +61,8 @@ def check_figure_paths(talk: str) -> list[Check]:
                 ok=abs_path.is_file(),
             )
         )
-    # Sanity: every PNG known to the deck (assets + run figures) must be
-    # represented. If the regex above silently misses one, this catches it.
-    expected_count = 8  # 7 run figures + 1 generated asset, per the plan
+    # Sanity: 9 unique figures expected (L1+L2 forecasts, 6 L3 figures, 1 generated asset).
+    expected_count = 9
     if len(paths) != expected_count:
         checks.append(
             Check(
