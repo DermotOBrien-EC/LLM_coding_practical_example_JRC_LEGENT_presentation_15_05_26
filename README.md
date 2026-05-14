@@ -94,3 +94,15 @@ The deliberate point of the three personae: workspace context scales
 *with* the prompt. A real beginner doesn't have `AGENTS.md` set up; a
 pro does. The three rows of the headline aren't just three different
 prompts, they're three different user personae.
+
+## Tools used
+
+The forecasting experiment, the analytical write-ups in
+`runs/L*/transcript.md`, the deck source (`slides/talk_v2.md`,
+`slides/jrc_section_v2_beamer.tex`), and the supporting scripts were all
+produced in collaboration with **Claude Code (Opus 4.7)** as the agent
+under test and as the build assistant. Where the experiment runs the
+agent at three increasingly specific prompt levels, the deck and code
+around it were built with the L3 workflow throughout: detailed prompts,
+a project-level `AGENTS.md`, and the `/review-loop` skill for plan
+review and code review.
