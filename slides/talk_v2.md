@@ -102,12 +102,11 @@ h1 { font-size: 48pt; margin-bottom: 0.25em; color: #1A3A6A; }
 
 <div class="subtitle">A field-tested playbook,<br/>illustrated with a forecasting experiment we ran in this unit.</div>
 
-<div class="meta">JRC C4 · Dermot O'Brien · 2026 · after The Coding Sloth, 2025</div>
+<div class="meta">JRC C4 · Dermot O'Brien · 2026</div>
 
 <!--
-This talk borrows its structure from a 15-minute YouTube video by The Coding Sloth
-("I Have Spent 500+ Hours Programming With AI", 2025). The seven tips come from
-the video. The evidence for tip 2 — that prompt specificity is what determines
+The seven tips are field practice for working with coding agents.
+The evidence for tip 2 — that prompt specificity is what determines
 output quality — comes from a forecasting experiment we ran in-unit and which
 this talk walks through in detail.
 -->
@@ -743,7 +742,7 @@ section { display: flex; flex-direction: column; justify-content: center; align-
 
 <div class="sub">AI scales execution. You bring the judgement.</div>
 
-<div class="credit">after The Coding Sloth, 2025 · code &amp; data: github.com/DermotOBrien-EC/LLM_coding_example_jrc_andres</div>
+<div class="credit">code &amp; data: github.com/DermotOBrien-EC/LLM_coding_practical_example_JRC_LEGENT_presentation_15_05_26</div>
 
 <!--
 The source video's closing line. Specificity in your prompts and your project
