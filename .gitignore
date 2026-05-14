@@ -17,8 +17,7 @@ dist/
 *.swp
 .DS_Store
 
-# Slide build outputs (Phase 3)
-slides/**/*.pdf
+# Slide build outputs
 slides/**/_build/
 # LaTeX/Beamer aux files
 slides/*.aux
