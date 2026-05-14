@@ -19,6 +19,8 @@ dist/
 
 # Slide build outputs
 slides/**/_build/
+# Per-slide PNG exports (drag-and-drop into PowerPoint; regen via pdftoppm)
+slides/jrc_png/
 # LaTeX/Beamer aux files
 slides/*.aux
 slides/*.log
