@@ -107,22 +107,35 @@
   \begin{center}\small\color{gray}Speaker: Dermot O'Brien\end{center}
 \end{frame}}
 
-% ===== Slide 2 — Tips 1, 2, 4, 5 (the tips the experiment will reference) =====
+% ===== Slide 2 — Tips 1–5 (everything the experiment references) =====
+% Layout: top row wide pair (TIPS 1, 2), bottom row narrow trio (TIPS 3, 4, 5).
+% TIP 2 is the densest tip, so it gets the wider top-right cell.
 \begin{frame}{Seven tips for working with AI}
   \begin{columns}[t,onlytextwidth]
     \begin{column}{0.49\textwidth}
       \tipcard{TIP 1}{Learn how to program, use your domain knowledge}{%
         AI multiplies what you already know. Bring expertise; AI brings throughput.}
-      \tipcard{TIP 4}{Tell the AI what you \emph{don't} want}{%
-        Three-section pattern: \textbf{TASK / BACKGROUND / DO NOT}.}
     \end{column}
     \begin{column}{0.49\textwidth}
       \tipcard{TIP 2}{Be as specific as humanly possible}{%
         Most prompts don't give enough context. Paste in docs, references, \texttt{llms.txt}, screenshots.
         Or draft a rough prompt and ask AI to rewrite it \emph{``using LLM best practices.''}}
-      \tipcard{TIP 5}{Tell the AI to remember \textemdash{} \texttt{AGENTS.md} \& Skills}{%
-        Two persistent files in \texttt{.claude/}: \texttt{AGENTS.md} (project \emph{context}) and skills (reusable \emph{procedures}).
-        Ask the agent to draft \texttt{AGENTS.md} v1 from your codebase.}
+    \end{column}
+  \end{columns}
+  \vspace{4pt}
+  \begin{columns}[t,onlytextwidth]
+    \begin{column}{0.32\textwidth}
+      \tipcard{TIP 3}{Smaller tasks beat big ones}{%
+        Break problems down. If you can't break it down, you don't understand it yet.}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \tipcard{TIP 4}{Tell the AI what you \emph{don't} want}{%
+        Three-section pattern: \textbf{TASK / BACKGROUND / DO NOT}.}
+    \end{column}
+    \begin{column}{0.32\textwidth}
+      \tipcard{TIP 5}{Tell AI to remember}{%
+        \texttt{AGENTS.md} (context) + skills (procedures) in \texttt{.claude/}.
+        Ask the agent to draft v1.}
     \end{column}
   \end{columns}
 \end{frame}
@@ -221,25 +234,24 @@
   \end{center}
 \end{frame}
 
-% ===== Slide 9 — Tips 3, 6, 7 + Closing thesis =====
+% ===== Slide 9 — Tips 6, 7 + Closing thesis =====
 \begin{frame}{Seven tips for working with AI (cont.)}
   \begin{columns}[t,onlytextwidth]
     \begin{column}{0.49\textwidth}
-      \tipcard{TIP 3}{Smaller tasks beat big ones}{%
-        Break problems down. If you can't break it down, you don't understand it yet.}
+      \tipcard{TIP 6}{MCPs extend what AI can do}{%
+        Plug-in tools at runtime. Context7 (docs), Hugging Face (papers), GitHub (repos).}
       \tipcard{TIP 7}{Always give AI a way to verify its work}{%
         Tests, held-out validation, calibrated intervals. Have AI generate them \emph{and} read what it wrote
         \textemdash{} AI-written tests can ``pass'' while testing the wrong thing.}
     \end{column}
     \begin{column}{0.49\textwidth}
-      \tipcard{TIP 6}{MCPs extend what AI can do}{%
-        Plug-in tools at runtime. Context7 (docs), Hugging Face (papers), GitHub (repos).}
       \begin{tcolorbox}[colback=jrcblue!8, colframe=jrcblue, boxrule=1.5pt, arc=3pt,
-                        left=8pt, right=8pt, top=4pt, bottom=4pt, fontupper=\small]
-        {\color{jrcblue}\textbf{Closing thesis}}\\[2pt]
-        \textbf{AI amplifies the habits you already have.}\\[3pt]
-        Let it type for you \textemdash{} not think for you.
-        Bring good engineering habits and AI multiplies them; skip tests, skip docs, and AI amplifies \emph{that} instead.
+                        left=10pt, right=10pt, top=8pt, bottom=8pt, fontupper=\small]
+        {\color{jrcblue}\textbf{\large Closing thesis}}\\[6pt]
+        \textbf{AI amplifies the habits you already have.}\\[6pt]
+        Let it type for you \textemdash{} not think for you.\\[6pt]
+        Bring good engineering habits and AI multiplies them.\\[6pt]
+        Skip tests, skip docs, skip the ``what could go wrong'' question \textemdash{} and AI amplifies \emph{that} instead.
       \end{tcolorbox}
     \end{column}
   \end{columns}
