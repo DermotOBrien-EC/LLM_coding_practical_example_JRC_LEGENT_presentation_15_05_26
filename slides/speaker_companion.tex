@@ -1,0 +1,491 @@
+% Speaker companion for the JRC C4 Practical Use Cases section.
+% One-column reading document; one page per slide of jrc_section_v2_beamer.pdf.
+% Compile:  cd slides && xelatex speaker_companion.tex
+\documentclass[11pt,a4paper]{article}
+\usepackage{fontspec}
+\setmainfont{Helvetica Neue}[Scale=1.0]
+\setmonofont{Menlo}[Scale=0.85]
+\usepackage[a4paper,top=24mm,bottom=18mm,left=18mm,right=18mm,headheight=22pt,headsep=8mm]{geometry}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins}
+\usepackage{enumitem}
+\setlist{nosep,leftmargin=14pt}
+\usepackage{titlesec}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+\definecolor{jrcblue}{HTML}{3B3B8C}
+\definecolor{l1grey}{HTML}{7F7F7F}
+\definecolor{l2amber}{HTML}{D97706}
+\definecolor{l3orange}{HTML}{EA580C}
+\definecolor{cardbg}{HTML}{FAFAFA}
+\definecolor{mutedgrey}{HTML}{555555}
+
+\hypersetup{colorlinks=true,linkcolor=jrcblue,urlcolor=jrcblue}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{jrcblue}\textbf{JRC C4 · Practical Use Cases — speaker companion}}
+\fancyhead[R]{\small\color{gray}Dermot O'Brien · 15/05/2026}
+\fancyfoot[C]{\small\color{gray}\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{jrcblue}\leaders\hrule height \headrulewidth\hfill}}
+
+% --- macros ---
+
+% Slide-N section header.
+\newcommand{\slidehead}[2]{%
+  \vspace{2pt}%
+  {\small\color{mutedgrey}\textbf{SLIDE #1}}\par
+  {\LARGE\color{jrcblue}\bfseries #2}\par
+  \vspace{6pt}%
+  {\color{jrcblue}\hrule height 1pt}%
+  \vspace{8pt}%
+}
+
+% Block label (small caps style).
+\newcommand{\block}[1]{\par\vspace{4pt}{\small\color{jrcblue}\textbf{\MakeUppercase{#1}}}\par\vspace{2pt}}
+
+% Anchor-facts box: short list of key numbers / phrases for quick glance.
+\newenvironment{anchors}{%
+  \begin{tcolorbox}[colback=jrcblue!6, colframe=jrcblue!50, boxrule=0.6pt, arc=2pt,
+                    left=10pt, right=10pt, top=6pt, bottom=6pt, fontupper=\small,
+                    title={\bfseries Anchor facts}, coltitle=jrcblue,
+                    fonttitle=\small\bfseries, attach title to upper,
+                    after title={\par\vspace{2pt}}]
+}{%
+  \end{tcolorbox}
+}
+
+% "Say this" boxed prose block.
+\newenvironment{sayblock}{%
+  \begin{tcolorbox}[colback=cardbg, colframe=jrcblue, boxrule=0.8pt, arc=2pt,
+                    left=10pt, right=10pt, top=6pt, bottom=6pt, fontupper=\normalsize,
+                    title={\bfseries Say this}, coltitle=white, colbacktitle=jrcblue,
+                    fonttitle=\small\bfseries]
+}{%
+  \end{tcolorbox}
+}
+
+% Transition cue box.
+\newcommand{\transition}[1]{%
+  \par\vspace{4pt}%
+  \begin{tcolorbox}[colback=white, colframe=mutedgrey!40, boxrule=0.5pt, arc=2pt,
+                    left=10pt, right=10pt, top=4pt, bottom=4pt, fontupper=\small]
+    {\color{mutedgrey}\textbf{\textsf{$\to$ Next slide:}}} #1
+  \end{tcolorbox}
+}
+
+% Level colour pill (inline).
+\newcommand{\levelpill}[2]{\textcolor{#1}{$\blacksquare$}~\textbf{\textcolor{#1}{#2}}}
+
+\begin{document}
+
+% ===== Cover =====
+\thispagestyle{empty}
+\vspace*{30mm}
+\begin{center}
+  {\Huge\color{jrcblue}\bfseries Practical Use Cases}\\[8pt]
+  {\Large\color{mutedgrey}Speaker companion}\\[24pt]
+  {\large Seven tips for working with AI,\\ one forecasting experiment to make them concrete}\\[36pt]
+  \begin{tcolorbox}[colback=jrcblue!6, colframe=jrcblue, boxrule=0.8pt, arc=3pt,
+                    width=0.75\textwidth, left=14pt, right=14pt, top=10pt, bottom=10pt]
+    \small
+    \textbf{How to use this document.}
+    One page per slide in \texttt{jrc\_section\_v2\_beamer.pdf} (slides 39–46
+    of the parent deck). Each page has: what's on screen, the prose to speak,
+    the key numbers boxed so your eye can grab them, and the transition line
+    into the next slide. Designed to be readable on a phone or second screen
+    while presenting.\par\vspace{4pt}
+    Total speaking budget: \textbf{$\sim$15 minutes}. Pace yourself: about
+    \textbf{2 minutes per content slide}.
+  \end{tcolorbox}
+  \vfill
+  {\small\color{gray}JRC C4 · 2026-05-15 · Dermot O'Brien}
+\end{center}
+\newpage
+
+% ===== Slide 1 — Section divider =====
+\slidehead{39 (divider)}{Practical Use Cases}
+
+\block{On screen}
+Large JRC-blue title \textit{``Practical Use Cases''}, subtitle \textit{``Seven
+tips, one forecasting experiment''}, your name underneath. No bullets, no
+figures.
+
+\begin{sayblock}
+\textit{(Walk on, click to this slide, pause one beat.)}\par\vspace{4pt}
+``So far we've talked about \emph{what} AI is and \emph{where} it sits in our
+workflow. For the next fifteen minutes I want to make it concrete. I'm going to
+give you \textbf{seven practical tips} for working with AI on research code,
+and in the middle of those tips I'll show you \textbf{one forecasting
+experiment} that quantifies why each tip actually matters. Same task, same
+model, three different prompts — and the result goes from useless to
+publishable.''
+\end{sayblock}
+
+\transition{Tips 1–5 as a single visual cluster. These are the habits the
+experiment will then test.}
+
+\newpage
+
+% ===== Slide 2 — Tips 1–5 =====
+\slidehead{40}{Seven tips for working with AI \textendash{} part one}
+
+\block{On screen}
+Five JRC-blue tip cards: \textbf{Tips 1 \& 2} on a wide top row,
+\textbf{Tips 3, 4, 5} on a narrower bottom row. No figures.
+
+\begin{sayblock}
+``Five tips first, then I'll show you the experiment that proves them, then two
+more tips and a closing thought.''\par\vspace{6pt}
+
+\textbf{TIP 1 — Learn how to program, use your domain knowledge.}\\
+``AI is a multiplier of what you already know. It cannot replace the domain
+knowledge of an economist, a physicist, an engineer. If you don't know what
+\emph{good} looks like for the task, no prompt will rescue you — you won't be
+able to tell when the output is wrong. That's the failure mode I see most
+often.''\par\vspace{4pt}
+
+\textbf{TIP 2 — Be as specific as humanly possible.}\\
+``AI is only as good as the context you give it, and most people don't give it
+enough. Three concrete moves: \textbf{(a)} paste the docs — API references,
+methodology papers, code examples — into the prompt or attach them as files;
+\textbf{(b)} use screenshots, much easier than describing a chart or a UI in
+words; \textbf{(c)} if you have a rough draft prompt, paste it back to the AI
+and say `Rewrite this using LLM best practices for a structured task
+description' — keep what improves it, discard what doesn't. Also: get the AI
+to search online, but \emph{also} Google it yourself. Don't make the agent
+guess what you already know how to look up.''\par\vspace{4pt}
+
+\textbf{TIP 3 — Smaller tasks beat big ones.}\\
+``AI is good at small tasks, worse at big complex ones. Break a big task into
+smaller ones. And here's the diagnostic: \textbf{if you can't break it down,
+you don't understand the problem well enough yet}. This isn't an AI trick,
+it's fundamental engineering — plan, decompose, then code.''\par\vspace{4pt}
+
+\textbf{TIP 4 — Tell the AI what you \emph{don't} want.}\\
+``LLMs love to add things you didn't ask for — extra abstractions, helper
+functions, defensive try/excepts. The fix is a three-section prompt pattern I
+use for almost everything: \textbf{TASK} — what you want done.
+\textbf{BACKGROUND} — context, constraints, data. \textbf{DO NOT} — explicit
+boundaries: don't add a Flask wrapper, don't refactor the parent function,
+don't invent file paths. The DO NOT section is the one most people skip and
+it's the one that saves the most time downstream.''\par\vspace{4pt}
+
+\textbf{TIP 5 — Tell the AI to remember.}\\
+``You shouldn't re-paste your project context every prompt. Two mechanisms.
+\textbf{AGENTS.md} is a file the agent reads automatically at the start of
+every session — put your tech stack, file layout, data sources, conventions,
+things the agent should never do. \textbf{Skills} live in \texttt{.claude/skills/}
+and codify reusable workflows — a named procedure the agent can invoke. We'll
+use one in a minute. And the lazy starting point for AGENTS.md: ask the agent
+to analyse your repo and propose a v1, then edit.''
+\end{sayblock}
+
+\begin{anchors}
+\begin{itemize}
+\item \textbf{Tip 4 pattern:} \texttt{TASK / BACKGROUND / DO NOT} — the DO NOT section is the load-bearing one.
+\item \textbf{Tip 5 files:} \texttt{AGENTS.md} for standing context · \texttt{.claude/skills/} for reusable procedures.
+\item \textbf{Time check:} aim to leave this slide around the 3-minute mark.
+\end{itemize}
+\end{anchors}
+
+\transition{The experiment. Same task, same model, three workspace setups —
+let's see how much the five tips above actually move the needle.}
+
+\newpage
+
+% ===== Slide 3 — The experiment =====
+\slidehead{41}{The experiment}
+
+\block{On screen}
+Bulleted task description (forecast, data, agent, repo URL), then three
+side-by-side cards: \levelpill{l1grey}{Level 1} · \levelpill{l2amber}{Level 2}
+· \levelpill{l3orange}{Level 3}. OPSD URL as small footnote at the bottom.
+
+\begin{sayblock}
+``Concrete setup. \textbf{Task}: forecast 168 hours — one week — of hourly
+German electricity load, the first week of January 2020. \textbf{Data}: Open
+Power System Data, ENTSO-E, 2015 to 2020, hourly, about 50,000 rows.
+\textbf{Agent}: Claude Code, Opus 4.7. Same agent in every run. Same data in
+every run. Code, prompts, and full results are on GitHub at the link on
+screen — feel free to clone it.''\par\vspace{6pt}
+
+``The three workspace setups model three different \textbf{user personae}, not
+three different models. The agent is constant — what changes is how much
+context and prompt sophistication the user brings.\par\vspace{4pt}
+
+\levelpill{l1grey}{Level 1 — beginner.} Ten words. `Forecast first week of
+January 2020 German hourly electricity load.' No AGENTS.md. This is what a
+researcher does on day one with Claude Code, no setup, no project
+context.\par\vspace{4pt}
+
+\levelpill{l2amber}{Level 2 — average user.} Forty-six words. Names the data
+file, names the libraries, asks for a plot and an accuracy number. Has a
+seven-line AGENTS.md that points at the CSV. This is the average user after
+about a week — they've learned that AI assistants exist and they're giving it
+slightly more.\par\vspace{4pt}
+
+\levelpill{l3orange}{Level 3 — research-grade.} Sixteen hundred and
+seventy-three words. Structured \texttt{TASK / BACKGROUND / DO NOT}, asks for
+a six-model bake-off, held-out validation, prediction intervals. Backed by a
+113-line AGENTS.md.''\par\vspace{4pt}
+
+``The point of this slide: prompt and workspace context scale \emph{together}.
+A real beginner doesn't have AGENTS.md set up; a pro does. The three rows of
+the headline aren't just three different prompts, they're three different
+\emph{user personae}.''
+\end{sayblock}
+
+\begin{anchors}
+\begin{itemize}
+\item \textbf{Same agent, same data, same task} in all three runs — only the human's setup changes.
+\item Prompt word counts: \textbf{10 · 46 · 1{,}673}.
+\item AGENTS.md line counts: \textbf{0 · 7 · 113}.
+\item Repo URL is on screen if anyone wants to clone — don't read it aloud.
+\end{itemize}
+\end{anchors}
+
+\transition{What ten words actually gets you.}
+
+\newpage
+
+% ===== Slide 4 — Level 1 =====
+\slidehead{42}{Level 1 \textendash{} what 10 words gets you}
+
+\block{On screen}
+The L1 prompt in italics at the top. Forecast plot: black actual line, single
+predicted line (seasonal-naive baseline). Caption underneath.
+
+\begin{sayblock}
+``Level 1. The prompt on screen is \textbf{ten words}: `Forecast first week of
+January 2020 German hourly electricity load.' That's the whole brief. No file
+path, no library hint, no accuracy requirement, no AGENTS.md.''\par\vspace{6pt}
+
+``What did the agent do? It picked three baselines, compared them on the last
+week of training data, and chose the one with the lowest error.
+\textbf{Seasonal-naive with a 364-day lag won — MAPE 10.76\%}. Which honestly
+isn't terrible for ten words of effort — the agent did something sensible.
+But look at what's \emph{missing}.''\par\vspace{4pt}
+
+``\textbf{No held-out validation set.} The model was evaluated on the same
+data it picked from. \textbf{No prediction intervals.} You don't know whether
+that line is plus-or-minus five percent or plus-or-minus thirty. \textbf{No
+methodology document.} If a colleague asked you `what did this code do, and
+should I trust it', you couldn't answer.''\par\vspace{4pt}
+
+``That's the L1 ceiling. Not because the agent is dumb — because we asked for
+ten words of effort and it gave us ten words of rigour.''
+\end{sayblock}
+
+\begin{anchors}
+\begin{itemize}
+\item \textbf{Prompt:} 10 words, no AGENTS.md.
+\item \textbf{Winner:} seasonal-naive (lag-364d). \textbf{MAPE 10.76\%}.
+\item \textbf{Missing:} held-out validation, prediction intervals, methodology document.
+\item Tip-4 link: this is what happens when there's no DO NOT section — the agent picks the laziest defensible thing.
+\end{itemize}
+\end{anchors}
+
+\transition{Same task, slightly more prompt and a thin AGENTS.md — the
+average user.}
+
+\newpage
+
+% ===== Slide 5 — Level 2 =====
+\slidehead{43}{Level 2 \textendash{} average prompt + thin workspace}
+
+\block{On screen}
+L2 prompt in italics, AGENTS.md in greyed-out monospace underneath. Forecast
+plot: actual vs predicted, GradientBoostingRegressor. Caption.
+
+\begin{sayblock}
+``Level 2. The prompt now names the data file, names the libraries — pandas,
+matplotlib — and asks for a plot \emph{and} an accuracy number. Forty-six
+words. The AGENTS.md is seven lines: tells the agent it's a Python project,
+points at the CSV, says use pandas and matplotlib.''\par\vspace{6pt}
+
+``What changes? The agent picks a real model this time —
+\textbf{GradientBoostingRegressor} from scikit-learn. It engineers a handful
+of features by hand: hour of day, day of week, a 168-hour lag for weekly
+seasonality, an 8,760-hour lag for yearly. Reasonable engineering.
+\textbf{MAPE drops to 5.52\%}. About half the error of L1.''\par\vspace{4pt}
+
+``But — and this is the key — \textbf{still no held-out validation. Still no
+prediction intervals. Still no methods document.} The number is better. The
+\emph{rigour} hasn't moved. We got lucky that the agent picked a decent model
+out of all the things it \emph{could} have picked.''\par\vspace{4pt}
+
+``Pause on that. \textbf{`We got lucky that it picked a decent model.'} That's
+the L2 trap. You see a good number and you stop asking the question that
+matters: \textit{would this hold up if I tested it properly?} L3 doesn't have
+to be lucky.''
+\end{sayblock}
+
+\begin{anchors}
+\begin{itemize}
+\item \textbf{Prompt:} 46 words, 7-line AGENTS.md.
+\item \textbf{Model:} GradientBoostingRegressor, hand-engineered features.
+\item \textbf{MAPE 5.52\%} — roughly half of L1.
+\item \textbf{Still missing:} validation, intervals, methods. \emph{Good number, no rigour.}
+\end{itemize}
+\end{anchors}
+
+\transition{Research-grade prompt. The number is only part of the story.}
+
+\newpage
+
+% ===== Slide 6 — Level 3 =====
+\slidehead{44}{Level 3 \textendash{} research-grade prompt}
+
+\block{On screen}
+Small grey caption summarising the prompt setup. Forecast plot with shaded
+prediction-interval bands around the LightGBM line. Two captions: the MAPE +
+interval coverage, then the L2/L3 contrast in lighter grey.
+
+\begin{sayblock}
+``Level 3. The prompt is sixteen hundred and seventy-three words and follows
+exactly the \textbf{TASK / BACKGROUND / DO NOT} pattern from Tip 4. It asks
+for a six-model bake-off, held-out validation, calibrated prediction
+intervals, and a methods document. Backed by a 113-line AGENTS.md.''\par\vspace{6pt}
+
+``The agent ran six models — naive baselines, gradient-boosted machines,
+LightGBM, a Prophet decomposition, and an ARIMA. It held out the last week
+before the test period as a validation set. It calibrated prediction
+intervals from the residuals on that validation set.''\par\vspace{4pt}
+
+``\textbf{LightGBM won. MAPE 3.43\%.} About a third of L1's error, about
+two-thirds of L2's. But look at what's underneath the line on screen — those
+are calibrated 80\% and 95\% prediction intervals. The \textbf{80\% interval
+covered 79.8\%} of the actuals; the \textbf{95\% interval covered 92.9\%}.
+Essentially nominal. The model isn't just accurate, it knows how confident to
+be.''\par\vspace{4pt}
+
+``Read the grey line at the bottom: \textbf{L2 might have got lucky picking a
+decent model. L3 didn't have to be lucky — it searched, validated,
+calibrated, and documented.} That's the difference. That's what those extra
+1,600 words of prompt bought.''
+\end{sayblock}
+
+\begin{anchors}
+\begin{itemize}
+\item \textbf{Prompt:} 1{,}673 words · \textbf{AGENTS.md:} 113 lines.
+\item \textbf{Winner:} LightGBM out of 6 models. \textbf{MAPE 3.43\%}.
+\item \textbf{Coverage:} 80\% PI → 79.8\%; 95\% PI → 92.9\%. Essentially nominal.
+\item Punchline: \emph{L2 got lucky. L3 didn't have to.}
+\end{itemize}
+\end{anchors}
+
+\transition{The MAPE is only the visible part. What the rigorous prompt
+\emph{actually} produced.}
+
+\newpage
+
+% ===== Slide 7 — What L3 produced =====
+\slidehead{45}{Some of what L3 actually produced}
+
+\block{On screen}
+A 3$\times$2 gallery of small figures: six-model comparison · scoreboard
+(MAPE / RMSE / MAE) · per-day MAPE heatmap · winner residuals by hour and day
+· normalised feature importance · Prophet decomposition. Caption: \emph{L1
+produced 1 figure. L3 produced 8.}
+
+\begin{sayblock}
+``Quick gallery — I don't want to dwell on individual plots, the point is the
+\emph{breadth}.''\par\vspace{6pt}
+
+``Top row: \textbf{six-model comparison} on the same axes; \textbf{scoreboard}
+of MAPE / RMSE / MAE side by side; \textbf{per-day MAPE heatmap} so you can see
+which days the winner struggled on. Bottom row: \textbf{residuals} broken out
+by hour and by day-of-week — diagnostic for systematic bias; \textbf{feature
+importance} — and the punchline there is the 168-hour lag dominates at about
+71\% of total gain, which is intuitive: yesterday this time last week is the
+single best predictor of right now; and finally a \textbf{Prophet trend and
+seasonal decomposition} as a sanity check.''\par\vspace{4pt}
+
+``\textbf{L1 produced one figure. L3 produced eight.} That's not because L3 is
+showing off. It's because the prompt asked for the analytical breadth that
+makes the result trustworthy. The \textbf{headline isn't the MAPE} — it's
+everything around the MAPE.''
+\end{sayblock}
+
+\begin{anchors}
+\begin{itemize}
+\item Don't read the figures one by one — point and move. \textbf{Breadth} is the point.
+\item Feature importance: \texttt{lag\_168h} dominates at $\sim$\textbf{71\%}.
+\item Sound bite: \emph{The headline isn't the MAPE — it's everything around the MAPE.}
+\end{itemize}
+\end{anchors}
+
+\transition{Two more tips to close, and then the thesis.}
+
+\newpage
+
+% ===== Slide 8 — Tips 6, 7 + Closing thesis =====
+\slidehead{46}{Seven tips (cont.) and the closing thesis}
+
+\block{On screen}
+Left column: TIP 6 (MCPs) and TIP 7 (verify). Right column: a JRC-blue
+``Closing thesis'' box with three bold lines: \textit{AI amplifies the habits
+you already have. Let it type, not think. Skip rigour → AI amplifies that too.}
+
+\begin{sayblock}
+\textbf{TIP 6 — MCPs extend what AI can do.}\\
+``MCP stands for \textbf{Model Context Protocol}. Plug-in tools the agent can
+invoke at runtime. The three I'd start with: \textbf{Context7} fetches
+up-to-date library documentation on demand — no more pasting docs into prompts.
+\textbf{Hugging Face MCP} searches models, datasets, papers. \textbf{GitHub
+MCP} reads repos, issues, and PRs — useful when you're working across
+projects. Two-minute install each, pays for itself the first time.''\par\vspace{6pt}
+
+\textbf{TIP 7 — Always give AI a way to verify its work.}\\
+``AI should never just write code. It also needs a way to \emph{prove} the
+code works. For code: \textbf{unit, integration, and regression tests}. For
+any model fitting: a \textbf{held-out validation set} — which is exactly what
+separated L3 from L1 and L2. For predictions: \textbf{calibration metrics,
+interval coverage, residual diagnostics}. And yes, you can have the AI write
+the tests too — but \textbf{read them}. AI-written tests can `pass' because
+they test the wrong thing. A failing test that catches a real bug is worth
+ten passing tests that don't.''\par\vspace{8pt}
+
+\textbf{Closing thesis.}\\
+\textit{(Slow down here. This is the line you want them to walk out
+remembering.)}\par\vspace{4pt}
+
+``The seven tips aren't really AI tips. They're \textbf{good engineering
+habits}: be specific, break the problem down, write things down, build
+verification in. Let AI \textbf{type for you, not think for you}. If you bring
+those habits, AI multiplies your output substantially. If you don't — if you
+skip the tests, skip the docs, skip the validation — \textbf{AI amplifies
+that too}. You'll get incorrect outputs faster, or you'll spend more time
+correcting them than you'd have spent doing the work yourself the first time
+around.''\par\vspace{4pt}
+
+``The forecasting experiment is one concrete instance of that. Same agent,
+same data — the rigour of the human is what moved MAPE from 10.76 to 3.43,
+\emph{and} more importantly turned a single plot into a defensible
+methodology. Thanks.''
+\end{sayblock}
+
+\begin{anchors}
+\begin{itemize}
+\item \textbf{MCPs to mention by name:} Context7, Hugging Face, GitHub.
+\item \textbf{Tip 7 link-back:} the held-out validation set is literally what
+   separated L3 from L1/L2.
+\item \textbf{Sound bites:} \emph{Let AI type, not think.} ·
+   \emph{AI amplifies the habits you already have — including the bad ones.}
+\item \textbf{Time check:} aim to land the closing line around the 14-minute mark
+   so the next speaker has a clean handover.
+\end{itemize}
+\end{anchors}
+
+\vspace{6pt}
+\begin{center}\small\color{gray}
+End of practical use cases section. Hand over to Andres for \textit{Risks \& Infrastructure}.
+\end{center}
+
+\end{document}

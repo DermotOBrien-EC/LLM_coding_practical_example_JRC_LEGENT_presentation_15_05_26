@@ -36,6 +36,8 @@ scale together to model a beginner (L1), an average user (L2), and a pro
 | `slides/talk_v2.pptx` | PowerPoint export of the same. Editable. |
 | `slides/jrc_section_v2_beamer.tex` | XeLaTeX/Beamer source of the 8-slide drop-in for the JRC C4 parent deck. JRC blue + EC emblem footer. |
 | `slides/jrc_section_v2_beamer.pdf` | Rendered Beamer drop-in. |
+| `slides/speaker_companion.tex` | One-page-per-slide speaker companion (LaTeX article). Same JRC palette as the deck. "On screen" + "Say this" + anchor facts + transition cue, designed to be read on a second screen or phone while presenting. |
+| `slides/speaker_companion.pdf` | Rendered speaker companion (9 pages: cover + 8 slide-pages). |
 | `slides/assets/` | Bespoke figures used by the decks (prompt-length bar, normalised feature-importance, extracted EC emblem). |
 
 ### Regenerate decks
@@ -48,6 +50,9 @@ CHROME_PATH="..." marp slides/talk_v2.md -o slides/talk_v2.pptx --allow-local-fi
 
 # Beamer drop-in (PDF only; run twice for refs)
 cd slides && xelatex jrc_section_v2_beamer.tex && xelatex jrc_section_v2_beamer.tex
+
+# Speaker companion (PDF only; run twice for refs)
+cd slides && xelatex speaker_companion.tex && xelatex speaker_companion.tex
 ```
 
 ### Per-slide PNG export (drag-and-drop into PowerPoint)
