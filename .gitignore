@@ -21,6 +21,9 @@ dist/
 slides/**/_build/
 # Per-slide PNG exports (drag-and-drop into PowerPoint; regen via pdftoppm)
 slides/jrc_png/
+# Typst per-slide image exports (regen via `typst compile ... --format`)
+typst_version/png/
+typst_version/svg/
 # LaTeX/Beamer aux files
 slides/*.aux
 slides/*.log
