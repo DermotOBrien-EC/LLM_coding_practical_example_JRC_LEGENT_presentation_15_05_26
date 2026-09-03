@@ -312,6 +312,18 @@
     ],
     "metrics_json": null
   },
+  "fable51_L3_r1": {
+    "candidates": [],
+    "metrics_json": null
+  },
+  "fable51_L3_r2": {
+    "candidates": [],
+    "metrics_json": null
+  },
+  "fable51_L3_r3": {
+    "candidates": [],
+    "metrics_json": null
+  },
   "opus5_L1_r1": {
     "candidates": [
       {
@@ -398,6 +410,10 @@
         "mae_mw": 51773.29226190476
       }
     ],
+    "metrics_json": null
+  },
+  "opus5_L3_r1": {
+    "candidates": [],
     "metrics_json": null
   }
 }

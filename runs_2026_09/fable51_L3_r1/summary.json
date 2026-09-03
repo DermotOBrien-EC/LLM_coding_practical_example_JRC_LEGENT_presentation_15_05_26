@@ -1,0 +1,94 @@
+{
+  "run": "fable51_L3_r1",
+  "model_tag": "fable51",
+  "level": "L3",
+  "rep": 1,
+  "model": "claude-fable-5-1",
+  "permission_mode": "auto",
+  "claude_code_version": "2.1.259 (Claude Code)",
+  "mcp_servers": [
+    "claude.ai Context7",
+    "claude.ai Spotify",
+    "claude.ai Gmail",
+    "claude.ai Hugging Face"
+  ],
+  "status": "exited_nonzero",
+  "exit_code": 1,
+  "wallclock_s": 95,
+  "resumed": false,
+  "attempts": [
+    {
+      "file": "session.jsonl",
+      "session_id": "db12e123-3406-421a-bb9d-fceb4d6083f2",
+      "model": "claude-fable-5-1",
+      "has_result": true,
+      "stop": "success",
+      "is_error": true,
+      "num_turns": 2,
+      "assistant_messages": 4,
+      "duration_s": 91.9,
+      "cost_usd": 1.1568,
+      "input_tokens": 2,
+      "output_tokens": 764,
+      "cache_read_tokens": 10007,
+      "cache_create_tokens": 55564,
+      "tool_counts": {
+        "Bash": 1
+      },
+      "tool_errors": 0,
+      "parse_failures": 0,
+      "permission_denials": 0,
+      "denied_tools": [],
+      "rate_limit_max_5h": 0.04,
+      "notable_events": [
+        "rate_limit:allowed_warning:{\"status\": \"allowed_warning\", \"resetsAt\": 1788948000, \"rateLimitType\": \"seven_day\", \"utilization\": 0.57, \"isUsingOverage\": false, \"unifiedWindows\": {\"five_hour\": {\"utilization\": 0, \"resetsAt\": 1788486",
+        "rate_limit:allowed_warning:{\"status\": \"allowed_warning\", \"resetsAt\": 1788948000, \"rateLimitType\": \"seven_day_overage_included\", \"utilization\": 0.99, \"isUsingOverage\": false, \"surpassedThreshold\": 0.75, \"unifiedWindows\": {\"five_",
+        "rate_limit:rejected:{\"status\": \"rejected\", \"resetsAt\": 1788948000, \"rateLimitType\": \"seven_day_overage_included\", \"overageStatus\": \"rejected\", \"overageDisabledReason\": \"out_of_credits\", \"isUsingOverage\": false, \"unifiedW",
+        "result:success:You're out of usage credits. Switch to another model, or manage usage credits at claude.ai/settings/usage?from=cc_cli_limit_message, to continue."
+      ],
+      "bash_commands": [
+        "ls -la && head -3 opsd_de_load.csv && tail -2 opsd_de_load.csv && wc -l opsd_de_load.csv && ls ../../.venv/bin/python && ../../.venv/bin/python -c \"import darts, lightgbm, pmdarima, statsmodels, holidays, torch, prophet, sys; print(sys.version); print('darts', darts.__version__); print('lgbm', lightgbm.__version__); print('pmdarima', pmdarima.__version__); print('sm', statsmodels.__version__); print('holidays', holidays.__version__); print('torch', torch.__version__, 'mps', torch.backends.mps.is_available()); print('prophet', prophet.__version__)\" && uname -a && sysctl -n machdep.cpu.brand_string hw.ncpu hw.memsize"
+      ]
+    }
+  ],
+  "has_result": true,
+  "stop": "success",
+  "is_error": true,
+  "num_turns": 2,
+  "cost_usd": 1.1568,
+  "input_tokens": 2,
+  "output_tokens": 764,
+  "cache_read_tokens": 10007,
+  "cache_create_tokens": 55564,
+  "tool_counts": {
+    "Bash": 1
+  },
+  "tool_errors": 0,
+  "parse_failures": 0,
+  "permission_denials": 0,
+  "denied_tools": [],
+  "rate_limit_max_5h": 0.04,
+  "notable_events": [
+    "session.jsonl:rate_limit:allowed_warning:{\"status\": \"allowed_warning\", \"resetsAt\": 1788948000, \"rateLimitType\": \"seven_day\", \"utilization\": 0.57, \"isUsingOverage\": false, \"unifiedWindows\": {\"five_hour\": {\"utilization\": 0, \"resetsAt\": 1788486",
+    "session.jsonl:rate_limit:allowed_warning:{\"status\": \"allowed_warning\", \"resetsAt\": 1788948000, \"rateLimitType\": \"seven_day_overage_included\", \"utilization\": 0.99, \"isUsingOverage\": false, \"surpassedThreshold\": 0.75, \"unifiedWindows\": {\"five_",
+    "session.jsonl:rate_limit:rejected:{\"status\": \"rejected\", \"resetsAt\": 1788948000, \"rateLimitType\": \"seven_day_overage_included\", \"overageStatus\": \"rejected\", \"overageDisabledReason\": \"out_of_credits\", \"isUsingOverage\": false, \"unifiedW",
+    "session.jsonl:result:success:You're out of usage credits. Switch to another model, or manage usage credits at claude.ai/settings/usage?from=cc_cli_limit_message, to continue."
+  ],
+  "agents_md_read": "no",
+  "agents_md_evidence": "",
+  "agents_md_first_turn": null,
+  "first_impl_turn": null,
+  "agents_md_before_impl": null,
+  "outside_sandbox_refs": 0,
+  "outside_sandbox_evidence": [],
+  "n_files": 0,
+  "n_png": 0,
+  "n_img_other": 0,
+  "n_html": 0,
+  "n_docs": 0,
+  "n_python": 0,
+  "n_csv": 0,
+  "n_json": 0,
+  "has_metrics_json": false,
+  "final_message_chars": 145
+}

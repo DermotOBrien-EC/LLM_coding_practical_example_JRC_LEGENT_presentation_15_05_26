@@ -1,0 +1,102 @@
+[
+  {
+    "path": "artifacts/lightgbm.pkl",
+    "bytes": 13315,
+    "sha256": "cddfd84a3b3974aae8214f2c4687aea981fe5f70b2a28d6f6dc904a9193d9202"
+  },
+  {
+    "path": "artifacts/naive.pkl",
+    "bytes": 5316,
+    "sha256": "cd8515bec518bc6c4f025a55d5b95842a201eae359a5fb48d88961df5e47aced"
+  },
+  {
+    "path": "artifacts/prophet.pkl",
+    "bytes": 2124915,
+    "sha256": "2b7c401626559c90858fa96d93456dfd5e6ba8c9126961b17548b170527bf4c9"
+  },
+  {
+    "path": "artifacts/sarima.pkl",
+    "bytes": 13343,
+    "sha256": "797bd9b13881966c884d07191bc14b95778de5ea0b898195fcab21256976c68a"
+  },
+  {
+    "path": "code/common.py",
+    "bytes": 17780,
+    "sha256": "8dbaa0a1efe66a7f8923ddb0f237891e1fcf0ce58e71e54fbcca8989314d0e19"
+  },
+  {
+    "path": "code/forecast.py",
+    "bytes": 25348,
+    "sha256": "24e148600cdb3e2a0c731932be2769c7bae84009023f926b2adefc14a25d50e9"
+  },
+  {
+    "path": "code/lightgbm_features.py",
+    "bytes": 9116,
+    "sha256": "40f9e11658b06f3f306fdd2cfe50e02096968a7f87c8b80050825740f6dcc695"
+  },
+  {
+    "path": "code/naive.py",
+    "bytes": 2341,
+    "sha256": "474d19f4b81f303a164fcf9e3c931eca39bc2e70962735ab0e5982bbea54b377"
+  },
+  {
+    "path": "code/nbeats.py",
+    "bytes": 6072,
+    "sha256": "bd085d4dc7fb362d6a9c3232d092554966b0e4faac79c63bbb7374c389863af7"
+  },
+  {
+    "path": "code/patchtst.py",
+    "bytes": 5993,
+    "sha256": "5266d9d3394d62b5f25838f793061ddcd3a48c976af8fddba532adc505d00ebc"
+  },
+  {
+    "path": "code/prophet.py",
+    "bytes": 5471,
+    "sha256": "c8471a83b7882b450afd4ff086521c7e19e5c1f4417e3860e29d04964fc5dc63"
+  },
+  {
+    "path": "code/sarima.py",
+    "bytes": 8551,
+    "sha256": "e0ba9712ccfd0ec86b867c607a4b44d69226dc43321ef3c872c66485842f543e"
+  },
+  {
+    "path": "logs/lightgbm_features.log",
+    "bytes": 47,
+    "sha256": "d91a719742d9642cd0e20335fd92fb7de0a77d27d732ac23708ca2f04018b112"
+  },
+  {
+    "path": "logs/naive.log",
+    "bytes": 45,
+    "sha256": "98b09d35e56adf686f2bf7766daef8377599668bcfaa30a0b687ee722c5f9d12"
+  },
+  {
+    "path": "logs/nbeats.log",
+    "bytes": 3560,
+    "sha256": "7d3ad75476323865223e6e7d4d1bc676a35c4b022a2623d12c30ac47d92c7345"
+  },
+  {
+    "path": "logs/patchtst.log",
+    "bytes": 1872,
+    "sha256": "794bf0d58bc8a8af084916f970c75e31d6f86a3184e9646ddc11db4518b32f1c"
+  },
+  {
+    "path": "logs/prophet.log",
+    "bytes": 44,
+    "sha256": "e907dac2a1072271f4d48c70295d1abab69e029cf70eae8f08fc63fb21d1e231"
+  },
+  {
+    "path": "logs/sarima.log",
+    "bytes": 1371,
+    "sha256": "386fbe83b7e21f5ceeac537f376f6c6d8e8d58a1f3a864d8a0f6fba55ef2863f"
+  },
+  {
+    "path": "logs/status.log",
+    "bytes": 87,
+    "sha256": "ab587563c95b6dd40a742fc7c8bdef3cac8ade76fe0a2130bce39954a31e0c58"
+  },
+  {
+    "path": "run_module.sh",
+    "bytes": 287,
+    "sha256": "fc2820a881252cc2c68b3523da1ce73c04eba024cdcc947f95cd7b3a5e6be44f"
+  }
+]

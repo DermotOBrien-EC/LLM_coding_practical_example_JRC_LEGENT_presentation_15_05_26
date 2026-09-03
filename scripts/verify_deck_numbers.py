@@ -58,14 +58,18 @@ def main(argv: list[str]) -> int:
     check("no L3PENDING placeholder left", "L3PENDING" not in deck,
           f"{deck.count('L3PENDING')} left")
 
-    # Accuracy slide: ranges per Fable cell, one decimal
+    # Accuracy slide: a range per Fable cell that has three scored runs; a
+    # cell with none must not be quoted as a September result at all.
     for level in ("L1", "L2", "L3"):
         vals = cell(results, "fable51", level)
         if len(vals) == 3:
             expect = f"{fmt1(vals[0])} to {fmt1(vals[-1])}"
             check(f"Fable {level} range quoted as '{expect}'", expect in deck, f"values {vals}")
+        elif not vals:
+            check(f"Fable {level} has no scored run, so the deck quotes no range for it",
+                  f"On {level}: **" not in deck, "deck still quotes a range")
         else:
-            check(f"Fable {level} has 3 scored runs", False, f"found {len(vals)}")
+            check(f"Fable {level} has 3 or 0 scored runs", False, f"found {len(vals)}")
 
     # L1 example slide: run 2 of 3 MAPE 3.3%
     r = results.get("fable51_L1_r2")
@@ -86,9 +90,12 @@ def main(argv: list[str]) -> int:
                     n += bool(sc.get(key)) == want
         return n
 
+    # A cell is reportable only if it has scored runs.
+    scored_levels = [lvl for lvl in ("L1", "L2", "L3") if cell(results, "fable51", lvl)]
     for level in ("L1", "L2", "L3"):
-        runs_in = [s for s in scoring.values() if s.get("level") == level and s.get("model_tag") == "fable51"]
-        if len(runs_in) != 3:
+        if level not in scored_levels:
+            check(f"no Fable {level} row in the discipline table (no scored run)",
+                  f"| Fable 5.1, {level} (" not in deck)
             continue
         expect_row = (f"| Fable 5.1, {level} (3) | {count(level, 'validation')} of 3 | {count(level, 'intervals')} of 3 "
                       f"| {count(level, 'methods_doc')} of 3 | {count(level, 'leaked')} of 3 | {count(level, 'finished')} of 3 |")
@@ -97,11 +104,15 @@ def main(argv: list[str]) -> int:
     def yn(v: object) -> str:
         return "yes" if v else "no"
 
-    opus = {lvl: next((s for s in scoring.values() if s.get("model_tag") == "opus5" and s.get("level") == lvl), None)
-            for lvl in ("L1", "L2", "L3")}
-    if all(opus.values()):
-        o = [opus["L1"], opus["L2"], opus["L3"]]
-        expect_row = ("| Opus 5, L1 / L2 / L3 | " + " / ".join(yn(s.get("validation")) for s in o) + " | "
+    opus_levels = [lvl for lvl in ("L1", "L2", "L3")
+                   if next((s for s in scoring.values()
+                            if s.get("model_tag") == "opus5" and s.get("level") == lvl
+                            and results.get(f"opus5_{lvl}_r1", {}).get("mape_pct") not in (None, "")), None)]
+    o = [next(s for s in scoring.values() if s.get("model_tag") == "opus5" and s.get("level") == lvl)
+         for lvl in opus_levels]
+    if o:
+        label = " / ".join(opus_levels)
+        expect_row = (f"| Opus 5, {label} | " + " / ".join(yn(s.get("validation")) for s in o) + " | "
                       + " / ".join(yn(s.get("intervals")) for s in o) + " | "
                       + " / ".join(yn(s.get("methods_doc")) for s in o) + " | "
                       + " / ".join(yn(s.get("test_selection") == "leaked") for s in o) + " | "

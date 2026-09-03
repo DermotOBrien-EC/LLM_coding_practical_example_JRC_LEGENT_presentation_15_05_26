@@ -8,3 +8,7 @@
 | fable51_L2_r3 | Fable 5.1 | HistGradientBoostingRegressor (scikit-learn; calendar + holiday + lag features) | 3.21 | test_selected (3) | 3 | no | no | no | 1 | 1 | yes | 42 | 24 | complete |
 | opus5_L1_r1 | Opus 5 | Ridge regression on log load, calendar-only features, level correction, empirical 80% band | 3.07 | leaked | 5 | yes | yes | yes | 1 | 8 | n/a | 63 | 93 | complete |
 | opus5_L2_r1 | Opus 5 | LightGBM with a workday-run feature added after seeing the target-week error (no forecast file) | *3.40* | leaked | 3 | yes | no | no | 2 | 2 | yes | 13 | 81 | incomplete |
+| opus5_L3_r1 | Opus 5 | none (no test forecast written) | n/a | indeterminate | 4 | yes | no | no | 0 | 8 | yes | 6 | 37 | incomplete |
+| fable51_L3_r1 | Fable 5.1 | none (session refused by the account credit limit) | n/a | indeterminate | 0 | no | no | no | 0 | 0 | no | 2 | 2 | incomplete |
+| fable51_L3_r2 | Fable 5.1 | none (session refused by the account credit limit) | n/a | indeterminate | 0 | no | no | no | 0 | 0 | no | 1 | 0 | incomplete |
+| fable51_L3_r3 | Fable 5.1 | none (session refused by the account credit limit) | n/a | indeterminate | 0 | no | no | no | 0 | 0 | no | 1 | 0 | incomplete |

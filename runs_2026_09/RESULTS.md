@@ -8,8 +8,12 @@ with (`scripts/score_runs.py`); the agent's own claim is beside it in
 `scoring.json`, and in every case the two agree to the rounding the agent
 used.
 
-Status: wave 1 (L1 and L2, eight runs) complete and scored; wave 2 (L3, four
-runs) pending the usage gate. This file is updated when wave 2 lands.
+Status: wave 1 (L1 and L2, eight runs) complete and scored. Wave 2 (L3) did
+not produce a result: the operator's account ran out of usage credits, and
+the one L3 session that did start could not finish the six-model bake-off
+inside a headless session (section 6). The L3 cell of this study is
+therefore **empty** and stays empty until it is re-run; every L3 number in
+this file and in the deck is the May 2026 one, clearly labelled as such.
 
 ## 1. What was run
 
@@ -19,8 +23,8 @@ runs) pending the usage gate. This file is updated when wave 2 lands.
 | Fable 5.1, L2 | 3 | 30, 44, 24 minutes |
 | Opus 5, L1 | 1 | 93 minutes |
 | Opus 5, L2 | 1 | 81 minutes |
-| Fable 5.1, L3 | 3 | pending |
-| Opus 5, L3 | 1 | pending |
+| Fable 5.1, L3 | 0 of 3 | refused by the account credit limit, 95 s / 4 s / 4 s |
+| Opus 5, L3 | 1, incomplete | 37 minutes, four of six models fitted, no forecast |
 
 Same three frozen prompts as May 2026, same data file, same `AGENTS.md`
 files, Claude Code 2.1.259 headless, each session alone in a neutral
@@ -37,7 +41,7 @@ reference.
 |---|---|---|---|
 | L1, 10 words | 10.76 (best of three naive baselines) | 3.96, 3.28, 4.49 (all LightGBM) | 3.07 (ridge on log load) |
 | L2, 46 words + 7-line AGENTS.md | 5.52 (GradientBoostingRegressor) | 2.30, 5.35\*, 3.21 (two LightGBM, one HistGradientBoosting) | *3.40*\*† (LightGBM; the surviving pre-change forecast recomputes to 3.67) |
-| L3, 1,673 words + 113-line AGENTS.md | 3.43 (LightGBM, winner of six) | pending | pending |
+| L3, 1,673 words + 113-line AGENTS.md | 3.43 (LightGBM, winner of six) | not run | no forecast produced |
 
 \* Session ended before the agent's final step (section 4); scored on the
 forecast it had written, or, in italics, the agent's own claim where no
@@ -153,6 +157,57 @@ L1 6.2, L2 8.3. Tokens (input including cache reads / output): Fable L1
 0.8 to 1.0 M / 11 to 14 k; Fable L2 2.1 to 2.5 M / 20 to 30 k; Opus 5 L1
 6.7 M / 61 k; Opus 5 L2 2.2 M / 7 k.
 
-## 6. Wave 2 (L3)
+## 6. Wave 2 (L3): what happened, and why there is no L3 result
 
-Pending.
+Wave 2 launched at 21:50 local on 2026-09-03, when the five-hour usage
+window reset and the pre-registered gate opened.
+
+- **Opus 5, L3, one run, incomplete.** It read the prompt and the 113-line
+  `AGENTS.md`, laid out the required `code/` tree with one module per model
+  and an orchestrator, and started all six fits. Four finished their
+  validation fits inside the session: LightGBM 3.00, naive 5.48, Prophet
+  5.64, SARIMA 6.41 percent MAPE on the 2019 Q4 validation window. N-BEATS
+  and PatchTST were still training when the agent said "I'll wait for the
+  deep models to finish training" and the headless session ended on that
+  turn, taking the training processes with it. The orchestrator never ran,
+  so there is no test-window forecast, no `metrics.json`, no figures and no
+  `transcript.md`. 37 minutes, 8.72 dollars at list price.
+- **Fable 5.1, L3, three runs, void.** All three were refused by the API
+  with "You're out of usage credits" (weekly overage window at 1.01, status
+  `rejected`). The first ran 95 seconds before the refusal landed, the
+  other two four seconds. No model was fitted and no file was written.
+  This is an infrastructure failure of the operator's account, not a
+  property of the model or the prompt.
+
+Two things follow, and only one of them is about the models.
+
+**The honest reading.** This study has no September 2026 L3 result. The
+L1 and L2 findings above stand on their own; any comparison with L3 uses
+the May 2026 run and must say so.
+
+**What the attempt itself shows, as an observation about the harness, not
+about the models.** The L3 prompt asks for six model classes including two
+deep forecasters, which took 20 to 60 minutes of operator-supervised
+wall-clock in May. Run headless, the agent's natural move is to start the
+long fits in the background and wait, and a headless session ends on a
+turn with no tool call. Two wave-1 sessions ended the same way. A future
+L3 attempt should either drive the session interactively, as May did, or
+add a harness-level keep-alive; the design's resume path
+(`scripts/resume_run.sh`) exists for exactly this and can pick these
+sessions up, since the sandboxes and session ids are preserved.
+
+## 7. What a next session needs to do
+
+1. Wait for credits: the weekly window resets 2026-09-09 11:00 local. The
+   launcher's gate reads the five-hour window only, so check the weekly one
+   by hand before launching (`seven_day_overage_included` in any recent
+   `rate_limit_event`).
+2. Re-run wave 2. Delete or archive the four void or incomplete L3 run
+   directories first, since `run_headless.sh` refuses to overwrite. Expect
+   the same headless parking problem on the deep models unless it is
+   addressed; `scripts/resume_run.sh <run> "<reason>"` will resume the Opus
+   5 session in place, which is the cheapest way to get one L3 result.
+3. Re-score, re-assess (`scripts/assess_fleet.sh`), regenerate the figure
+   and table, and fill the L3 cells in this file and in the deck. The deck
+   verifier (`scripts/verify_deck_numbers.py`) fails while any `L3PENDING`
+   placeholder remains and checks every other quoted number.

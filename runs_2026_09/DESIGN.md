@@ -251,7 +251,13 @@ the session log before it enters `RESULTS.md`.
   without a tool call, including when it has deliberately parked itself to
   wait for a background job or monitor; an interactive session would have
   been woken. A run that ends this way is scored on what is on disk and
-  marked incomplete.
+  marked incomplete. This bit three of the twelve runs, and it is the
+  reason the L3 cell has no result: the L3 prompt's six-model bake-off
+  includes two deep forecasters whose training outlasts the agent's
+  patience for waiting in a way that a headless turn cannot express.
+- The account's usage credits are a hard external dependency. The
+  launcher's gate reads the five-hour window; the weekly window is not
+  gated and is what stopped wave 2.
 - Other command-line agents installed on the machine (`codex`) are
   reachable from the sandbox, exactly as they were in May; a run that uses
   one is disclosed.
@@ -314,6 +320,16 @@ the session log before it enters `RESULTS.md`.
   onwards `~/.codex/sessions`, `~/.codex/log` and `~/.codex/history.jsonl`
   are denied as well. The `codex` CLI was also installed on this machine
   in May.
+- **2026-09-03 21:50 local, wave 2, no result.** The gate opened on the
+  five-hour reset and pair A launched. `opus5 L3 r1` ran 37 minutes,
+  fitted four of the six required models, then ended on a turn where it
+  said it would wait for the two deep models to finish training; no
+  test-window forecast was written. The three `fable51 L3` runs were
+  refused by the API with "You're out of usage credits" (weekly overage
+  window at 1.01, status `rejected`), 95 seconds into the first and at
+  launch for the other two. The L3 cell of this study is therefore empty.
+  All four directories are kept with their logs; none contributes a
+  number. See `RESULTS.md` sections 6 and 7.
 
 ## 10. Review record
 
