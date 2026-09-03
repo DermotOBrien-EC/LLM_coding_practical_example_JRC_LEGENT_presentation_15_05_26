@@ -98,6 +98,23 @@ Two blockers, in order:
    refuse it and needs a one-line widening (or run the resume by hand from
    the session id in `run_meta.json`).
 
+## 3b. Where you must be sitting to finish this
+
+Everything needed to **re-run** L3 from scratch is in this repository. Three
+things needed to **resume** the half-finished Opus 5 L3 session are not in
+git and live only on the owner's Mac (`doob`):
+
+- the preserved sandbox `~/dev/energy_forecast_ws/dac166/`;
+- that session's Claude Code transcript,
+  `~/.claude/projects/-Users-doob-dev-energy-forecast-ws-dac166-project-runs-dac166/19436657-a2eb-49bd-b881-03118ed3dd75.jsonl`;
+- the project `.venv` (gitignored; `uv sync` rebuilds it elsewhere).
+
+So: a new session **on that Mac** can resume and save the 37 minutes
+already spent. A fresh clone on any other machine can only re-run L3 whole,
+and additionally needs macOS (the harness uses `sandbox-exec` and APFS
+clones), Claude Code exactly 2.1.259 or an edit to `EXPECT_VERSION` in
+`scripts/run_headless.sh`, and `uv sync`.
+
 ## 4. Permissions and boundaries
 
 - **Push:** the owner asked for the push to `dev_dermot`; both pushes above
