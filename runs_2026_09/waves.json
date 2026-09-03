@@ -1,0 +1,7 @@
+{
+  "_comment": "Pre-registered wave membership and concurrency (DESIGN.md section 3). launch_wave.sh accepts only a wave name from this file. The canary is the first L1 run launched alone to validate the harness; wave1 is the remaining light runs launched together; wave2 runs the CPU-heavy L3 sessions two at a time in the stated order.",
+  "canary": {"concurrency": 1, "runs": ["fable51 L1 1"]},
+  "wave1": {"concurrency": 7, "runs": ["fable51 L1 2", "fable51 L1 3", "opus5 L1 1", "fable51 L2 1", "fable51 L2 2", "fable51 L2 3", "opus5 L2 1"]},
+  "wave2": {"concurrency": 2, "runs": ["fable51 L3 1", "opus5 L3 1", "fable51 L3 2", "fable51 L3 3"]},
+  "usage_gate": {"max_five_hour_utilization": 0.35, "note": "A wave launches only if the latest rate_limit_event across all session logs shows five-hour utilization at or below this value, or its resetsAt is in the past (fresh window)."}
+}

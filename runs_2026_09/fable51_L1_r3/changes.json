@@ -1,0 +1,16 @@
+{
+  "added": [
+    "runs/aa183e/diag.py",
+    "runs/aa183e/forecast_jan2020.py",
+    "runs/aa183e/forecast_jan2020_week1.csv",
+    "runs/aa183e/forecast_jan2020_week1.png",
+    "runs/aa183e/plot_forecast.py"
+  ],
+  "modified": [],
+  "deleted": [],
+  "counts": {
+    "added": 5,
+    "modified": 0,
+    "deleted": 0
+  }
+}

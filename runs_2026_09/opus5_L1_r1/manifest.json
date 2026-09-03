@@ -1,0 +1,62 @@
+[
+  {
+    "path": "README.md",
+    "bytes": 3074,
+    "sha256": "eb6bbd42f9c44a2b539e13f3328ecad13dca3986dda72b6dde99bcf349a77c61"
+  },
+  {
+    "path": "backtest.py",
+    "bytes": 1913,
+    "sha256": "68dc056268f69c5f99a3140df168d7ebb9fde18e17fd45e8322d315d3d0434fc"
+  },
+  {
+    "path": "explore.py",
+    "bytes": 1147,
+    "sha256": "22fc0f2f56b58018f62b00b5680d11d62df1310c73ab03c83790d87a2f4971ab"
+  },
+  {
+    "path": "fastridge.py",
+    "bytes": 2044,
+    "sha256": "b57f81289edfdca54c817c9f33c1e05402f06c3712b09e0c2b180d7b5c0286a6"
+  },
+  {
+    "path": "forecast.py",
+    "bytes": 4302,
+    "sha256": "da14650457cf9096b4debeff62040748157f9e3615701d4c20e3ea5c498a32b2"
+  },
+  {
+    "path": "forecast_2020_jan_w1.csv",
+    "bytes": 11154,
+    "sha256": "1ed926beecf80aff872cf768ce0e6fedd0558e0b681f29d2f7bc9d728e538702"
+  },
+  {
+    "path": "forecast_2020_jan_w1.png",
+    "bytes": 247005,
+    "sha256": "8459e70b23305a92eca94dd49a46a85166ab1b807641bb164f8377696294bcff"
+  },
+  {
+    "path": "loadfc.py",
+    "bytes": 7012,
+    "sha256": "3eae12264e397dd6143cff5b1328fcc67fecb8b9451c8bfa146611261fcc6264"
+  },
+  {
+    "path": "models.py",
+    "bytes": 4875,
+    "sha256": "ac98b1d06ebe53402c50ac3932785e37e5a2001703a4adade810ecc3c287aa63"
+  },
+  {
+    "path": "plot.py",
+    "bytes": 3216,
+    "sha256": "58d922c9faf34cb48108beda17bc2f958cd934207b858f4400befceb88ec6c88"
+  },
+  {
+    "path": "tune.py",
+    "bytes": 2616,
+    "sha256": "f186ecc9cbe2b6a899814cdb557b1f0aa51797b69c1f1a9545bdde0d5cd1690a"
+  },
+  {
+    "path": "tuning_results.csv",
+    "bytes": 871,
+    "sha256": "41500833bd9cb1ac9b3dc63cd2722e51386a83210c59f0e797270c6781ddfa5e"
+  }
+]

@@ -1,0 +1,19 @@
+{
+  "added": [
+    ".ruff_cache",
+    ".ruff_cache/.gitignore",
+    ".ruff_cache/0.15.12",
+    ".ruff_cache/0.15.12/5717750525743639490",
+    ".ruff_cache/CACHEDIR.TAG",
+    "runs/4b7889/forecast.py",
+    "runs/4b7889/forecast_jan2020_week1.csv",
+    "runs/4b7889/forecast_jan2020_week1.png"
+  ],
+  "modified": [],
+  "deleted": [],
+  "counts": {
+    "added": 8,
+    "modified": 0,
+    "deleted": 0
+  }
+}

@@ -1,0 +1,7 @@
+Loaded 50,400 hourly observations, 2015-01-01 01:00 CET to 2020-10-01 01:00 CEST
+
+Backtest: identical pipeline on earlier January weeks
+  2017-01-01  LightGBM MAPE  5.59%   MAE  3,003 MW
+  2018-01-01  LightGBM MAPE  5.15%   MAE  2,592 MW
+  2019-01-01  LightGBM MAPE  2.10%   MAE  1,142 MW
+

@@ -1,0 +1,27 @@
+[
+  {
+    "path": "codex_review.md",
+    "bytes": 2066,
+    "sha256": "9b4e91ae1ce3199f3ad29b2392106a751227228d18d96eb2907c1faf9fdaa86a"
+  },
+  {
+    "path": "forecast_2020_w1.csv",
+    "bytes": 7092,
+    "sha256": "3438fe0d5c56b2aebd7477d81bc9f9a490160d4280b4456d671fa5901dc3c0bc"
+  },
+  {
+    "path": "forecast_2020_w1.png",
+    "bytes": 195362,
+    "sha256": "8989a38ba832e294eb42866894df5d6283410302e9c07c8d76c20d3087caec03"
+  },
+  {
+    "path": "forecast_load.py",
+    "bytes": 12210,
+    "sha256": "091618bd59aff86270b3a2537e083196426dc992921efc7c6c73e568e93b083e"
+  },
+  {
+    "path": "forecast_report.md",
+    "bytes": 1566,
+    "sha256": "c434750e04dfbbef7dc86568c528a3cf2355db8da68ea9da4694153bf2bf3bab"
+  }
+]

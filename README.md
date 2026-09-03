@@ -7,6 +7,15 @@ at three levels of *user sophistication*: prompt and workspace context
 scale together to model a beginner (L1), an average user (L2), and a pro
 (L3). Result: MAPE 10.76 → 5.52 → 3.43, same agent, same data.
 
+**September 2026 re-run.** The same three frozen prompts were run again with
+Claude Fable 5.1 (three fresh sessions per level) and Claude Opus 5 (one per
+level), each session alone in a neutral, seatbelt-confined sandbox, to ask
+whether prompt specificity still changes the outcome for a frontier model
+and how repeatable each level is. Design, harness, per-run logs, scoring
+and the write-up live under `runs_2026_09/`; start with
+`runs_2026_09/RESULTS.md` (findings) and `runs_2026_09/DESIGN.md` (the
+pre-registered design and its review record).
+
 ## Layout
 
 - `prompts/{L1,L2,L3}.md` — the three frozen prompts. Inputs to the
@@ -26,6 +35,18 @@ scale together to model a beginner (L1), an average user (L2), and a pro
   and full results (`runs/L3/figures/`, `metrics.json`, `transcript.md`).
 - `slides/` — see next section.
 - `RUNBOOK.md` — step-by-step for the human operator running Phase 1.
+- `runs_2026_09/` — the September 2026 re-run: `DESIGN.md`, `RESULTS.md`,
+  `RESULTS_table.md`, `waves.json`, `pins.sha256`, `scoring.json`, the
+  independent per-run assessments under `_assess/`, the review record under
+  `reviews/`, and one directory per run (`<model>_<level>_r<rep>/`) holding
+  the full Claude Code session log (`session.jsonl`), `run_meta.json`, the
+  harvested agent outputs (`output/`), and the before/after inventory diff.
+- `scripts/run_headless.sh`, `launch_wave.sh`, `supervise.py`,
+  `inventory.py`, `resume_run.sh` — the re-run harness (see
+  `runs_2026_09/DESIGN.md` sections 3 and 8).
+- `scripts/summarize_runs.py`, `score_runs.py`, `assess_fleet.sh`,
+  `build_rerun_figures.py` — harness facts per run, MAPE recomputation,
+  the independent reader, and the figure and table for the deck.
 
 ## Slide deck
 
@@ -106,3 +127,28 @@ agent at three increasingly specific prompt levels, the deck and code
 around it were built with the L3 workflow throughout: detailed prompts,
 a project-level `AGENTS.md`, and the `/review-loop` skill for plan
 review and code review.
+
+The September 2026 re-run was designed, run and written up with **Claude
+Code (Fable 5.1)** as the orchestrator, **GPT-5.6-Sol (Codex)** as the
+independent reviewer of the design (two rounds, archived under
+`runs_2026_09/reviews/`) and the independent reader of every run
+(`runs_2026_09/_assess/`), and Fable 5.1 and Opus 5 as the agents under
+test.
+
+## Reproduce the September 2026 re-run
+
+```sh
+bash scripts/launch_wave.sh canary     # one L1 run, validates the harness
+bash scripts/launch_wave.sh wave1      # the remaining L1 and L2 runs
+bash scripts/launch_wave.sh wave2      # the L3 runs, two at a time
+uv run python scripts/summarize_runs.py
+uv run python scripts/score_runs.py    # then edit runs_2026_09/scoring.json
+uv run python scripts/score_runs.py final
+bash scripts/assess_fleet.sh all       # independent per-run reader (Codex)
+uv run python scripts/build_rerun_figures.py
+```
+
+The runner needs macOS (APFS clones, `sandbox-exec`), the pinned Claude
+Code build named in `scripts/run_headless.sh`, and a subscription login.
+It refuses to start unless `runs_2026_09/pins.sha256` verifies and unless
+the sandbox it built passes a scan for study identifiers.

@@ -39,3 +39,31 @@ runs/*/cache/
 
 # Claude Code session state inside run dirs
 runs/*/.claude/
+
+# September 2026 re-run: the data copy and harness caches are re-creatable;
+# the session logs, code, figures, metrics and run_meta.json are kept.
+runs_2026_09/*/opsd_de_load.csv
+runs_2026_09/*/.claude/
+runs_2026_09/*/cache/
+runs_2026_09/*/lightning_logs/
+runs_2026_09/*/darts_logs/
+runs_2026_09/*/.darts/
+runs_2026_09/**/__pycache__/
+runs_2026_09/**/*.ckpt
+runs_2026_09/**/*.pt
+runs_2026_09/**/*.pkl
+runs_2026_09/_logs/
+runs_2026_09/_aborted*/
+runs_2026_09/*/.launch_marker
+# Full sandbox inventories (tens of thousands of venv entries each); the
+# diff (changes.json) and the harvest record are what the analysis uses.
+runs_2026_09/*/inventory_before.json
+runs_2026_09/*/inventory_after*.json
+# Independent-reader transport logs; the briefs and JSON verdicts are kept.
+runs_2026_09/_assess/*.events.jsonl
+runs_2026_09/_assess/*.err
+# Agent-side caches harvested from the sandboxes
+runs_2026_09/*/output/**/__pycache__/
+runs_2026_09/*/output/**/.mypy_cache/
+runs_2026_09/*/output_outside/**/.ruff_cache/
+runs_2026_09/*/output_outside/**/.mypy_cache/

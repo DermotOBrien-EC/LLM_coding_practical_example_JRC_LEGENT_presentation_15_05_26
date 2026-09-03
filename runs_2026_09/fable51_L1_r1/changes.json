@@ -1,0 +1,17 @@
+{
+  "added": [
+    "runs/81c970/__pycache__",
+    "runs/81c970/__pycache__/forecast_jan2020.cpython-312.pyc",
+    "runs/81c970/forecast_jan2020.csv",
+    "runs/81c970/forecast_jan2020.png",
+    "runs/81c970/forecast_jan2020.py",
+    "runs/81c970/metrics.json"
+  ],
+  "modified": [],
+  "deleted": [],
+  "counts": {
+    "added": 6,
+    "modified": 0,
+    "deleted": 0
+  }
+}
