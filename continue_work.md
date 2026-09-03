@@ -83,11 +83,20 @@ Two blockers, in order:
    For L3 specifically the six-model bake-off with two deep forecasters is
    long enough that the agent will always park. Options, cheapest first:
    resume the existing Opus 5 session in place with
-   `bash scripts/resume_run.sh opus5_L3_r1 "<reason>"` (its sandbox and
-   session id are preserved, and the design permits exactly one L3 resume
-   after an infrastructure failure); or drive L3 interactively as the May
-   runs did; or add a harness keep-alive. Do not silently change the
-   prompt or the model to make it fit.
+   `bash scripts/resume_run.sh opus5_L3_r1 "<reason>"` (the design permits
+   exactly one L3 resume after an infrastructure failure); or drive L3
+   interactively as the May runs did; or add a harness keep-alive. Do not
+   silently change the prompt or the model to make it fit.
+
+   **Its sandbox is deliberately still on disk:**
+   `~/dev/energy_forecast_ws/dac166/` (1.3 GB, an APFS clone), with the
+   four fitted models' pickles and the agent's `code/` tree intact. Every
+   other run's sandbox was deleted after harvesting. Do not delete
+   `dac166` until the L3 question is settled, and note that
+   `resume_run.sh` currently checks for a timeout, a stop, or a rate-limit
+   error in the first attempt's log; this run exited 0, so the check will
+   refuse it and needs a one-line widening (or run the resume by hand from
+   the session id in `run_meta.json`).
 
 ## 4. Permissions and boundaries
 
