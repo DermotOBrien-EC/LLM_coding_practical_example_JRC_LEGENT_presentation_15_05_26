@@ -20,7 +20,10 @@ runs then completed. One correction to the pre-registered audit of the May
 2026 L3 run came out of reading the September L3 code beside it (section
 4, and DESIGN.md section 5.2). The write-up was reviewed read-only by
 GPT-5.6-Sol against the repository files (`reviews/`); the fold record is
-beside the review.
+beside the review. Extension A (DESIGN.md section 11: GPT-6-Astra,
+GPT-5.6-Sol and GPT-5.5 on the same harness, 27 runs) ran on the night of
+2026-09-05 and is reported in section 8; sections 1 to 7 are the Claude
+arm and are unchanged by it.
 
 ## 1. What was run
 
@@ -424,3 +427,187 @@ Nothing that blocks the write-up. Optional follow-ups, none started:
    regenerating them.
 3. The sandboxes under `~/dev/energy_forecast_ws/` can be deleted once
    this commit is pushed; everything scored is in git.
+
+## 8. Extension A: three OpenAI models on the same harness
+
+Pre-registered in DESIGN.md section 11 on 2026-09-05 at 22:30 local, run
+that night (canary 22:27, wave A 22:29 to 23:00, wave B 23:00 to 00:19 on
+2026-09-06, all local), 27 runs, none voided, none resumed. Everything in
+this section is descriptive (section 11 (h)): a cross-vendor difference on
+Claude Code is a difference in model plus translation layer, and the
+gateway route differs from the Claude arm in the eight disclosed ways.
+Independent reader: GPT-6-Astra (`_assess/`), on the 27 extension runs
+only; the twelve Claude assessments and derived files are unchanged (the
+post-processing scope of section 11 was checked with `git diff`).
+
+### 8.1 What happened
+
+Twenty of the 27 sessions ended without a forecast. Seven wrote one.
+
+| Model | L1 (10 words) | L2 (46 words + 7-line AGENTS.md) | L3 (1,673 words + 113-line AGENTS.md) |
+|---|---|---|---|
+| GPT-6-Astra | asked, asked, asked | asked, asked, asked | asked, asked, asked |
+| GPT-5.6-Sol | 3.56, 2.41\*, 3.45 | asked, asked, plan | asked, plan, plan |
+| GPT-5.5 | 4.20, 4.58, 9.48\* | plan, plan, plan | plan, *3.77*†, plan |
+| Fable 5.1 (section 2) | 3.96, 3.28, 4.49 | 2.30, 5.35, 3.21 | 5.03, 4.99, 5.53 |
+| Opus 5 (section 2) | 3.07 | *3.40* | 5.46 |
+
+"asked": the session's last message is a clarifying question and the turn
+ended; "plan": the last message is an implementation plan asking for
+approval, no code written. Nobody answers in this harness, so each such
+run counts as it stands (section 11 (f)). Numbers are recomputed test MAPE
+(italics: agent-reported, no forecast file). \* leaked at a stage other
+than the headline forecast (8.3). † leaked headline (8.3).
+
+- **GPT-6-Astra asked a question in nine of nine runs** and did nothing
+  else: one to four turns, at most three tool calls (a look at the CSV, a
+  read of `AGENTS.md`, for L3 r3 a check of the split sizes and the venv),
+  23 to 54 seconds each. At L1 and L2 the question was whether the week is
+  UTC or German local time, or whether the forecast is one week-ahead issue
+  or a rolling update. At L3 it was sharper: all three runs asked whether
+  the 168 predictions are issued at once from the forecast origin, because
+  otherwise, they said, after the first day `lag_24h` and the rolling
+  features would read the test week. That is the construction May's L3
+  winner used unknowingly (section 4); Astra named it before writing a line.
+- **GPT-5.6-Sol wrote a forecast at L1 in three of three runs** (9 to 22
+  minutes, 30 to 43 turns), then at L2 asked the UTC question twice and
+  planned once, and at L3 asked once (after 13 Bash calls of verification)
+  and planned twice (after verifying the data, the splits and the venv, and
+  finding that darts 0.41.0 has no PatchTSTModel).
+- **GPT-5.5 wrote a forecast at L1 in three of three runs** (2 to 5
+  minutes), presented a plan and stopped in all three L2 runs and in L3 r1
+  and r3, and in L3 r2 completed the whole study: eight code files, eight
+  figures, `metrics.json`, `metrics.csv`, `transcript.md`, 94 turns, 61
+  minutes.
+- **The Claude arm never asked and never stopped at a plan**: twelve of
+  twelve sessions wrote a forecast (two ended early, section 4).
+
+No API error, refusal or rate limit occurred on the gateway; every session
+ended on the model's own final message. The auto-mode classifier denied
+six commands across five runs (8.4).
+
+### 8.2 Accuracy and reading rules
+
+Under section 6, a cell needs three scored runs for a range. Two have them.
+
+- **Sol L1: 2.41 to 3.56**, spread 1.15, not repeatable in accuracy under
+  the one-point rule; model classes were a LightGBM ensemble (r1) and two
+  ridge-plus-calendar-analog ensembles (r2, r3), so not repeatable in class
+  either. All three beat the May L1 number by 7 points and sit in the range
+  of the Fable L1 cell (3.28 to 4.49). The 2.41 is the lowest L1 number in
+  either arm and is flagged (8.3).
+- **GPT-5.5 L1: 4.20 to 9.48**, not repeatable in accuracy or class (ridge
+  on log load, a regularised log-load regression, a calendar baseline). The
+  9.48 is a fixed-weight baseline with no validation and no reported
+  accuracy, the worst L1 forecast in either arm; it still beats May's 10.76.
+- **GPT-5.5 L3: one number, 3.77, agent-reported, leaked headline.** The
+  study is complete in every deliverable, but its LightGBM winner reads the
+  test week's own loads (8.3), so the number belongs beside May's 3.43,
+  not beside the recursive 4.99 to 5.53 of the Claude L3 runs. No per-hour
+  forecast file was written, so it could not be recomputed. Its other
+  models are honest week-ahead forecasts: Prophet 7.61, TSMixer 7.87,
+  N-BEATS 9.84, SARIMA 12.52, naive 12.78; they land where the four Claude
+  bake-offs put the same classes (section 2).
+- **Every other cell is empty** (no forecast to score): all nine Astra
+  cells, Sol L2 and L3, GPT-5.5 L2. The L1-versus-L3 closeness rule cannot
+  be applied to any OpenAI model.
+
+### 8.3 Test-window audit (section 5.2 rules, applied by the literal text)
+
+| Run | Class | What happened |
+|---|---|---|
+| sol_L1_r1 | final_scoring_only | Eleven candidates ranked on 2017 to 2019 backtests; 2020 scored once at the end. The agent printed the 2020 daily actuals while profiling the series before modelling; the reader returns indeterminate on that ground, the orchestrator keeps the class by the Fable L1 r1 reading (nothing traces to it). |
+| sol_L1_r2 | leaked (selection stage) | The final forecast's features use no test observation and the frozen file was scored once, as the final message says. But before choosing the method the agent printed 2020-week scores beside the cross-validation scores for six candidates and their ensembles, and the ridge candidates in that sweep built rolling features from the daily series through 2020. It then withdrew that ridge as leaky, re-selected by leave-one-year-out and rewrote the forecast. Headline construction clean, selection not. |
+| sol_L1_r3 | final_scoring_only | Blend weight chosen on 2017 to 2019 January weeks; 2020 scored once. |
+| gpt55_L1_r1 | final_scoring_only | One model, no validation, 2020 scored once "for context". |
+| gpt55_L1_r2 | final_scoring_only | Alpha chosen on 2017 to 2019 backtests; the test week's daily mean, minimum and maximum were printed beside earlier years before modelling (reader: indeterminate; orchestrator: as Fable L1 r1). |
+| gpt55_L1_r3 | leaked (intermediate file) | The first forecast file the agent wrote was the 168 test actuals copied into the forecast column (first value 41187.0, the actual load at 2020-01-01 00:00), after printing the whole test week. It overwrote that file with a baseline computed from pre-2020 rows, which is the file scored (9.48). Found by the reader, confirmed against the log. |
+| gpt55_L3_r2 | leaked (headline), six candidates scored on the test week | `lightgbm_features.py` builds `lag_24h` and the shifted rolling statistics on the full series and predicts the test rows from those features, so from the second hour (rolling) and the second day (`lag_24h`) the winner reads the test week's actual loads: May's construction (section 4). The transcript describes it as a week-ahead forecast. Validation was used for every model's settings, the ranking is by test MAPE as the prompt orders, LightGBM also had the best validation MAPE. |
+
+Two of the seven forecasts are clean in the strict sense that no test
+observation was printed, scored or used before the final score (sol_L1_r3,
+and gpt55_L1_r1 apart from its single final score). For comparison the
+Claude arm's twelve headlines: two leaked (Opus 5 L1 and L2), one
+supplement-only leak (Fable L3 r3), the rest test_selected or
+final_scoring_only (section 4).
+
+### 8.4 Process, route and anomalies
+
+- **Discipline where a forecast was written.** Held-out validation decided
+  a choice in five of seven (the three Sol L1 runs, GPT-5.5 L1 r2 and L3
+  r2; GPT-5.5 L1 r1 and r3 used none). Prediction intervals and a
+  methods document: GPT-5.5 L3 r2 only (coverage 72.0 percent for the 80
+  percent band and 89.9 for the 95). Scripts left on disk: sol_L1_r1
+  (`build_forecast.py` and a diagnostics file), gpt55_L1_r2
+  (`forecast_jan2020.py`) and gpt55_L3_r2 (eight modules); the other four
+  forecasts were built from inline python and left only the CSV.
+- **AGENTS.md.** Read by a Read call in all nine L2 runs, at turns 2 to 9;
+  in L3 by Sol in all three runs (turns 18 to 20, after 13 to 18 Bash calls
+  of verification), by Astra in r3 only (r1 and r2 made no tool call), by
+  GPT-5.5 in r1 and r2 (turn 15) and not in r3, whose plan nevertheless
+  cites "your workflow rule".
+- **A Claude subagent inside a Sol run.** `sol_L1_r2` called the Agent tool
+  with the model alias `fable` to review its methodology and later, by
+  SendMessage, to verify the written CSV. The subagent ran on
+  `claude-fable-5-1` through the same gateway credentials for 24 assistant
+  turns, eight Bash calls and two Write calls (probe scripts under `/tmp`,
+  nothing in the run directory), and its verdict shaped the final method
+  ("the corrected forecast passed an independent peer review"). Section 11
+  named this risk (`CLAUDE_CODE_SUBAGENT_MODEL` is a default, overridden by
+  an explicit model); it happened once in 27 runs, and that run's 2.41 is
+  not the work of one vendor. Every other session used its own model only
+  (the session logs carry no other model id).
+- **A blocked reach for the operator's tooling.** `sol_L1_r3` ran the
+  operator's gateway probe script (`~/.claude/scripts/sol-proxy.sh
+  probe-claude claude-fable-5-1`) for what it called a "Fable peer check";
+  the probe failed because the seatbelt denies `~/cliproxyapi`, as section
+  11 intended, and the agent reported the failure in its final message.
+  How it knew the script's path is not in the log: no read or listing of
+  any file outside the sandbox appears, and the harness passes no
+  user-level `CLAUDE.md`, rules or skills (the session's memory path is the
+  sandbox's own empty auto-memory directory). The same open question
+  covers gpt55_L3_r2's final line, "checked added prose and code for
+  em-dashes, none found", and the "workflow rule" gpt55_L3_r3 cites: no
+  frozen input states either. The likeliest channel is the gateway's own
+  request translation for Codex-served models, which this study did not
+  inspect; it is recorded as unexplained.
+- **Classifier denials** (auto mode; the harness routes prompts to nobody,
+  so a denial is final): sol_L1_r1 one (a `python -c` through the venv's
+  absolute path), sol_L1_r2 one (a snippet printing `ANTHROPIC_BASE_URL`
+  and `ANTHROPIC_MODEL`, the harness's own routing, denied before it ran),
+  sol_L1_r3 one (a Write to `/tmp`), gpt55_L1_r2 one and gpt55_L1_r3 two
+  (python heredocs addressing the CSV by absolute path). Every run
+  rewrote the step and continued. The Claude arm had no denial.
+- **Bundled skill.** Every Claude run and fifteen of the extension runs
+  invoked Claude Code's bundled `dataviz` skill (it ships with 2.1.259 and
+  is listed in every session's init event); it is part of the frozen build,
+  the same for both arms, and is noted here because it was not named in
+  section 3.
+- **Sessions and notional cost.** Wall clock per run: Astra under a minute
+  in all nine; Sol 9, 22, 12 minutes at L1 and 0 to 11 at L2 and L3;
+  GPT-5.5 2 to 5 at L1, 1 to 2 at L2, and 4, 61, 1 at L3. The CLI's
+  list-price figure summed to 3.40 dollars for Astra, 15.78 for Sol and
+  11.25 for GPT-5.5; these models are served from a subscription, so the
+  figure is notional and is not added to section 5.
+
+### 8.5 Reading
+
+The extension answers Q4 with a behaviour rather than a number. On this
+harness the three OpenAI models' dominant response to the same prompts was
+to stop and ask, or to stop and present a plan: 20 of 27 sessions, against
+0 of 12 for the Claude arm. The question they asked is a good one, and at
+L3 it is the exact ambiguity May's run resolved the wrong way; in an
+interactive session an operator would answer it in seconds. Headless, with
+nobody to answer, it costs the whole run. The seven forecasts that were
+written sit where the Claude forecasts sit at L1 (2.4 to 4.6, plus one
+baseline at 9.5), and the one completed L3 study reproduces the May leak
+that the Claude L3 runs and the Astra L3 questions both avoided. None of
+this separates the model from Claude Code's translation layer for these
+models, and none of it is a comparison of accuracy: it is a description of
+what came back.
+
+A natural follow-up, not run: the same 27 cells with one scripted operator
+answer ("UTC; one forecast issued at the origin, no test-week inputs;
+proceed with your plan"), which would turn the question-and-plan runs into
+scored ones. It is a different study and would need its own
+pre-registration.

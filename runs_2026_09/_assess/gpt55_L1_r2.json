@@ -1,0 +1,37 @@
+{
+  "run": "runs_2026_09/gpt55_L1_r2",
+  "headline_model": "Ridge regression on log-load",
+  "headline_chosen_by_agent": true,
+  "models_fitted": [
+    "Ridge regression on log-load"
+  ],
+  "models_attempted_not_fitted": [],
+  "agent_reported_mape": 4.58,
+  "forecast_file": "forecast_jan2020_week1.csv",
+  "forecast_column": "forecast_de_load_mw",
+  "validation_holdout": true,
+  "validation_evidence": "output/forecast_jan2020.py:128-137 evaluates January 1-7 in 2017, 2018 and 2019 with 'train_rows = [row for row in rows if row.utc < start]'; lines 142-144 select 'min(scores, key=lambda item: item[1])'. Executed successfully at session.jsonl:94: 'best_alpha=0.01 backtest_mape_percent=4.753'.",
+  "prediction_intervals": false,
+  "intervals_evidence": "The only output artifacts are the Python script and a 168-row CSV with columns utc_timestamp and forecast_de_load_mw; neither contains interval bounds.",
+  "methods_document": false,
+  "methods_document_path": null,
+  "read_agents_md": "n/a",
+  "agents_md_evidence": "no AGENTS.md in L1",
+  "agents_md_read_before_implementation": null,
+  "test_selection": "indeterminate",
+  "n_candidates_compared_on_test": 1,
+  "leak_evidence": "output/forecast_jan2020.py:145-149 sets 'target_start = datetime(2020, 1, 1, tzinfo=timezone.utc)' and 'train_rows = [row for row in rows if row.utc < target_start]'; alpha selection uses pre-2020 backtests. However, session.jsonl:47-48 prints daily mean/min/max test actuals using 'for y in range(2015,2021)' before model implementation. Thus test observations were not used solely for final scoring, but the available log does not establish whether this inspection influenced features or hyperparameters.",
+  "external_data": false,
+  "packages_installed": false,
+  "asked_for_clarification": false,
+  "seeds_or_determinism": "No seed settings found; deterministic NumPy linear solve, fixed feature definitions and fixed alpha grid.",
+  "hyperparameters_summary": "alpha=0.01 selected from 11 values spanning 0.01-1000; log target; RMS-scaled features; unpenalized intercept; linear trend, hour, weekday, weekday-hour, six annual Fourier harmonics and January day-hour indicators; Europe/Berlin calendar features.",
+  "command_failures": 2,
+  "anomalies": [
+    "Test-week daily actual summaries were inspected before feature implementation; their influence on modeling decisions is unverifiable.",
+    "Initial pandas inspection failed with ModuleNotFoundError (session.jsonl:13); library probes also found sklearn and statsmodels unavailable in system Python. The agent proceeded using NumPy without locating the supplied venv.",
+    "The first cross-validation command was denied because the safety classifier was unavailable (session.jsonl:73-74). The agent subsequently wrote and successfully executed the forecast script.",
+    "The script hardcodes the original sandbox directory, so running the harvested copy elsewhere requires path changes."
+  ],
+  "one_line_summary": "Produced a 168-hour ridge log-load forecast, selecting regularization through pre-2020 January backtests and reporting 4.58% test MAPE; prior inspection of test actuals leaves selection independence uncertain."
+}

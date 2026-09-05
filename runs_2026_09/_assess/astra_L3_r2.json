@@ -1,0 +1,33 @@
+{
+  "run": "runs_2026_09/astra_L3_r2",
+  "headline_model": "none",
+  "headline_chosen_by_agent": false,
+  "models_fitted": [],
+  "models_attempted_not_fitted": [],
+  "agent_reported_mape": null,
+  "forecast_file": null,
+  "forecast_column": null,
+  "validation_holdout": false,
+  "validation_evidence": "session.jsonl contains no tool_use blocks or executed code; no validation scores were produced.",
+  "prediction_intervals": false,
+  "intervals_evidence": "output/ and output_outside/ are empty; no forecasts or interval artifacts exist.",
+  "methods_document": false,
+  "methods_document_path": null,
+  "read_agents_md": "no",
+  "agents_md_evidence": "Inspected all session.jsonl events for tool_use blocks and AGENTS.md reads; there were no tool calls.",
+  "agents_md_read_before_implementation": null,
+  "test_selection": "indeterminate",
+  "n_candidates_compared_on_test": 0,
+  "leak_evidence": "No training split or forecasting code was executed. final_message.md only asks whether forecasts should be issued once at 2019-12-31 23:00 UTC.",
+  "external_data": false,
+  "packages_installed": false,
+  "asked_for_clarification": true,
+  "seeds_or_determinism": "none found",
+  "hyperparameters_summary": "No model implemented.",
+  "command_failures": 0,
+  "anomalies": [
+    "The session ended with a clarification question about single-origin versus rolling forecasts, without executing any tools or producing artifacts.",
+    "stderr.log reports disabled claude.ai connectors and an unrecognized_model warning for gpt-6-astra during generate_session_title; run_meta.json records exit_code 0."
+  ],
+  "one_line_summary": "The agent asked whether the task required a single 168-hour forecast or rolling updates, then stopped without reading files, fitting models, or producing forecasts."
+}

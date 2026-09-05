@@ -1,0 +1,178 @@
+{
+  "test_start": "2020-01-01",
+  "test_end": "2020-01-07",
+  "n_test_observations": 168,
+  "models": [
+    {
+      "name": "naive",
+      "mape_test_pct": 12.7806,
+      "rmse_test_mw": 8808.603,
+      "mae_test_mw": 7237.9762,
+      "mape_jan1_pct": 6.5196,
+      "mape_jan2_to_jan7_pct": 13.8241,
+      "runtime_seconds": 0.0024,
+      "hyperparameters": {
+        "lag_hours": 168
+      }
+    },
+    {
+      "name": "sarima",
+      "mape_test_pct": 12.5169,
+      "rmse_test_mw": 8694.7843,
+      "mae_test_mw": 7125.8658,
+      "mape_jan1_pct": 8.6528,
+      "mape_jan2_to_jan7_pct": 13.161,
+      "runtime_seconds": 120.2942,
+      "hyperparameters": {
+        "order": [
+          2,
+          0,
+          1
+        ],
+        "seasonal_order": [
+          1,
+          1,
+          0,
+          24
+        ],
+        "validation_scores": [
+          {
+            "candidate": "0",
+            "validation_mape_pct": 13.492181875396788,
+            "aic": 693334.0676858206
+          },
+          {
+            "candidate": "1",
+            "validation_mape_pct": 11.76382121490008,
+            "aic": 689167.059120177
+          },
+          {
+            "candidate": "2",
+            "validation_mape_pct": 11.831403011267728,
+            "aic": 685018.3772539885
+          }
+        ],
+        "maxiter": 35
+      }
+    },
+    {
+      "name": "prophet",
+      "mape_test_pct": 7.6138,
+      "rmse_test_mw": 4878.1731,
+      "mae_test_mw": 3798.041,
+      "mape_jan1_pct": 13.2751,
+      "mape_jan2_to_jan7_pct": 6.6703,
+      "runtime_seconds": 20.6595,
+      "hyperparameters": {
+        "seasonality_mode": "additive",
+        "changepoint_prior_scale": 0.05,
+        "seasonality_prior_scale": 10.0,
+        "country_holidays": "DE",
+        "validation_scores": [
+          {
+            "candidate": "0",
+            "validation_mape_pct": 5.635830073898914,
+            "seasonality_mode": "additive"
+          },
+          {
+            "candidate": "1",
+            "validation_mape_pct": 5.6716928343894715,
+            "seasonality_mode": "multiplicative"
+          }
+        ]
+      }
+    },
+    {
+      "name": "lightgbm",
+      "mape_test_pct": 3.7673,
+      "rmse_test_mw": 2708.1873,
+      "mae_test_mw": 2071.1334,
+      "mape_jan1_pct": 2.5075,
+      "mape_jan2_to_jan7_pct": 3.9773,
+      "runtime_seconds": 20.2618,
+      "hyperparameters": {
+        "n_estimators": 700,
+        "learning_rate": 0.03,
+        "num_leaves": 63,
+        "min_child_samples": 60,
+        "validation_scores": [
+          {
+            "candidate": "0",
+            "validation_mape_pct": 2.274352467017833
+          },
+          {
+            "candidate": "1",
+            "validation_mape_pct": 2.1389700505505207
+          },
+          {
+            "candidate": "2",
+            "validation_mape_pct": 2.2590258564800862
+          }
+        ],
+        "year_lag_hours": 8736
+      }
+    },
+    {
+      "name": "nbeats",
+      "mape_test_pct": 9.841,
+      "rmse_test_mw": 6503.1954,
+      "mae_test_mw": 5252.9351,
+      "mape_jan1_pct": 6.551,
+      "mape_jan2_to_jan7_pct": 10.3894,
+      "runtime_seconds": 72.4019,
+      "hyperparameters": {
+        "num_stacks": 4,
+        "num_blocks": 1,
+        "num_layers": 2,
+        "layer_widths": 128,
+        "n_epochs": 12,
+        "validation_scores": [
+          {
+            "candidate": "0",
+            "validation_mape_pct": 13.832491058721393
+          },
+          {
+            "candidate": "1",
+            "validation_mape_pct": 14.655605051717554
+          }
+        ],
+        "interval_method": "validation-window residual quantiles"
+      }
+    },
+    {
+      "name": "patchtst",
+      "mape_test_pct": 7.8667,
+      "rmse_test_mw": 5259.5148,
+      "mae_test_mw": 4126.6421,
+      "mape_jan1_pct": 13.366,
+      "mape_jan2_to_jan7_pct": 6.9502,
+      "runtime_seconds": 45.1069,
+      "hyperparameters": {
+        "hidden_size": 16,
+        "ff_size": 16,
+        "num_blocks": 1,
+        "dropout": 0.1,
+        "n_epochs": 2,
+        "substitution": "PatchTSTModel was unavailable in Darts 0.41.0; used TSMixerModel",
+        "validation_scores": [
+          {
+            "candidate": "0",
+            "validation_mape_pct": 9.971438203708699
+          },
+          {
+            "candidate": "1",
+            "validation_mape_pct": 16.064529731486925
+          }
+        ],
+        "interval_method": "validation-window residual quantiles"
+      }
+    }
+  ],
+  "winner": "lightgbm",
+  "winner_coverage_80pct": 72.0238,
+  "winner_coverage_95pct": 89.881,
+  "winner_pinball_loss_q10": 552.9628,
+  "winner_pinball_loss_q50": 938.4062,
+  "winner_pinball_loss_q90": 424.2858,
+  "total_runtime_seconds": 283.1665
+}

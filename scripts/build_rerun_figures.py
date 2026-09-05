@@ -11,6 +11,7 @@ Reference points come from the May 2026 runs on disk
 
 Outputs:
 - runs_2026_09/figures/exp-rerun-mape.png   test MAPE by level, every run
+- runs_2026_09/figures/exp-extension-outcomes.png  how each session ended (forecast / question / plan)
 - runs_2026_09/RESULTS_table.md             markdown table for RESULTS.md / deck
 
 Usage:
@@ -99,14 +100,17 @@ def build_figure(results: list[dict[str, object]], ref: dict[str, float]) -> Non
         rep = int(r.get("rep") or 1)
         jitter = (rep - 2) * 0.04 if tag in THREE_RUN_TAGS else 0.0
         x = xs[lvl] + X_OFFSET[tag] + jitter
+        sc = scoring.get(str(r["run"]), {})
         hollow = str(r.get("source")) != "recomputed"
-        incomplete = bool(scoring.get(str(r["run"]), {}).get("status_note"))
+        incomplete = bool(sc.get("status_note"))
+        # a headline that read the test week's own loads (DESIGN.md 5.2) is drawn like May's L3
+        leaked = sc.get("test_selection") == "leaked" and str(sc.get("leak_scope", "")).startswith("headline")
         ax.scatter(x, v, marker=mk, s=110, zorder=3,
-                   facecolors="white" if (hollow or incomplete) else col, edgecolors=col, linewidths=1.8,
+                   facecolors="white" if (hollow or incomplete or leaked) else col, edgecolors=col, linewidths=1.8,
                    label=lab if tag not in seen else None)
         seen.add(tag)
-        ax.annotate(f"{v:.2f}" + ("*" if incomplete else ""), (x, v), textcoords="offset points",
-                    xytext=(0, 9), ha="center", fontsize=9, color=col)
+        ax.annotate(f"{v:.2f}" + ("*" if incomplete else "") + ("†" if leaked else ""), (x, v),
+                    textcoords="offset points", xytext=(0, 9), ha="center", fontsize=9, color=col)
     ax.set_xticks(list(xs.values()))
     ax.set_xticklabels([LEVEL_LABEL[l] for l in LEVELS], fontsize=10)
     ax.set_ylabel("Test-window MAPE (%), lower is better")
@@ -117,13 +121,76 @@ def build_figure(results: list[dict[str, object]], ref: dict[str, float]) -> Non
     ax.legend(loc="upper right", fontsize=9, frameon=True)
     fig.text(0.01, 0.012,
              "Hollow marker with * = session ended before the agent's final step, scored on the forecast it had written.\n"
-             "† = May's L3 winner read the test week's own actual loads through its rolling features from the 2nd hour "
-             "and its 24 h lag from the 2nd day; the September Claude L3 forecasts are recursive week-ahead forecasts.",
+             "† = the LightGBM winner read the test week's own actual loads through its rolling features from the 2nd hour and its 24 h lag\n"
+             "from the 2nd day (May's L3, and GPT-5.5 L3 run 2, which wrote no forecast file and is shown as the agent reported it); the\n"
+             "September Claude L3 forecasts are recursive week-ahead forecasts. OpenAI models ran on the same harness (DESIGN.md section 11):\n"
+             "a missing marker is a run that asked a clarifying question or presented a plan and stopped; GPT-6-Astra did so in all nine runs.",
              fontsize=7.5, color="#555555", va="bottom")
-    fig.tight_layout(rect=(0, 0.07, 1, 1))
+    fig.tight_layout(rect=(0, 0.11, 1, 1))
     OUT_FIG.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(OUT_FIG, dpi=300)
     print(f"wrote {OUT_FIG}")
+
+
+OUT_FIG2 = RUNS / "figures" / "exp-extension-outcomes.png"
+OUTCOME_ORDER = ["fable51", "opus5", "astra", "sol", "gpt55"]
+
+
+def outcome_of(run: str, scoring: dict[str, dict[str, object]], results: dict[str, dict[str, object]]) -> str:
+    sc = scoring.get(run, {})
+    head = str(sc.get("headline_model", ""))
+    if head.startswith("none (asked"):
+        return "asked"
+    if head.startswith("none (presented"):
+        return "plan"
+    if sc.get("status_note"):
+        return "incomplete"
+    return "forecast"
+
+
+def build_outcomes_figure(results: list[dict[str, object]]) -> None:
+    """One cell per run: did the session end with a forecast, a question, or a plan?"""
+    scoring = json.loads((RUNS / "scoring.json").read_text())
+    by_run = {str(r["run"]): r for r in results}
+    colours = {"forecast": "#2b8a3e", "incomplete": "#94d82d", "asked": "#e8590c", "plan": "#fab005"}
+    labels = {"forecast": "wrote a forecast", "incomplete": "forecast written, session ended early",
+              "asked": "asked a clarifying question and stopped", "plan": "presented a plan and stopped"}
+    rows = [t for t in OUTCOME_ORDER if any(str(r["model_tag"]) == t for r in results)]
+    fig, ax = plt.subplots(figsize=(11, 3.6))
+    for yi, tag in enumerate(rows):
+        for xi, lvl in enumerate(LEVELS):
+            reps = sorted(int(r.get("rep") or 1) for r in results if str(r["model_tag"]) == tag and str(r["level"]) == lvl)
+            for k, rep in enumerate(reps):
+                run = f"{tag}_{lvl}_r{rep}"
+                oc = outcome_of(run, scoring, by_run)
+                x = xi * 3.6 + k
+                ax.add_patch(plt.Rectangle((x, yi), 0.9, 0.9, color=colours[oc]))
+                mape = by_run[run].get("mape_pct")
+                txt = f"{float(mape):.1f}" if mape not in (None, "") else ("?" if oc == "asked" else "plan")  # type: ignore[arg-type]
+                if oc == "forecast" or oc == "incomplete":
+                    sc = scoring.get(run, {})
+                    if sc.get("test_selection") == "leaked" and str(sc.get("leak_scope", "")).startswith("headline"):
+                        txt += "†"
+                ax.text(x + 0.45, yi + 0.45, txt, ha="center", va="center", fontsize=9,
+                        color="white" if oc in ("forecast", "asked") else "#333333")
+    ax.set_xlim(-0.3, 3 * 3.6 - 0.4)
+    ax.set_ylim(-0.2, len(rows) + 0.1)
+    ax.set_xticks([xi * 3.6 + 1.4 for xi in range(3)])
+    ax.set_xticklabels([LEVEL_LABEL[l] for l in LEVELS], fontsize=9)
+    ax.set_yticks([yi + 0.45 for yi in range(len(rows))])
+    ax.set_yticklabels([SERIES[t][0].split(",")[0] for t in rows], fontsize=9)
+    ax.invert_yaxis()
+    for side in ("top", "right", "left", "bottom"):
+        ax.spines[side].set_visible(False)
+    ax.tick_params(length=0)
+    handles = [plt.Rectangle((0, 0), 1, 1, color=colours[k]) for k in ("forecast", "incomplete", "asked", "plan")]
+    ax.legend(handles, [labels[k] for k in ("forecast", "incomplete", "asked", "plan")], loc="upper center",
+              bbox_to_anchor=(0.5, -0.22), ncol=2, fontsize=8, frameon=False)
+    ax.set_title("How each headless session ended (one cell per run; number = test MAPE %, † = headline read test-week loads)",
+                 fontsize=10.5)
+    fig.tight_layout()
+    fig.savefig(OUT_FIG2, dpi=300)
+    print(f"wrote {OUT_FIG2}")
 
 
 def yes(v: object) -> str:
@@ -148,8 +215,16 @@ def build_table(results: list[dict[str, object]]) -> None:
         audit = str(sc.get("test_selection", "?"))
         if audit == "test_selected":
             audit += f" ({sc.get('n_candidates', '?')})"
-        elif audit == "leaked" and str(sc.get("leak_scope", "")).startswith("supplement"):
-            audit += " (supplement only; headline clean)"
+        elif audit == "leaked":
+            scope = str(sc.get("leak_scope", ""))
+            if scope.startswith("supplement"):
+                audit += " (supplement only; headline clean)"
+            elif scope.startswith("selection"):
+                audit += " (selection stage; headline features clean)"
+            elif scope.startswith("intermediate"):
+                audit += " (intermediate file only; final forecast clean)"
+            elif scope.startswith("headline"):
+                audit += " (headline)"
         agents = str(sm.get("agents_md_read", "?"))
         if agents.startswith("n/a"):
             agents = "n/a"
@@ -169,6 +244,7 @@ def main() -> int:
     ref = may_reference()
     results = load_results()
     build_figure(results, ref)
+    build_outcomes_figure(results)
     build_table(results)
     return 0
 

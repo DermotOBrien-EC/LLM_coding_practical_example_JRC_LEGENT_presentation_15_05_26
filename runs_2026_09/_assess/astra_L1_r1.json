@@ -1,0 +1,33 @@
+{
+  "run": "runs_2026_09/astra_L1_r1",
+  "headline_model": "none",
+  "headline_chosen_by_agent": false,
+  "models_fitted": [],
+  "models_attempted_not_fitted": [],
+  "agent_reported_mape": null,
+  "forecast_file": null,
+  "forecast_column": null,
+  "validation_holdout": false,
+  "validation_evidence": "session.jsonl:2-14 contains only workspace inspection, CSV inspection, and a clarification question; no models or validation scores.",
+  "prediction_intervals": false,
+  "intervals_evidence": "output/ and output_outside/ are empty; no forecast bounds or figures were produced.",
+  "methods_document": false,
+  "methods_document_path": null,
+  "read_agents_md": "n/a",
+  "agents_md_evidence": "no AGENTS.md in L1",
+  "agents_md_read_before_implementation": null,
+  "test_selection": "indeterminate",
+  "n_candidates_compared_on_test": 0,
+  "leak_evidence": "No training split or forecast was executed. final_message.md states only an intention: 'I’ll exclude those from model training and forecast using only data available before January 2020.'",
+  "external_data": false,
+  "packages_installed": false,
+  "asked_for_clarification": true,
+  "seeds_or_determinism": "none found",
+  "hyperparameters_summary": "No model implemented.",
+  "command_failures": 0,
+  "anomalies": [
+    "The agent ended by asking whether January 1–7 should use UTC or CET, producing no forecast or output artifacts.",
+    "stderr.log reports disabled claude.ai connectors and an unrecognized_model warning for generate_session_title; the session nevertheless completed successfully."
+  ],
+  "one_line_summary": "The agent inspected CSV coverage and missing values, then asked whether the forecast week should use UTC or CET; it fitted no models and produced no forecast."
+}

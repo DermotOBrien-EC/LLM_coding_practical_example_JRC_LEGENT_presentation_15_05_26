@@ -1,0 +1,1 @@
+Should the script forecast **all 168 hours at once using only data before 2020-01-01**, or update its predictions as actual January readings arrive? The first tests a week-ahead forecast; the second tests rolling forecasts and can produce different accuracy.

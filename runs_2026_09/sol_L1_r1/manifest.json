@@ -1,0 +1,17 @@
+[
+  {
+    "path": "build_forecast.py",
+    "bytes": 12332,
+    "sha256": "661b898204b9e3382ec3500d7cb1ca3a170563e64ca59d1a78a486a0fa823773"
+  },
+  {
+    "path": "forecast_diagnostics.json",
+    "bytes": 7091,
+    "sha256": "83eb7621915c86e27d59b69b27182e5afe9a12acf2198df07f069ed4b8ac9bbe"
+  },
+  {
+    "path": "forecast_jan_2020.csv",
+    "bytes": 5746,
+    "sha256": "ae36f1bf7e3b41ea4ec9bbcec4f69abc10a0b67280e570dcbaa688af4fbb921b"
+  }
+]

@@ -1,0 +1,33 @@
+{
+  "run": "runs_2026_09/astra_L3_r3",
+  "headline_model": "none",
+  "headline_chosen_by_agent": false,
+  "models_fitted": [],
+  "models_attempted_not_fitted": [],
+  "agent_reported_mape": null,
+  "forecast_file": null,
+  "forecast_column": null,
+  "validation_holdout": false,
+  "validation_evidence": "session.jsonl:16-17 only counted train, validation, and test observations and checked data integrity and package versions; no candidates were fitted or scored.",
+  "prediction_intervals": false,
+  "intervals_evidence": "output/ and output_outside/ are empty; no forecasts, bounds, or figures were produced.",
+  "methods_document": false,
+  "methods_document_path": null,
+  "read_agents_md": "yes",
+  "agents_md_evidence": "session.jsonl:9: Read({\"file_path\":\"/Users/doob/dev/energy_forecast_ws/a492f9/project/runs/a492f9/AGENTS.md\"}).",
+  "agents_md_read_before_implementation": true,
+  "test_selection": "indeterminate",
+  "n_candidates_compared_on_test": 0,
+  "leak_evidence": "No fitting or forecast selection occurred. session.jsonl:16 only counted splits: \"train\":sum(t.isoformat()[:10]<=\"2019-09-30\" for t in times), \"validation\":sum(\"2019-10-01\"<=t.isoformat()[:10]<=\"2019-12-31\" for t in times), \"test\":sum(\"2020-01-01\"<=t.isoformat()[:10]<=\"2020-01-07\" for t in times).",
+  "external_data": false,
+  "packages_installed": false,
+  "asked_for_clarification": true,
+  "seeds_or_determinism": "none found",
+  "hyperparameters_summary": "No model implemented or fitted.",
+  "command_failures": 0,
+  "anomalies": [
+    "The session ended after data and environment checks, asking whether all models should forecast the entire week without observing test-week actuals; no deliverables were produced.",
+    "stderr.log reports disabled claude.ai connectors and an unrecognized-model warning for session-title generation; no tool failures or permission denials were recorded."
+  ],
+  "one_line_summary": "Read AGENTS.md, verified data integrity, split sizes, and installed package versions, then stopped to ask about forecast timing without fitting models or producing artifacts."
+}

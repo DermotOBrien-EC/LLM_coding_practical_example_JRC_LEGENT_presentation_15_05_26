@@ -1,0 +1,52 @@
+{
+  "run": "runs_2026_09/gpt55_L3_r2/",
+  "headline_model": "LightGBM",
+  "headline_chosen_by_agent": true,
+  "models_fitted": [
+    "Seasonal naive lag-168h",
+    "SARIMA",
+    "Prophet",
+    "LightGBM",
+    "N-BEATS",
+    "TSMixer"
+  ],
+  "models_attempted_not_fitted": [
+    "PatchTST (import unavailable)",
+    "Darts Prophet wrapper (abandoned for native Prophet)"
+  ],
+  "agent_reported_mape": 3.7673,
+  "forecast_file": null,
+  "forecast_column": null,
+  "validation_holdout": true,
+  "validation_evidence": "output/code/common.py:15-17 defines training end 2019-09-30 and validation 2019-10-01 through 2019-12-31. output/code/lightgbm_features.py:82-98 fits training candidates, computes score = mape_pct(y_val, pred), and updates best_params when score < best_score. Executed results in output/metrics.json record validation MAPEs 2.27435, 2.13897, and 2.25903, selecting candidate 1.",
+  "prediction_intervals": true,
+  "intervals_evidence": "output/figures/05_winner_with_intervals.png exists; output/code/forecast.py:153-171 plots lower80/upper80 and lower95/upper95 over the test timestamps.",
+  "methods_document": true,
+  "methods_document_path": "transcript.md",
+  "read_agents_md": "yes",
+  "agents_md_evidence": "session.jsonl:62 Read {\"file_path\":\"/Users/doob/dev/energy_forecast_ws/e69b26/project/runs/e69b26/AGENTS.md\",\"limit\":2000}. The earlier Bash call at line 41 already ran ../../.venv/bin/python for package inspection.",
+  "agents_md_read_before_implementation": false,
+  "test_selection": "leaked",
+  "n_candidates_compared_on_test": 7,
+  "leak_evidence": "output/code/lightgbm_features.py:104: feats = make_features(df); :106: train_val_mask = (feats[TIME_COL] <= VAL_END) & feats[FEATURE_COLUMNS].notna().all(axis=1); :107-110 selects test rows from those full-data features. Lines 54-61 construct lag_24h and shifted rolling statistics from actual loads, so test observations enter later test-hour features. Although fitting ends before 2020, prediction features leak test actuals. output/code/forecast.py:325-328 also ranks models by test MAPE and chooses the minimum.",
+  "external_data": true,
+  "packages_installed": false,
+  "asked_for_clarification": false,
+  "seeds_or_determinism": "LightGBM: \"random_state\": 42 (code/lightgbm_features.py:69); N-BEATS: random_state=42 (code/nbeats.py:47); TSMixer: random_state=42 (code/patchtst.py:42). Successful execution used OMP_NUM_THREADS=1 and MKL_NUM_THREADS=1.",
+  "hyperparameters_summary": "n_estimators=700, learning_rate=0.03, num_leaves=63, min_child_samples=60, objective=regression, random_state=42, force_col_wise=True, n_jobs=4; calendar, 24/168/8736-hour lags and shifted rolling features.",
+  "command_failures": 7,
+  "anomalies": [
+    "No hourly forecast CSV was saved; metrics.csv contains aggregate model scores only, preventing independent MAPE recomputation from saved point forecasts.",
+    "LightGBM consumes observed test-week loads through lag and rolling features, invalidating its reported 168-hour forecast performance.",
+    "Seven distinct point candidates were test-scored across completed passes: five unchanged models plus the original and corrected SARIMA forecasts. The final comparison contains six models.",
+    "After inspecting test metrics, the agent corrected SARIMA simple differencing and expanded its candidate set; SARIMA test MAPE changed from 100.1641% to 12.5169%.",
+    "Four Prophet-related failures preceded switching from the Darts wrapper to native Prophet and resolving local module shadowing.",
+    "A neural-training execution exited with code 139; another failed because its 168-hour validation series was shorter than the required 336 hours. Both were subsequently recovered.",
+    "A long-running study was manually stopped, and TSMixer training was reduced to two- and three-epoch candidates before successful reruns.",
+    "PatchTST was unavailable and replaced by TSMixer; metrics retain the name patchtst, while the transcript incorrectly describes TSMixer as a transformer-family substitute.",
+    "The nominal 95% LightGBM interval is heuristic: q10 and q90 are expanded by 0.46875 times their span, rather than fitting 2.5% and 97.5% quantiles.",
+    "External-data flag reflects German holiday calendars from the installed holidays package and Prophet country holidays; no weather, price data, downloads, or package installations were observed.",
+    "changes.json records one automatically generated .venv bytecode cache outside the working directory; output_outside is empty. No permission denials were found."
+  ],
+  "one_line_summary": "Compared six model classes and chose LightGBM at 3.77% MAPE, but leaked test loads into its features; saved methods, metrics, and interval plots without an hourly forecast CSV."
+}

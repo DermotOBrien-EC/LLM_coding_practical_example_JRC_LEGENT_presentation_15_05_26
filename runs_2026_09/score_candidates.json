@@ -1,4 +1,40 @@
 {
+  "astra_L1_r1": {
+    "candidates": [],
+    "metrics_json": null
+  },
+  "astra_L1_r2": {
+    "candidates": [],
+    "metrics_json": null
+  },
+  "astra_L1_r3": {
+    "candidates": [],
+    "metrics_json": null
+  },
+  "astra_L2_r1": {
+    "candidates": [],
+    "metrics_json": null
+  },
+  "astra_L2_r2": {
+    "candidates": [],
+    "metrics_json": null
+  },
+  "astra_L2_r3": {
+    "candidates": [],
+    "metrics_json": null
+  },
+  "astra_L3_r1": {
+    "candidates": [],
+    "metrics_json": null
+  },
+  "astra_L3_r2": {
+    "candidates": [],
+    "metrics_json": null
+  },
+  "astra_L3_r3": {
+    "candidates": [],
+    "metrics_json": null
+  },
   "fable51_L1_r1": {
     "candidates": [
       {
@@ -313,14 +349,694 @@
     "metrics_json": null
   },
   "fable51_L3_r1": {
-    "candidates": [],
-    "metrics_json": null
+    "candidates": [
+      {
+        "file": "output/forecasts/lightgbm.csv",
+        "column": "point",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 5.025087575649699,
+        "rmse_mw": 3712.3479482117045,
+        "mae_mw": 2800.74693452381
+      },
+      {
+        "file": "output/forecasts/lightgbm.csv",
+        "column": "q0.025",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 6.022496382375947,
+        "rmse_mw": 3993.0409014537418,
+        "mae_mw": 3207.042380952381
+      },
+      {
+        "file": "output/forecasts/lightgbm.csv",
+        "column": "q0.1",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 4.064348372545097,
+        "rmse_mw": 2998.574524127006,
+        "mae_mw": 2197.7877380952377
+      },
+      {
+        "file": "output/forecasts/lightgbm.csv",
+        "column": "q0.5",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 4.823656710333663,
+        "rmse_mw": 3482.274768040303,
+        "mae_mw": 2674.0162916666663
+      },
+      {
+        "file": "output/forecasts/lightgbm.csv",
+        "column": "q0.9",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 8.309304354626892,
+        "rmse_mw": 4902.554626435676,
+        "mae_mw": 4411.925279761905
+      },
+      {
+        "file": "output/forecasts/lightgbm.csv",
+        "column": "q0.975",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 10.599495210117563,
+        "rmse_mw": 6088.00393109795,
+        "mae_mw": 5522.269208333334
+      },
+      {
+        "file": "output/forecasts/naive.csv",
+        "column": "point",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 12.780588824669476,
+        "rmse_mw": 8808.602996502907,
+        "mae_mw": 7237.976190476191
+      },
+      {
+        "file": "output/forecasts/nbeats.csv",
+        "column": "point",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 10.250556016374517,
+        "rmse_mw": 6832.893406188156,
+        "mae_mw": 5475.210494047619
+      },
+      {
+        "file": "output/forecasts/nbeats.csv",
+        "column": "q0.025",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 16.78260164763905,
+        "rmse_mw": 11365.672670276817,
+        "mae_mw": 9375.797583333333
+      },
+      {
+        "file": "output/forecasts/nbeats.csv",
+        "column": "q0.1",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 12.0427247026495,
+        "rmse_mw": 8386.329640094646,
+        "mae_mw": 6625.2265595238105
+      },
+      {
+        "file": "output/forecasts/nbeats.csv",
+        "column": "q0.5",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 10.250556016374517,
+        "rmse_mw": 6832.893406188156,
+        "mae_mw": 5475.210494047619
+      },
+      {
+        "file": "output/forecasts/nbeats.csv",
+        "column": "q0.9",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 12.657552459519067,
+        "rmse_mw": 8055.9793253066255,
+        "mae_mw": 6506.826273809524
+      },
+      {
+        "file": "output/forecasts/nbeats.csv",
+        "column": "q0.975",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 16.856808993713624,
+        "rmse_mw": 10207.015905251677,
+        "mae_mw": 8452.162095238096
+      },
+      {
+        "file": "output/forecasts/patchtst.csv",
+        "column": "point",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 7.622272182761038,
+        "rmse_mw": 6161.517626200417,
+        "mae_mw": 4384.023553571429
+      },
+      {
+        "file": "output/forecasts/patchtst.csv",
+        "column": "q0.025",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 22.538339922983567,
+        "rmse_mw": 14363.1761932617,
+        "mae_mw": 12735.028827380951
+      },
+      {
+        "file": "output/forecasts/patchtst.csv",
+        "column": "q0.1",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 14.322047031727763,
+        "rmse_mw": 9740.020294962706,
+        "mae_mw": 8117.397208333334
+      },
+      {
+        "file": "output/forecasts/patchtst.csv",
+        "column": "q0.5",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 7.622272182761038,
+        "rmse_mw": 6161.517626200417,
+        "mae_mw": 4384.023553571429
+      },
+      {
+        "file": "output/forecasts/patchtst.csv",
+        "column": "q0.9",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 11.503293239485503,
+        "rmse_mw": 6554.535838721905,
+        "mae_mw": 5783.668386904762
+      },
+      {
+        "file": "output/forecasts/patchtst.csv",
+        "column": "q0.975",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 20.2129119062081,
+        "rmse_mw": 11115.969943092903,
+        "mae_mw": 10025.91355952381
+      },
+      {
+        "file": "output/forecasts/prophet.csv",
+        "column": "point",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 7.613812628232619,
+        "rmse_mw": 4878.173155508949,
+        "mae_mw": 3798.0410654761904
+      },
+      {
+        "file": "output/forecasts/prophet.csv",
+        "column": "q0.025",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 15.504138776823423,
+        "rmse_mw": 9159.438549806662,
+        "mae_mw": 8134.269797619047
+      },
+      {
+        "file": "output/forecasts/prophet.csv",
+        "column": "q0.1",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 11.905623224680834,
+        "rmse_mw": 7281.3422659517055,
+        "mae_mw": 6197.029833333332
+      },
+      {
+        "file": "output/forecasts/prophet.csv",
+        "column": "q0.5",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 7.628117321120928,
+        "rmse_mw": 4896.33781881444,
+        "mae_mw": 3803.964553571428
+      },
+      {
+        "file": "output/forecasts/prophet.csv",
+        "column": "q0.9",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 9.093020392517237,
+        "rmse_mw": 5733.748304223806,
+        "mae_mw": 4522.120297619047
+      },
+      {
+        "file": "output/forecasts/prophet.csv",
+        "column": "q0.975",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 12.032009546049657,
+        "rmse_mw": 7240.096580455198,
+        "mae_mw": 6056.785011904762
+      },
+      {
+        "file": "output/forecasts/sarima.csv",
+        "column": "point",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 12.341777291318614,
+        "rmse_mw": 8744.336255870008,
+        "mae_mw": 7048.724666666666
+      },
+      {
+        "file": "output/forecasts/sarima.csv",
+        "column": "q0.025",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 26.657987004889804,
+        "rmse_mw": 15872.743962378136,
+        "mae_mw": 14654.697922619049
+      },
+      {
+        "file": "output/forecasts/sarima.csv",
+        "column": "q0.1",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 21.57578773575298,
+        "rmse_mw": 13297.068990886524,
+        "mae_mw": 11967.922839285715
+      },
+      {
+        "file": "output/forecasts/sarima.csv",
+        "column": "q0.5",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 12.341777291318614,
+        "rmse_mw": 8744.336255870008,
+        "mae_mw": 7048.724666666666
+      },
+      {
+        "file": "output/forecasts/sarima.csv",
+        "column": "q0.9",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 7.303123933500137,
+        "rmse_mw": 5521.675612831541,
+        "mae_mw": 4055.9249761904757
+      },
+      {
+        "file": "output/forecasts/sarima.csv",
+        "column": "q0.975",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 8.35595537458313,
+        "rmse_mw": 5306.794143030891,
+        "mae_mw": 4343.239833333333
+      }
+    ],
+    "metrics_json": {
+      "winner": "lightgbm",
+      "models": {
+        "lightgbm": 5.0251,
+        "prophet": 7.6138,
+        "patchtst": 7.6223,
+        "nbeats": 10.2506,
+        "sarima": 12.3418,
+        "naive": 12.7806
+      },
+      "coverage_80": 0.5714,
+      "coverage_95": 0.9405
+    }
   },
   "fable51_L3_r2": {
     "candidates": [],
-    "metrics_json": null
+    "metrics_json": {
+      "winner": "lightgbm",
+      "models": {
+        "lightgbm": 4.9935,
+        "prophet": 7.8989,
+        "patchtst": 9.1286,
+        "nbeats": 10.5516,
+        "naive": 12.7806,
+        "sarima": 14.9934
+      },
+      "coverage_80": 0.506,
+      "coverage_95": 0.9167
+    }
   },
   "fable51_L3_r3": {
+    "candidates": [
+      {
+        "file": "output/forecasts.csv",
+        "column": "observed_mw",
+        "is_actual": true,
+        "alignment": "timestamp"
+      },
+      {
+        "file": "output/forecasts.csv",
+        "column": "naive_point_mw",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 12.780588824669476,
+        "rmse_mw": 8808.602996502907,
+        "mae_mw": 7237.976190476191
+      },
+      {
+        "file": "output/forecasts.csv",
+        "column": "sarima_point_mw",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 15.550891309407092,
+        "rmse_mw": 9512.971390278744,
+        "mae_mw": 8372.917857142857
+      },
+      {
+        "file": "output/forecasts.csv",
+        "column": "sarima_q0.025_mw",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 30.13780603199661,
+        "rmse_mw": 17209.188684232733,
+        "mae_mw": 16147.599999999999
+      },
+      {
+        "file": "output/forecasts.csv",
+        "column": "sarima_q0.1_mw",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 24.87153400393757,
+        "rmse_mw": 14481.926030086359,
+        "mae_mw": 13367.194642857145
+      },
+      {
+        "file": "output/forecasts.csv",
+        "column": "sarima_q0.5_mw",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 15.550891309407092,
+        "rmse_mw": 9512.971390278744,
+        "mae_mw": 8372.917857142857
+      },
+      {
+        "file": "output/forecasts.csv",
+        "column": "sarima_q0.9_mw",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 8.491835501653885,
+        "rmse_mw": 5372.204451929704,
+        "mae_mw": 4392.547619047619
+      },
+      {
+        "file": "output/forecasts.csv",
+        "column": "sarima_q0.975_mw",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 7.192565367391445,
+        "rmse_mw": 4421.094443168645,
+        "mae_mw": 3553.5744047619046
+      },
+      {
+        "file": "output/forecasts.csv",
+        "column": "prophet_point_mw",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 7.835011644501027,
+        "rmse_mw": 4760.736144926239,
+        "mae_mw": 3955.141071428571
+      },
+      {
+        "file": "output/forecasts.csv",
+        "column": "prophet_q0.025_mw",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 13.113889331981413,
+        "rmse_mw": 7721.21894560774,
+        "mae_mw": 6820.1446428571435
+      },
+      {
+        "file": "output/forecasts.csv",
+        "column": "prophet_q0.1_mw",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 10.585187260635294,
+        "rmse_mw": 6332.104922906946,
+        "mae_mw": 5461.854166666666
+      },
+      {
+        "file": "output/forecasts.csv",
+        "column": "prophet_q0.5_mw",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 7.844332751573675,
+        "rmse_mw": 4771.160663553522,
+        "mae_mw": 3958.5446428571427
+      },
+      {
+        "file": "output/forecasts.csv",
+        "column": "prophet_q0.9_mw",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 8.113516183172871,
+        "rmse_mw": 5565.565858537144,
+        "mae_mw": 4057.564285714286
+      },
+      {
+        "file": "output/forecasts.csv",
+        "column": "prophet_q0.975_mw",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 10.150910297317358,
+        "rmse_mw": 6729.812116049113,
+        "mae_mw": 5112.330357142858
+      },
+      {
+        "file": "output/forecasts.csv",
+        "column": "lightgbm_point_mw",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 5.532059189448439,
+        "rmse_mw": 3814.281533443625,
+        "mae_mw": 3046.0839285714287
+      },
+      {
+        "file": "output/forecasts.csv",
+        "column": "lightgbm_q0.025_mw",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 5.022469344783488,
+        "rmse_mw": 3624.2771877809028,
+        "mae_mw": 2670.077976190476
+      },
+      {
+        "file": "output/forecasts.csv",
+        "column": "lightgbm_q0.1_mw",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 3.8810771526774825,
+        "rmse_mw": 2748.3175886522354,
+        "mae_mw": 2072.2428571428572
+      },
+      {
+        "file": "output/forecasts.csv",
+        "column": "lightgbm_q0.5_mw",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 5.303858431022731,
+        "rmse_mw": 3665.934263505722,
+        "mae_mw": 2912.6994047619046
+      },
+      {
+        "file": "output/forecasts.csv",
+        "column": "lightgbm_q0.9_mw",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 8.015469164590657,
+        "rmse_mw": 4745.379140925513,
+        "mae_mw": 4273.324404761905
+      },
+      {
+        "file": "output/forecasts.csv",
+        "column": "lightgbm_q0.975_mw",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 10.22266626358348,
+        "rmse_mw": 5820.26625612118,
+        "mae_mw": 5332.341666666666
+      },
+      {
+        "file": "output/forecasts.csv",
+        "column": "nbeats_point_mw",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 9.757453680955058,
+        "rmse_mw": 6343.290673218474,
+        "mae_mw": 5135.368452380952
+      },
+      {
+        "file": "output/forecasts.csv",
+        "column": "nbeats_q0.025_mw",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 16.314997270791736,
+        "rmse_mw": 10422.411573529214,
+        "mae_mw": 8992.900595238096
+      },
+      {
+        "file": "output/forecasts.csv",
+        "column": "nbeats_q0.1_mw",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 11.36481578678946,
+        "rmse_mw": 7799.544744513404,
+        "mae_mw": 6260.915476190475
+      },
+      {
+        "file": "output/forecasts.csv",
+        "column": "nbeats_q0.5_mw",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 9.757453680955058,
+        "rmse_mw": 6343.290673218474,
+        "mae_mw": 5135.368452380952
+      },
+      {
+        "file": "output/forecasts.csv",
+        "column": "nbeats_q0.9_mw",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 12.11001018693379,
+        "rmse_mw": 7932.656426680158,
+        "mae_mw": 6087.4517857142855
+      },
+      {
+        "file": "output/forecasts.csv",
+        "column": "nbeats_q0.975_mw",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 16.278615168959426,
+        "rmse_mw": 10018.484137348205,
+        "mae_mw": 8131.917261904762
+      },
+      {
+        "file": "output/forecasts.csv",
+        "column": "patchtst_point_mw",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 7.223763345210581,
+        "rmse_mw": 5007.448255040162,
+        "mae_mw": 3887.219047619048
+      },
+      {
+        "file": "output/forecasts.csv",
+        "column": "patchtst_q0.025_mw",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 18.598556317206697,
+        "rmse_mw": 12341.397006156614,
+        "mae_mw": 10589.42142857143
+      },
+      {
+        "file": "output/forecasts.csv",
+        "column": "patchtst_q0.1_mw",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 12.550612995614369,
+        "rmse_mw": 8813.081540302002,
+        "mae_mw": 7122.325595238096
+      },
+      {
+        "file": "output/forecasts.csv",
+        "column": "patchtst_q0.5_mw",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 7.223763345210581,
+        "rmse_mw": 5007.448255040162,
+        "mae_mw": 3887.219047619048
+      },
+      {
+        "file": "output/forecasts.csv",
+        "column": "patchtst_q0.9_mw",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 20.4389501887333,
+        "rmse_mw": 11796.258498362036,
+        "mae_mw": 10536.079166666666
+      },
+      {
+        "file": "output/forecasts.csv",
+        "column": "patchtst_q0.975_mw",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 30.169238722748766,
+        "rmse_mw": 16541.741317310265,
+        "mae_mw": 15567.804761904763
+      }
+    ],
+    "metrics_json": {
+      "winner": "lightgbm",
+      "models": {
+        "lightgbm": 5.532064735320086,
+        "patchtst": 7.223760453571701,
+        "prophet": 7.835008992770473,
+        "nbeats": 9.757460367519334,
+        "naive": 12.780588824669476,
+        "sarima": 15.550897036071982
+      },
+      "coverage_80": 0.4880952380952381,
+      "coverage_95": 0.8333333333333334
+    }
+  },
+  "gpt55_L1_r1": {
+    "candidates": [
+      {
+        "file": "output/forecast_de_load_2020-01-01_to_2020-01-07.csv",
+        "column": "forecast_DE_load_actual_entsoe_transparency_MW",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 4.200836107974604,
+        "rmse_mw": 3246.3322081748397,
+        "mae_mw": 2268.2916666666665
+      }
+    ],
+    "metrics_json": null
+  },
+  "gpt55_L1_r2": {
+    "candidates": [
+      {
+        "file": "output/forecast_jan2020_week1.csv",
+        "column": "forecast_de_load_mw",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 4.575929921578813,
+        "rmse_mw": 3096.850652256411,
+        "mae_mw": 2471.0857142857153
+      }
+    ],
+    "metrics_json": null
+  },
+  "gpt55_L1_r3": {
+    "candidates": [
+      {
+        "file": "output/forecast_jan1_7_2020_de_load.csv",
+        "column": "DE_load_forecast",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 9.483605283050386,
+        "rmse_mw": 5820.289973973027,
+        "mae_mw": 4929.095833333333
+      }
+    ],
+    "metrics_json": null
+  },
+  "gpt55_L2_r1": {
+    "candidates": [],
+    "metrics_json": null
+  },
+  "gpt55_L2_r2": {
+    "candidates": [],
+    "metrics_json": null
+  },
+  "gpt55_L2_r3": {
+    "candidates": [],
+    "metrics_json": null
+  },
+  "gpt55_L3_r1": {
+    "candidates": [],
+    "metrics_json": null
+  },
+  "gpt55_L3_r2": {
+    "candidates": [],
+    "metrics_json": {
+      "winner": "lightgbm",
+      "models": {
+        "naive": 12.7806,
+        "sarima": 12.5169,
+        "prophet": 7.6138,
+        "lightgbm": 3.7673,
+        "nbeats": 9.841,
+        "patchtst": 7.8667
+      },
+      "coverage_80": 72.0238,
+      "coverage_95": 89.881
+    }
+  },
+  "gpt55_L3_r3": {
     "candidates": [],
     "metrics_json": null
   },
@@ -413,6 +1129,84 @@
     "metrics_json": null
   },
   "opus5_L3_r1": {
+    "candidates": [],
+    "metrics_json": {
+      "winner": "lightgbm",
+      "models": {
+        "lightgbm": 5.457139102482142,
+        "prophet": 7.613812590065695,
+        "patchtst": 10.780843159460522,
+        "nbeats": 11.056637915350317,
+        "sarima": 11.438534787746182,
+        "naive": 12.780588824669476
+      },
+      "coverage_80": 0.5357142857142857,
+      "coverage_95": 0.9166666666666666
+    }
+  },
+  "sol_L1_r1": {
+    "candidates": [
+      {
+        "file": "output/forecast_jan_2020.csv",
+        "column": "DE_load_forecast_mw",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 3.561635914915659,
+        "rmse_mw": 2374.572321743534,
+        "mae_mw": 1888.7488095238095
+      }
+    ],
+    "metrics_json": null
+  },
+  "sol_L1_r2": {
+    "candidates": [
+      {
+        "file": "output/forecast_jan_2020.csv",
+        "column": "DE_load_forecast",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 2.4140582808599818,
+        "rmse_mw": 1703.2424754853957,
+        "mae_mw": 1279.8374999999999
+      }
+    ],
+    "metrics_json": null
+  },
+  "sol_L1_r3": {
+    "candidates": [
+      {
+        "file": "output/forecast_first_week_2020.csv",
+        "column": "DE_load_forecast",
+        "is_actual": false,
+        "alignment": "timestamp",
+        "mape_pct": 3.4487652263734714,
+        "rmse_mw": 2350.4983807011167,
+        "mae_mw": 1864.5017857142857
+      }
+    ],
+    "metrics_json": null
+  },
+  "sol_L2_r1": {
+    "candidates": [],
+    "metrics_json": null
+  },
+  "sol_L2_r2": {
+    "candidates": [],
+    "metrics_json": null
+  },
+  "sol_L2_r3": {
+    "candidates": [],
+    "metrics_json": null
+  },
+  "sol_L3_r1": {
+    "candidates": [],
+    "metrics_json": null
+  },
+  "sol_L3_r2": {
+    "candidates": [],
+    "metrics_json": null
+  },
+  "sol_L3_r3": {
     "candidates": [],
     "metrics_json": null
   }

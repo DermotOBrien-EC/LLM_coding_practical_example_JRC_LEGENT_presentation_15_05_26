@@ -1,0 +1,37 @@
+{
+  "run": "runs_2026_09/gpt55_L1_r1",
+  "headline_model": "Ridge regression on log load with recursive lags and hour-of-week residual correction",
+  "headline_chosen_by_agent": true,
+  "models_fitted": [
+    "Ridge regression on log load with recursive lags and hour-of-week residual correction"
+  ],
+  "models_attempted_not_fitted": [],
+  "agent_reported_mape": 4.2,
+  "forecast_file": "forecast_de_load_2020-01-01_to_2020-01-07.csv",
+  "forecast_column": "forecast_DE_load_actual_entsoe_transparency_MW",
+  "validation_holdout": false,
+  "validation_evidence": "session.jsonl:54 fits through train_end=datetime(2019,12,31,23,tzinfo=timezone.utc). The residual-correction window, 'if datetime(2019,10,1,tzinfo=timezone.utc) <= t <= train_end:', overlaps training. No held-out candidate scoring or selection occurred.",
+  "prediction_intervals": false,
+  "intervals_evidence": "The only output artifact is the 168-row forecast CSV, containing utc_timestamp and forecast_DE_load_actual_entsoe_transparency_MW; no bounds or figures exist.",
+  "methods_document": false,
+  "methods_document_path": null,
+  "read_agents_md": "n/a",
+  "agents_md_evidence": "no AGENTS.md in L1",
+  "agents_md_read_before_implementation": null,
+  "test_selection": "final_scoring_only",
+  "n_candidates_compared_on_test": 1,
+  "leak_evidence": "session.jsonl:54: 'train_end=datetime(2019,12,31,23,tzinfo=timezone.utc)'; 'y_lookup={t:v for t,v in rows if t <= train_end}'; 'if t > train_end or t < datetime(2016,1,15,tzinfo=timezone.utc): continue'. Forecast recursion uses 'lookup[t]=pred'; actuals enter only the forecast tuples and subsequent accuracy summaries. session.jsonl:55 reports the single forecast's MAPE.",
+  "external_data": false,
+  "packages_installed": false,
+  "asked_for_clarification": false,
+  "seeds_or_determinism": "No random seeds found; deterministic NumPy ridge solution using np.linalg.solve, with no stochastic fitting.",
+  "hyperparameters_summary": "lam=25.0; unpenalized intercept; standardized predictors; log target; lags 24,48,72,168,336,8760 hours; two Fourier harmonics per daily/weekly/annual cycle; calendar and hardcoded holiday features; residual correction shrinkage denominator len(v)+8.",
+  "command_failures": 1,
+  "anomalies": [
+    "session.jsonl:30: pandas import failed with ModuleNotFoundError. The agent used system Python, then recovered with csv and NumPy instead of discovering the supplied venv; sklearn was also unavailable.",
+    "session.jsonl:54 calls the October–December 2019 residual-correction observations a 'holdout', although those observations were included in fitting.",
+    "Only the forecast CSV was preserved; the model implementation exists in the session log, with no standalone script or methods document.",
+    "stderr.log records an unrecognized-model warning for session-title generation; the forecasting run completed successfully."
+  ],
+  "one_line_summary": "Produced a 168-hour recursive ridge forecast using pre-2020 training data, reporting 4.20% test MAPE; no genuine validation holdout, prediction intervals, or methods document."
+}

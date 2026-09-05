@@ -1,0 +1,3 @@
+Should all six models make a **single 168-hour forecast issued at 2019-12-31 23:00 UTC**, without seeing any observations from the test week?
+
+This matters for LightGBM: after the first 24 forecast hours, `lag_24h` and rolling statistics must use earlier **predictions**, not held-out actuals. The alternative is a rolling forecast updated with newly observed loads, which answers a different, easier forecasting question. Your specified 168-hour neural-model outputs suggest the single-forecast interpretation.

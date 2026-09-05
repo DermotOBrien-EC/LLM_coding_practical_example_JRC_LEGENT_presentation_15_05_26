@@ -399,6 +399,42 @@ the session log before it enters `RESULTS.md`.
   (`resume_run.sh`, its preserved sandbox and session id intact) beside a
   fresh `fable51 L3 r1`. Pair B: `fable51 L3 r2` + `r3` through the gate.
   Outcomes are recorded in `RESULTS.md` section 6.
+- **2026-09-05 22:27 local, Extension A canary, counted.** `astra L1 r1`
+  alone through the gateway (section 11), after the Astra review of the
+  extension was folded (commit `e68abb2`). The route worked: the session
+  started on `gpt-6-astra` in auto mode with 28 tools and no connectors,
+  three tool calls executed, no permission was denied, a result event
+  arrived and the harvest ran. The model then did something no Claude
+  session did on this prompt: after inspecting the data it asked whether
+  "first week" meant UTC or German local time and ended its turn, 35
+  seconds in, with no forecast written. Nobody answers in this harness, so
+  the run counts as it stands: incomplete, no recoverable outcome, with the
+  clarifying question recorded. The driver for `ext_waveA` and `ext_waveB`
+  was started at 22:30.
+- **2026-09-05 22:29 to 23:00 local, `ext_waveA`, 17 runs, all counted.**
+  Six at a time through the gateway; every run ended with a result event
+  and exit 0, no void, no API error, no rate limit. Twelve of the seventeen
+  ended on a clarifying question or a plan with no forecast written (all
+  five remaining Astra runs, Sol L2 r1 to r3, GPT-5.5 L2 r1 to r3); the six
+  L1 runs of Sol and GPT-5.5 wrote a forecast. `RESULTS.md` section 8.
+- **2026-09-05 23:00 to 2026-09-06 00:19 local, `ext_waveB`, 9 L3 runs,
+  all counted.** Two at a time, interleaved by model. Eight ended on a
+  question or a plan (Astra r1 and r2 after no tool call, 23 and 24
+  seconds; Astra r3, Sol r1 to r3 and GPT-5.5 r1 and r3 after verifying
+  the data); GPT-5.5 r2 completed the study in 61 minutes. No resume was
+  needed. `RESULTS.md` section 8.
+- **2026-09-06 00:30 to 02:00 local, post-processing.** Summariser, scorer
+  (27 `scoring.json` entries), independent reader on the 27 named
+  extension runs (Astra, `assess_fleet.sh` with names, never `all`),
+  figure builder (the MAPE figure now carries the extension points and a
+  second figure, `exp-extension-outcomes.png`, shows how each of the 39
+  sessions ended). `git diff` of the twelve Claude runs' directories and of
+  their rows in `results.csv` and `RESULTS_table.md` is empty, as section
+  11 requires. Two facts found in the audit that section 11 had flagged as
+  risks: `sol L1 r2` spawned a Claude Fable 5.1 subagent through the Agent
+  tool's explicit model alias, and `sol L1 r3` tried the operator's gateway
+  probe script, which the seatbelt blocked; both are in `RESULTS.md` 8.4
+  and in `scoring.json`. Section 11 is not edited.
 
 ## 10. Review record
 

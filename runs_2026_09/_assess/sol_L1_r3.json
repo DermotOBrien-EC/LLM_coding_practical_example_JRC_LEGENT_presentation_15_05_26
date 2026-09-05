@@ -1,0 +1,43 @@
+{
+  "run": "sol_L1_r3",
+  "headline_model": "Ensemble of calendar-aware ridge regression and year-over-year seasonal analogues",
+  "headline_chosen_by_agent": true,
+  "models_fitted": [
+    "Calendar-aware ridge regression",
+    "Scaled seasonal analogue with recent weekday averaging",
+    "Ridge and seasonal analogue ensemble"
+  ],
+  "models_attempted_not_fitted": [],
+  "agent_reported_mape": null,
+  "forecast_file": "forecast_first_week_2020.csv",
+  "forecast_column": "DE_load_forecast",
+  "validation_holdout": true,
+  "validation_evidence": "session.jsonl:190 executes blend selection with 'for year in (2017,2018,2019)' and 'for weight in [i/20 for i in range(21)]', scoring 168-hour January forecasts. Line 191 reports the lowest pooled WAPE at ridge_weight=0.70 (4.091%); line 233 writes that 0.7/0.3 blend. Ridge hyperparameters were also backtested on pre-2020 origins (lines 166, 169, 176).",
+  "prediction_intervals": false,
+  "intervals_evidence": "The sole output artifact, forecast_first_week_2020.csv, contains only utc_timestamp and DE_load_forecast; no interval files or figures exist.",
+  "methods_document": false,
+  "methods_document_path": null,
+  "read_agents_md": "n/a",
+  "agents_md_evidence": "no AGENTS.md in L1",
+  "agents_md_read_before_implementation": null,
+  "test_selection": "final_scoring_only",
+  "n_candidates_compared_on_test": 1,
+  "leak_evidence": "session.jsonl:166 defines ridge training with 'while cursor < cutoff:' and prediction lags 'lag_days = [7, 14, 21, 28, 35, 42, 49, 56, 364, 365]'. Line 233 sets 'cutoff=dt.datetime(2020,1,1,tzinfo=rn[\"UTC\"])' and forecasts 168 hours. Seasonal code at line 96 uses prior-year values and recent lags restricted to '< cutoff'. The frozen ensemble CSV is scored only afterward at lines 250–251; component forecasts at lines 203–204 are summarized without test actuals or error metrics.",
+  "external_data": false,
+  "packages_installed": false,
+  "asked_for_clarification": false,
+  "seeds_or_determinism": "none found",
+  "hyperparameters_summary": "70% ridge + 30% seasonal analogue; ridge uses 24 hourly models, 3-year lookback, penalty 1.0, standardized calendar/lag features; seasonal uses 75% scaled lag-364d + 25% weekday average over weeks 3–8, median scaling over days 70–21 before cutoff, New Year override enabled, Epiphany override disabled.",
+  "command_failures": 5,
+  "anomalies": [
+    "Reported WAPE 3.492% and MAE 1864.5 MW, not MAPE.",
+    "System Python lacked pandas and several forecasting libraries; the agent used standard-library Python and NumPy without locating the supplied venv.",
+    "The initial seasonal backtest failed on an empty scaling sample for 2016; the agent changed the validation years to 2017–2019 and reran successfully.",
+    "Wrote and edited /tmp/forecast_eval.py and /tmp/ridge_eval.py outside the sandbox work directory; these scripts are present only in the transcript, not harvested output.",
+    "Writing /tmp/blend_eval.py was denied because the permission classifier was unavailable; blend evaluation subsequently ran through an inline shell command.",
+    "A diagnostic command failed with an unterminated-string SyntaxError and was retried successfully.",
+    "The Fable peer-review probe failed because /Users/doob/cliproxyapi/config.yaml was unreadable.",
+    "Five failed tool results comprise four Bash failures and one Write denial. Several commands specified 120000 or 600000 ms timeouts; no timeout termination was observed."
+  ],
+  "one_line_summary": "Selected a ridge–seasonal ensemble using pre-2020 backtests, saved all 168 hourly forecasts, and scored the frozen result once, reporting 3.492% WAPE without MAPE, intervals, or a methods document."
+}

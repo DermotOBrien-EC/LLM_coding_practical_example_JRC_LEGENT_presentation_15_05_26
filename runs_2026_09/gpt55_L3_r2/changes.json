@@ -1,0 +1,42 @@
+{
+  "added": [
+    ".venv/lib/python3.12/site-packages/darts/utils/__pycache__/callbacks.cpython-312.pyc",
+    "runs/e69b26/code",
+    "runs/e69b26/code/__pycache__",
+    "runs/e69b26/code/__pycache__/common.cpython-312.pyc",
+    "runs/e69b26/code/__pycache__/forecast.cpython-312.pyc",
+    "runs/e69b26/code/__pycache__/lightgbm_features.cpython-312.pyc",
+    "runs/e69b26/code/__pycache__/naive.cpython-312.pyc",
+    "runs/e69b26/code/__pycache__/nbeats.cpython-312.pyc",
+    "runs/e69b26/code/__pycache__/patchtst.cpython-312.pyc",
+    "runs/e69b26/code/__pycache__/prophet.cpython-312.pyc",
+    "runs/e69b26/code/__pycache__/sarima.cpython-312.pyc",
+    "runs/e69b26/code/common.py",
+    "runs/e69b26/code/forecast.py",
+    "runs/e69b26/code/lightgbm_features.py",
+    "runs/e69b26/code/naive.py",
+    "runs/e69b26/code/nbeats.py",
+    "runs/e69b26/code/patchtst.py",
+    "runs/e69b26/code/prophet.py",
+    "runs/e69b26/code/sarima.py",
+    "runs/e69b26/figures",
+    "runs/e69b26/figures/01_overview.png",
+    "runs/e69b26/figures/02_forecast_comparison.png",
+    "runs/e69b26/figures/03_metric_comparison.png",
+    "runs/e69b26/figures/04_per_day_mape.png",
+    "runs/e69b26/figures/05_winner_with_intervals.png",
+    "runs/e69b26/figures/06_residuals.png",
+    "runs/e69b26/figures/07_feature_importance.png",
+    "runs/e69b26/figures/08_decomposition.png",
+    "runs/e69b26/metrics.csv",
+    "runs/e69b26/metrics.json",
+    "runs/e69b26/transcript.md"
+  ],
+  "modified": [],
+  "deleted": [],
+  "counts": {
+    "added": 31,
+    "modified": 0,
+    "deleted": 0
+  }
+}

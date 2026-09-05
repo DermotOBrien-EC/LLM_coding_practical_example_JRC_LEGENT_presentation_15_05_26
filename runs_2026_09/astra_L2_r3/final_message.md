@@ -1,0 +1,1 @@
+Should this be **one forecast of all 168 hours made before 2020-01-01**, using no actual January data until evaluation, or a rolling forecast updated as each day’s actual load becomes available? The first tests week-ahead planning; the second tests daily updating and is usually easier to predict accurately.

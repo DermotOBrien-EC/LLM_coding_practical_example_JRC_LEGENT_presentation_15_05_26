@@ -1,0 +1,1 @@
+Should the target week be interpreted in **UTC**, matching the CSV timestamps directly, or in **German local time (`Europe/Berlin`)**? In January, local time is UTC+1, so the selected 168 observations differ by one hour.

@@ -137,8 +137,31 @@ def main(argv: list[str]) -> int:
     check("every L2 run read AGENTS.md (summary)", all(s.get("agents_md_read") == "yes" for s in l2),
           str({s['run']: s.get('agents_md_read') for s in l2}))
 
+    # Extension A slide (DESIGN.md section 11): outcome counts from scoring.json
+    ext = {run: sc for run, sc in scoring.items() if sc.get("model_tag") in ("astra", "sol", "gpt55")}
+    if ext:
+        stopped = sum(str(sc.get("headline_model", "")).startswith("none (") for sc in ext.values())
+        check(f"extension slide quotes '{stopped} of {len(ext)}' sessions stopped without a forecast",
+              f"**{stopped} of {len(ext)}**" in deck)
+        claude = [sc for sc in scoring.values() if sc.get("model_tag") in ("fable51", "opus5")]
+        claude_stopped = sum(str(sc.get("headline_model", "")).startswith("none (") for sc in claude)
+        check(f"extension slide quotes the Claude arm as '{claude_stopped} of {len(claude)}'",
+              f"**{claude_stopped} of {len(claude)}**" in deck)
+        astra = [sc for sc in ext.values() if sc.get("model_tag") == "astra"]
+        astra_asked = sum(str(sc.get("headline_model", "")).startswith("none (asked") for sc in astra)
+        check(f"extension slide quotes Astra asking in '{astra_asked} of {len(astra)}'",
+              f"**{astra_asked} of {len(astra)}**" in deck)
+        written = sorted(float(r["mape_pct"]) for run, r in results.items()
+                         if r["model_tag"] in ("astra", "sol", "gpt55") and r.get("mape_pct") not in (None, "")
+                         and r.get("source") == "recomputed" and r["level"] == "L1")
+        if written:
+            expect = f"L1 **{fmt1(written[0])} to {fmt1(written[-1])}**"
+            check(f"accuracy caption quotes OpenAI L1 as '{expect}'", expect in deck)
+        check("extension outcomes figure exists",
+              (Path(argv[0]).parent / "figures" / "exp-extension-outcomes.png").exists())
+
     # Figures referenced exist
-    for fig in re.findall(r"!\[\]\((figures/exp-rerun-[^)]+)\)", deck):
+    for fig in re.findall(r"!\[\]\((figures/exp-(?:rerun|extension)-[^)]+)\)", deck):
         check(f"figure exists {fig}", (Path(argv[0]).parent / fig).exists())
 
     # No em-dashes in the re-run slides (author rule)

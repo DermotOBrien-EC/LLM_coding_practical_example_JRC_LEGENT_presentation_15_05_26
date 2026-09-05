@@ -1,0 +1,33 @@
+{
+  "run": "astra_L3_r1",
+  "headline_model": "none",
+  "headline_chosen_by_agent": false,
+  "models_fitted": [],
+  "models_attempted_not_fitted": [],
+  "agent_reported_mape": null,
+  "forecast_file": null,
+  "forecast_column": null,
+  "validation_holdout": false,
+  "validation_evidence": "session.jsonl contains no tool_use blocks or executed code; no validation candidates were scored.",
+  "prediction_intervals": false,
+  "intervals_evidence": "output/ and output_outside/ are empty.",
+  "methods_document": false,
+  "methods_document_path": null,
+  "read_agents_md": "no",
+  "agents_md_evidence": "Inspected every session.jsonl event for tool_use blocks, including Read and read-capable shell commands naming AGENTS.md; no tool calls occurred.",
+  "agents_md_read_before_implementation": null,
+  "test_selection": "indeterminate",
+  "n_candidates_compared_on_test": 0,
+  "leak_evidence": "No training split or executed code exists. final_message.md asks: 'should all 168 test predictions be issued together at 2020-01-01 00:00 UTC, with no updates from observed test loads?'",
+  "external_data": false,
+  "packages_installed": false,
+  "asked_for_clarification": true,
+  "seeds_or_determinism": "none found",
+  "hyperparameters_summary": "No model implemented.",
+  "command_failures": 0,
+  "anomalies": [
+    "The run ended after asking for confirmation of the forecast protocol; it produced no implementation or forecast artifacts.",
+    "stderr.log reports disabled claude.ai connectors and an unrecognized_model warning for gpt-6-astra during session-title generation; the session nevertheless completed successfully."
+  ],
+  "one_line_summary": "The agent asked whether forecasting should use a fixed origin or rolling updates, then stopped without tool calls, fitted models, forecasts, metrics, or output files."
+}

@@ -1,0 +1,33 @@
+{
+  "run": "runs_2026_09/astra_L1_r3",
+  "headline_model": "none",
+  "headline_chosen_by_agent": false,
+  "models_fitted": [],
+  "models_attempted_not_fitted": [],
+  "agent_reported_mape": null,
+  "forecast_file": null,
+  "forecast_column": null,
+  "validation_holdout": false,
+  "validation_evidence": "session.jsonl:2-10 contains only workspace listing, reading the CSV header, and checking coverage and missing values; no models or validation scores were produced.",
+  "prediction_intervals": false,
+  "intervals_evidence": "output/ and output_outside/ are empty; no forecast bounds or figures were produced.",
+  "methods_document": false,
+  "methods_document_path": null,
+  "read_agents_md": "n/a",
+  "agents_md_evidence": "no AGENTS.md in L1",
+  "agents_md_read_before_implementation": null,
+  "test_selection": "indeterminate",
+  "n_candidates_compared_on_test": 0,
+  "leak_evidence": "No training split or scoring code executed. final_message.md states the intention to use 'only observations before the forecast starts', but the run stopped at a clarification question.",
+  "external_data": false,
+  "packages_installed": false,
+  "asked_for_clarification": true,
+  "seeds_or_determinism": "none found",
+  "hyperparameters_summary": "No model configured or fitted.",
+  "command_failures": 0,
+  "anomalies": [
+    "The run ended by asking whether the first week meant UTC or German local time; it produced no forecast or output files.",
+    "stderr.log reports disabled Claude connectors and an unrecognized_model warning for generate_session_title; the session nevertheless completed successfully."
+  ],
+  "one_line_summary": "The agent inspected CSV coverage and missing values, then asked whether to use UTC or German local time, without fitting a model or producing a forecast."
+}
