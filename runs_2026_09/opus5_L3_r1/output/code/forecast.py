@@ -428,7 +428,11 @@ def figure_decomposition(result: c.ForecastResult) -> None:
             ax.plot(range(len(one_day)), one_day[column].to_numpy(), color=color, linewidth=1.3)
             ax.set_xticks(range(0, 24, 3))
             ax.set_xlabel("Hour of day (UTC)")
-        ax.axhline(0.0, color="0.6", linewidth=0.8, linestyle="--")
+        if column != "trend":
+            # A zero line is meaningful for the components, which are
+            # deviations, but not for the trend, which sits near 55,000 MW and
+            # would be flattened against it.
+            ax.axhline(0.0, color="0.6", linewidth=0.8, linestyle="--")
         ax.set_ylabel(ylabel)
         ax.set_title(subtitle, fontsize=10)
 

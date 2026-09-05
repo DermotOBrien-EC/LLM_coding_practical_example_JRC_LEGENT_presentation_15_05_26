@@ -35,6 +35,7 @@ import shlex
 import sys
 from collections import Counter
 from dataclasses import asdict, dataclass, field
+from datetime import datetime
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -350,6 +351,11 @@ def summarise(run_dir: Path) -> RunSummary:
         s.level = meta.get("level", "")
         s.rep = int(meta.get("rep", 0))
         s.wallclock_s = int(meta.get("wallclock_seconds", 0))
+        # a resumed run's wall-clock is both attempts; the runner records only the first
+        if meta.get("resumed") and meta.get("resume_started_utc") and meta.get("resume_ended_utc"):
+            fmt = "%Y-%m-%dT%H:%M:%SZ"
+            s.wallclock_s += int((datetime.strptime(meta["resume_ended_utc"], fmt)
+                                  - datetime.strptime(meta["resume_started_utc"], fmt)).total_seconds())
         s.exit_code = meta.get("exit_code")
         s.status = meta.get("status", "")
         s.resumed = bool(meta.get("resumed", False))

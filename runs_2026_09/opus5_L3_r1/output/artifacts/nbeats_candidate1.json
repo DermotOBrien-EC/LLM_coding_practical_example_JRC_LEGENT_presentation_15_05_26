@@ -1,0 +1,9 @@
+{
+  "learning_rate": 0.0005,
+  "batch_size": 128,
+  "dropout": 0.1,
+  "candidate_index": 1,
+  "epochs_used": 16,
+  "validation_mape_pct": 5.782283472156949,
+  "seconds": 1219.5477402210236
+}

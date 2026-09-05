@@ -468,3 +468,120 @@ def rolling_origin_mape_torch(model: Any, scaled_full: Any, scaler: Any, actual:
         observed = actual.loc[block].to_numpy(dtype=float)
         errors.append(np.abs((observed - predicted) / observed))
     return float(np.mean(np.concatenate(errors)) * 100.0)
+
+
+def deep_sweep_stage(
+    name: str,
+    build: Any,
+    candidate: dict[str, Any],
+    candidate_index: int,
+    series: pd.Series,
+    max_epochs: int,
+    patience: int,
+) -> dict[str, Any]:
+    """Train one deep-learning candidate and score it on the validation window.
+
+    Written as its own step, with its result cached to disk, so a long
+    hyperparameter search can be run one candidate at a time and picked up
+    again after an interruption.
+    """
+    import time
+
+    from darts.dataprocessing.transformers import Scaler
+
+    path = ARTIFACT_DIR / f"{name}_candidate{candidate_index}.json"
+    if path.exists():
+        return json.loads(path.read_text(encoding="utf-8"))
+
+    started = time.time()
+    train = to_darts_series(series.loc[:TRAIN_END])
+    full = to_darts_series(train_plus_val(series))
+
+    scaler = Scaler()
+    train_scaled = scaler.fit_transform(train)
+    full_scaled = scaler.transform(full)
+    # The validation series handed to early stopping needs one input window of
+    # run-up before the validation window itself, or its first target has no
+    # history to be predicted from.
+    val_scaled = full_scaled.drop_before(
+        pd.Timestamp(VAL_START.tz_localize(None)) - pd.Timedelta(hours=int(candidate["input_chunk_length"]) + 1)
+    )
+
+    set_seeds()
+    model = build(candidate, max_epochs, patience, str(ARTIFACT_DIR))
+    model.fit(train_scaled, val_series=val_scaled, verbose=False)
+    epochs_used = int(model.trainer.current_epoch)
+
+    record = {
+        **{k: v for k, v in candidate.items() if k != "input_chunk_length"},
+        "candidate_index": candidate_index,
+        "epochs_used": epochs_used,
+        "validation_mape_pct": rolling_origin_mape_torch(model, full_scaled, scaler, series),
+        "seconds": time.time() - started,
+    }
+    path.write_text(json.dumps(record, indent=2) + "\n", encoding="utf-8")
+    return record
+
+
+def deep_final_stage(
+    name: str,
+    build: Any,
+    candidates: list[dict[str, Any]],
+    series: pd.Series,
+    n_samples: int,
+    extra_hyperparameters: dict[str, Any],
+) -> ForecastResult:
+    """Refit the best candidate on train+validation and forecast the test week.
+
+    Early stopping cannot be used here: the December data that the final model
+    must learn from is the same data that would have to be held back to stop
+    on. So the model is retrained from scratch for the number of epochs the
+    winning candidate used during the search.
+    """
+    import time
+
+    from darts.dataprocessing.transformers import Scaler
+
+    started = time.time()
+    records = []
+    for index in range(len(candidates)):
+        path = ARTIFACT_DIR / f"{name}_candidate{index}.json"
+        if not path.exists():
+            raise FileNotFoundError(f"Candidate {index} for {name} has not been evaluated yet.")
+        records.append(json.loads(path.read_text(encoding="utf-8")))
+
+    best = min(records, key=lambda record: record["validation_mape_pct"])
+    best_candidate = candidates[int(best["candidate_index"])]
+
+    fitting_data = to_darts_series(train_plus_val(series))
+    scaler = Scaler()
+    fitting_scaled = scaler.fit_transform(fitting_data)
+
+    set_seeds()
+    model = build(best_candidate, max(int(best["epochs_used"]), 1), None, str(ARTIFACT_DIR))
+    model.fit(fitting_scaled, verbose=False)
+
+    prediction = scaler.inverse_transform(model.predict(n=HORIZON, num_samples=n_samples))
+    samples = np.asarray(prediction.all_values(), dtype=float)[:, 0, :]
+
+    test = series.loc[TEST_START:TEST_END]
+    quantiles = quantile_frame(test.index, samples)
+    # With a quantile-regression loss the natural point forecast is the
+    # predicted median, not the average of the sample cloud.
+    point = pd.Series(quantiles["0.5"].to_numpy(), index=test.index, name=name)
+
+    total_seconds = float(sum(record["seconds"] for record in records) + (time.time() - started))
+    return ForecastResult(
+        name=name,
+        point_forecast=point,
+        runtime_seconds=total_seconds,
+        hyperparameters={
+            **{k: v for k, v in best_candidate.items()},
+            "epochs_used_after_early_stopping": int(best["epochs_used"]),
+            "n_samples_for_intervals": n_samples,
+            **extra_hyperparameters,
+        },
+        quantile_forecast=quantiles,
+        validation_mape_pct=float(best["validation_mape_pct"]),
+        extras={"grid_search": records},
+    )

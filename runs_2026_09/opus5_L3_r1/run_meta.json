@@ -46,9 +46,9 @@
     "PATH": "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin"
   },
   "effort_flag": null,
-  "attempts": 1,
-  "resumed": false,
-  "status": "completed",
+  "attempts": 2,
+  "resumed": true,
+  "status": "completed (after resume)",
   "exit_code": 0,
   "ended_utc": "2026-09-03T21:28:30Z",
   "wallclock_seconds": 2241,
@@ -56,5 +56,10 @@
   "files_deleted_in_sandbox": [],
   "data_unchanged": true,
   "agents_md_unchanged": true,
-  "group_survivors_after_kill": false
+  "group_survivors_after_kill": false,
+  "resume_reason": "first attempt cut off by print mode's 600 s background-task wait ceiling while N-BEATS and PatchTST were training (harness limitation, not the model)",
+  "resume_started_utc": "2026-09-05T08:45:00Z",
+  "resume_message": "Continue.",
+  "resume_exit_code": 0,
+  "resume_ended_utc": "2026-09-05T09:56:08Z"
 }
