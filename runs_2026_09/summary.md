@@ -6,7 +6,9 @@
 | fable51_L2_r1 | claude-fable-5-1 | completed | success | 33 | 2464/29.6 | 4.13 | 30 | 1 | 1 | 0 | 2 | 1 | False | yes (a1:t4 / a1:t17) | 3 | 0 | 1 | 0 | 0.32 |
 | fable51_L2_r2 | claude-fable-5-1 | completed | success | 27 | 2217/20.4 | 3.53 | 44 | 2 | 1 | 0 | 0 | 1 | False | yes (a1:t4 / a1:t12) | 1 | 0 | 3 | 0 | 0.33 |
 | fable51_L2_r3 | claude-fable-5-1 | completed | success | 42 | 2098/29.9 | 4.08 | 24 | 1 | 1 | 0 | 0 | 1 | False | yes (a1:t4 / a1:t4) | 13 | 0 | 4 | 0 | 0.31 |
-| fable51_L3_r1 | claude-fable-5-1 | completed | success | 71 | 13924/58.6 | 16.16 | 97 | 8 | 8 | 0 | 2 | 7 | True | yes (a1:t4 / a1:t8) | 7 | 0 | 2 | 0 | 0.68 |
+| fable51_L3_r1 | claude-fable-5-1 | completed | success | 110 | 18469/120.0 | 16.16 | 97 | 8 | 8 | 0 | 2 | 7 | True | yes (a1:t4 / a1:t8) | 7 | 0 | 2 | 0 | 0.68 |
+| fable51_L3_r2 | claude-fable-5-1 | completed | success | 134 | 24525/138.8 | 19.82 | 126 | 8 | 8 | 0 | 1 | 1 | True | yes (a1:t6 / a1:t12) | 6 | 0 | 2 | 0 | 0.46 |
+| fable51_L3_r3 | claude-fable-5-1 | completed | success | 108 | 15454/107.1 | 14.14 | 129 | 9 | 7 | 0 | 1 | 2 | True | yes (a1:t7 / a1:t17) | 0 | 0 | 1 | 0 | 0.51 |
 | opus5_L1_r1 | claude-opus-5 | completed | success | 63 | 6651/60.5 | 6.23 | 93 | 8 | 1 | 0 | 1 | 2 | False | n/a (no AGENTS.md) (a1:t10 / a1:t5) | 0 | 0 | 6 | 0 | 0.39 |
-| opus5_L2_r1 | claude-opus-5 | completed | success | 13 | 2177/6.5 | 8.31 | 81 | 2 | 2 | 0 | 0 | 1 | False | yes (a1:t3 / a1:t5) | 1 | 0 | 1 | 0 | 0.38 |
-| opus5_L3_r1 | claude-opus-5 | completed (after resume) resumed | success | 63 | 14019/35.1 | 18.74 | 108 | 8 | 8 | 0 | 2 | 1 | True | yes (a1:t5 / a1:t12) | 26 | 0 | 6 | 0 | 0.61 |
+| opus5_L2_r1 | claude-opus-5 | completed | success | 89 | 10379/63.2 | 8.31 | 81 | 2 | 2 | 0 | 0 | 1 | False | yes (a1:t3 / a1:t5) | 1 | 0 | 1 | 0 | 0.38 |
+| opus5_L3_r1 | claude-opus-5 | completed (after resume) resumed | success | 137 | 23149/111.6 | 18.74 | 108 | 8 | 8 | 0 | 2 | 1 | True | yes (a1:t5 / a1:t12) | 26 | 0 | 6 | 0 | 0.61 |

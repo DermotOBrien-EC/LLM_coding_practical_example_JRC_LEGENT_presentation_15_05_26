@@ -216,6 +216,27 @@ its selection-free number equals its headline, 3.43 %. The audit reader
 sees the run's own final message, which usually states a MAPE, so this
 audit is done before comparison, not blind.
 
+Correction, 2026-09-05 (after the L3 cell was filled; the paragraph above
+is left as pre-registered). Reading the two September L3 implementations
+beside May's showed that the May L3 winner is `leaked` under this rule,
+not merely `test_selected`: `runs/L3/code/lightgbm_features.py` builds
+its features on the training, validation and test series concatenated
+(line 111, `pd.concat([trainval, test])`) and predicts each test hour
+from that frame (line 143), so for every test hour after the first day
+`lag_24h`, `rollmean_24h` and `rollstd_24h` are the test week's own
+actual loads. Six of the seven days were forecast with the previous day's
+observations as inputs, a day-ahead forecast, and the code's own comment
+("only timestamps used for features") is wrong for the lag and rolling
+columns. All four September L3 sessions saw the same prescribed feature
+list and forecast the week recursively, feeding their own predictions
+into the 24-hour lag; one of them (Fable r3) also scored its model the
+May way, as a labelled supplement, and got 3.71 % against its 5.53 %
+week-ahead number. May's 3.43 % therefore stands in every table as the May
+reference, flagged, and is not read as the same task as the September
+L3 numbers. The frozen prompt's own wording admits both readings ("all
+required lags must be present in the data"), so this is a finding about
+the prompt as much as about the May run.
+
 ### 5.3 Process, with file-level definitions
 
 | Item | Counts as yes only when |

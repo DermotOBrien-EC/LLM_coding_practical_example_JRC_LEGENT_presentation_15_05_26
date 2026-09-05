@@ -1,0 +1,241 @@
+{
+  "test_start": "2020-01-01",
+  "test_end": "2020-01-07",
+  "n_test_observations": 168,
+  "models": [
+    {
+      "name": "lightgbm",
+      "mape_test_pct": 5.532064735320086,
+      "rmse_test_mw": 3814.28310920832,
+      "mae_test_mw": 3046.08656170891,
+      "mape_jan1_pct": 2.2551349796504523,
+      "mape_jan2_to_jan7_pct": 6.078219694598359,
+      "per_day_mape_pct": {
+        "2020-01-01": 2.2551349796504527,
+        "2020-01-02": 1.5883820023936048,
+        "2020-01-03": 5.032251527268143,
+        "2020-01-04": 5.303726259884129,
+        "2020-01-05": 6.353369697148641,
+        "2020-01-06": 11.719257211449273,
+        "2020-01-07": 6.472331469446364
+      },
+      "validation_mape_pct": 3.0575116017799426,
+      "runtime_seconds": 68.32473295900854,
+      "hyperparameters": {
+        "num_leaves": 63,
+        "n_estimators": 800,
+        "learning_rate": 0.05,
+        "subsample": 0.8,
+        "subsample_freq": 1,
+        "colsample_bytree": 0.8,
+        "min_child_samples": 50,
+        "random_state": 42,
+        "features": [
+          "hour",
+          "day_of_week",
+          "month",
+          "is_weekend",
+          "is_public_holiday_de",
+          "lag_24h",
+          "lag_168h",
+          "lag_8736h",
+          "roll_mean_24h",
+          "roll_std_24h",
+          "roll_mean_168h",
+          "roll_std_168h"
+        ],
+        "forecast_strategy": "recursive (own predictions fed back for lags < 168 h)",
+        "quantile_objectives": [
+          0.025,
+          0.1,
+          0.5,
+          0.9,
+          0.975
+        ],
+        "candidates_scored": 6
+      }
+    },
+    {
+      "name": "patchtst",
+      "mape_test_pct": 7.223760453571701,
+      "rmse_test_mw": 5007.449473095806,
+      "mae_test_mw": 3887.2180757068454,
+      "mape_jan1_pct": 5.86765232030004,
+      "mape_jan2_to_jan7_pct": 7.449778475783646,
+      "per_day_mape_pct": {
+        "2020-01-01": 5.8676523203000395,
+        "2020-01-02": 6.503551607847662,
+        "2020-01-03": 3.7161611353403097,
+        "2020-01-04": 5.363251629126793,
+        "2020-01-05": 13.831309000474675,
+        "2020-01-06": 2.8568511353616945,
+        "2020-01-07": 12.427546346550734
+      },
+      "validation_mape_pct": 5.123941264232354,
+      "runtime_seconds": 623.1336282919947,
+      "hyperparameters": {
+        "hidden_size": 128,
+        "ff_size": 128,
+        "num_blocks": 3,
+        "dropout": 0.1,
+        "lr": 0.001,
+        "input_chunk_length": 168,
+        "output_chunk_length": 168,
+        "epochs_trained": 29,
+        "max_epochs": 30,
+        "early_stopping_patience": 5,
+        "batch_size": 1024,
+        "likelihood": "quantile regression [0.025, 0.1, 0.5, 0.9, 0.975]",
+        "scaling": "min-max on the fitting history",
+        "candidates_scored": 2
+      }
+    },
+    {
+      "name": "prophet",
+      "mape_test_pct": 7.835008992770473,
+      "rmse_test_mw": 4760.73485370974,
+      "mae_test_mw": 3955.1398120752883,
+      "mape_jan1_pct": 15.585321046883752,
+      "mape_jan2_to_jan7_pct": 6.543290317084926,
+      "per_day_mape_pct": {
+        "2020-01-01": 15.585321046883754,
+        "2020-01-02": 7.491667202701259,
+        "2020-01-03": 3.872086430597637,
+        "2020-01-04": 8.851718703042296,
+        "2020-01-05": 8.385528194710389,
+        "2020-01-06": 5.035256687789084,
+        "2020-01-07": 5.623484683668895
+      },
+      "validation_mape_pct": 4.470136556300982,
+      "runtime_seconds": 34.82651408300444,
+      "hyperparameters": {
+        "yearly_seasonality": 10,
+        "weekly_seasonality": 10,
+        "daily_seasonality": 12,
+        "changepoint_prior_scale": 0.01,
+        "seasonality_mode": "multiplicative",
+        "country_holidays": "DE",
+        "uncertainty_samples": 1000,
+        "candidates_scored": 4
+      }
+    },
+    {
+      "name": "nbeats",
+      "mape_test_pct": 9.757460367519334,
+      "rmse_test_mw": 6343.290616553345,
+      "mae_test_mw": 5135.371465773809,
+      "mape_jan1_pct": 6.4383743098218496,
+      "mape_jan2_to_jan7_pct": 10.31064137713558,
+      "per_day_mape_pct": {
+        "2020-01-01": 6.4383743098218496,
+        "2020-01-02": 9.58669575073491,
+        "2020-01-03": 9.02578984090372,
+        "2020-01-04": 7.179481271797841,
+        "2020-01-05": 23.254012117998332,
+        "2020-01-06": 7.028615664937643,
+        "2020-01-07": 5.789253616441034
+      },
+      "validation_mape_pct": 4.673021751484044,
+      "runtime_seconds": 204.7194607089914,
+      "hyperparameters": {
+        "num_stacks": 30,
+        "num_blocks": 1,
+        "num_layers": 4,
+        "layer_widths": 256,
+        "lr": 0.001,
+        "input_chunk_length": 168,
+        "output_chunk_length": 168,
+        "epochs_trained": 30,
+        "max_epochs": 30,
+        "early_stopping_patience": 5,
+        "batch_size": 1024,
+        "likelihood": "quantile regression [0.025, 0.1, 0.5, 0.9, 0.975]",
+        "scaling": "min-max on the fitting history",
+        "candidates_scored": 2
+      }
+    },
+    {
+      "name": "naive",
+      "mape_test_pct": 12.780588824669476,
+      "rmse_test_mw": 8808.602996502907,
+      "mae_test_mw": 7237.976190476191,
+      "mape_jan1_pct": 6.51955384895017,
+      "mape_jan2_to_jan7_pct": 13.824094653956026,
+      "per_day_mape_pct": {
+        "2020-01-01": 6.51955384895017,
+        "2020-01-02": 19.172704652205187,
+        "2020-01-03": 12.351845592992822,
+        "2020-01-04": 9.398614540430808,
+        "2020-01-05": 5.543741753382584,
+        "2020-01-06": 11.769198938693286,
+        "2020-01-07": 24.708462446031476
+      },
+      "validation_mape_pct": 5.508120837556498,
+      "runtime_seconds": 0.0024699170025996864,
+      "hyperparameters": {
+        "lag_hours": 168
+      }
+    },
+    {
+      "name": "sarima",
+      "mape_test_pct": 15.550897036071982,
+      "rmse_test_mw": 9512.97233185005,
+      "mae_test_mw": 8372.920555576697,
+      "mape_jan1_pct": 6.811728677386365,
+      "mape_jan2_to_jan7_pct": 17.007425095852913,
+      "per_day_mape_pct": {
+        "2020-01-01": 6.811728677386365,
+        "2020-01-02": 6.154599382974212,
+        "2020-01-03": 12.481212291748832,
+        "2020-01-04": 23.489033662757446,
+        "2020-01-05": 23.407625433267825,
+        "2020-01-06": 15.25129357404539,
+        "2020-01-07": 21.26078623032379
+      },
+      "validation_mape_pct": 5.858773962971553,
+      "runtime_seconds": 545.4731759999995,
+      "hyperparameters": {
+        "order": [
+          3,
+          0,
+          2
+        ],
+        "seasonal_order": [
+          1,
+          1,
+          1,
+          24
+        ],
+        "estimation_window_hours": 8736,
+        "exogenous_regressors": [
+          "dow_0",
+          "dow_1",
+          "dow_2",
+          "dow_3",
+          "dow_4",
+          "dow_5",
+          "is_public_holiday_de"
+        ],
+        "aic_final_fit": 152492.17308820007,
+        "intervals": "analytic Gaussian forecast variance",
+        "candidates_scored": 6
+      }
+    }
+  ],
+  "winner": "lightgbm",
+  "winner_coverage_80pct": 0.4880952380952381,
+  "winner_coverage_95pct": 0.8333333333333334,
+  "winner_pinball_loss_q10": 1020.5262426577212,
+  "winner_pinball_loss_q50": 1456.3505562909868,
+  "winner_pinball_loss_q90": 427.3326483779049,
+  "total_runtime_seconds": 1481.3202605419938,
+  "random_seed": 42,
+  "environment": {
+    "uname": "Darwin Dermots-MacBook-Pro-2.local 25.5.0 Darwin Kernel Version 25.5.0: Mon Apr 27 20:41:12 PDT 2026; root:xnu-12377.121.6~2/RELEASE_ARM64_T6050 arm64 arm",
+    "python": "3.12.13"
+  },
+  "notes": {
+    "patchtst_slot": "darts 0.41.0 has no PatchTSTModel; TSMixerModel is used in the patchtst slot",
+    "lightgbm_day_ahead_mode_mape_pct": 3.7108404494966045
+  }
+}

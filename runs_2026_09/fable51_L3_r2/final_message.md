@@ -1,0 +1,1 @@
+That monitor is no longer needed; both neural fits finished and the study is complete as reported above. No further action.

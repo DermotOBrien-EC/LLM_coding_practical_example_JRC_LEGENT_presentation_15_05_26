@@ -1,0 +1,117 @@
+train 41616 rows, validation 2208 rows, test 168 rows
+== naive
+   done in 0 s, validation MAPE 5.51 %
+== sarima
+  sarima (1, 0, 1)(1, 1, 1, 24): validation MAPE 6.54 % (AIC 152664)
+  sarima (2, 0, 2)(1, 1, 1, 24): validation MAPE 6.39 % (AIC 151534)
+  sarima (1, 1, 1)(1, 1, 1, 24): validation MAPE 12.17 % (AIC 142407)
+  sarima (2, 0, 1)(0, 1, 1, 24): validation MAPE 6.52 % (AIC 152791)
+  sarima (3, 0, 2)(1, 1, 1, 24): validation MAPE 5.86 % (AIC 152492)
+  sarima (4, 0, 2)(1, 1, 1, 24): validation MAPE 6.42 % (AIC 153052)
+   done in 545 s, validation MAPE 5.86 %
+== prophet
+  prophet {'yearly_seasonality': 10, 'weekly_seasonality': 3, 'daily_seasonality': 4, 'changepoint_prior_scale': 0.05, 'seasonality_mode': 'additive'}: validation MAPE 5.45 %
+  prophet {'yearly_seasonality': 10, 'weekly_seasonality': 10, 'daily_seasonality': 12, 'changepoint_prior_scale': 0.05, 'seasonality_mode': 'additive'}: validation MAPE 4.47 %
+  prophet {'yearly_seasonality': 10, 'weekly_seasonality': 10, 'daily_seasonality': 12, 'changepoint_prior_scale': 0.05, 'seasonality_mode': 'multiplicative'}: validation MAPE 4.54 %
+  prophet {'yearly_seasonality': 10, 'weekly_seasonality': 10, 'daily_seasonality': 12, 'changepoint_prior_scale': 0.01, 'seasonality_mode': 'multiplicative'}: validation MAPE 4.47 %
+   done in 35 s, validation MAPE 4.47 %
+== lightgbm
+  lightgbm {'num_leaves': 31, 'n_estimators': 300, 'learning_rate': 0.05}: validation MAPE 3.11 %
+  lightgbm {'num_leaves': 31, 'n_estimators': 800, 'learning_rate': 0.05}: validation MAPE 3.13 %
+  lightgbm {'num_leaves': 63, 'n_estimators': 300, 'learning_rate': 0.05}: validation MAPE 3.06 %
+  lightgbm {'num_leaves': 63, 'n_estimators': 800, 'learning_rate': 0.05}: validation MAPE 3.06 %
+  lightgbm {'num_leaves': 127, 'n_estimators': 300, 'learning_rate': 0.05}: validation MAPE 3.08 %
+  lightgbm {'num_leaves': 127, 'n_estimators': 800, 'learning_rate': 0.05}: validation MAPE 3.14 %
+   done in 68 s, validation MAPE 3.06 %
+== nbeats
+GPU available: True (mps), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+/Users/doob/dev/energy_forecast_ws/7c6360/project/.venv/lib/python3.12/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+/Users/doob/dev/energy_forecast_ws/7c6360/project/.venv/lib/python3.12/site-packages/torch/utils/data/dataloader.py:775: UserWarning: 'pin_memory' argument is set as true but not supported on MPS now, device pinned memory won't be used.
+  super().__init__(loader)
+/Users/doob/dev/energy_forecast_ws/7c6360/project/.venv/lib/python3.12/site-packages/pytorch_lightning/core/module.py:512: You called `self.log('val_MeanAbsolutePercentageError', ..., logger=True)` but have no logger configured. You can enable one by doing `Trainer(logger=ALogger(...))`
+/Users/doob/dev/energy_forecast_ws/7c6360/project/.venv/lib/python3.12/site-packages/pytorch_lightning/core/module.py:512: You called `self.log('train_MeanAbsolutePercentageError', ..., logger=True)` but have no logger configured. You can enable one by doing `Trainer(logger=ALogger(...))`
+`Trainer.fit` stopped: `max_epochs=30` reached.
+GPU available: True (mps), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+/Users/doob/dev/energy_forecast_ws/7c6360/project/.venv/lib/python3.12/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+/Users/doob/dev/energy_forecast_ws/7c6360/project/.venv/lib/python3.12/site-packages/torch/utils/data/dataloader.py:775: UserWarning: 'pin_memory' argument is set as true but not supported on MPS now, device pinned memory won't be used.
+  super().__init__(loader)
+  nbeats {'num_stacks': 30, 'num_blocks': 1, 'num_layers': 4, 'layer_widths': 256, 'lr': 0.001}: validation MAPE 4.67 % (best epoch 30 of 30)
+GPU available: True (mps), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+/Users/doob/dev/energy_forecast_ws/7c6360/project/.venv/lib/python3.12/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+/Users/doob/dev/energy_forecast_ws/7c6360/project/.venv/lib/python3.12/site-packages/torch/utils/data/dataloader.py:775: UserWarning: 'pin_memory' argument is set as true but not supported on MPS now, device pinned memory won't be used.
+  super().__init__(loader)
+/Users/doob/dev/energy_forecast_ws/7c6360/project/.venv/lib/python3.12/site-packages/pytorch_lightning/core/module.py:512: You called `self.log('val_MeanAbsolutePercentageError', ..., logger=True)` but have no logger configured. You can enable one by doing `Trainer(logger=ALogger(...))`
+/Users/doob/dev/energy_forecast_ws/7c6360/project/.venv/lib/python3.12/site-packages/pytorch_lightning/core/module.py:512: You called `self.log('train_MeanAbsolutePercentageError', ..., logger=True)` but have no logger configured. You can enable one by doing `Trainer(logger=ALogger(...))`
+`Trainer.fit` stopped: `max_epochs=30` reached.
+GPU available: True (mps), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+/Users/doob/dev/energy_forecast_ws/7c6360/project/.venv/lib/python3.12/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+/Users/doob/dev/energy_forecast_ws/7c6360/project/.venv/lib/python3.12/site-packages/torch/utils/data/dataloader.py:775: UserWarning: 'pin_memory' argument is set as true but not supported on MPS now, device pinned memory won't be used.
+  super().__init__(loader)
+  nbeats {'num_stacks': 10, 'num_blocks': 1, 'num_layers': 4, 'layer_widths': 512, 'lr': 0.001}: validation MAPE 5.39 % (best epoch 30 of 30)
+GPU available: True (mps), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+/Users/doob/dev/energy_forecast_ws/7c6360/project/.venv/lib/python3.12/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+/Users/doob/dev/energy_forecast_ws/7c6360/project/.venv/lib/python3.12/site-packages/torch/utils/data/dataloader.py:775: UserWarning: 'pin_memory' argument is set as true but not supported on MPS now, device pinned memory won't be used.
+  super().__init__(loader)
+/Users/doob/dev/energy_forecast_ws/7c6360/project/.venv/lib/python3.12/site-packages/pytorch_lightning/core/module.py:512: You called `self.log('train_MeanAbsolutePercentageError', ..., logger=True)` but have no logger configured. You can enable one by doing `Trainer(logger=ALogger(...))`
+`Trainer.fit` stopped: `max_epochs=30` reached.
+GPU available: True (mps), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+   done in 205 s, validation MAPE 4.67 %
+== patchtst
+GPU available: True (mps), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+/Users/doob/dev/energy_forecast_ws/7c6360/project/.venv/lib/python3.12/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+/Users/doob/dev/energy_forecast_ws/7c6360/project/.venv/lib/python3.12/site-packages/torch/utils/data/dataloader.py:775: UserWarning: 'pin_memory' argument is set as true but not supported on MPS now, device pinned memory won't be used.
+  super().__init__(loader)
+/Users/doob/dev/energy_forecast_ws/7c6360/project/.venv/lib/python3.12/site-packages/pytorch_lightning/core/module.py:512: You called `self.log('val_MeanAbsolutePercentageError', ..., logger=True)` but have no logger configured. You can enable one by doing `Trainer(logger=ALogger(...))`
+/Users/doob/dev/energy_forecast_ws/7c6360/project/.venv/lib/python3.12/site-packages/pytorch_lightning/core/module.py:512: You called `self.log('train_MeanAbsolutePercentageError', ..., logger=True)` but have no logger configured. You can enable one by doing `Trainer(logger=ALogger(...))`
+GPU available: True (mps), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+/Users/doob/dev/energy_forecast_ws/7c6360/project/.venv/lib/python3.12/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+/Users/doob/dev/energy_forecast_ws/7c6360/project/.venv/lib/python3.12/site-packages/torch/utils/data/dataloader.py:775: UserWarning: 'pin_memory' argument is set as true but not supported on MPS now, device pinned memory won't be used.
+  super().__init__(loader)
+  patchtst {'hidden_size': 64, 'ff_size': 64, 'num_blocks': 2, 'dropout': 0.1, 'lr': 0.001}: validation MAPE 5.28 % (best epoch 21 of 26)
+GPU available: True (mps), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+/Users/doob/dev/energy_forecast_ws/7c6360/project/.venv/lib/python3.12/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+/Users/doob/dev/energy_forecast_ws/7c6360/project/.venv/lib/python3.12/site-packages/torch/utils/data/dataloader.py:775: UserWarning: 'pin_memory' argument is set as true but not supported on MPS now, device pinned memory won't be used.
+  super().__init__(loader)
+/Users/doob/dev/energy_forecast_ws/7c6360/project/.venv/lib/python3.12/site-packages/pytorch_lightning/core/module.py:512: You called `self.log('val_MeanAbsolutePercentageError', ..., logger=True)` but have no logger configured. You can enable one by doing `Trainer(logger=ALogger(...))`
+/Users/doob/dev/energy_forecast_ws/7c6360/project/.venv/lib/python3.12/site-packages/pytorch_lightning/core/module.py:512: You called `self.log('train_MeanAbsolutePercentageError', ..., logger=True)` but have no logger configured. You can enable one by doing `Trainer(logger=ALogger(...))`
+`Trainer.fit` stopped: `max_epochs=30` reached.
+GPU available: True (mps), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+/Users/doob/dev/energy_forecast_ws/7c6360/project/.venv/lib/python3.12/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+/Users/doob/dev/energy_forecast_ws/7c6360/project/.venv/lib/python3.12/site-packages/torch/utils/data/dataloader.py:775: UserWarning: 'pin_memory' argument is set as true but not supported on MPS now, device pinned memory won't be used.
+  super().__init__(loader)
+  patchtst {'hidden_size': 128, 'ff_size': 128, 'num_blocks': 3, 'dropout': 0.1, 'lr': 0.001}: validation MAPE 5.12 % (best epoch 29 of 30)
+GPU available: True (mps), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+/Users/doob/dev/energy_forecast_ws/7c6360/project/.venv/lib/python3.12/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+/Users/doob/dev/energy_forecast_ws/7c6360/project/.venv/lib/python3.12/site-packages/torch/utils/data/dataloader.py:775: UserWarning: 'pin_memory' argument is set as true but not supported on MPS now, device pinned memory won't be used.
+  super().__init__(loader)
+/Users/doob/dev/energy_forecast_ws/7c6360/project/.venv/lib/python3.12/site-packages/pytorch_lightning/core/module.py:512: You called `self.log('train_MeanAbsolutePercentageError', ..., logger=True)` but have no logger configured. You can enable one by doing `Trainer(logger=ALogger(...))`
+`Trainer.fit` stopped: `max_epochs=29` reached.
+GPU available: True (mps), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+   done in 623 s, validation MAPE 5.12 %
+ranking by test MAPE: lightgbm 5.53 %, patchtst 7.22 %, prophet 7.84 %, nbeats 9.76 %, naive 12.78 %, sarima 15.55 %
+winner lightgbm; wrote metrics.json, metrics.csv, forecasts.csv and figures to /Users/doob/dev/energy_forecast_ws/7c6360/project/runs/7c6360/figures
+orchestrator wall-clock 1481 s (model fitting 1476 s)

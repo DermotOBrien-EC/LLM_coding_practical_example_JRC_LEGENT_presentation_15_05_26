@@ -72,13 +72,17 @@ def build_figure(results: list[dict[str, object]], ref: dict[str, float]) -> Non
     scoring = json.loads((RUNS / "scoring.json").read_text())
     fig, ax = plt.subplots(figsize=(11, 5.2))
     xs = {lvl: i for i, lvl in enumerate(LEVELS)}
-    # May 2026 reference
+    # May 2026 reference; the L3 winner fed the test week's own actual loads into
+    # its 24 h lag and rolling features (DESIGN.md 5.2, correction of 2026-09-05),
+    # so it is drawn hollow with a dagger
     for lvl, v in ref.items():
         lab, col, mk = SERIES["may2026"]
-        ax.scatter(xs[lvl] + X_OFFSET["may2026"], v, marker=mk, s=110, color=col, zorder=3,
+        day_ahead = lvl == "L3"
+        ax.scatter(xs[lvl] + X_OFFSET["may2026"], v, marker=mk, s=110, zorder=3,
+                   facecolors="white" if day_ahead else col, edgecolors=col, linewidths=1.8,
                    label=lab if lvl == "L1" else None)
-        ax.annotate(f"{v:.2f}", (xs[lvl] + X_OFFSET["may2026"], v), textcoords="offset points",
-                    xytext=(0, 9), ha="center", fontsize=9, color=col)
+        ax.annotate(f"{v:.2f}" + ("†" if day_ahead else ""), (xs[lvl] + X_OFFSET["may2026"], v),
+                    textcoords="offset points", xytext=(0, 9), ha="center", fontsize=9, color=col)
     seen: set[str] = set()
     for r in results:
         tag = str(r["model_tag"])
@@ -106,10 +110,12 @@ def build_figure(results: list[dict[str, object]], ref: dict[str, float]) -> Non
                                         if r.get("mape_pct") not in (None, "")]] or [12]) * 1.18)
     ax.grid(axis="y", alpha=0.3)
     ax.legend(loc="upper right", fontsize=9, frameon=True)
-    ax.text(0.01, 0.01, "Hollow marker with * = session ended before the agent's final step; "
-            "scored on the forecast it had written",
-            transform=ax.transAxes, fontsize=8, color="#555555")
-    fig.tight_layout()
+    fig.text(0.01, 0.012,
+             "Hollow marker with * = session ended before the agent's final step, scored on the forecast it had written.\n"
+             "† = May's L3 winner read the test week's own actual loads through its 24 h lag (day-ahead for 6 of 7 days); "
+             "the September L3 forecasts are recursive week-ahead forecasts.",
+             fontsize=7.5, color="#555555", va="bottom")
+    fig.tight_layout(rect=(0, 0.07, 1, 1))
     OUT_FIG.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(OUT_FIG, dpi=300)
     print(f"wrote {OUT_FIG}")

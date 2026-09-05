@@ -1,0 +1,1135 @@
+{
+  "test_start": "2020-01-01",
+  "test_end": "2020-01-07",
+  "n_test_observations": 168,
+  "models": [
+    {
+      "name": "lightgbm",
+      "mape_test_pct": 4.9935,
+      "rmse_test_mw": 3616.37,
+      "mae_test_mw": 2760.71,
+      "mape_jan1_pct": 3.0447,
+      "mape_jan2_to_jan7_pct": 5.3183,
+      "runtime_seconds": 169.9,
+      "hyperparameters": {
+        "n_estimators": 500,
+        "subsample": 0.8,
+        "subsample_freq": 1,
+        "colsample_bytree": 0.8,
+        "min_child_samples": 20,
+        "random_state": 42,
+        "deterministic": true,
+        "force_col_wise": true,
+        "verbose": -1,
+        "objective": "l1",
+        "num_leaves": 63,
+        "learning_rate": 0.1,
+        "features": [
+          "hour",
+          "day_of_week",
+          "month",
+          "is_weekend",
+          "is_public_holiday_de",
+          "lag_24h",
+          "lag_168h",
+          "lag_8736h",
+          "lag_8760h",
+          "roll_mean_24h",
+          "roll_std_24h",
+          "roll_mean_168h",
+          "roll_std_168h"
+        ],
+        "forecast_strategy": "recursive, hour by hour",
+        "quantile_models": [
+          0.025,
+          0.1,
+          0.9,
+          0.975
+        ],
+        "training_rows_train": 32856,
+        "training_rows_train_val": 35064,
+        "horizon_hours": 168
+      },
+      "mape_per_day_pct": {
+        "2020-01-01": 3.0447,
+        "2020-01-02": 2.1323,
+        "2020-01-03": 3.3361,
+        "2020-01-04": 2.8756,
+        "2020-01-05": 4.6807,
+        "2020-01-06": 11.6521,
+        "2020-01-07": 7.2328
+      },
+      "validation": {
+        "sweep": [
+          {
+            "objective": "l2",
+            "num_leaves": 31,
+            "learning_rate": 0.03,
+            "val_mape_pct": 3.0363
+          },
+          {
+            "objective": "l2",
+            "num_leaves": 31,
+            "learning_rate": 0.1,
+            "val_mape_pct": 3.1617
+          },
+          {
+            "objective": "l2",
+            "num_leaves": 63,
+            "learning_rate": 0.03,
+            "val_mape_pct": 3.0642
+          },
+          {
+            "objective": "l2",
+            "num_leaves": 63,
+            "learning_rate": 0.1,
+            "val_mape_pct": 3.122
+          },
+          {
+            "objective": "l1",
+            "num_leaves": 31,
+            "learning_rate": 0.03,
+            "val_mape_pct": 3.1568
+          },
+          {
+            "objective": "l1",
+            "num_leaves": 31,
+            "learning_rate": 0.1,
+            "val_mape_pct": 3.0309
+          },
+          {
+            "objective": "l1",
+            "num_leaves": 63,
+            "learning_rate": 0.03,
+            "val_mape_pct": 3.1171
+          },
+          {
+            "objective": "l1",
+            "num_leaves": 63,
+            "learning_rate": 0.1,
+            "val_mape_pct": 3.0204
+          }
+        ],
+        "chosen": {
+          "objective": "l1",
+          "num_leaves": 63,
+          "learning_rate": 0.1
+        },
+        "val_mape_pct": 3.0204
+      },
+      "coverage_80pct": 0.506,
+      "coverage_95pct": 0.9167,
+      "pinball_loss_q10": 910.2088,
+      "pinball_loss_q50": 1331.1318,
+      "pinball_loss_q90": 404.8247
+    },
+    {
+      "name": "prophet",
+      "mape_test_pct": 7.8989,
+      "rmse_test_mw": 4799.35,
+      "mae_test_mw": 3988.21,
+      "mape_jan1_pct": 15.7481,
+      "mape_jan2_to_jan7_pct": 6.5907,
+      "runtime_seconds": 94.8,
+      "hyperparameters": {
+        "candidate": "conditional_daily_additive_stiff_trend",
+        "daily_seasonality": false,
+        "weekly_seasonality": 6,
+        "yearly_seasonality": 10,
+        "seasonality_mode": "additive",
+        "changepoint_prior_scale": 0.01,
+        "conditional_daily_seasonality": true,
+        "country_holidays": "DE",
+        "growth": "linear",
+        "n_samples_for_intervals": 1000
+      },
+      "mape_per_day_pct": {
+        "2020-01-01": 15.7481,
+        "2020-01-02": 6.9421,
+        "2020-01-03": 4.6564,
+        "2020-01-04": 8.8843,
+        "2020-01-05": 7.5729,
+        "2020-01-06": 5.5852,
+        "2020-01-07": 5.9034
+      },
+      "validation": {
+        "sweep": [
+          {
+            "candidate": "prophet_defaults",
+            "seasonality_mode": "additive",
+            "changepoint_prior_scale": 0.05,
+            "val_mape_pct": 5.4125
+          },
+          {
+            "candidate": "conditional_daily_additive",
+            "daily_seasonality": false,
+            "weekly_seasonality": 6,
+            "yearly_seasonality": 10,
+            "seasonality_mode": "additive",
+            "changepoint_prior_scale": 0.05,
+            "val_mape_pct": 4.2586
+          },
+          {
+            "candidate": "conditional_daily_multiplicative",
+            "daily_seasonality": false,
+            "weekly_seasonality": 6,
+            "yearly_seasonality": 10,
+            "seasonality_mode": "multiplicative",
+            "changepoint_prior_scale": 0.05,
+            "val_mape_pct": 4.316
+          },
+          {
+            "candidate": "conditional_daily_additive_stiff_trend",
+            "daily_seasonality": false,
+            "weekly_seasonality": 6,
+            "yearly_seasonality": 10,
+            "seasonality_mode": "additive",
+            "changepoint_prior_scale": 0.01,
+            "val_mape_pct": 4.2356
+          }
+        ],
+        "chosen": "conditional_daily_additive_stiff_trend",
+        "val_mape_pct": 4.2356
+      },
+      "coverage_80pct": 0.4821,
+      "coverage_95pct": 0.7143,
+      "pinball_loss_q10": 1083.5511,
+      "pinball_loss_q50": 1997.4936,
+      "pinball_loss_q90": 923.905
+    },
+    {
+      "name": "patchtst",
+      "mape_test_pct": 9.1286,
+      "rmse_test_mw": 5918.18,
+      "mae_test_mw": 4769.29,
+      "mape_jan1_pct": 6.3468,
+      "mape_jan2_to_jan7_pct": 9.5923,
+      "runtime_seconds": 934.6,
+      "hyperparameters": {
+        "model_class": "darts.models.TSMixerModel (PatchTSTModel not available in darts 0.41.0)",
+        "candidate": "large",
+        "hidden_size": 128,
+        "ff_size": 256,
+        "num_blocks": 4,
+        "dropout": 0.2,
+        "input_chunk_length": 168,
+        "output_chunk_length": 168,
+        "learning_rate": 0.001,
+        "epochs_refit": 22,
+        "max_epochs": 30,
+        "early_stopping_patience": 5,
+        "batch_size": 512,
+        "likelihood": "quantile regression (0.025, 0.1, 0.5, 0.9, 0.975)",
+        "accelerator": "mps",
+        "scaling": "divide by training mean"
+      },
+      "mape_per_day_pct": {
+        "2020-01-01": 6.3468,
+        "2020-01-02": 8.8114,
+        "2020-01-03": 4.7274,
+        "2020-01-04": 10.6544,
+        "2020-01-05": 21.4486,
+        "2020-01-06": 6.4512,
+        "2020-01-07": 5.4606
+      },
+      "validation": {
+        "sweep": [
+          {
+            "candidate": "small",
+            "hidden_size": 64,
+            "ff_size": 64,
+            "num_blocks": 2,
+            "dropout": 0.1,
+            "best_epoch": 29,
+            "epochs_run": 30,
+            "val_mape_history_pct": [
+              14.963,
+              8.147,
+              6.764,
+              6.419,
+              6.261,
+              6.309,
+              6.179,
+              5.904,
+              5.76,
+              5.786,
+              5.62,
+              5.608,
+              5.468,
+              5.407,
+              5.485,
+              5.351,
+              5.274,
+              5.338,
+              5.195,
+              5.181,
+              5.141,
+              5.18,
+              5.105,
+              5.192,
+              5.362,
+              5.137,
+              5.048,
+              5.086,
+              4.983,
+              5.157
+            ],
+            "val_mape_pct": 5.2426
+          },
+          {
+            "candidate": "large",
+            "hidden_size": 128,
+            "ff_size": 256,
+            "num_blocks": 4,
+            "dropout": 0.2,
+            "best_epoch": 22,
+            "epochs_run": 27,
+            "val_mape_history_pct": [
+              15.49,
+              8.559,
+              6.852,
+              6.591,
+              5.957,
+              6.263,
+              6.115,
+              5.409,
+              5.556,
+              5.488,
+              5.399,
+              5.291,
+              5.859,
+              5.265,
+              6.274,
+              6.595,
+              5.933,
+              5.081,
+              5.496,
+              6.026,
+              7.243,
+              4.815,
+              5.516,
+              7.353,
+              6.118,
+              6.773,
+              5.612
+            ],
+            "val_mape_pct": 5.2103
+          }
+        ],
+        "chosen": "large",
+        "val_mape_pct": 5.2103
+      },
+      "coverage_80pct": 0.9524,
+      "coverage_95pct": 0.994,
+      "pinball_loss_q10": 855.1727,
+      "pinball_loss_q50": 2384.6429,
+      "pinball_loss_q90": 1194.4553
+    },
+    {
+      "name": "nbeats",
+      "mape_test_pct": 10.5516,
+      "rmse_test_mw": 7119.09,
+      "mae_test_mw": 5509.69,
+      "mape_jan1_pct": 4.4844,
+      "mape_jan2_to_jan7_pct": 11.5628,
+      "runtime_seconds": 1019.9,
+      "hyperparameters": {
+        "input_chunk_length": 168,
+        "output_chunk_length": 168,
+        "generic_architecture": true,
+        "num_stacks": 30,
+        "num_blocks": 1,
+        "num_layers": 4,
+        "layer_widths": 256,
+        "expansion_coefficient_dim": 5,
+        "learning_rate": 0.001,
+        "epochs_refit": 30,
+        "max_epochs": 30,
+        "early_stopping_patience": 5,
+        "batch_size": 512,
+        "likelihood": "quantile regression (0.025, 0.1, 0.5, 0.9, 0.975)",
+        "accelerator": "mps",
+        "scaling": "divide by training mean"
+      },
+      "mape_per_day_pct": {
+        "2020-01-01": 4.4844,
+        "2020-01-02": 14.6031,
+        "2020-01-03": 5.581,
+        "2020-01-04": 9.38,
+        "2020-01-05": 26.2501,
+        "2020-01-06": 7.3487,
+        "2020-01-07": 6.2137
+      },
+      "validation": {
+        "sweep": [
+          {
+            "lr": 0.001,
+            "best_epoch": 30,
+            "epochs_run": 30,
+            "val_mape_history_pct": [
+              13.029,
+              8.61,
+              7.489,
+              6.793,
+              6.805,
+              6.849,
+              5.917,
+              5.619,
+              5.762,
+              5.575,
+              5.534,
+              5.298,
+              5.263,
+              5.21,
+              4.997,
+              5.153,
+              5.049,
+              4.868,
+              4.931,
+              5.005,
+              4.703,
+              4.927,
+              4.572,
+              4.584,
+              4.691,
+              4.391,
+              4.566,
+              4.312,
+              4.449,
+              4.312
+            ],
+            "val_mape_pct": 4.8094
+          },
+          {
+            "lr": 0.0003,
+            "best_epoch": 30,
+            "epochs_run": 30,
+            "val_mape_history_pct": [
+              15.279,
+              11.452,
+              8.992,
+              7.847,
+              7.293,
+              6.873,
+              6.563,
+              6.301,
+              6.084,
+              5.972,
+              5.764,
+              5.654,
+              5.597,
+              5.614,
+              5.494,
+              5.382,
+              5.285,
+              5.293,
+              5.35,
+              5.184,
+              5.648,
+              5.32,
+              5.047,
+              5.089,
+              5.169,
+              4.916,
+              5.036,
+              5.092,
+              5.12,
+              4.915
+            ],
+            "val_mape_pct": 5.3033
+          }
+        ],
+        "chosen_lr": 0.001,
+        "val_mape_pct": 4.8094
+      },
+      "coverage_80pct": 0.506,
+      "coverage_95pct": 0.7381,
+      "pinball_loss_q10": 1862.6872,
+      "pinball_loss_q50": 2754.8468,
+      "pinball_loss_q90": 1310.0946
+    },
+    {
+      "name": "naive",
+      "mape_test_pct": 12.7806,
+      "rmse_test_mw": 8808.6,
+      "mae_test_mw": 7237.98,
+      "mape_jan1_pct": 6.5196,
+      "mape_jan2_to_jan7_pct": 13.8241,
+      "runtime_seconds": 0.0,
+      "hyperparameters": {
+        "lag_hours": 168
+      },
+      "mape_per_day_pct": {
+        "2020-01-01": 6.5196,
+        "2020-01-02": 19.1727,
+        "2020-01-03": 12.3518,
+        "2020-01-04": 9.3986,
+        "2020-01-05": 5.5437,
+        "2020-01-06": 11.7692,
+        "2020-01-07": 24.7085
+      },
+      "validation": {
+        "val_mape_pct": 5.508120837556498
+      }
+    },
+    {
+      "name": "sarima",
+      "mape_test_pct": 14.9934,
+      "rmse_test_mw": 9471.07,
+      "mae_test_mw": 8343.7,
+      "mape_jan1_pct": 7.1871,
+      "mape_jan2_to_jan7_pct": 16.2944,
+      "runtime_seconds": 326.8,
+      "hyperparameters": {
+        "window_weeks": 4,
+        "regressors": "weekly",
+        "order": [
+          1,
+          0,
+          1
+        ],
+        "seasonal_order": [
+          1,
+          1,
+          1,
+          24
+        ],
+        "weekly_fourier_harmonics": 3,
+        "estimation": "exact maximum likelihood (statsmodels SARIMAX)",
+        "intervals": "analytic Gaussian forecast variance",
+        "aic_refit": 11577.02249271001
+      },
+      "mape_per_day_pct": {
+        "2020-01-01": 7.1871,
+        "2020-01-02": 10.5029,
+        "2020-01-03": 13.3512,
+        "2020-01-04": 19.3226,
+        "2020-01-05": 15.2556,
+        "2020-01-06": 16.1024,
+        "2020-01-07": 23.2318
+      },
+      "validation": {
+        "sweep": [
+          {
+            "window_weeks": 4,
+            "regressors": "none",
+            "order": [
+              1,
+              0,
+              1
+            ],
+            "seasonal_order": [
+              0,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 9.8943
+          },
+          {
+            "window_weeks": 4,
+            "regressors": "none",
+            "order": [
+              1,
+              0,
+              1
+            ],
+            "seasonal_order": [
+              1,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 9.5804
+          },
+          {
+            "window_weeks": 4,
+            "regressors": "none",
+            "order": [
+              2,
+              0,
+              1
+            ],
+            "seasonal_order": [
+              0,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 9.9525
+          },
+          {
+            "window_weeks": 4,
+            "regressors": "none",
+            "order": [
+              2,
+              0,
+              1
+            ],
+            "seasonal_order": [
+              1,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 9.637
+          },
+          {
+            "window_weeks": 4,
+            "regressors": "none",
+            "order": [
+              1,
+              1,
+              1
+            ],
+            "seasonal_order": [
+              0,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 28.363
+          },
+          {
+            "window_weeks": 4,
+            "regressors": "none",
+            "order": [
+              1,
+              1,
+              1
+            ],
+            "seasonal_order": [
+              1,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 16.5086
+          },
+          {
+            "window_weeks": 4,
+            "regressors": "weekly",
+            "order": [
+              1,
+              0,
+              1
+            ],
+            "seasonal_order": [
+              0,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 5.8308
+          },
+          {
+            "window_weeks": 4,
+            "regressors": "weekly",
+            "order": [
+              1,
+              0,
+              1
+            ],
+            "seasonal_order": [
+              1,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 5.7464
+          },
+          {
+            "window_weeks": 4,
+            "regressors": "weekly",
+            "order": [
+              2,
+              0,
+              1
+            ],
+            "seasonal_order": [
+              0,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 6.0415
+          },
+          {
+            "window_weeks": 4,
+            "regressors": "weekly",
+            "order": [
+              2,
+              0,
+              1
+            ],
+            "seasonal_order": [
+              1,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 5.913
+          },
+          {
+            "window_weeks": 4,
+            "regressors": "weekly",
+            "order": [
+              1,
+              1,
+              1
+            ],
+            "seasonal_order": [
+              0,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 28.6736
+          },
+          {
+            "window_weeks": 4,
+            "regressors": "weekly",
+            "order": [
+              1,
+              1,
+              1
+            ],
+            "seasonal_order": [
+              1,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 11.2057
+          },
+          {
+            "window_weeks": 4,
+            "regressors": "weekly+holiday",
+            "order": [
+              1,
+              0,
+              1
+            ],
+            "seasonal_order": [
+              0,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 5.8308
+          },
+          {
+            "window_weeks": 4,
+            "regressors": "weekly+holiday",
+            "order": [
+              1,
+              0,
+              1
+            ],
+            "seasonal_order": [
+              1,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 5.7464
+          },
+          {
+            "window_weeks": 4,
+            "regressors": "weekly+holiday",
+            "order": [
+              2,
+              0,
+              1
+            ],
+            "seasonal_order": [
+              0,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 6.0415
+          },
+          {
+            "window_weeks": 4,
+            "regressors": "weekly+holiday",
+            "order": [
+              2,
+              0,
+              1
+            ],
+            "seasonal_order": [
+              1,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 5.913
+          },
+          {
+            "window_weeks": 4,
+            "regressors": "weekly+holiday",
+            "order": [
+              1,
+              1,
+              1
+            ],
+            "seasonal_order": [
+              0,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 28.6736
+          },
+          {
+            "window_weeks": 4,
+            "regressors": "weekly+holiday",
+            "order": [
+              1,
+              1,
+              1
+            ],
+            "seasonal_order": [
+              1,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 11.2058
+          },
+          {
+            "window_weeks": 8,
+            "regressors": "none",
+            "order": [
+              1,
+              0,
+              1
+            ],
+            "seasonal_order": [
+              0,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 9.9315
+          },
+          {
+            "window_weeks": 8,
+            "regressors": "none",
+            "order": [
+              1,
+              0,
+              1
+            ],
+            "seasonal_order": [
+              1,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 9.6316
+          },
+          {
+            "window_weeks": 8,
+            "regressors": "none",
+            "order": [
+              2,
+              0,
+              1
+            ],
+            "seasonal_order": [
+              0,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 10.0954
+          },
+          {
+            "window_weeks": 8,
+            "regressors": "none",
+            "order": [
+              2,
+              0,
+              1
+            ],
+            "seasonal_order": [
+              1,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 9.842
+          },
+          {
+            "window_weeks": 8,
+            "regressors": "none",
+            "order": [
+              1,
+              1,
+              1
+            ],
+            "seasonal_order": [
+              0,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 11.4478
+          },
+          {
+            "window_weeks": 8,
+            "regressors": "none",
+            "order": [
+              1,
+              1,
+              1
+            ],
+            "seasonal_order": [
+              1,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 13.2917
+          },
+          {
+            "window_weeks": 8,
+            "regressors": "weekly",
+            "order": [
+              1,
+              0,
+              1
+            ],
+            "seasonal_order": [
+              0,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 6.3582
+          },
+          {
+            "window_weeks": 8,
+            "regressors": "weekly",
+            "order": [
+              1,
+              0,
+              1
+            ],
+            "seasonal_order": [
+              1,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 6.2791
+          },
+          {
+            "window_weeks": 8,
+            "regressors": "weekly",
+            "order": [
+              2,
+              0,
+              1
+            ],
+            "seasonal_order": [
+              0,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 6.315
+          },
+          {
+            "window_weeks": 8,
+            "regressors": "weekly",
+            "order": [
+              2,
+              0,
+              1
+            ],
+            "seasonal_order": [
+              1,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 6.229
+          },
+          {
+            "window_weeks": 8,
+            "regressors": "weekly",
+            "order": [
+              1,
+              1,
+              1
+            ],
+            "seasonal_order": [
+              0,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 11.5574
+          },
+          {
+            "window_weeks": 8,
+            "regressors": "weekly",
+            "order": [
+              1,
+              1,
+              1
+            ],
+            "seasonal_order": [
+              1,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 11.6484
+          },
+          {
+            "window_weeks": 8,
+            "regressors": "weekly+holiday",
+            "order": [
+              1,
+              0,
+              1
+            ],
+            "seasonal_order": [
+              0,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 6.3582
+          },
+          {
+            "window_weeks": 8,
+            "regressors": "weekly+holiday",
+            "order": [
+              1,
+              0,
+              1
+            ],
+            "seasonal_order": [
+              1,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 6.2791
+          },
+          {
+            "window_weeks": 8,
+            "regressors": "weekly+holiday",
+            "order": [
+              2,
+              0,
+              1
+            ],
+            "seasonal_order": [
+              0,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 6.315
+          },
+          {
+            "window_weeks": 8,
+            "regressors": "weekly+holiday",
+            "order": [
+              2,
+              0,
+              1
+            ],
+            "seasonal_order": [
+              1,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 6.229
+          },
+          {
+            "window_weeks": 8,
+            "regressors": "weekly+holiday",
+            "order": [
+              1,
+              1,
+              1
+            ],
+            "seasonal_order": [
+              0,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 11.5574
+          },
+          {
+            "window_weeks": 8,
+            "regressors": "weekly+holiday",
+            "order": [
+              1,
+              1,
+              1
+            ],
+            "seasonal_order": [
+              1,
+              1,
+              1,
+              24
+            ],
+            "val_mape_pct": 11.6484
+          }
+        ],
+        "chosen": {
+          "window_weeks": 4,
+          "regressors": "weekly",
+          "order": [
+            1,
+            0,
+            1
+          ],
+          "seasonal_order": [
+            1,
+            1,
+            1,
+            24
+          ]
+        },
+        "val_mape_pct": 5.7464
+      },
+      "coverage_80pct": 0.3631,
+      "coverage_95pct": 0.7143,
+      "pinball_loss_q10": 1528.6909,
+      "pinball_loss_q50": 4171.8491,
+      "pinball_loss_q90": 2149.1269
+    }
+  ],
+  "winner": "lightgbm",
+  "winner_coverage_80pct": 0.506,
+  "winner_coverage_95pct": 0.9167,
+  "winner_pinball_loss_q10": 910.21,
+  "winner_pinball_loss_q50": 1331.13,
+  "winner_pinball_loss_q90": 404.82,
+  "total_runtime_seconds": 2546.0,
+  "environment": {
+    "uname": "Darwin Dermots-MacBook-Pro-2.local 25.5.0 Darwin Kernel Version 25.5.0: Mon Apr 27 20:41:12 PDT 2026; root:xnu-12377.121.6~2/RELEASE_ARM64_T6050 arm64 arm",
+    "python": "3.12.13",
+    "packages": {
+      "darts": "0.41.0",
+      "lightgbm": "4.6.0",
+      "statsmodels": "0.14.6",
+      "torch": "2.10.0",
+      "pandas": "2.3.3",
+      "numpy": "2.4.4"
+    },
+    "torch_accelerator": "mps",
+    "seed": 42
+  }
+}

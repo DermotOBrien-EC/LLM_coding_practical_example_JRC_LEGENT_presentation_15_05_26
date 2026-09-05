@@ -8,12 +8,13 @@ with (`scripts/score_runs.py`); the agent's own claim is beside it in
 `scoring.json`, and in every case the two agree to the rounding the agent
 used.
 
-Status: wave 1 (L1 and L2, eight runs) complete and scored. Wave 2 (L3) did
-not produce a result: the operator's account ran out of usage credits, and
-the one L3 session that did start could not finish the six-model bake-off
-inside a headless session (section 6). The L3 cell of this study is
-therefore **empty** and stays empty until it is re-run; every L3 number in
-this file and in the deck is the May 2026 one, clearly labelled as such.
+Status: complete. Wave 1 (L1 and L2, eight runs) ran on 2026-09-03. Wave 2
+(L3) produced nothing that day (credit refusals, and a headless cut-off of
+the one session that started) and was relaunched on 2026-09-05 with a
+harness keep-alive and the single permitted resume (section 6); all four L3
+runs then completed. One correction to the pre-registered audit of the May
+2026 L3 run came out of reading the September L3 code beside it (section
+4, and DESIGN.md section 5.2).
 
 ## 1. What was run
 
@@ -21,16 +22,19 @@ this file and in the deck is the May 2026 one, clearly labelled as such.
 |---|---|---|
 | Fable 5.1, L1 | 3 | 6, 16, 30 minutes |
 | Fable 5.1, L2 | 3 | 30, 44, 24 minutes |
+| Fable 5.1, L3 | 3 | 97, 126, 129 minutes |
 | Opus 5, L1 | 1 | 93 minutes |
 | Opus 5, L2 | 1 | 81 minutes |
-| Fable 5.1, L3 | 0 of 3 | refused by the account credit limit, 95 s / 4 s / 4 s |
-| Opus 5, L3 | 1, incomplete | 37 minutes, four of six models fitted, no forecast |
+| Opus 5, L3 | 1, resumed once | 37 + 71 minutes |
 
 Same three frozen prompts as May 2026, same data file, same `AGENTS.md`
 files, Claude Code 2.1.259 headless, each session alone in a neutral
-seatbelt-confined sandbox (DESIGN.md section 3). Two earlier launches were
-voided for leaking the study into the sandbox and are excluded (DESIGN.md
-section 9).
+seatbelt-confined sandbox (DESIGN.md section 3). The L3 runs ran under the
+print-mode keep-alive added for the relaunch (DESIGN.md section 3); the L1
+and L2 runs did not. Two earlier launches were voided for leaking the study
+into the sandbox and are excluded (DESIGN.md section 9); three L3 launches
+refused by the credit window on 2026-09-03 are archived under
+`_void_wave2_credit_refusal/` and contribute no number.
 
 ## 2. Accuracy
 
@@ -41,12 +45,16 @@ reference.
 |---|---|---|---|
 | L1, 10 words | 10.76 (best of three naive baselines) | 3.96, 3.28, 4.49 (all LightGBM) | 3.07 (ridge on log load) |
 | L2, 46 words + 7-line AGENTS.md | 5.52 (GradientBoostingRegressor) | 2.30, 5.35\*, 3.21 (two LightGBM, one HistGradientBoosting) | *3.40*\*† (LightGBM; the surviving pre-change forecast recomputes to 3.67) |
-| L3, 1,673 words + 113-line AGENTS.md | 3.43 (LightGBM, winner of six) | not run | no forecast produced |
+| L3, 1,673 words + 113-line AGENTS.md | 3.43‡ (LightGBM, winner of six) | 5.03, 4.99, 5.53 (LightGBM, winner of six, in every run) | 5.46 (LightGBM, winner of six; resumed once) |
 
 \* Session ended before the agent's final step (section 4); scored on the
 forecast it had written, or, in italics, the agent's own claim where no
 forecast file exists. † Leaked: the feature behind the claim was chosen
-with knowledge of the target-week error (section 4).
+with knowledge of the target-week error (section 4). ‡ Day-ahead inputs:
+the May L3 winner read the test week's own actual loads through its
+24-hour lag and 24-hour rolling features for six of the seven days
+(section 4); the September L3 winners forecast the week recursively from
+their own predictions, so the two are not the same task.
 
 Reading, under the pre-stated rules of DESIGN.md section 6:
 
@@ -60,39 +68,82 @@ Reading, under the pre-stated rules of DESIGN.md section 6:
   three are tree ensembles (two LightGBM, one scikit-learn
   HistGradientBoosting), so repeatable in model class. The 5.35 run is the
   incomplete one; its two complete siblings sit at 2.30 and 3.21.
-- **L1 versus L2 (Fable 5.1).** Medians 3.96 (L1) and 3.21 (L2); the
-  difference is 0.75 points. Both cells have three recoverable forecasts, so
-  the descriptive-closeness rule applies: within one point. This is
-  closeness in these six runs, not evidence that the levels are equivalent.
-  Note the audit mix: two L1 runs and all three L2 runs are `test_selected`
-  (baselines scored on the same window, headline pre-specified) and one L1
-  run is `leaked` (section 4).
+- **L3 (Fable 5.1).** Range 4.99 to 5.53, a spread of 0.54 points, so the
+  cell is repeatable in accuracy under the one-point rule, the only Fable
+  cell that is; it is also repeatable in model class, LightGBM having won
+  all three six-model bake-offs, and in the shape of the result: every run
+  put LightGBM first by test and by validation, the naive baseline and
+  SARIMA last, and reported the same failure mechanism in its write-up
+  (below).
+- **L1 versus L3 (Fable 5.1).** Medians 3.96 (L1) and 5.03 (L3); the L3
+  median is the higher one by 1.07 points, outside the one-point band, so
+  the descriptive-closeness rule does not apply. This is not read as
+  "specificity costs accuracy": the two cells forecast the week
+  differently. Every L1 and L2 session, on its own initiative, used only
+  lags of 168 hours or more and predicted the whole week directly from
+  values known at the forecast origin; the L3 prompt prescribes a 24-hour
+  lag and 24-hour rolling features, and every September L3 session
+  honoured that list by forecasting recursively, feeding its own
+  predictions back into those features, where errors compound. Both are
+  honest week-ahead forecasts; the L3 one carries a feature list written in
+  May for a model that, it turned out, was not forecasting a week ahead
+  (section 4). One L3 run measured the gap itself: the same LightGBM scored
+  one day ahead, with observed loads in its lags, gives 3.71 against its
+  5.53 week-ahead number. Note the audit mix: two L1 runs and all three L2
+  runs are `test_selected` (baselines scored on the same window, headline
+  pre-specified), one L1 run is `leaked`, and all L3 runs are
+  `test_selected` with six candidates because the frozen prompt names the
+  winner by test MAPE.
 - **Opus 5.** Single sessions, descriptive only: 3.07 (L1, leaked through
-  its tuning windows; section 4) and, for L2, an agent-reported 3.40 for a
-  forecast that was never written, with the surviving earlier forecast at
-  3.67 (incomplete, leaked; section 4).
+  its tuning windows; section 4), for L2 an agent-reported 3.40 for a
+  forecast that was never written with the surviving earlier forecast at
+  3.67 (incomplete, leaked; section 4), and 5.46 for L3 (complete, clean,
+  resumed once after a harness cut-off; section 6).
+
+Within L3 the four September bake-offs agree on the top and the bottom.
+LightGBM first in every run, by test and by validation; the naive baseline
+(12.78 in every run, since it has nothing to fit) and SARIMA at the
+bottom (SARIMA 12.34, 14.99, 15.55 and 11.44, below the naive baseline in
+three of four runs). The middle is run-dependent: Fable r1 Prophet 7.61,
+TSMixer 7.62, N-BEATS 10.25; r2 Prophet 7.90, TSMixer 9.13, N-BEATS 10.55;
+r3 TSMixer 7.22, Prophet 7.84, N-BEATS 9.76; Opus 5 Prophet 7.61, TSMixer
+10.78, N-BEATS 11.06. Prophet's 7.61 recurs in May, Fable r1 and the Opus
+5 run, which all left its seasonality settings at their defaults; r2 and
+r3 tuned them on validation and landed at 7.90 and 7.84. Every write-up
+explained the same mechanism: the models that only see the last 168 hours
+copy the Christmas week forward and under-predict the working days by
+around 10 GW; LightGBM is the only entry with both a holiday flag and a
+year-ago lag; and 6 January (Epiphany, a holiday in three states) is
+over-forecast by every model that does not know it.
 
 ## 3. Process
 
 From `RESULTS_table.md`; each item as a count of runs out of the cell.
 
-| Item | Fable L1 (3) | Fable L2 (3) | Opus 5 L1 (1) | Opus 5 L2 (1) | May L1 | May L2 |
-|---|---|---|---|---|---|---|
-| Fitted more than one model class | 3/3 (naive baselines beside the headline) | 3/3 | 1/1 | 1/1 | yes (3 baselines) | no |
-| Held-out validation decided a choice | 1/3 | 0/3 | 1/1 | 1/1 | no | no |
-| Prediction intervals | 2/3 | 0/3 | 1/1 | 0/1 | no | no |
-| Written methods document | 0/3 | 1/3 | 1/1 | 0/1 | no | no |
-| Read `AGENTS.md` before its first implementation step | n/a | 3/3 (4th tool call in every run) | n/a | 1/1 | n/a | not recorded |
-| Session turns | 15, 17, 21 | 33, 27, 42 | 63 | 13 |
-| Wall-clock minutes | 6, 16, 30 | 30, 44, 24 | 93 | 81 |
+| Item | Fable L1 (3) | Fable L2 (3) | Fable L3 (3) | Opus 5 L1 (1) | Opus 5 L2 (1) | Opus 5 L3 (1) | May L1 | May L2 | May L3 |
+|---|---|---|---|---|---|---|---|---|---|
+| Fitted more than one model class | 3/3 (naive baselines beside the headline) | 3/3 | 3/3 (six each) | 1/1 | 1/1 | 1/1 (six) | yes (3 baselines) | no | yes (six) |
+| Held-out validation decided a choice | 1/3 | 0/3 | 3/3 | 1/1 | 1/1 | 1/1 | no | no | yes |
+| Prediction intervals | 2/3 | 0/3 | 3/3 | 1/1 | 0/1 | 1/1 | no | no | yes |
+| Written methods document | 0/3 | 1/3 | 3/3 | 1/1 | 0/1 | 1/1 | no | no | yes |
+| Target week entered a choice or an input (`leaked`) | 1/3 | 0/3 | 0/3 | 1/1 | 1/1 | 0/1 | no | no | yes (24 h lag) |
+| Read `AGENTS.md` before its first implementation step | n/a | 3/3 (4th tool call in every run) | 3/3 (4th, 6th and 7th tool call) | n/a | 1/1 (3rd) | 1/1 (5th) | n/a | not recorded | not recorded |
+| Session turns | 15, 17, 21 | 33, 27, 42 | 110, 134, 108 | 63 | 89 | 80 + 57 |
+| Wall-clock minutes | 6, 16, 30 | 30, 44, 24 | 97, 126, 129 | 93 | 81 | 37 + 71 |
 
 Observed in these runs, not a general effect: with Fable 5.1 the 10-word
 prompt already produced the model class the May L2 and L3 runs reached,
 plus quantile bands in two of three runs; the 7-line `AGENTS.md` added a
 written report in one run and did not add validation or intervals. What no
-L1 or L2 run produced, and what the L3 prompt asks for, is a held-out
-validation window used to choose among model classes, a calibrated interval
-report, a methods document and a multi-model comparison in one place.
+L1 or L2 run produced, the L3 prompt asked for and every L3 run delivered:
+a held-out validation window that chose hyperparameters inside every model
+class, a calibrated-interval report (with the calibration measured and, in
+every run, found wanting for the 80 percent band), a methods document, and
+a six-model comparison in one place, with no test-week observation
+entering any fitting, selection or input of the headline forecast. That is
+the whole of the L3 prompt's DO NOT block, honoured by every September L3
+session, including the one rule the May run itself did not keep (section
+4).
 
 ## 4. Test-window audit and anomalies
 
@@ -104,6 +155,17 @@ re-checked by the orchestrator against the logs).
   existed and the two naive baselines were scored on the same window as
   reference, so the selection optimism is nil in practice; the class is
   reported because the rule is literal.
+- `test_selected` with six candidates: every September L3 run, because the
+  frozen prompt names the class with the lowest test MAPE as the winner.
+  In every one of them LightGBM also had the lowest validation MAPE
+  (Fable r1 3.27, r2 3.02, r3 3.06, Opus 5 3.00, all on 2019 Q4, against
+  4.2 to 6.4 for the other classes), so each run's selection-free number
+  equals its headline. The orchestrator traced every edit made after a
+  test score was printed in each session (SARIMA and deep-model fixes,
+  import and typing fixes, a callback rename, a switch of the deep models
+  to the GPU followed by a full re-run); none changed a feature, a
+  hyperparameter grid or a window in response to a test score
+  (`scoring.json`, audit notes).
 - `leaked`: Fable L1 r3 and Opus 5 L2. The Fable agent scored its first
   model on the target week (6.1 percent), ran target-error diagnostics,
   added a year-over-year level feature and a bridge-day flag, and reran to
@@ -124,6 +186,43 @@ re-checked by the orchestrator against the logs).
   of seven test-scored configurations. The independent reader caught
   this; the orchestrator had read the agent's own description ("Jan 1-8
   windows excluded") and initially classed the run as clean.
+- `leaked`, found on 2026-09-05 and outside the September runs: **the May
+  2026 L3 winner.** Its LightGBM code builds every feature on the training,
+  validation and test series concatenated and predicts each test hour from
+  that frame (`runs/L3/code/lightgbm_features.py`, lines 111 and 143), so
+  for every test hour after 1 January the 24-hour lag and the 24-hour
+  rolling mean and standard deviation are the test week's own actual
+  loads. Six of the seven days were forecast with the previous day's
+  observations as inputs. The code's comment says "only timestamps used for
+  features", which is true of the calendar columns and false of the lag and
+  rolling columns; the May transcript describes the model as "direct
+  multi-step forecasting, not recursive" without noticing what that meant
+  for the 24-hour lag. The frozen prompt's wording admits this reading
+  ("all required lags must be present in the data"), and its DO NOT block
+  forbids using the test window "for any model fitting, hyperparameter
+  selection, or model-class choice", not for inputs; the pre-registered
+  design (section 5.2) classed the run as `test_selected` on the same
+  reading. Under the rule's literal text, test-window observations entered
+  feature construction, so the run is `leaked`; May's 3.43 stays in every
+  table as the May reference with the flag, and the May artefacts are not
+  regenerated. The finding came from comparison: all four September L3
+  sessions saw the same prescribed feature list, said in their own
+  write-ups why a lag shorter than the horizon would leak, and forecast the
+  week recursively, at a visible cost in the headline number; Fable r3
+  then measured that cost on its own model (3.71 day-ahead against 5.53
+  week-ahead).
+- Fable L3 r3's day-ahead supplement, and the one reader verdict
+  overruled. The independent reader classed r3 as `leaked` because that
+  supplementary forecast builds its lag features from the concatenated
+  series, the same construction as May's, and is scored on the test week
+  (`output/code/forecast.py`, lines 359 to 365, whose own comment says "this
+  uses test observations as inputs"). The orchestrator keeps the run at
+  `test_selected`: the audit classifies the headline forecast, and the
+  supplement is computed after the bake-off, labelled as outside it in
+  `transcript.md` and `metrics.json`, and feeds no selection, feature or
+  refit; it is the same kind of disclosed side computation as Fable L2 r1's
+  printout of the target week's daily statistics. Both readings are
+  recorded here so a reader can apply the stricter one.
 - No wave-1 run is `final_scoring_only`: every one scored at least its
   baselines on the target week, and the two Opus 5 runs and one Fable run
   let the target week shape a choice.
@@ -133,45 +232,97 @@ re-checked by the orchestrator against the logs).
   L2 r2 parked itself on a monitor for a background backtest, Opus 5 L2
   parked itself on a background re-run. In an interactive terminal both
   would have been woken. They are scored on what they had written and
-  marked incomplete; they were not re-run (first-attempt rule).
+  marked incomplete; they were not re-run (first-attempt rule). The Opus 5
+  L3 first attempt ended the same way and was resumed once, as the L3
+  attempt policy allows (section 6).
+- Every September L3 run substituted darts `TSMixerModel` for PatchTST,
+  which the installed darts 0.41.0 does not ship, recorded the
+  substitution in `transcript.md` as the prompt requires, and kept the
+  `patchtst` slot name in `metrics.json` with the real class recorded
+  beside it. May did the same.
+- Interval calibration at L3: the winner's 80 percent band covered 57.1,
+  50.6 and 48.8 percent of test hours in the three Fable runs and 53.6
+  percent in the Opus 5 run; the 95 percent band 94.0, 91.7, 83.3 and 91.7
+  percent. Each write-up measured this itself and blamed the same
+  mechanism in different words: quantile models fitted on features built
+  from observed values and applied to recursively built ones, so the bands
+  never see the compounding error and do not widen with lead time. May's
+  79.8 and 92.9 percent were measured on a forecast that had the previous
+  day's actuals as inputs.
 - Fable L2 r1 found the `codex` CLI on the machine's PATH and ran
   read-only GPT-5.6-Sol reviews of its own script. Fable L2 r3 could not
   import the supplied venv's packages from inside its tool sandbox, created
   a venv under the home directory and installed pandas, matplotlib and
-  scikit-learn there.
-- All three Fable L1 runs and both Opus 5 runs stamped their forecast in
-  Europe/Berlin local time (a week that starts one hour before the UTC test
-  window); the Fable L2 runs used UTC. Each is scored on its own week.
+  scikit-learn there. The Opus 5 L3 and Fable L3 r3 sessions wrote timing
+  probes and scratch scripts under `/tmp`, outside the working directory
+  the prompt names (the sandbox does not deny `/tmp`); Fable L3 r2 found
+  that importing LightGBM and torch in one process crashed torch training
+  on this machine, ran the deep models in separate processes, and recorded
+  the fact in Claude Code's per-project memory directory (its own entry
+  under `~/.claude/projects`, which the seatbelt allows). Fable L3 r3 moved
+  its two deep models to the Apple GPU after a first CPU pass and re-ran
+  the whole bake-off there, flagging that the GPU numbers are not
+  bit-for-bit repeatable across hardware. Nothing else left the sandbox.
+  Imports and, in r2, a `mypy` run left bytecode caches inside the cloned
+  venv (`harvest.json`, `venv_entries_changed` 4, 49, 4 and 0); no package
+  was installed by any L3 run.
+- All three Fable L1 runs and both Opus 5 wave-1 runs stamped their
+  forecast in Europe/Berlin local time (a week that starts one hour before
+  the UTC test window); the Fable L2 runs and every L3 run used UTC. Each
+  is scored on its own week. Two L3 runs (Fable r2, Opus 5) wrote no
+  forecast CSV; their point and quantile forecasts were read out of the
+  agents' own result pickles by `scripts/extract_pickle_forecast.py` into
+  `derived/` and recompute to the agents' numbers.
 - The `holidays` package is used by most runs for German public holidays;
   the frozen L3 prompt itself classes that as knowable a priori, not
   external data, and that reading is applied to every level.
 - No run hit a permission denial, a rate-limit stop or a wall-clock cap.
-  Six runs saw per-command timeouts on long fits and recovered by
-  backgrounding or shortening the job.
+  Six wave-1 runs saw per-command timeouts on long fits and recovered by
+  backgrounding or shortening the job; the L3 runs used background jobs
+  and waited on them, which the keep-alive supports (section 6).
+- Independent reader versus orchestrator: on every L3 run the reader
+  counted a `python -V` or `python -c` probe as the first implementation
+  step and so reported the `AGENTS.md` read as coming after
+  implementation; the orchestrator applies the design's definition (a
+  Write or Edit, or a shell command that runs Python code, writes a file
+  or redirects into one), under which the read came first in every L2 and
+  L3 run. The r3 `leaked` call is discussed above. Nothing else in the
+  readers' verdicts was overruled.
+- Harness summary correction: the summariser now sums a session's result
+  events (a keep-alive session emits one per re-entry). The 2026-09-03
+  figures for Opus 5 L2 (13 turns, 2.2 M / 7 k tokens) counted only that
+  session's last re-entry and are corrected above to 89 turns and 10.2 M /
+  63 k; no other wave-1 figure changed.
 
 ## 5. Costs
 
-List-price estimate from each session's result event (subscription usage in
-practice): Fable 5.1 L1 2.2 to 2.5 dollars per run, L2 3.5 to 4.1; Opus 5
-L1 6.2, L2 8.3. Tokens (input including cache reads / output): Fable L1
-0.8 to 1.0 M / 11 to 14 k; Fable L2 2.1 to 2.5 M / 20 to 30 k; Opus 5 L1
-6.7 M / 61 k; Opus 5 L2 2.2 M / 7 k.
+List-price estimate from each session's result events (subscription usage
+in practice, with overage disabled): Fable 5.1 L1 2.2 to 2.5 dollars per
+run, L2 3.5 to 4.1, L3 16.2, 19.8 and 14.1; Opus 5 L1 6.2, L2 8.3, L3 18.7
+across its two attempts. Tokens (input including cache reads / output):
+Fable L1 0.8 to 1.0 M / 11 to 14 k; Fable L2 2.0 to 2.4 M / 20 to 30 k;
+Fable L3 15 to 24 M / 107 to 139 k; Opus 5 L1 6.5 M / 61 k; Opus 5 L2
+10.2 M / 63 k; Opus 5 L3 22.7 M / 112 k. The whole study, twelve counted
+runs plus the resume, comes to about 100 dollars at list price.
 
-## 6. Wave 2 (L3): what happened, and why there is no L3 result
+## 6. Wave 2 (L3): what happened, and how the cell was filled
 
-Wave 2 launched at 21:50 local on 2026-09-03, when the five-hour usage
-window reset and the pre-registered gate opened.
+Wave 2 first launched at 21:50 local on 2026-09-03, when the five-hour
+usage window reset and the pre-registered gate opened.
 
-- **Opus 5, L3, one run, incomplete.** It read the prompt and the 113-line
-  `AGENTS.md`, laid out the required `code/` tree with one module per model
-  and an orchestrator, and started all six fits. Four finished their
-  validation fits inside the session: LightGBM 3.00, naive 5.48, Prophet
-  5.64, SARIMA 6.41 percent MAPE on the 2019 Q4 validation window. N-BEATS
-  and PatchTST were still training when the agent said "I'll wait for the
-  deep models to finish training" and the headless session ended on that
-  turn, taking the training processes with it. The orchestrator never ran,
-  so there is no test-window forecast, no `metrics.json`, no figures and no
-  `transcript.md`. 37 minutes, 8.72 dollars at list price.
+- **Opus 5, L3, first attempt, cut off.** It read the prompt and the
+  113-line `AGENTS.md`, laid out the required `code/` tree with one module
+  per model and an orchestrator, and started all six fits. Four finished
+  their validation fits inside the session: LightGBM 3.00, naive 5.48,
+  Prophet 5.64, SARIMA 6.41 percent MAPE on the 2019 Q4 validation window.
+  N-BEATS and TSMixer were still training when the agent said "I'll wait
+  for the deep models to finish training", and 600 seconds later the CLI
+  ended the session, killing the training processes; its own stderr says
+  why: "Background tasks still running after 600s; terminating. Set
+  CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS=0 to wait indefinitely." Print mode
+  had in fact re-entered the model twice on earlier background
+  completions inside that session; the ceiling, not the turn structure,
+  was the limit. 37 minutes, 8.72 dollars at list price.
 - **Fable 5.1, L3, three runs, void.** All three were refused by the API
   with "You're out of usage credits" (weekly overage window at 1.01, status
   `rejected`). The first ran 95 seconds before the refusal landed, the
@@ -179,35 +330,73 @@ window reset and the pre-registered gate opened.
   This is an infrastructure failure of the operator's account, not a
   property of the model or the prompt.
 
-Two things follow, and only one of them is about the models.
+**The relaunch, 2026-09-05 09:45 local** (DESIGN.md section 9). The weekly
+window had come back (a probe session read seven-day 0.13, five-hour 0.34,
+overage disabled). Three harness changes, all disclosed before launch: the
+keep-alive variable named above is passed to every session, so a session
+waits for the agent's own background jobs and re-enters the model when one
+finishes; the L3 resume gate accepts that cut-off as an infrastructure
+failure; and the two remaining pairs were added to `waves.json`. Pair A was
+the single permitted resume of `opus5 L3 r1` ("Continue.", into its
+preserved sandbox and session) beside a fresh `fable51 L3 r1`; pair B,
+`fable51 L3 r2` and `r3`, waited for the gate, which read the live
+five-hour utilisation at 0.68 and held it until the 14:00 reset, then
+launched both at 14:02.
 
-**The honest reading.** This study has no September 2026 L3 result. The
-L1 and L2 findings above stand on their own; any comparison with L3 uses
-the May 2026 run and must say so.
+- **Opus 5, L3, resumed.** The agent found its two dead training jobs,
+  tested whether a detached process outlives the tool call that started
+  it (it did not), restructured the two deep models into stages that fit
+  inside single foreground calls, ran them, then the orchestrator, then
+  wrote the figures and `transcript.md`. 71 more minutes, 10.02 dollars,
+  57 turns. LightGBM 5.46 percent, Prophet 7.61, TSMixer 10.78, N-BEATS
+  11.06, SARIMA 11.44, naive 12.78. The run wrote no forecast CSV; the
+  point and quantile forecast were read out of the agent's own
+  `artifacts/lightgbm.pkl` by `scripts/extract_pickle_forecast.py` and
+  recompute to 5.457.
+- **Fable 5.1, L3 r1.** 97 minutes, 110 turns, 16.16 dollars, never cut
+  off: the session re-entered the model three times after background jobs
+  finished. It read `AGENTS.md` at its fourth tool call, wrote the seven
+  modules, selected every model on seven rolling 168-hour origins inside
+  2019 Q4, refit, and ran the orchestrator end to end twice (the first full
+  pass failed on a module-loading detail it then fixed). LightGBM 5.03
+  percent (recomputed 5.025 from `forecasts/lightgbm.csv`), Prophet 7.61,
+  TSMixer 7.62, N-BEATS 10.25, SARIMA 12.34, naive 12.78.
+- **Fable 5.1, L3 r2.** 126 minutes, 134 turns, 19.82 dollars, re-entered
+  19 times. It selected every model on the thirteen whole weeks of 2019 Q4
+  from a fixed origin each, ran the deep models in separate processes
+  after finding that LightGBM and torch crashed each other in one, and
+  regenerated its final metrics and figures from the cached per-model
+  results. LightGBM 4.99 percent (recomputed 4.993 from its result
+  pickle), Prophet 7.90, TSMixer 9.13, N-BEATS 10.55, naive 12.78, SARIMA
+  14.99.
+- **Fable 5.1, L3 r3.** 129 minutes, 108 turns, 14.14 dollars, re-entered
+  33 times. It timed every model class first, ran a complete CPU pass,
+  moved the two deep models to the Apple GPU and re-ran the whole bake-off
+  in 1,481 seconds with the same ranking, and wrote every model's point and
+  quantile forecast to one `forecasts.csv`. LightGBM 5.53 percent
+  (recomputed 5.532), TSMixer 7.22, Prophet 7.84, N-BEATS 9.76, naive
+  12.78, SARIMA 15.55; and, as a labelled supplement outside the bake-off,
+  the same LightGBM one day ahead at 3.71.
 
-**What the attempt itself shows, as an observation about the harness, not
-about the models.** The L3 prompt asks for six model classes including two
-deep forecasters, which took 20 to 60 minutes of operator-supervised
-wall-clock in May. Run headless, the agent's natural move is to start the
-long fits in the background and wait, and a headless session ends on a
-turn with no tool call. Two wave-1 sessions ended the same way. A future
-L3 attempt should either drive the session interactively, as May did, or
-add a harness-level keep-alive; the design's resume path
-(`scripts/resume_run.sh`) exists for exactly this and can pick these
-sessions up, since the sandboxes and session ids are preserved.
+**What the attempt showed about the harness.** Headless print mode does
+re-enter the model when a tracked background job finishes; what ended the
+first Opus 5 attempt was a 600-second ceiling on waiting for such jobs,
+which the CLI's own message names. With the ceiling disabled the four L3
+sessions ran 71 to 129 minutes with no operator present. The two wave-1
+runs that parked (Fable L2 r2, Opus 5 L2) would very likely have finished
+under the same setting; they are kept as they stand under the
+first-attempt rule, and the difference is a disclosed limitation
+(DESIGN.md section 7).
 
-## 7. What a next session needs to do
+## 7. What is left
 
-1. Wait for credits: the weekly window resets 2026-09-09 11:00 local. The
-   launcher's gate reads the five-hour window only, so check the weekly one
-   by hand before launching (`seven_day_overage_included` in any recent
-   `rate_limit_event`).
-2. Re-run wave 2. Delete or archive the four void or incomplete L3 run
-   directories first, since `run_headless.sh` refuses to overwrite. Expect
-   the same headless parking problem on the deep models unless it is
-   addressed; `scripts/resume_run.sh <run> "<reason>"` will resume the Opus
-   5 session in place, which is the cheapest way to get one L3 result.
-3. Re-score, re-assess (`scripts/assess_fleet.sh`), regenerate the figure
-   and table, and fill the L3 cells in this file and in the deck. The deck
-   verifier (`scripts/verify_deck_numbers.py`) fails while any `L3PENDING`
-   placeholder remains and checks every other quoted number.
+Nothing that blocks the write-up. Optional follow-ups, none started:
+
+1. The wave-1 runs were not re-run under the keep-alive; if a future study
+   wants the two incomplete L2 runs completed, it must be a new study, not
+   a resume, under the attempt policy.
+2. The May 2026 L3 artefacts are historical evidence and stay as they are;
+   the day-ahead finding in section 4 is recorded here and in DESIGN.md
+   5.2, not by regenerating them.
+3. The sandboxes under `~/dev/energy_forecast_ws/` can be deleted once
+   this commit is pushed; everything scored is in git.

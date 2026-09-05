@@ -1,0 +1,107 @@
+[
+  {
+    "path": "code/common.py",
+    "bytes": 11372,
+    "sha256": "6ab04ecd2ed99ef740886e61ab65cff20fcf7db11dc7daf6d9dad73aaa2b352a"
+  },
+  {
+    "path": "code/forecast.py",
+    "bytes": 17104,
+    "sha256": "d5b0c0df0ecc23a0f7268113de909cbe9d54b1aa1c7e8dfc444c7cef48502736"
+  },
+  {
+    "path": "code/lightgbm_features.py",
+    "bytes": 7608,
+    "sha256": "cc9b10f1376ebd4bb5afdea033229d07dea2c81143042156b5cb3e0824926f24"
+  },
+  {
+    "path": "code/naive.py",
+    "bytes": 1925,
+    "sha256": "c16e66aa095c85d238a69f0369d7dd4e2408294adf183e2739039da7f69ff819"
+  },
+  {
+    "path": "code/nbeats.py",
+    "bytes": 1721,
+    "sha256": "b51dde480a069da51825f26f3585d0f0d1908652debcf3cfef59cd22d5e7bc80"
+  },
+  {
+    "path": "code/patchtst.py",
+    "bytes": 1814,
+    "sha256": "0f75d4ae924482867d01f1774cc303710b94fffc855e9026602183a45ec582be"
+  },
+  {
+    "path": "code/prophet.py",
+    "bytes": 4694,
+    "sha256": "86cbd27a2bc5805a5726bab80ecb4c7dad416b97d5fecc27858dc024339daf33"
+  },
+  {
+    "path": "code/sarima.py",
+    "bytes": 6065,
+    "sha256": "540582a78f19a03b2cd6e23c37a97c935f61df12fc6c23623bfb78af06f08684"
+  },
+  {
+    "path": "code/torch_common.py",
+    "bytes": 7600,
+    "sha256": "ba70e2c149d79b89d308d7df33b77940baa83bb35771eea4057b843a5e5b2afc"
+  },
+  {
+    "path": "figures/01_overview.png",
+    "bytes": 193911,
+    "sha256": "84377b85b592de3c7f7504ec10aa82e3f5fc8658d1d6fcec473b6dd88c6a3e7b"
+  },
+  {
+    "path": "figures/02_forecast_comparison.png",
+    "bytes": 589179,
+    "sha256": "ccbf076a2c7e3374bf7a53016ade8489740ee529bdd2474798dafca86e51364a"
+  },
+  {
+    "path": "figures/03_metric_comparison.png",
+    "bytes": 114973,
+    "sha256": "00334b2452067de448552ea38c20350977bf9b864b47718e289e826d2d0f6b3a"
+  },
+  {
+    "path": "figures/04_per_day_mape.png",
+    "bytes": 103460,
+    "sha256": "204b78c64232a6674a3aad82b764a1987aef60e894b1d23bb5a2bd833a05651a"
+  },
+  {
+    "path": "figures/05_winner_with_intervals.png",
+    "bytes": 605317,
+    "sha256": "6562a4df35e90dc8778565a960d8d623439ce286710befd499a6eca25d0bd254"
+  },
+  {
+    "path": "figures/06_residuals.png",
+    "bytes": 170121,
+    "sha256": "832fef9789153dc7401187892e1b2241bce904f6aa8311cbac2142593346480b"
+  },
+  {
+    "path": "figures/07_feature_importance.png",
+    "bytes": 113475,
+    "sha256": "81fb480028711d5b5c93aa250a36a19d7d41eb17ba4d03bbf992f56ea7147c1a"
+  },
+  {
+    "path": "forecasts.csv",
+    "bytes": 47922,
+    "sha256": "fc881096020eae49cf5569b7983574fae20c4026bd6f5c6405f3ac856219569a"
+  },
+  {
+    "path": "metrics.csv",
+    "bytes": 4177,
+    "sha256": "a374e3fce443f2bece9f1e8ccbf41fb44eeea154d451a37bf3b6149cf12f9926"
+  },
+  {
+    "path": "metrics.json",
+    "bytes": 7671,
+    "sha256": "cdf8ef9963e580fa5b1ccd0cceed247192f5d1a520a1b8705bfa2a27649747bc"
+  },
+  {
+    "path": "run.log",
+    "bytes": 12567,
+    "sha256": "924268d06b8f578c0e8147ee559d538d17fa316f737570f75a8c50df79be0afa"
+  },
+  {
+    "path": "transcript.md",
+    "bytes": 12542,
+    "sha256": "9c5b0d9678f8d45733b6c359c8233393ff3a85426b229ab5eb2cb62c2d477dba"
+  }
+]

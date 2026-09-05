@@ -297,14 +297,18 @@ def parse_attempt(path: Path, work_dir: Path, sandbox_root: Path | None
             a.has_result = True
             a.stop = ev.get("subtype", "") or "result"
             a.is_error = bool(ev.get("is_error", False))
-            a.num_turns = int(ev.get("num_turns", 0))
-            a.duration_s = round(float(ev.get("duration_ms", 0)) / 1000.0, 1)
+            # a session that re-enters the model after background jobs (the
+            # keep-alive of wave 2) emits one result event per re-entry; turns,
+            # duration and token usage are per event and are summed, while
+            # total_cost_usd is cumulative and the last value is kept
+            a.num_turns += int(ev.get("num_turns", 0))
+            a.duration_s = round(a.duration_s + float(ev.get("duration_ms", 0)) / 1000.0, 1)
             a.cost_usd = round(float(ev.get("total_cost_usd", 0.0)), 4)
             usage = ev.get("usage") or {}
-            a.input_tokens = int(usage.get("input_tokens", 0))
-            a.output_tokens = int(usage.get("output_tokens", 0))
-            a.cache_read_tokens = int(usage.get("cache_read_input_tokens", 0))
-            a.cache_create_tokens = int(usage.get("cache_creation_input_tokens", 0))
+            a.input_tokens += int(usage.get("input_tokens", 0))
+            a.output_tokens += int(usage.get("output_tokens", 0))
+            a.cache_read_tokens += int(usage.get("cache_read_input_tokens", 0))
+            a.cache_create_tokens += int(usage.get("cache_creation_input_tokens", 0))
             denials = ev.get("permission_denials") or []
             a.permission_denials = len(denials)
             a.denied_tools = [str(d.get("tool_name", d)) if isinstance(d, dict) else str(d)
