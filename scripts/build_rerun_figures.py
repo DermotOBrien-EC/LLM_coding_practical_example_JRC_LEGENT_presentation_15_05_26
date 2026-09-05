@@ -118,7 +118,7 @@ def build_figure(results: list[dict[str, object]], ref: dict[str, float]) -> Non
     fig.text(0.01, 0.012,
              "Hollow marker with * = session ended before the agent's final step, scored on the forecast it had written.\n"
              "† = May's L3 winner read the test week's own actual loads through its rolling features from the 2nd hour "
-             "and its 24 h lag from the 2nd day; the September L3 forecasts are recursive week-ahead forecasts.",
+             "and its 24 h lag from the 2nd day; the September Claude L3 forecasts are recursive week-ahead forecasts.",
              fontsize=7.5, color="#555555", va="bottom")
     fig.tight_layout(rect=(0, 0.07, 1, 1))
     OUT_FIG.parent.mkdir(parents=True, exist_ok=True)

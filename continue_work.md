@@ -34,10 +34,32 @@ now sums a session's result events (Opus 5 L2's turn and token counts
 changed). Fable L3 r3 is recorded `leaked` for a labelled supplement with
 its headline untouched (`leak_scope` in `scoring.json`).
 
-What remains is optional: delete the four sandboxes under
-`~/dev/energy_forecast_ws/` (everything scored is in git), and tell Andres
-the slides are on `dev_dermot`. The seminar deck still carries the May
-date on its cover; nobody has said what the new date is.
+**Extension A, in flight from 2026-09-05 22:30 local.** The owner asked
+(22:10) for "the full experiment" with GPT-5.5, GPT-5.6-Sol and
+GPT-6-Astra "using the same harness using poly with codex models", and
+said the workshop is on the 11th. Pre-registered as DESIGN.md section 11
+(commit 8144202): the same harness, routed to the local gateway
+(`sol-proxy.sh`, 127.0.0.1:8317) with the `poly` launcher's environment,
+tags `astra`, `sol`, `gpt55`, three runs per level each, 27 runs. Order:
+Astra read-only review of section 11 and the harness diff
+(`runs_2026_09/reviews/2026-09-05_astra_extension_design_review*.md`),
+fold, then `bash scripts/launch_wave.sh ext_canary` (astra L1 r1, inspect
+by hand: tool calls, classifier, result event, harvest), then
+`nohup bash scripts/launch_extension.sh > runs_2026_09/_logs/extension.log`
+(ext_waveA, 17 light runs six at a time; then ext_waveB, nine L3 runs two
+at a time, roughly nine hours; marker `EXTENSION_DONE`). Afterwards:
+`assess_fleet.sh` per run (the reader fleet is Astra now), `score_runs.py
+discover` then `scoring.json` entries then `final`, `build_rerun_figures.py`
+(the figure has six series; consider a second figure for the OpenAI arm),
+a RESULTS.md section 8 for the extension, the deck (a new slide or two;
+the verifier needs extending for the new tags), review, push. Codex quota
+is the only cost; a gateway 429 shows up as an API error in the session
+log (void for L1 and L2, one resume for L3).
+
+Also optional: delete the sandboxes under `~/dev/energy_forecast_ws/`
+after the extension is scored, and tell Andres the slides are on
+`dev_dermot`. The seminar deck still carries the May date on its cover;
+the workshop is on 2026-09-11.
 
 The rest of this section is the in-flight record as written at 09:50 and
 is kept for provenance.

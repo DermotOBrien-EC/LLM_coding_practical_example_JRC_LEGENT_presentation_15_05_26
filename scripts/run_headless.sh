@@ -213,6 +213,7 @@ cat > "$SB" <<EOF
 (deny file-read* file-write* (subpath "$HOME/.codex/sessions"))
 (deny file-read* file-write* (subpath "$HOME/.codex/log"))
 (deny file-read* file-write* (literal "$HOME/.codex/history.jsonl"))
+(deny file-read* file-write* (subpath "$HOME/cliproxyapi"))
 (deny file-read* file-write* (subpath "$STAGE_BASE/hs"))
 (allow file-read* file-write* (subpath "$STAGE"))
 (deny process-info* (with no-log))

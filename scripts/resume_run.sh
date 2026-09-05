@@ -59,12 +59,35 @@ if not infra:
 print(sid)
 print(meta["work_dir"])
 print(meta["sandbox_token"])
+print(meta.get("model", ""))
+print("gateway" if str(meta.get("route", "")).startswith("gateway") else "direct")
 PY
 )" || { echo "$CHECK" >&2; exit 5; }
 SID="$(printf '%s\n' "$CHECK" | sed -n 1p)"
 WORK="$(printf '%s\n' "$CHECK" | sed -n 2p)"
 TOKEN="$(printf '%s\n' "$CHECK" | sed -n 3p)"
+MODEL="$(printf '%s\n' "$CHECK" | sed -n 4p)"
+ROUTE="$(printf '%s\n' "$CHECK" | sed -n 5p)"
 [ -d "$WORK" ] || { echo "sandbox work dir gone: $WORK" >&2; exit 5; }
+
+# Extension A (DESIGN.md section 11): a gateway-routed run resumes on the same
+# gateway, model and environment as its first attempt; this preflight runs
+# before the attempt counter is touched so a misrouted resume cannot use up
+# the single permitted one.
+GATEWAY_ENV=()
+MODEL_ARGS=()
+if [ "$ROUTE" = "gateway" ]; then
+  SP="/Users/doob/dev/Default_project_skills_n_setup/scripts/sol-proxy.sh"
+  bash "$SP" ensure --with-claude > /dev/null || { echo "gateway not available" >&2; exit 4; }
+  bash "$SP" has-model "$MODEL" > /dev/null 2>&1 || { echo "gateway catalog lacks $MODEL" >&2; exit 4; }
+  GW_BASE="$(bash "$SP" print-base-url)" || exit 4
+  GW_KEY="$(bash "$SP" print-key)" || exit 4
+  GATEWAY_ENV=(ANTHROPIC_BASE_URL="$GW_BASE" ANTHROPIC_AUTH_TOKEN="$GW_KEY"
+               CLAUDE_CODE_SUBAGENT_MODEL="$MODEL" CLAUDE_CODE_ALWAYS_ENABLE_EFFORT=1
+               CLAUDE_CODE_MAX_TOOL_USE_CONCURRENCY=3 CLAUDE_CODE_MAX_CONTEXT_TOKENS=272000
+               ENABLE_TOOL_SEARCH=false)
+  MODEL_ARGS=(--model "$MODEL")
+fi
 SB="$RUN/seatbelt.sb"
 STAGE="${TMPDIR:-/tmp}/hs/$TOKEN"
 mkdir -p "$STAGE"
@@ -91,7 +114,8 @@ python3 "$STAGE/sv.py" "$CAP_SECONDS" "$STAGE/input.txt" "$WORK" -- \
   env -i HOME="$HOME" USER="$USER" LOGNAME="$USER" SHELL=/bin/zsh LANG=en_US.UTF-8 \
       PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin \
       CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS=0 \
-      "$BIN" -p --resume "$SID" \
+      ${GATEWAY_ENV[@]+"${GATEWAY_ENV[@]}"} \
+      "$BIN" -p --resume "$SID" ${MODEL_ARGS[@]+"${MODEL_ARGS[@]}"} \
       --setting-sources project,local \
       --permission-mode auto --permission-prompts none \
       --output-format stream-json --verbose

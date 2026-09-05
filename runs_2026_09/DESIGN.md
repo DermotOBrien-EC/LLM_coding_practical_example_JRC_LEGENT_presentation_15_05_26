@@ -66,7 +66,10 @@ Twelve counted runs. The May 2026 runs are not re-run.
   through anonymous pipes, and the harness keeps `run_meta.json`,
   `session.jsonl`, `stderr.log` and the inventories in the repository, so
   nothing in the agent's argv, open files or working directory names the
-  run, the level or the model tag. This is a deny-list on one user account,
+  run, the level or the model tag. From Extension A (section 11) onwards
+  the profile also denies the local gateway's directory `~/cliproxyapi`;
+  the twelve Claude runs ran without that line, and none of their logs
+  touches it. This is a deny-list on one user account,
   not a virtual machine: the account's home remains the agent's home
   (subscription authentication needs it), so `~/.claude.json` and other
   home files are readable in principle. The summariser reports every
@@ -426,6 +429,21 @@ beside the headline (F8); the wave manifest, the mechanical usage gate, the
 resume script, and honest wording on denials and blinding (F9, in part);
 the corrected launch record (F10).
 
+Extension A review (GPT-6-Astra, read-only, 2026-09-05 23:00 local, on
+commit `8144202` against `999e602`;
+`reviews/2026-09-05_astra_extension_design_review.md`, fold record beside
+it): 11 findings, 1 blocker. Accepted and folded: the resume script
+rebuilds a gateway run's route and model before touching the attempt
+counter (F1); the credential wording narrowed and `~/cliproxyapi` denied
+in the seatbelt (F2); the subagent variable described as a default with a
+log audit (F3); the launcher skips the Claude gate for all-gateway waves
+and the classifier's Claude dependency is stated (F4); the void versus
+counted-as-it-stands rule written down (F5); the driver stops after a wave
+A with no completed run and returns non-zero on any failure (F6);
+permission mode, concurrency and effort wording (F7); the figure footnote
+scoped to the Claude L3 runs until the extension audit (F8); the
+post-processing scope stated (F9). F10 and F11 were confirmations.
+
 ## 11. Extension A, pre-registered 2026-09-05 22:30 local: three OpenAI models on the same harness
 
 Written before any extension run was launched; the numbers go to
@@ -450,26 +468,45 @@ Written before any extension run was launched; the numbers go to
   to Claude Code under their Codex ids from the operator's Codex
   subscription. The runner adds, for these tags only, the environment the
   operator's `poly` launcher uses for the same models: `ANTHROPIC_BASE_URL`
-  and `ANTHROPIC_AUTH_TOKEN` (the gateway's local key, not recorded),
-  `CLAUDE_CODE_SUBAGENT_MODEL` set to the same model so any subagent stays
-  on it, `CLAUDE_CODE_ALWAYS_ENABLE_EFFORT=1`,
+  and `ANTHROPIC_AUTH_TOKEN` (the gateway's local key: it is in the agent's
+  environment, as it must be, and is not written to `run_meta.json` or the
+  logs; the seatbelt now also denies the gateway's own directory
+  `~/cliproxyapi`, from this extension onwards), `CLAUDE_CODE_SUBAGENT_MODEL`
+  set to the same model, which is a default for subagents rather than a
+  guarantee (an agent definition that names a model overrides it; the
+  session logs are audited for the models any subagent actually used),
+  `CLAUDE_CODE_ALWAYS_ENABLE_EFFORT=1`,
   `CLAUDE_CODE_MAX_TOOL_USE_CONCURRENCY=3`,
   `CLAUDE_CODE_MAX_CONTEXT_TOKENS=272000` and `ENABLE_TOOL_SEARCH=false`.
-  The runner refuses to start unless the gateway is up and lists the model.
+  The launcher itself runs `bypassPermissions`; the runner keeps the Claude
+  arm's `auto` mode with prompts denied, so this arm reproduces the
+  launcher's environment, not the operator's interactive session. The
+  runner refuses to start unless the gateway is up and lists the model, and
+  a gateway-routed L3 resume rebuilds the same route and model before the
+  attempt counter is touched.
 - **Known differences from the Claude arm, disclosed rather than removed.**
   (a) The context window is pinned at 272,000 tokens; the Claude arm ran at
   the build's default for `claude-fable-5-1` and `claude-opus-5`. (b) The
   claude.ai connectors are disabled by the gateway credentials (the CLI
   says so on stderr: an auth source other than the claude.ai login takes
   precedence) and tool search is off; the Claude arm had the connectors
-  available and no counted run used one. (c) Parallel tool calls are capped
-  at three per turn. (d)
-  The effort parameter is enabled for these models at the gateway's default.
-  (e) The auto-mode permission classifier still runs on a Claude model,
-  through the gateway's Claude credentials. (f) Rate limits are the Codex
-  subscription's: the launcher's five-hour gate is inert for this arm, and a
-  session the gateway refuses is recorded as an API error (void for L1 and
-  L2, resumable once for L3). (g) The keep-alive is on for every level here,
+  available and no counted run used one. (c) At most three tool calls
+  execute concurrently. (d) The effort parameter is enabled for these
+  models; its effective value is whatever the CLI sends for the model by
+  default and is not otherwise set. (e) The auto-mode permission
+  classifier still runs on a Claude model through the gateway's Claude
+  credentials, so this arm depends on Claude capacity for its permission
+  decisions as well as on the Codex subscription for the model. (f) Rate
+  limits are the Codex subscription's: the launcher skips its Claude
+  five-hour gate for waves made only of gateway-routed runs. A session the
+  gateway refuses shows in the log as an API error; the rule for it is the
+  wave 2 precedent: a session that ends on an API error before its first
+  tool call is **void** (nothing was produced), archived under a `_void_`
+  directory and launched again once under the same rep number, and a
+  session that made at least one tool call before the error is **counted
+  as it stands**, scored on what is on disk and marked incomplete, never
+  re-run (L1, L2) or resumable once (L3), exactly as in section 3. (g) The
+  keep-alive is on for every level here,
   whereas the Claude arm's L1 and L2 ran without it, so "session finished"
   is not comparable across arms and is reported per arm. (h) Claude Code's
   agent loop, tools and system prompt were built around Claude; a
@@ -489,6 +526,12 @@ Written before any extension run was launched; the numbers go to
   closeness rule within each model. Across models the reading is a
   side-by-side of per-level ranges and process proportions, descriptive.
   The May L3 correction of section 5.2 applies unchanged.
+- **Post-processing scope.** The summariser, scorer and figure builder
+  regenerate shared derived files (`summary.json`, `results.csv`, the
+  figure and table) deterministically from the logs; after the extension
+  is processed, `git diff` of the twelve Claude runs' derived files must be
+  empty, and the independent reader is run on named extension runs only,
+  never with `all`, so the Claude assessments are not rewritten.
 - **Review.** One read-only review of this section and the harness diff by
   GPT-6-Astra before the canary, recorded in section 10; the launch record
   continues in section 9.

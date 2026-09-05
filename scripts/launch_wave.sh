@@ -31,6 +31,18 @@ CONC="$(printf '%s\n' "$SPEC_LINES" | head -1)"
 SPECS="$(printf '%s\n' "$SPEC_LINES" | tail -n +2)"
 
 # --- usage gate ------------------------------------------------------------
+# The gate reads Claude rate-limit events, so it applies only to waves that
+# contain a Claude-routed run; a wave made entirely of gateway-routed runs
+# (Extension A, DESIGN.md section 11) skips it.
+ALL_GATEWAY=1
+while IFS= read -r spec; do
+  [ -z "$spec" ] && continue
+  case "${spec%% *}" in astra|sol|gpt55) ;; *) ALL_GATEWAY=0 ;; esac
+done <<< "$SPECS"
+if [ "$ALL_GATEWAY" = 1 ]; then
+GATE="SKIPPED: every run in this wave is gateway-routed, so the Claude five-hour gate does not apply (DESIGN.md section 11)"
+GATE_RC=0
+else
 GATE="$(python3 - "$ROOT/runs_2026_09" "$MANIFEST" <<'PY'
 import glob, json, os, sys, time
 runs, manifest = sys.argv[1], sys.argv[2]
@@ -69,6 +81,7 @@ print(f"FAIL util={util:.2f} > {limit}, window resets {time.strftime('%H:%M', ti
 sys.exit(5)
 PY
 )"; GATE_RC=$?
+fi
 echo "usage gate: $GATE"
 if [ "$GATE_RC" != 0 ]; then
   echo "refusing to launch wave $WAVE" >&2
