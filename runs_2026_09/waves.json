@@ -1,14 +1,162 @@
 {
   "_comment": "Pre-registered wave membership and concurrency (DESIGN.md section 3). launch_wave.sh accepts only a wave name from this file. The canary is the first L1 run launched alone to validate the harness; wave1 is the remaining light runs launched together; wave2 runs the CPU-heavy L3 sessions two at a time in the stated order.",
-  "canary": {"concurrency": 1, "runs": ["fable51 L1 1"]},
-  "wave1": {"concurrency": 7, "runs": ["fable51 L1 2", "fable51 L1 3", "opus5 L1 1", "fable51 L2 1", "fable51 L2 2", "fable51 L2 3", "opus5 L2 1"]},
-  "wave2": {"concurrency": 2, "runs": ["fable51 L3 1", "opus5 L3 1", "fable51 L3 2", "fable51 L3 3"]},
+  "canary": {
+    "concurrency": 1,
+    "runs": [
+      "fable51 L1 1"
+    ]
+  },
+  "wave1": {
+    "concurrency": 7,
+    "runs": [
+      "fable51 L1 2",
+      "fable51 L1 3",
+      "opus5 L1 1",
+      "fable51 L2 1",
+      "fable51 L2 2",
+      "fable51 L2 3",
+      "opus5 L2 1"
+    ]
+  },
+  "wave2": {
+    "concurrency": 2,
+    "runs": [
+      "fable51 L3 1",
+      "opus5 L3 1",
+      "fable51 L3 2",
+      "fable51 L3 3"
+    ]
+  },
   "_wave2_relaunch": "2026-09-05 (DESIGN.md section 9): wave2 produced no result on 2026-09-03 (credit refusals; opus5 L3 r1 cut off by print mode's background-task wait ceiling). The void fable51 L3 directories are archived under _void_wave2_credit_refusal/. Pair A of the relaunch is the single permitted resume of opus5_L3_r1 (scripts/resume_run.sh) beside wave2_pairA_fable; pair B is wave2_pairB. Same order and the same two-at-a-time rule as wave2.",
-  "wave2_pairA_fable": {"concurrency": 1, "runs": ["fable51 L3 1"]},
-  "wave2_pairB": {"concurrency": 2, "runs": ["fable51 L3 2", "fable51 L3 3"]},
+  "wave2_pairA_fable": {
+    "concurrency": 1,
+    "runs": [
+      "fable51 L3 1"
+    ]
+  },
+  "wave2_pairB": {
+    "concurrency": 2,
+    "runs": [
+      "fable51 L3 2",
+      "fable51 L3 3"
+    ]
+  },
   "_extension_a": "Pre-registered 2026-09-05 (DESIGN.md section 11): the OpenAI models gpt-6-astra (tag astra), gpt-5.6-sol (sol) and gpt-5.5 (gpt55) on the same harness through the local gateway, three runs per level each. ext_canary validates the route alone; ext_waveA is every remaining L1 and L2 run; ext_waveB is the nine L3 runs two at a time, interleaved by model so no model gets all the late-night slots.",
-  "ext_canary": {"concurrency": 1, "runs": ["astra L1 1"]},
-  "ext_waveA": {"concurrency": 6, "runs": ["astra L1 2", "astra L1 3", "sol L1 1", "sol L1 2", "sol L1 3", "gpt55 L1 1", "gpt55 L1 2", "gpt55 L1 3", "astra L2 1", "astra L2 2", "astra L2 3", "sol L2 1", "sol L2 2", "sol L2 3", "gpt55 L2 1", "gpt55 L2 2", "gpt55 L2 3"]},
-  "ext_waveB": {"concurrency": 2, "runs": ["astra L3 1", "sol L3 1", "gpt55 L3 1", "astra L3 2", "sol L3 2", "gpt55 L3 2", "astra L3 3", "sol L3 3", "gpt55 L3 3"]},
-  "usage_gate": {"max_five_hour_utilization": 0.35, "note": "A wave launches only if the latest rate_limit_event across all session logs shows five-hour utilization at or below this value, or its resetsAt is in the past (fresh window)."}
+  "ext_canary": {
+    "concurrency": 1,
+    "runs": [
+      "astra L1 1"
+    ]
+  },
+  "ext_waveA": {
+    "concurrency": 6,
+    "runs": [
+      "astra L1 2",
+      "astra L1 3",
+      "sol L1 1",
+      "sol L1 2",
+      "sol L1 3",
+      "gpt55 L1 1",
+      "gpt55 L1 2",
+      "gpt55 L1 3",
+      "astra L2 1",
+      "astra L2 2",
+      "astra L2 3",
+      "sol L2 1",
+      "sol L2 2",
+      "sol L2 3",
+      "gpt55 L2 1",
+      "gpt55 L2 2",
+      "gpt55 L2 3"
+    ]
+  },
+  "ext_waveB": {
+    "concurrency": 2,
+    "runs": [
+      "astra L3 1",
+      "sol L3 1",
+      "gpt55 L3 1",
+      "astra L3 2",
+      "sol L3 2",
+      "gpt55 L3 2",
+      "astra L3 3",
+      "sol L3 3",
+      "gpt55 L3 3"
+    ]
+  },
+  "usage_gate": {
+    "max_five_hour_utilization": 0.35,
+    "note": "A wave launches only if the latest rate_limit_event across all session logs shows five-hour utilization at or below this value, or its resetsAt is in the past (fresh window)."
+  },
+  "_extension_b": "Pre-registered 2026-09-06 (DESIGN.md section 12): the 20 Extension A cells that ended without a forecast, re-run with the one-shot note prompts/one_shot_suffix.md appended to the prompt on stdin (tags astraos, solos, gpt55os). The seven Extension A runs that wrote a forecast are not re-run (owner instruction), and no Fable 5.1 session is run. ext_b_waveA is the 12 L1 and L2 runs six at a time; ext_b_waveB the eight L3 runs two at a time, interleaved by model.",
+  "ext_b_waveA": {
+    "concurrency": 6,
+    "runs": [
+      "astraos L1 1",
+      "astraos L1 2",
+      "astraos L1 3",
+      "astraos L2 1",
+      "astraos L2 2",
+      "astraos L2 3",
+      "solos L2 1",
+      "solos L2 2",
+      "solos L2 3",
+      "gpt55os L2 1",
+      "gpt55os L2 2",
+      "gpt55os L2 3"
+    ]
+  },
+  "ext_b_waveB": {
+    "concurrency": 2,
+    "runs": [
+      "astraos L3 1",
+      "solos L3 1",
+      "gpt55os L3 1",
+      "astraos L3 2",
+      "solos L3 2",
+      "gpt55os L3 3",
+      "astraos L3 3",
+      "solos L3 3"
+    ]
+  },
+  "_extension_c": "Pre-registered 2026-09-06 (DESIGN.md section 13): the Opus family on the direct route with the frozen prompts unchanged: Opus 5 reps 2 and 3 (tag opus5, beside its counted rep 1), Opus 4.8 (opus48) and Opus 4.7 (opus47) reps 1 to 3, at every level. Claude-routed, so every wave passes the usage gate; the driver waits and retries when the gate is closed. ext_c_wave1 and ext_c_wave2 split the 16 L1 and L2 runs (four at a time); ext_c_wave3 is the eight L3 runs two at a time, interleaved by model.",
+  "ext_c_wave1": {
+    "concurrency": 4,
+    "runs": [
+      "opus5 L1 2",
+      "opus5 L1 3",
+      "opus5 L2 2",
+      "opus5 L2 3",
+      "opus48 L1 1",
+      "opus48 L1 2",
+      "opus48 L1 3",
+      "opus47 L1 1"
+    ]
+  },
+  "ext_c_wave2": {
+    "concurrency": 4,
+    "runs": [
+      "opus47 L1 2",
+      "opus47 L1 3",
+      "opus48 L2 1",
+      "opus48 L2 2",
+      "opus48 L2 3",
+      "opus47 L2 1",
+      "opus47 L2 2",
+      "opus47 L2 3"
+    ]
+  },
+  "ext_c_wave3": {
+    "concurrency": 2,
+    "runs": [
+      "opus48 L3 1",
+      "opus47 L3 1",
+      "opus5 L3 2",
+      "opus48 L3 2",
+      "opus47 L3 2",
+      "opus5 L3 3",
+      "opus48 L3 3",
+      "opus47 L3 3"
+    ]
+  }
 }

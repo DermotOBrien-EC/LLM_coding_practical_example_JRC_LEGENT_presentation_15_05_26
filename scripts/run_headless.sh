@@ -44,7 +44,7 @@ CAP_SECONDS=10800   # the same cap for every level (design section 3)
 WS_BASE="$HOME/dev/energy_forecast_ws"
 STAGE_BASE="${TMPDIR:-/tmp}"
 
-MODEL_TAG="${1:?model tag (fable51|opus5|astra|sol|gpt55)}"
+MODEL_TAG="${1:?model tag (fable51|opus5|opus48|opus47|astra|sol|gpt55|astraos|solos|gpt55os)}"
 LEVEL="${2:?level (L1|L2|L3)}"
 REP="${3:?rep number}"
 
@@ -53,13 +53,22 @@ REP="${3:?rep number}"
 # them to Claude Code under their Codex ids. ROUTE=gateway adds exactly the
 # environment the operator's `poly` launcher uses; ROUTE=direct is the
 # Claude arm, unchanged.
+# Extension B (section 12): the same OpenAI models with a one-shot note
+# appended to the prompt on stdin (ONESHOT=1; the frozen prompt files are
+# untouched). Extension C (section 13): the Opus family on the direct route.
 ROUTE="direct"
+ONESHOT=0
 case "$MODEL_TAG" in
   fable51) MODEL="claude-fable-5-1" ;;
   opus5)   MODEL="claude-opus-5" ;;
+  opus48)  MODEL="claude-opus-4-8" ;;
+  opus47)  MODEL="claude-opus-4-7" ;;
   astra)   MODEL="gpt-6-astra";  ROUTE="gateway" ;;
   sol)     MODEL="gpt-5.6-sol";  ROUTE="gateway" ;;
   gpt55)   MODEL="gpt-5.5";      ROUTE="gateway" ;;
+  astraos) MODEL="gpt-6-astra";  ROUTE="gateway"; ONESHOT=1 ;;
+  solos)   MODEL="gpt-5.6-sol";  ROUTE="gateway"; ONESHOT=1 ;;
+  gpt55os) MODEL="gpt-5.5";      ROUTE="gateway"; ONESHOT=1 ;;
   *) echo "unknown model tag: $MODEL_TAG" >&2; exit 2 ;;
 esac
 GATEWAY_ENV=()
@@ -183,11 +192,16 @@ fi
 DATA_SHA="$(shasum -a 256 "$WORK/opsd_de_load.csv" | cut -d' ' -f1)"
 PROMPT_FILE="$ROOT/prompts/$LEVEL.md"
 PROMPT_SHA="$(shasum -a 256 "$PROMPT_FILE" | cut -d' ' -f1)"
+SUFFIX_FILE="$ROOT/prompts/one_shot_suffix.md"
+SUFFIX_SHA="none"
+if [ "$ONESHOT" = 1 ]; then
+  SUFFIX_SHA="$(shasum -a 256 "$SUFFIX_FILE" | cut -d' ' -f1)"
+fi
 
 # --- scan the sandbox (outside the venv's library tree) for identifiers ----
 # The L3 AGENTS.md and prompt legitimately name the study, so they are
 # excluded; everything else must be clean.
-LEAKS="$(cd "$WS" && /usr/bin/grep -rIl -E 'LLM_coding|LEGENT|jrc_andres|jrc-andres|prompt-engineering|three-level|fable51|opus5|astra_L[123]|sol_L[123]|gpt55|runs_2026_09' \
+LEAKS="$(cd "$WS" && /usr/bin/grep -rIl -E 'LLM_coding|LEGENT|jrc_andres|jrc-andres|prompt-engineering|three-level|fable51|opus5|opus4[78]|astra_L[123]|sol_L[123]|astraos|solos|gpt55|runs_2026_09' \
   --exclude-dir=lib --exclude=AGENTS.md --exclude=L3.md . 2>/dev/null || true)"
 if [ -n "$LEAKS" ]; then
   echo "identifier scan failed; sandbox names the study in:" >&2
@@ -196,7 +210,11 @@ if [ -n "$LEAKS" ]; then
 fi
 
 # --- stage the prompt and the supervisor under neutral names --------------
-cp "$PROMPT_FILE" "$STAGE/input.txt"
+if [ "$ONESHOT" = 1 ]; then
+  cat "$PROMPT_FILE" "$SUFFIX_FILE" > "$STAGE/input.txt"
+else
+  cp "$PROMPT_FILE" "$STAGE/input.txt"
+fi
 cp "$ROOT/scripts/supervise.py" "$STAGE/sv.py"
 
 # --- seatbelt profile for the agent process --------------------------------
@@ -227,9 +245,9 @@ START_ISO="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 START_EPOCH="$(date +%s)"
 
 python3 - "$RUN/run_meta.json" "$MODEL_TAG" "$MODEL" "$LEVEL" "$REP" "$START_ISO" "$DATA_SHA" \
-          "$PROMPT_SHA" "$AGENTS_SHA" "$BIN" "$GOT_VERSION" "$CAP_SECONDS" "$WS" "$WORK" "$TOKEN" "$ROUTE" <<'PY'
+          "$PROMPT_SHA" "$AGENTS_SHA" "$BIN" "$GOT_VERSION" "$CAP_SECONDS" "$WS" "$WORK" "$TOKEN" "$ROUTE" "$SUFFIX_SHA" <<'PY'
 import json, sys
-(out, tag, model, level, rep, start, dsha, psha, asha, binp, ver, cap, ws, work, token, route) = sys.argv[1:]
+(out, tag, model, level, rep, start, dsha, psha, asha, binp, ver, cap, ws, work, token, route, ssha) = sys.argv[1:]
 meta = {
     "model_tag": tag, "model": model, "level": level, "rep": int(rep),
     "started_utc": start,
@@ -241,7 +259,9 @@ meta = {
                           "pyproject.toml (generic, same dependencies)", "uv.lock (root package renamed to match)",
                           "runs/<token>/opsd_de_load.csv", "runs/<token>/AGENTS.md (L2, L3 only)", "prompts/L3.md (L3 only)"],
     "confinement": "macOS seatbelt (seatbelt.sb): denies ~/dev except this sandbox, ~/.claude/projects except this run's entry, ~/.claude/history.jsonl, the staging area except this run's, and process listing; not a VM",
-    "prompt_delivery": "stdin from a neutrally named staged copy, bytes unchanged",
+    "prompt_delivery": ("stdin from a neutrally named staged copy, bytes unchanged" if ssha == "none" else
+                        "stdin from a neutrally named staged copy: the frozen prompt followed by prompts/one_shot_suffix.md (Extension B, DESIGN.md section 12)"),
+    "one_shot_suffix_sha256": None if ssha == "none" else ssha,
     "launch_flags": ["-p", "--model", model, "--setting-sources", "project,local",
                      "--permission-mode", "auto", "--permission-prompts", "none",
                      "--output-format", "stream-json", "--verbose"],

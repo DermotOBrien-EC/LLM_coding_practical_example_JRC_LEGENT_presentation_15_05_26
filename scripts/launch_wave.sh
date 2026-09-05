@@ -37,7 +37,7 @@ SPECS="$(printf '%s\n' "$SPEC_LINES" | tail -n +2)"
 ALL_GATEWAY=1
 while IFS= read -r spec; do
   [ -z "$spec" ] && continue
-  case "${spec%% *}" in astra|sol|gpt55) ;; *) ALL_GATEWAY=0 ;; esac
+  case "${spec%% *}" in astra|sol|gpt55|astraos|solos|gpt55os) ;; *) ALL_GATEWAY=0 ;; esac
 done <<< "$SPECS"
 if [ "$ALL_GATEWAY" = 1 ]; then
 GATE="SKIPPED: every run in this wave is gateway-routed, so the Claude five-hour gate does not apply (DESIGN.md section 11)"
@@ -98,7 +98,7 @@ while IFS= read -r spec; do
   if [ -z "$tag" ] || [ -z "$level" ] || [ -z "$rep" ] || [ -n "$extra" ]; then
     echo "bad spec in manifest: '$spec'" >&2; exit 2
   fi
-  case "$tag" in fable51|opus5|astra|sol|gpt55) ;; *) echo "bad model tag in '$spec'" >&2; exit 2 ;; esac
+  case "$tag" in fable51|opus5|opus48|opus47|astra|sol|gpt55|astraos|solos|gpt55os) ;; *) echo "bad model tag in '$spec'" >&2; exit 2 ;; esac
   case "$level" in L1|L2|L3) ;; *) echo "bad level in '$spec'" >&2; exit 2 ;; esac
   case "$rep" in ''|*[!0-9]*) echo "bad rep in '$spec'" >&2; exit 2 ;; esac
   name="${tag}_${level}_r${rep}"

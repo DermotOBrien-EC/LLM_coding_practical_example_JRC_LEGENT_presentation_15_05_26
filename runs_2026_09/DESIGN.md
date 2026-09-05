@@ -571,3 +571,107 @@ Written before any extension run was launched; the numbers go to
 - **Review.** One read-only review of this section and the harness diff by
   GPT-6-Astra before the canary, recorded in section 10; the launch record
   continues in section 9.
+
+## 12. Extension B, pre-registered 2026-09-06 01:20 local: the OpenAI models told not to stop
+
+Written before any Extension B run was launched. Sections 1 to 11 are not
+changed.
+
+- **Question Q5 (descriptive).** Extension A ended with 20 of 27 OpenAI
+  sessions stopped on a question or a plan (RESULTS.md section 8). If the
+  prompt tells the model that nobody will answer and that it must finish
+  in one session, what do those 20 cells produce, and how do they read
+  under section 6? Tags `astraos` (`gpt-6-astra`), `solos` (`gpt-5.6-sol`),
+  `gpt55os` (`gpt-5.5`), at exactly the level and rep of the Extension A
+  run that stopped: Astra at every level and rep (nine), Sol at L2 and L3
+  (six), GPT-5.5 at L2 (three) and L3 reps 1 and 3 (two). The seven
+  Extension A runs that wrote a forecast are not re-run, on the owner's
+  instruction of 2026-09-06 ("it is only for the ones that failed to give
+  forecast"), and no Fable 5.1 session is run for any reason (owner
+  instruction, same day). A GPT-5.5 L3 cell read across the two
+  extensions therefore mixes one Extension A run with two Extension B runs
+  and is reported that way, never as three of one kind.
+- **The one change.** The runner appends `prompts/one_shot_suffix.md`
+  (pinned in `pins.sha256`; a blank line, then one paragraph: "Note from
+  the operator: this session is unattended. Nobody can answer a question
+  or approve a plan, so do not stop to ask or to propose. Make the most
+  reasonable choice for anything unclear, say what you assumed in your
+  final message, and finish the whole job in this session.") to the
+  frozen prompt on stdin, for these three tags only. The frozen prompt
+  files, `AGENTS.md` files and the L3 prompt copy inside the sandbox are
+  byte-identical to May and to every other arm; `run_meta.json` records
+  the suffix hash and the delivery. The note says nothing about time
+  zones, forecast origins or methods: it removes the option of stopping,
+  not the ambiguity.
+- **Everything else** is Extension A: the gateway route and its eight
+  disclosed differences (section 11), the void and counted-as-it-stands
+  rule, the attempt policy, the harvest, the summariser, the scorer, the
+  reader on named runs, the audit rules of section 5.2 by the literal
+  text, and the post-processing scope (the Claude runs' and Extension A's
+  derived files must diff empty afterwards).
+- **Waves** (`waves.json`): `ext_b_waveA`, the 12 L1 and L2 runs six at a
+  time; `ext_b_waveB`, the eight L3 runs two at a time, interleaved by
+  model. No canary: the route was validated by Extension A. The driver is
+  `launch_extension.sh ext_b_waveA ext_b_waveB`.
+- **Reading rules.** Section 6 per cell and the side-by-side reading of
+  section 11. The comparison that matters is within vendor: Extension A
+  cell against Extension B cell, same model, same prompt plus one
+  paragraph. A run that still stops counts as it stands; a run that
+  writes a forecast is scored and audited like any other. The Claude arm
+  is not re-run with the note, because no Claude session stopped and the
+  owner has ruled out further Fable 5.1 sessions; that asymmetry is stated
+  wherever B is compared with the Claude arm.
+- **Review.** One read-only review of this section together with section
+  13 and the harness diff by GPT-6-Astra before launch, recorded in
+  section 10.
+
+## 13. Extension C, pre-registered 2026-09-06 01:20 local: the Opus family, three runs per level
+
+Written before any Extension C run was launched. Sections 1 to 12 are not
+changed.
+
+- **Question Q6.** The May 2026 reference is one Opus 4.7 session per
+  level, and the September Opus 5 cell is one session per level. With
+  three sessions per level for Opus 4.7, Opus 4.8 and Opus 5 on the frozen
+  prompts, (a) does the May 2026 result repeat on the same model four
+  months later on this harness (Opus 4.7, the only within-model
+  comparison across the two dates), (b) how do the three Opus generations
+  read side by side under section 6, and (c) does the Opus 5 cell become
+  repeatable in the section 6 sense? Tags `opus47` (`claude-opus-4-7`),
+  `opus48` (`claude-opus-4-8`), reps 1 to 3 at every level, and `opus5`
+  reps 2 and 3 at every level beside the counted rep 1 of section 2. The
+  ids were checked with a one-turn probe on 2026-09-06 (both answered).
+  Twenty-four runs.
+- **Held fixed.** Everything in section 3, on the direct route, exactly as
+  the Claude arm: frozen prompts with no suffix, no gateway environment,
+  the keep-alive on for every level (as the Claude L3 runs had it; the
+  Claude L1 and L2 runs did not, and "session finished" is reported per
+  arm as section 11 (g) already says), the attempt policy, the harvest and
+  the audit rules. Opus 5 rep 1 is not re-run and not resumed again; its
+  cell is read as three runs with its rep 1 flagged as the resumed one.
+- **Quota.** These runs bill the operator's Anthropic plan, unlike
+  Extensions A and B. Every wave passes the usage gate of section 3, and
+  the driver waits fifteen minutes and retries when the gate is closed
+  (`launch_extension.sh`, GATE_WAIT), so the extension paces itself
+  through the five-hour windows instead of failing on them. A session the
+  API refuses is void or counted as it stands by the wave 2 rule of
+  section 3 and section 11 (f). Waves: `ext_c_wave1` and `ext_c_wave2`,
+  eight L1 and L2 runs each, four at a time; `ext_c_wave3`, the eight L3
+  runs two at a time, interleaved by model. Extension B runs concurrently
+  on the gateway; the two share the machine (both under the concurrency
+  caps used in Extension A) and nothing else.
+- **Reading rules.** Section 6 per cell (range, repeatability, process,
+  audit class), and three side-by-side readings, all descriptive: Opus
+  4.7 September against Opus 4.7 May (same model, same prompts, different
+  harness and date; the May run's audit classes of section 5.2 stand);
+  the three Opus generations against each other; and the Opus 5 cell of
+  three against the Fable 5.1 cell of three. The May-versus-September
+  Opus 4.7 comparison is the one place where a difference cannot be a
+  model difference; it can be harness, date, or chance, and the three
+  reps bound the chance part within September only.
+- **Post-processing scope.** As sections 11 and 12; in addition the
+  `opus5` entries of `scoring.json` for rep 1 and its derived rows must
+  diff empty. The figure builder gains the three tags; the MAPE figure is
+  redrawn with the extension series and the Claude-arm points unchanged.
+- **Review.** With section 12, one read-only review by GPT-6-Astra before
+  launch, recorded in section 10.
