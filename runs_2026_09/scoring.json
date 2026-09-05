@@ -179,5 +179,25 @@
     "selection_free_mape": 5.46,
     "audit_note": "Each model's hyperparameters were chosen on the 2019 Q4 validation window (output/code/lightgbm_features.py:174-202 and the deep models' two-candidate sweeps in common.py deep_sweep_stage), then refit on train plus validation; the winner is the class with the lowest TEST MAPE, as the frozen L3 prompt orders (forecast.py:86-105 sorts by mape_test_pct), so the run is test_selected with six candidates, like May's L3. LightGBM also had the lowest validation MAPE (3.00 against 5.48 to 6.41), so the selection-free number equals the headline. The agent printed test scores for the three cached models mid-run (a1:t49, t62) and for SARIMA (a1:t72) before the deep models finished; no feature, hyperparameter or window changed after those scores were seen (the 5.46 printed at a1:t62 is the shipped number). Independent reader (Sol) agrees on validation, intervals, write-up, six models fitted and test_selected; it counts a 'python -V' probe as the first implementation step and so reports the AGENTS.md read (its fourth tool call) as after implementation; the orchestrator rules a version probe is not an implementation action (design 5.3), matching the summariser (read a1:t5, first implementation a1:t12). PatchTST was replaced by darts TSMixerModel, recorded in transcript.md as the prompt permits. The 80 percent interval covered 53.6 percent of hours and the 95 percent interval 91.7 percent; the agent reports and explains both. Benchmark scratch scripts were written under /tmp, outside the working directory the prompt names. Resumed once after print mode's 600 s background-task ceiling ended the first attempt (DESIGN.md section 9); the resume changed no prompt and no input.",
     "reason": "the agent's final message and metrics.json name LightGBM as the winner at 5.46 percent; the run wrote no forecast CSV, so the point forecast was read out of the agent's own artifacts/lightgbm.pkl (ForecastResult.point_forecast, 168 UTC-stamped hours) by scripts/extract_pickle_forecast.py into derived/lightgbm_test_forecast.csv; recomputed 5.457"
+  },
+  "fable51_L3_r1": {
+    "model_tag": "fable51",
+    "model_label": "Fable 5.1",
+    "level": "L3",
+    "rep": 1,
+    "file": "output/forecasts/lightgbm.csv",
+    "column": "point",
+    "headline_model": "LightGBM (calendar + holiday + lag and rolling features, recursive 168-step), winner of six",
+    "headline_prespecified": false,
+    "agent_reported_mape": 5.03,
+    "n_models_fitted": 6,
+    "validation": true,
+    "intervals": true,
+    "methods_doc": true,
+    "test_selection": "test_selected",
+    "n_candidates": 6,
+    "selection_free_mape": 5.03,
+    "audit_note": "Every model with settings was selected on seven rolling 168-hour origins inside the 2019 Q4 validation window (output/code/common.py:39-52, lightgbm_features.py:129-134 sorts candidates by val_mape_pct), then refit on train plus validation; the winner is the class with the lowest TEST MAPE as the frozen L3 prompt orders (forecast.py:384-389), so the run is test_selected with six candidates, like May's L3. LightGBM also had the lowest validation MAPE (3.27), so the selection-free number equals the headline. Test scores were printed as each model finished (naive at t17, LightGBM at t52, N-BEATS at t62); the edits after those points were a deep-model early-stopping callback fix (t56, t59), SARIMA candidate-failure handling (t74) and a Prophet import fix (t79), none of which changed a feature, a hyperparameter grid or a window in response to a test score; the 26-week SARIMA window (t51) was added for holiday-regressor identifiability and was validation-selected against. Independent reader (Sol) agrees on validation, intervals, write-up, six models fitted and test_selected; as for the Opus 5 L3 run it counts a python version probe as the first implementation step, which the orchestrator does not (design 5.3; summariser: AGENTS.md read at t4, first implementation t8). PatchTST was replaced by darts TSMixerModel, recorded in transcript.md as the prompt permits. The 80 percent interval covered 57.1 percent of hours and the 95 percent interval 94.0 percent; the agent reports and explains both. Importing the venv's packages left bytecode caches inside the cloned venv (harvest.json); no package was installed. Ran under the print-mode keep-alive of DESIGN.md section 3: the session re-entered the model three times after background jobs finished and was never cut off.",
+    "reason": "the agent's final message and metrics.json name LightGBM as the winner at 5.03 percent and its forecasts/lightgbm.csv holds the 168 UTC-stamped test hours in the column point; recomputed 5.025"
   }
 }

@@ -1,0 +1,112 @@
+{
+  "name": "lightgbm",
+  "hyperparameters": {
+    "learning_rate": 0.05,
+    "min_child_samples": 50,
+    "subsample": 0.8,
+    "subsample_freq": 1,
+    "colsample_bytree": 0.8,
+    "reg_lambda": 1.0,
+    "random_state": 42,
+    "num_leaves": 127,
+    "n_estimators": 400,
+    "features": [
+      "hour",
+      "day_of_week",
+      "month",
+      "is_weekend",
+      "is_public_holiday_de",
+      "lag_24h",
+      "lag_168h",
+      "lag_364d",
+      "roll_mean_24h",
+      "roll_std_24h",
+      "roll_mean_168h",
+      "roll_std_168h"
+    ],
+    "forecast_strategy": "recursive (predictions fed back as lags)",
+    "n_training_rows": 35088,
+    "n_candidates": 4
+  },
+  "runtime_seconds": 114.20908320900344,
+  "validation_mape_pct": 3.271729070387067,
+  "validation_table": [
+    {
+      "num_leaves": 127,
+      "n_estimators": 400,
+      "val_mape_pct": 3.271729070387067,
+      "val_mape_by_origin_pct": [
+        2.493,
+        2.408,
+        3.598,
+        2.743,
+        3.75,
+        3.443,
+        4.468
+      ],
+      "fit_seconds": 10.4
+    },
+    {
+      "num_leaves": 127,
+      "n_estimators": 1200,
+      "val_mape_pct": 3.31125402127052,
+      "val_mape_by_origin_pct": [
+        2.584,
+        2.164,
+        3.522,
+        3.066,
+        3.505,
+        3.717,
+        4.62
+      ],
+      "fit_seconds": 29.9
+    },
+    {
+      "num_leaves": 31,
+      "n_estimators": 400,
+      "val_mape_pct": 3.3157320732409166,
+      "val_mape_by_origin_pct": [
+        2.354,
+        2.13,
+        3.378,
+        2.601,
+        4.164,
+        3.593,
+        4.99
+      ],
+      "fit_seconds": 3.3
+    },
+    {
+      "num_leaves": 31,
+      "n_estimators": 1200,
+      "val_mape_pct": 3.3634154236085174,
+      "val_mape_by_origin_pct": [
+        2.523,
+        2.245,
+        3.195,
+        2.49,
+        4.661,
+        3.683,
+        4.748
+      ],
+      "fit_seconds": 7.9
+    }
+  ],
+  "notes": "Point forecast from the squared-error model; intervals from five quantile-objective models on the same recursive feature rows.",
+  "extra": {
+    "feature_importance_gain": {
+      "lag_364d": 21078175027376.0,
+      "lag_168h": 4673853241430.0,
+      "is_public_holiday_de": 932289819652.0,
+      "lag_24h": 671676186102.0,
+      "roll_mean_24h": 450790798996.0,
+      "day_of_week": 284945232258.0,
+      "roll_mean_168h": 241411887554.0,
+      "hour": 177712702009.0,
+      "roll_std_24h": 145181688850.0,
+      "month": 105633969566.0,
+      "roll_std_168h": 60038672838.0,
+      "is_weekend": 22273849214.0
+    }
+  }
+}

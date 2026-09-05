@@ -1,0 +1,861 @@
+{
+  "name": "sarima",
+  "hyperparameters": {
+    "family": "weekly-differenced",
+    "order": [
+      2,
+      0,
+      2
+    ],
+    "seasonal_order": [
+      1,
+      0,
+      1,
+      24
+    ],
+    "weekly_difference_lag_hours": 168,
+    "fit_window_weeks": 12,
+    "exogenous": "none",
+    "fit_window_end": "2019-12-31 23:00:00",
+    "final_aic": 5129.439861563553,
+    "n_candidates": 30
+  },
+  "runtime_seconds": 24.624577167007374,
+  "validation_mape_pct": 4.632450991909905,
+  "validation_table": [
+    {
+      "family": "weekly-differenced",
+      "order": [
+        2,
+        0,
+        2
+      ],
+      "seasonal_order": [
+        1,
+        0,
+        1,
+        24
+      ],
+      "window_weeks": 12,
+      "exog": "none",
+      "val_mape_pct": 4.632450991909905,
+      "val_mape_by_origin_pct": [
+        7.094,
+        1.517,
+        5.83,
+        1.992,
+        2.164,
+        2.213,
+        11.617
+      ],
+      "aic": 3219.922907060149,
+      "fit_seconds": 4.1
+    },
+    {
+      "family": "weekly-differenced",
+      "order": [
+        2,
+        0,
+        2
+      ],
+      "seasonal_order": [
+        1,
+        0,
+        1,
+        24
+      ],
+      "window_weeks": 12,
+      "exog": "holiday",
+      "val_mape_pct": 4.6324533227210924,
+      "val_mape_by_origin_pct": [
+        7.094,
+        1.517,
+        5.83,
+        1.992,
+        2.164,
+        2.213,
+        11.617
+      ],
+      "aic": 3221.922907135572,
+      "fit_seconds": 6.4
+    },
+    {
+      "family": "weekly-differenced",
+      "order": [
+        2,
+        0,
+        2
+      ],
+      "seasonal_order": [
+        1,
+        0,
+        1,
+        24
+      ],
+      "window_weeks": 6,
+      "exog": "holiday",
+      "val_mape_pct": 4.640644234623017,
+      "val_mape_by_origin_pct": [
+        7.142,
+        1.494,
+        5.736,
+        2.099,
+        2.183,
+        2.224,
+        11.607
+      ],
+      "aic": 1656.7313774510108,
+      "fit_seconds": 4.5
+    },
+    {
+      "family": "weekly-differenced",
+      "order": [
+        2,
+        0,
+        2
+      ],
+      "seasonal_order": [
+        1,
+        0,
+        1,
+        24
+      ],
+      "window_weeks": 6,
+      "exog": "none",
+      "val_mape_pct": 4.640644481509406,
+      "val_mape_by_origin_pct": [
+        7.142,
+        1.494,
+        5.736,
+        2.099,
+        2.183,
+        2.224,
+        11.607
+      ],
+      "aic": 1654.731377394036,
+      "fit_seconds": 2.9
+    },
+    {
+      "family": "weekly-differenced",
+      "order": [
+        1,
+        0,
+        1
+      ],
+      "seasonal_order": [
+        1,
+        0,
+        1,
+        24
+      ],
+      "window_weeks": 26,
+      "exog": "holiday",
+      "val_mape_pct": 4.974532031676477,
+      "val_mape_by_origin_pct": [
+        6.965,
+        1.529,
+        5.661,
+        1.498,
+        2.169,
+        2.314,
+        14.685
+      ],
+      "aic": 9762.188775723938,
+      "fit_seconds": 10.3
+    },
+    {
+      "family": "weekly-differenced",
+      "order": [
+        1,
+        0,
+        1
+      ],
+      "seasonal_order": [
+        1,
+        0,
+        1,
+        24
+      ],
+      "window_weeks": 26,
+      "exog": "none",
+      "val_mape_pct": 5.024076979597761,
+      "val_mape_by_origin_pct": [
+        7.119,
+        1.53,
+        5.67,
+        1.5,
+        2.169,
+        2.316,
+        14.865
+      ],
+      "aic": 9771.597437254575,
+      "fit_seconds": 3.5
+    },
+    {
+      "family": "weekly-differenced",
+      "order": [
+        1,
+        0,
+        1
+      ],
+      "seasonal_order": [
+        1,
+        0,
+        1,
+        24
+      ],
+      "window_weeks": 6,
+      "exog": "none",
+      "val_mape_pct": 5.045725525199617,
+      "val_mape_by_origin_pct": [
+        7.237,
+        1.498,
+        5.515,
+        1.725,
+        2.201,
+        2.18,
+        14.965
+      ],
+      "aic": 1671.8797482309392,
+      "fit_seconds": 0.9
+    },
+    {
+      "family": "weekly-differenced",
+      "order": [
+        1,
+        0,
+        1
+      ],
+      "seasonal_order": [
+        1,
+        0,
+        1,
+        24
+      ],
+      "window_weeks": 6,
+      "exog": "holiday",
+      "val_mape_pct": 5.045725527114266,
+      "val_mape_by_origin_pct": [
+        7.237,
+        1.498,
+        5.515,
+        1.725,
+        2.201,
+        2.18,
+        14.965
+      ],
+      "aic": 1673.879748273021,
+      "fit_seconds": 2.0
+    },
+    {
+      "family": "weekly-differenced",
+      "order": [
+        1,
+        0,
+        1
+      ],
+      "seasonal_order": [
+        0,
+        0,
+        1,
+        24
+      ],
+      "window_weeks": 26,
+      "exog": "holiday",
+      "val_mape_pct": 5.115441271896065,
+      "val_mape_by_origin_pct": [
+        6.959,
+        1.537,
+        5.692,
+        1.491,
+        2.159,
+        2.435,
+        15.535
+      ],
+      "aic": 9774.285557042524,
+      "fit_seconds": 8.6
+    },
+    {
+      "family": "weekly-differenced",
+      "order": [
+        2,
+        0,
+        2
+      ],
+      "seasonal_order": [
+        1,
+        0,
+        1,
+        24
+      ],
+      "window_weeks": 26,
+      "exog": "none",
+      "val_mape_pct": 5.124581961274205,
+      "val_mape_by_origin_pct": [
+        7.111,
+        1.531,
+        5.613,
+        1.518,
+        2.172,
+        2.35,
+        15.576
+      ],
+      "aic": 9731.966553998598,
+      "fit_seconds": 4.7
+    },
+    {
+      "family": "weekly-differenced",
+      "order": [
+        1,
+        0,
+        1
+      ],
+      "seasonal_order": [
+        0,
+        0,
+        1,
+        24
+      ],
+      "window_weeks": 26,
+      "exog": "none",
+      "val_mape_pct": 5.164408018967092,
+      "val_mape_by_origin_pct": [
+        7.112,
+        1.538,
+        5.699,
+        1.491,
+        2.159,
+        2.437,
+        15.715
+      ],
+      "aic": 9783.499240968347,
+      "fit_seconds": 2.0
+    },
+    {
+      "family": "weekly-differenced",
+      "order": [
+        1,
+        0,
+        1
+      ],
+      "seasonal_order": [
+        1,
+        0,
+        1,
+        24
+      ],
+      "window_weeks": 12,
+      "exog": "none",
+      "val_mape_pct": 5.1698915810162305,
+      "val_mape_by_origin_pct": [
+        7.157,
+        1.515,
+        5.56,
+        1.55,
+        2.177,
+        2.138,
+        16.091
+      ],
+      "aic": 3267.1396507322147,
+      "fit_seconds": 1.4
+    },
+    {
+      "family": "weekly-differenced",
+      "order": [
+        1,
+        0,
+        1
+      ],
+      "seasonal_order": [
+        1,
+        0,
+        1,
+        24
+      ],
+      "window_weeks": 12,
+      "exog": "holiday",
+      "val_mape_pct": 5.169891583788852,
+      "val_mape_by_origin_pct": [
+        7.157,
+        1.515,
+        5.56,
+        1.55,
+        2.177,
+        2.138,
+        16.091
+      ],
+      "aic": 3269.13965079962,
+      "fit_seconds": 3.6
+    },
+    {
+      "family": "weekly-differenced",
+      "order": [
+        1,
+        0,
+        1
+      ],
+      "seasonal_order": [
+        0,
+        0,
+        1,
+        24
+      ],
+      "window_weeks": 6,
+      "exog": "holiday",
+      "val_mape_pct": 5.418818043819434,
+      "val_mape_by_origin_pct": [
+        7.115,
+        1.56,
+        5.625,
+        1.545,
+        2.17,
+        2.19,
+        17.727
+      ],
+      "aic": 1703.201760513893,
+      "fit_seconds": 1.0
+    },
+    {
+      "family": "weekly-differenced",
+      "order": [
+        1,
+        0,
+        1
+      ],
+      "seasonal_order": [
+        0,
+        0,
+        1,
+        24
+      ],
+      "window_weeks": 6,
+      "exog": "none",
+      "val_mape_pct": 5.418818044082913,
+      "val_mape_by_origin_pct": [
+        7.115,
+        1.56,
+        5.625,
+        1.545,
+        2.17,
+        2.19,
+        17.727
+      ],
+      "aic": 1701.2017605066221,
+      "fit_seconds": 0.5
+    },
+    {
+      "family": "weekly-differenced",
+      "order": [
+        1,
+        0,
+        1
+      ],
+      "seasonal_order": [
+        0,
+        0,
+        1,
+        24
+      ],
+      "window_weeks": 12,
+      "exog": "none",
+      "val_mape_pct": 5.428492344120797,
+      "val_mape_by_origin_pct": [
+        7.1,
+        1.563,
+        5.647,
+        1.536,
+        2.156,
+        2.192,
+        17.805
+      ],
+      "aic": 3300.825264819612,
+      "fit_seconds": 0.9
+    },
+    {
+      "family": "weekly-differenced",
+      "order": [
+        1,
+        0,
+        1
+      ],
+      "seasonal_order": [
+        0,
+        0,
+        1,
+        24
+      ],
+      "window_weeks": 12,
+      "exog": "holiday",
+      "val_mape_pct": 5.4284923442982675,
+      "val_mape_by_origin_pct": [
+        7.1,
+        1.563,
+        5.647,
+        1.536,
+        2.156,
+        2.192,
+        17.805
+      ],
+      "aic": 3302.825264836314,
+      "fit_seconds": 1.9
+    },
+    {
+      "family": "daily",
+      "order": [
+        1,
+        0,
+        1
+      ],
+      "seasonal_order": [
+        1,
+        1,
+        1,
+        24
+      ],
+      "window_weeks": 12,
+      "exog": "calendar",
+      "val_mape_pct": 9.632328570087257,
+      "val_mape_by_origin_pct": [
+        10.194,
+        8.685,
+        9.475,
+        7.653,
+        7.067,
+        7.458,
+        16.894
+      ],
+      "aic": 4803.556697483148,
+      "fit_seconds": 19.1
+    },
+    {
+      "family": "daily",
+      "order": [
+        1,
+        0,
+        1
+      ],
+      "seasonal_order": [
+        1,
+        1,
+        1,
+        24
+      ],
+      "window_weeks": 6,
+      "exog": "none",
+      "val_mape_pct": 9.779069910090708,
+      "val_mape_by_origin_pct": [
+        10.597,
+        8.732,
+        9.704,
+        7.744,
+        7.167,
+        7.575,
+        16.933
+      ],
+      "aic": 2498.924039911832,
+      "fit_seconds": 5.4
+    },
+    {
+      "family": "daily",
+      "order": [
+        1,
+        0,
+        1
+      ],
+      "seasonal_order": [
+        1,
+        1,
+        1,
+        24
+      ],
+      "window_weeks": 12,
+      "exog": "none",
+      "val_mape_pct": 9.83656535385352,
+      "val_mape_by_origin_pct": [
+        10.562,
+        8.878,
+        9.703,
+        7.853,
+        7.269,
+        7.663,
+        16.928
+      ],
+      "aic": 4809.565364931444,
+      "fit_seconds": 9.7
+    },
+    {
+      "family": "daily",
+      "order": [
+        2,
+        0,
+        2
+      ],
+      "seasonal_order": [
+        0,
+        1,
+        1,
+        24
+      ],
+      "window_weeks": 6,
+      "exog": "calendar",
+      "val_mape_pct": 9.908935165669222,
+      "val_mape_by_origin_pct": [
+        10.422,
+        9.653,
+        9.543,
+        8.782,
+        8.047,
+        8.302,
+        14.612
+      ],
+      "aic": 2494.3846244926863,
+      "fit_seconds": 15.8
+    },
+    {
+      "family": "daily",
+      "order": [
+        1,
+        0,
+        1
+      ],
+      "seasonal_order": [
+        1,
+        1,
+        1,
+        24
+      ],
+      "window_weeks": 6,
+      "exog": "calendar",
+      "val_mape_pct": 9.915683668829205,
+      "val_mape_by_origin_pct": [
+        9.664,
+        8.342,
+        8.839,
+        7.525,
+        6.835,
+        7.13,
+        21.075
+      ],
+      "aic": 2510.087836957593,
+      "fit_seconds": 9.2
+    },
+    {
+      "family": "daily",
+      "order": [
+        1,
+        0,
+        1
+      ],
+      "seasonal_order": [
+        0,
+        1,
+        1,
+        24
+      ],
+      "window_weeks": 6,
+      "exog": "none",
+      "val_mape_pct": 9.947010777061319,
+      "val_mape_by_origin_pct": [
+        10.822,
+        9.589,
+        9.969,
+        8.524,
+        7.959,
+        8.32,
+        14.447
+      ],
+      "aic": 2564.309090169775,
+      "fit_seconds": 2.9
+    },
+    {
+      "family": "daily",
+      "order": [
+        2,
+        0,
+        2
+      ],
+      "seasonal_order": [
+        0,
+        1,
+        1,
+        24
+      ],
+      "window_weeks": 6,
+      "exog": "none",
+      "val_mape_pct": 10.047733058699793,
+      "val_mape_by_origin_pct": [
+        10.609,
+        9.816,
+        9.679,
+        8.93,
+        8.201,
+        8.453,
+        14.647
+      ],
+      "aic": 2492.759917594772,
+      "fit_seconds": 5.9
+    },
+    {
+      "family": "daily",
+      "order": [
+        1,
+        0,
+        1
+      ],
+      "seasonal_order": [
+        0,
+        1,
+        1,
+        24
+      ],
+      "window_weeks": 12,
+      "exog": "none",
+      "val_mape_pct": 10.073100807763995,
+      "val_mape_by_origin_pct": [
+        10.762,
+        9.575,
+        9.965,
+        8.477,
+        7.906,
+        8.272,
+        15.554
+      ],
+      "aic": 4906.205607360773,
+      "fit_seconds": 7.0
+    },
+    {
+      "family": "daily",
+      "order": [
+        2,
+        0,
+        2
+      ],
+      "seasonal_order": [
+        0,
+        1,
+        1,
+        24
+      ],
+      "window_weeks": 12,
+      "exog": "calendar",
+      "val_mape_pct": 10.147405344228178,
+      "val_mape_by_origin_pct": [
+        10.388,
+        9.701,
+        9.588,
+        8.848,
+        8.062,
+        8.312,
+        16.133
+      ],
+      "aic": 4751.401044745137,
+      "fit_seconds": 21.9
+    },
+    {
+      "family": "daily",
+      "order": [
+        2,
+        0,
+        2
+      ],
+      "seasonal_order": [
+        0,
+        1,
+        1,
+        24
+      ],
+      "window_weeks": 12,
+      "exog": "none",
+      "val_mape_pct": 10.248688343201232,
+      "val_mape_by_origin_pct": [
+        10.526,
+        9.811,
+        9.679,
+        8.95,
+        8.164,
+        8.412,
+        16.2
+      ],
+      "aic": 4750.294005553978,
+      "fit_seconds": 10.5
+    },
+    {
+      "family": "daily",
+      "order": [
+        1,
+        0,
+        1
+      ],
+      "seasonal_order": [
+        0,
+        1,
+        1,
+        24
+      ],
+      "window_weeks": 12,
+      "exog": "calendar",
+      "val_mape_pct": 10.793919050999904,
+      "val_mape_by_origin_pct": [
+        9.675,
+        9.775,
+        8.742,
+        9.31,
+        8.799,
+        8.68,
+        20.576
+      ],
+      "aic": 5137.482232116703,
+      "fit_seconds": 12.1
+    },
+    {
+      "family": "daily",
+      "order": [
+        1,
+        0,
+        1
+      ],
+      "seasonal_order": [
+        0,
+        1,
+        1,
+        24
+      ],
+      "window_weeks": 6,
+      "exog": "calendar",
+      "val_mape_pct": 10.893385879212023,
+      "val_mape_by_origin_pct": [
+        9.741,
+        9.483,
+        9.095,
+        8.702,
+        7.923,
+        8.101,
+        23.21
+      ],
+      "aic": 2634.885361140443,
+      "fit_seconds": 6.3
+    },
+    {
+      "family": "weekly-differenced",
+      "order": [
+        2,
+        0,
+        2
+      ],
+      "seasonal_order": [
+        1,
+        0,
+        1,
+        24
+      ],
+      "window_weeks": 26,
+      "exog": "holiday",
+      "val_mape_pct": null,
+      "val_mape_by_origin_pct": [],
+      "aic": null,
+      "fit_seconds": 12.0
+    }
+  ],
+  "notes": "Intervals are the analytic Gaussian forecast intervals from the state-space model.",
+  "extra": {}
+}

@@ -1,0 +1,40 @@
+{
+  "name": "naive",
+  "hyperparameters": {
+    "lag_hours": 168
+  },
+  "runtime_seconds": 0.01291970799502451,
+  "validation_mape_pct": 5.821974257798058,
+  "validation_table": [
+    {
+      "origin": "2019-10-01",
+      "mape_pct": 7.116190696983511
+    },
+    {
+      "origin": "2019-10-15",
+      "mape_pct": 1.621449792820861
+    },
+    {
+      "origin": "2019-10-29",
+      "mape_pct": 5.721063900777355
+    },
+    {
+      "origin": "2019-11-12",
+      "mape_pct": 1.9401066071038597
+    },
+    {
+      "origin": "2019-11-26",
+      "mape_pct": 2.1370493011839593
+    },
+    {
+      "origin": "2019-12-10",
+      "mape_pct": 2.1728391292302747
+    },
+    {
+      "origin": "2019-12-24",
+      "mape_pct": 20.045120376486583
+    }
+  ],
+  "notes": "No parameters. The test-week forecast is the observed load of 25 to 31 December 2019.",
+  "extra": {}
+}

@@ -1,0 +1,165 @@
+{
+  "test_start": "2020-01-01",
+  "test_end": "2020-01-07",
+  "n_test_observations": 168,
+  "models": [
+    {
+      "name": "lightgbm",
+      "mape_test_pct": 5.0251,
+      "rmse_test_mw": 3712.35,
+      "mae_test_mw": 2800.75,
+      "mape_jan1_pct": 2.0756,
+      "mape_jan2_to_jan7_pct": 5.5167,
+      "runtime_seconds": 114.2,
+      "hyperparameters": {
+        "learning_rate": 0.05,
+        "min_child_samples": 50,
+        "subsample": 0.8,
+        "subsample_freq": 1,
+        "colsample_bytree": 0.8,
+        "reg_lambda": 1.0,
+        "random_state": 42,
+        "num_leaves": 127,
+        "n_estimators": 400,
+        "features": [
+          "hour",
+          "day_of_week",
+          "month",
+          "is_weekend",
+          "is_public_holiday_de",
+          "lag_24h",
+          "lag_168h",
+          "lag_364d",
+          "roll_mean_24h",
+          "roll_std_24h",
+          "roll_mean_168h",
+          "roll_std_168h"
+        ],
+        "forecast_strategy": "recursive (predictions fed back as lags)",
+        "n_training_rows": 35088,
+        "n_candidates": 4
+      }
+    },
+    {
+      "name": "prophet",
+      "mape_test_pct": 7.6138,
+      "rmse_test_mw": 4878.17,
+      "mae_test_mw": 3798.04,
+      "mape_jan1_pct": 13.2751,
+      "mape_jan2_to_jan7_pct": 6.6703,
+      "runtime_seconds": 30.1,
+      "hyperparameters": {
+        "seasonality_mode": "additive",
+        "changepoint_prior_scale": 0.05,
+        "seasonality_prior_scale": 10.0,
+        "country_holidays": "DE",
+        "seasonalities": [
+          "daily",
+          "weekly",
+          "yearly"
+        ],
+        "uncertainty_samples": 1000,
+        "n_candidates": 4
+      }
+    },
+    {
+      "name": "patchtst",
+      "mape_test_pct": 7.6223,
+      "rmse_test_mw": 6161.52,
+      "mae_test_mw": 4384.02,
+      "mape_jan1_pct": 3.8911,
+      "mape_jan2_to_jan7_pct": 8.2441,
+      "runtime_seconds": 558.8,
+      "hyperparameters": {
+        "hidden_size": 64,
+        "ff_size": 64,
+        "num_blocks": 2,
+        "dropout": 0.1,
+        "lr": 0.001,
+        "input_chunk_length": 168,
+        "output_chunk_length": 168,
+        "batch_size": 256,
+        "n_epochs_refit": 11,
+        "max_epochs": 30,
+        "early_stopping_patience": 3,
+        "likelihood": "QuantileRegression[0.025, 0.1, 0.5, 0.9, 0.975]",
+        "scale_divisor_mw": 50000.0,
+        "substitution": "darts.models.TSMixerModel (PatchTSTModel not available in darts 0.41.0)"
+      }
+    },
+    {
+      "name": "nbeats",
+      "mape_test_pct": 10.2506,
+      "rmse_test_mw": 6832.89,
+      "mae_test_mw": 5475.21,
+      "mape_jan1_pct": 4.0902,
+      "mape_jan2_to_jan7_pct": 11.2773,
+      "runtime_seconds": 622.5,
+      "hyperparameters": {
+        "generic_architecture": true,
+        "num_stacks": 30,
+        "num_blocks": 1,
+        "num_layers": 4,
+        "layer_widths": 256,
+        "expansion_coefficient_dim": 5,
+        "lr": 0.0003,
+        "input_chunk_length": 168,
+        "output_chunk_length": 168,
+        "batch_size": 256,
+        "n_epochs_refit": 22,
+        "max_epochs": 30,
+        "early_stopping_patience": 3,
+        "likelihood": "QuantileRegression[0.025, 0.1, 0.5, 0.9, 0.975]",
+        "scale_divisor_mw": 50000.0
+      }
+    },
+    {
+      "name": "sarima",
+      "mape_test_pct": 12.3418,
+      "rmse_test_mw": 8744.34,
+      "mae_test_mw": 7048.72,
+      "mape_jan1_pct": 4.8708,
+      "mape_jan2_to_jan7_pct": 13.5869,
+      "runtime_seconds": 24.6,
+      "hyperparameters": {
+        "family": "weekly-differenced",
+        "order": [
+          2,
+          0,
+          2
+        ],
+        "seasonal_order": [
+          1,
+          0,
+          1,
+          24
+        ],
+        "weekly_difference_lag_hours": 168,
+        "fit_window_weeks": 12,
+        "exogenous": "none",
+        "fit_window_end": "2019-12-31 23:00:00",
+        "final_aic": 5129.439861563553,
+        "n_candidates": 30
+      }
+    },
+    {
+      "name": "naive",
+      "mape_test_pct": 12.7806,
+      "rmse_test_mw": 8808.6,
+      "mae_test_mw": 7237.98,
+      "mape_jan1_pct": 6.5196,
+      "mape_jan2_to_jan7_pct": 13.8241,
+      "runtime_seconds": 0.0,
+      "hyperparameters": {
+        "lag_hours": 168
+      }
+    }
+  ],
+  "winner": "lightgbm",
+  "winner_coverage_80pct": 0.5714,
+  "winner_coverage_95pct": 0.9405,
+  "winner_pinball_loss_q10": 779.4521,
+  "winner_pinball_loss_q50": 1337.0081,
+  "winner_pinball_loss_q90": 441.1925,
+  "total_runtime_seconds": 1354.3
+}
