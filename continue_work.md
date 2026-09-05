@@ -1,12 +1,66 @@
 # continue_work.md
 
-Updated: 2026-09-03 (session that ran the September 2026 re-run)
+Updated: 2026-09-05 09:50 local (session relaunching wave 2); the sections
+below section 0 are the 2026-09-03 handoff and are superseded where
+section 0 says so.
 
 Read this with `runs_2026_09/DESIGN.md` (the pre-registered design, its two
 review rounds, and the launch record) and `runs_2026_09/RESULTS.md`
 (findings, plus sections 6 and 7 on what is unfinished). Those two files are
 the substance; this file carries the decisions, the permissions and the
 state that are not in them.
+
+---
+
+## 0. In flight on 2026-09-05 (read first)
+
+The owner asked (09:30 local) to "continue, finish off this work and have
+my presentation ready, then commit and push to my dermot branch". The
+weekly credit window had come back (probe: seven-day 0.13, five-hour 0.34,
+overage disabled for lack of credits, so an exhausted window refuses rather
+than charges). Wave 2 was relaunched at 09:45 local:
+
+- `nohup bash scripts/relaunch_wave2.sh > runs_2026_09/_logs/wave2_relaunch.log`
+  runs detached on the owner's Mac. Pair A: the single permitted resume of
+  `opus5_L3_r1` (log `_logs/opus5_L3_r1.resume.log`, session log in
+  `runs_2026_09/opus5_L3_r1/_resume/session.jsonl` until the script moves it
+  to `session_resume1.jsonl`) beside a fresh `fable51_L3_r1`
+  (`_logs/wave2_pairA_fable.*`). Pair B (`fable51_L3_r2` + `r3`,
+  `_logs/wave2_pairB.*`) starts when both have ended and the usage gate
+  passes; the gate reads the live five-hour utilisation, so pair B may wait
+  for the 14:00 local reset. The driver ends with the line
+  `WAVE2_RELAUNCH_DONE resume=<rc> pairA=<rc> pairB=<rc>`.
+- Harness changes made for the relaunch, all disclosed in `DESIGN.md`
+  sections 3, 7 and 9: `CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS=0` in
+  `run_headless.sh` and `resume_run.sh` (print mode no longer ends a session
+  600 s after a turn that leaves background jobs running); the resume gate
+  accepts that cut-off as an infrastructure failure; `waves.json` gained
+  `wave2_pairA_fable` and `wave2_pairB`; the void 09-03 `fable51_L3_r*`
+  directories moved to `runs_2026_09/_void_wave2_credit_refusal/`.
+
+When the driver has finished, the remaining steps are, in order:
+
+1. `scripts/summarize_runs.py`, then `scripts/score_runs.py` (discover, fill
+   `scoring.json` for the four L3 runs, then `final`), then
+   `bash scripts/assess_fleet.sh opus5_L3_r1 fable51_L3_r1 fable51_L3_r2
+   fable51_L3_r3` (Sol, read-only) and re-check every load-bearing field
+   against the logs, then `scripts/build_rerun_figures.py`.
+2. Rewrite `RESULTS.md` sections 1, 2, 3, 6 and 7 for the L3 cell and the
+   headline; fill `DESIGN.md` section 9's outcome sentence.
+3. Deck (`~/dev/ai_seminar_jrc`, branch `dev_dermot`): copy the new
+   `exp-rerun-mape.png` into `figures/`, update slides 45 to 49 (accuracy
+   caption, discipline table rows for L3, the two "no September L3" notes,
+   the three cards), render with `~/.local/bin/quarto render index.qmd`,
+   run `.venv/bin/python scripts/verify_deck_numbers.py
+   ~/dev/ai_seminar_jrc/index.qmd` from this repository, then commit and
+   push `dev_dermot` (no merge, no PR; Andres merges).
+4. Commit and push this repository's `master`; delete the
+   `~/dev/energy_forecast_ws/*` sandboxes only after the L3 results are in
+   git.
+
+If a session is refused mid-run (`"status":"rejected"` in its session log)
+the L3 resume rule allows one resume per run; `opus5_L3_r1` has used its
+one. Do not launch anything else without the owner.
 
 ---
 

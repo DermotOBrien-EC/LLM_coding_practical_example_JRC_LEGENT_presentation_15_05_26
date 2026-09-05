@@ -59,6 +59,8 @@ runs_2026_09/*/.launch_marker
 # diff (changes.json) and the harvest record are what the analysis uses.
 runs_2026_09/*/inventory_before.json
 runs_2026_09/*/inventory_after*.json
+runs_2026_09/_void_*/*/inventory_before.json
+runs_2026_09/_void_*/*/inventory_after*.json
 # Independent-reader transport logs; the briefs and JSON verdicts are kept.
 runs_2026_09/_assess/*.events.jsonl
 runs_2026_09/_assess/*.err

@@ -27,6 +27,14 @@
 # is fed on stdin, byte for byte, as the first and only user message.
 # Permissions run in auto mode with prompts routed to nobody. The session
 # runs in its own process group under a wall-clock cap.
+#
+# Wave 2 relaunch (2026-09-05, DESIGN.md section 9): the agent's environment
+# also carries CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS=0. Without it, print mode
+# ends the session 600 s after a turn that leaves background jobs running
+# ("Background tasks still running after 600s; terminating"), which is what
+# cut the first opus5 L3 attempt off mid-training. With it, the session waits
+# for the agent's own background jobs and re-enters the model when one
+# finishes, as an interactive session would; the wall-clock cap still binds.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -217,7 +225,8 @@ meta = {
                      "--output-format", "stream-json", "--verbose"],
     "env_passed": {"HOME": "operator home", "USER": "operator user", "LOGNAME": "operator user",
                    "SHELL": "/bin/zsh", "LANG": "en_US.UTF-8",
-                   "PATH": "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin"},
+                   "PATH": "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin",
+                   "CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS": "0 (wave 2 relaunch onwards: print mode waits for the agent's background jobs instead of ending the session 600 s after a turn with no tool call)"},
     "effort_flag": None, "attempts": 1, "resumed": False, "status": "running",
 }
 json.dump(meta, open(out, "w"), indent=2)
@@ -230,6 +239,7 @@ python3 "$STAGE/sv.py" "$CAP_SECONDS" "$STAGE/input.txt" "$WORK" -- \
   sandbox-exec -f "$SB" \
   env -i HOME="$HOME" USER="$USER" LOGNAME="$USER" SHELL=/bin/zsh LANG=en_US.UTF-8 \
       PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin \
+      CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS=0 \
       "$BIN" -p --model "$MODEL" \
       --setting-sources project,local \
       --permission-mode auto --permission-prompts none \

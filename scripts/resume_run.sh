@@ -5,6 +5,13 @@
 # rate-limit / API error visible in its log. The resumed session gets the
 # single message "Continue." and is logged to session_resume1.jsonl.
 #
+# Widened on 2026-09-05 (DESIGN.md section 9): a first attempt whose
+# stderr.log carries "Background tasks still running after ... terminating"
+# also counts as an infrastructure failure, even though the harness recorded
+# it as completed (the CLI exits 0 after killing the agent's background jobs).
+# That is print mode's 600 s wait ceiling, not the model; the resumed session
+# runs with CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS=0 so it cannot recur.
+#
 # Usage:  bash scripts/resume_run.sh <run-name> "<reason>"
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -23,10 +30,16 @@ if meta.get("level") != "L3":
     sys.exit("only L3 may be resumed (design section 3)")
 if int(meta.get("attempts", 1)) != 1 or meta.get("resumed"):
     sys.exit("already resumed once; a second resume is not allowed")
-if meta.get("status") == "completed":
+bg_ceiling = False
+try:
+    with open(os.path.join(run, "stderr.log"), encoding="utf-8", errors="replace") as fh:
+        bg_ceiling = "Background tasks still running after" in fh.read()
+except OSError:
+    pass
+if meta.get("status") == "completed" and not bg_ceiling:
     sys.exit("first attempt completed; nothing to resume")
 sid = None
-infra = meta.get("status") in ("timeout", "stopped")
+infra = meta.get("status") in ("timeout", "stopped") or bg_ceiling
 for line in open(os.path.join(run, "session.jsonl"), encoding="utf-8", errors="replace"):
     if '"init"' in line and sid is None:
         try:
@@ -77,6 +90,7 @@ python3 "$STAGE/sv.py" "$CAP_SECONDS" "$STAGE/input.txt" "$WORK" -- \
   sandbox-exec -f "$SB" \
   env -i HOME="$HOME" USER="$USER" LOGNAME="$USER" SHELL=/bin/zsh LANG=en_US.UTF-8 \
       PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin \
+      CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS=0 \
       "$BIN" -p --resume "$SID" \
       --setting-sources project,local \
       --permission-mode auto --permission-prompts none \

@@ -3,5 +3,8 @@
   "canary": {"concurrency": 1, "runs": ["fable51 L1 1"]},
   "wave1": {"concurrency": 7, "runs": ["fable51 L1 2", "fable51 L1 3", "opus5 L1 1", "fable51 L2 1", "fable51 L2 2", "fable51 L2 3", "opus5 L2 1"]},
   "wave2": {"concurrency": 2, "runs": ["fable51 L3 1", "opus5 L3 1", "fable51 L3 2", "fable51 L3 3"]},
+  "_wave2_relaunch": "2026-09-05 (DESIGN.md section 9): wave2 produced no result on 2026-09-03 (credit refusals; opus5 L3 r1 cut off by print mode's background-task wait ceiling). The void fable51 L3 directories are archived under _void_wave2_credit_refusal/. Pair A of the relaunch is the single permitted resume of opus5_L3_r1 (scripts/resume_run.sh) beside wave2_pairA_fable; pair B is wave2_pairB. Same order and the same two-at-a-time rule as wave2.",
+  "wave2_pairA_fable": {"concurrency": 1, "runs": ["fable51 L3 1"]},
+  "wave2_pairB": {"concurrency": 2, "runs": ["fable51 L3 2", "fable51 L3 3"]},
   "usage_gate": {"max_five_hour_utilization": 0.35, "note": "A wave launches only if the latest rate_limit_event across all session logs shows five-hour utilization at or below this value, or its resetsAt is in the past (fresh window)."}
 }

@@ -83,7 +83,8 @@ Twelve counted runs. The May 2026 runs are not re-run.
   session's terminal result event, so a run that ends without one (timeout,
   stop) has no denial count; that is stated where it happens.
 - **Isolation of configuration.** The agent runs under an allow-listed
-  environment (`env -i` with exactly HOME, USER, LOGNAME, SHELL, LANG, PATH)
+  environment (`env -i` with exactly HOME, USER, LOGNAME, SHELL, LANG, PATH;
+  from the wave 2 relaunch also the print-mode keep-alive variable below)
   and with `--setting-sources project,local`, so the operator's user-level
   `CLAUDE.md`, rules, hooks, skills and effort setting are not injected.
   Verified with a probe session that reported no user-level instructions.
@@ -113,6 +114,12 @@ Twelve counted runs. The May 2026 runs are not re-run.
   receives the single message "Continue.", is logged to
   `session_resume1.jsonl`, and is disclosed beside the result. The
   asymmetry is deliberate and is the same one the May runs used.
+  Amended 2026-09-05, after wave 2 (section 9): a first attempt that print
+  mode itself ended, recognisable by "Background tasks still running after
+  600s; terminating" in `stderr.log`, counts as an infrastructure failure
+  for this rule even though the harness recorded it as `completed` (the
+  CLI exits 0 after killing the agent's background jobs). The other
+  conditions are unchanged, and the one-resume limit stands.
 - **Wave membership, order and gate** (pre-registered in `waves.json`;
   `scripts/launch_wave.sh` accepts only a wave name from that file).
   `canary`: `fable51 L1 r1` alone, to validate the harness after the
@@ -124,6 +131,20 @@ Twelve counted runs. The May 2026 runs are not re-run.
   session log on disk and refuses to start unless the five-hour window's
   utilisation is at or below 0.35 or its reset time has passed. Machine
   contention still exists and is disclosed as a limitation.
+  Added 2026-09-05 for the wave 2 relaunch (section 9): `wave2_pairA_fable`
+  (`fable51 L3 r1` alone, run beside the permitted resume of `opus5 L3
+  r1`) and `wave2_pairB` (`fable51 L3 r2` + `r3`), the same pairs in the
+  same order as `wave2`, through the same gate.
+- **Print-mode keep-alive** (added 2026-09-05, from the wave 2 relaunch
+  onwards). Claude Code's print mode ends a session 600 s after a turn
+  that leaves the agent's background jobs running, and kills those jobs;
+  the CLI's own message names the switch
+  (`CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS=0` waits indefinitely). The
+  runner and the resume script now pass that variable, so a session waits
+  for the agent's own background jobs and re-enters the model when one
+  finishes, as an interactive session would. The 180-minute wall-clock cap
+  still bounds every run. This is a harness change between wave 1 and the
+  relaunched wave 2; the L1 and L2 cells were not re-run under it.
 
 ## 4. Known differences from May 2026
 
@@ -247,17 +268,18 @@ the session log before it enters `RESULTS.md`.
   file.
 - Confinement is a seatbelt deny-list, not a VM; the lexical detectors in
   the summariser are warning signals; the test-window audit is not blind.
-- Headless print mode ends a session whenever the agent finishes a turn
-  without a tool call, including when it has deliberately parked itself to
-  wait for a background job or monitor; an interactive session would have
-  been woken. A run that ends this way is scored on what is on disk and
-  marked incomplete. This bit three of the twelve runs, and it is the
-  reason the L3 cell has no result: the L3 prompt's six-model bake-off
-  includes two deep forecasters whose training outlasts the agent's
-  patience for waiting in a way that a headless turn cannot express.
+- Headless print mode, as run in wave 1, ends a session 600 s after the
+  agent finishes a turn without a tool call while its background jobs are
+  still running, including when it has deliberately parked itself to wait
+  for a job or a monitor; an interactive session would have been woken. A
+  run that ends this way is scored on what is on disk and marked
+  incomplete. This bit three of the twelve first attempts (two in wave 1,
+  kept as they stand; the `opus5 L3 r1` first attempt, resumed). The
+  relaunched wave 2 runs with the keep-alive of section 3, so the L3 cell
+  and the L1/L2 cells were not produced under the same headless rule.
 - The account's usage credits are a hard external dependency. The
   launcher's gate reads the five-hour window; the weekly window is not
-  gated and is what stopped wave 2.
+  gated and is what stopped the first wave 2 launch.
 - Other command-line agents installed on the machine (`codex`) are
   reachable from the sandbox, exactly as they were in May; a run that uses
   one is disclosed.
@@ -273,7 +295,9 @@ the session log before it enters `RESULTS.md`.
   inventories, harvest); `scripts/supervise.py`: process-group wall-clock
   cap with piped logs; `scripts/inventory.py`: inventories, diff, harvest;
   `scripts/launch_wave.sh`: a pre-registered wave; `scripts/resume_run.sh`:
-  the single permitted L3 resume; `scripts/summarize_runs.py`: harness facts
+  the single permitted L3 resume; `scripts/relaunch_wave2.sh`: the
+  2026-09-05 relaunch driver (resume beside `wave2_pairA_fable`, then
+  `wave2_pairB`); `scripts/summarize_runs.py`: harness facts
   per run; `scripts/score_runs.py`: MAPE recomputation;
   `scripts/assess_fleet.sh` + `assess_schema.json` + `assess_brief_template.md`:
   independent per-run reader; `scripts/build_rerun_figures.py`: figure and
@@ -327,9 +351,24 @@ the session log before it enters `RESULTS.md`.
   test-window forecast was written. The three `fable51 L3` runs were
   refused by the API with "You're out of usage credits" (weekly overage
   window at 1.01, status `rejected`), 95 seconds into the first and at
-  launch for the other two. The L3 cell of this study is therefore empty.
-  All four directories are kept with their logs; none contributes a
-  number. See `RESULTS.md` sections 6 and 7.
+  launch for the other two. The L3 cell was empty until the relaunch
+  below. The three void `fable51 L3` directories are archived under
+  `runs_2026_09/_void_wave2_credit_refusal/` (committed) and contribute no
+  number; the `opus5 L3 r1` directory keeps its first attempt beside the
+  resume. See `RESULTS.md` section 6.
+- **2026-09-05 09:45 local, wave 2 relaunched.** The weekly window had
+  come back (a probe session read the seven-day window at 0.13 and the
+  five-hour window at 0.34 when the pair launched, with overage disabled
+  for lack of credits, so a refusal, not a charge, is the failure mode).
+  The first attempt's `stderr.log` had named the cause of the Opus cut-off
+  ("Background tasks still running after 600s; terminating"), so the
+  keep-alive of section 3 was added to the runner and the resume script,
+  the attempt policy was amended to recognise that cut-off as an
+  infrastructure failure, and the two relaunch waves were added to
+  `waves.json`. Pair A: `opus5 L3 r1` resumed once with "Continue."
+  (`resume_run.sh`, its preserved sandbox and session id intact) beside a
+  fresh `fable51 L3 r1`. Pair B: `fable51 L3 r2` + `r3` through the gate.
+  Outcomes are recorded in `RESULTS.md` section 6.
 
 ## 10. Review record
 
