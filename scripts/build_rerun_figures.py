@@ -92,7 +92,7 @@ def build_figure(results: list[dict[str, object]], ref: dict[str, float]) -> Non
         v = float(r["mape_pct"])  # type: ignore[arg-type]
         lab, col, mk = SERIES[tag]
         rep = int(r.get("rep") or 1)
-        jitter = (rep - 2) * 0.06 if tag == "fable51" else 0.0
+        jitter = (rep - 2) * 0.09 if tag == "fable51" else 0.0
         x = xs[lvl] + X_OFFSET[tag] + jitter
         hollow = str(r.get("source")) != "recomputed"
         incomplete = bool(scoring.get(str(r["run"]), {}).get("status_note"))
@@ -112,8 +112,8 @@ def build_figure(results: list[dict[str, object]], ref: dict[str, float]) -> Non
     ax.legend(loc="upper right", fontsize=9, frameon=True)
     fig.text(0.01, 0.012,
              "Hollow marker with * = session ended before the agent's final step, scored on the forecast it had written.\n"
-             "† = May's L3 winner read the test week's own actual loads through its 24 h lag (day-ahead for 6 of 7 days); "
-             "the September L3 forecasts are recursive week-ahead forecasts.",
+             "† = May's L3 winner read the test week's own actual loads through its rolling features from the 2nd hour "
+             "and its 24 h lag from the 2nd day; the September L3 forecasts are recursive week-ahead forecasts.",
              fontsize=7.5, color="#555555", va="bottom")
     fig.tight_layout(rect=(0, 0.07, 1, 1))
     OUT_FIG.parent.mkdir(parents=True, exist_ok=True)
@@ -143,6 +143,8 @@ def build_table(results: list[dict[str, object]]) -> None:
         audit = str(sc.get("test_selection", "?"))
         if audit == "test_selected":
             audit += f" ({sc.get('n_candidates', '?')})"
+        elif audit == "leaked" and str(sc.get("leak_scope", "")).startswith("supplement"):
+            audit += " (supplement only; headline clean)"
         agents = str(sm.get("agents_md_read", "?"))
         if agents.startswith("n/a"):
             agents = "n/a"

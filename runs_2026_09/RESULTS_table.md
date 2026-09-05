@@ -11,4 +11,4 @@
 | opus5_L3_r1 | Opus 5 | LightGBM (calendar + holiday + lag features, recursive 168-step), winner of six | 5.46 | test_selected (6) | 6 | yes | yes | yes | 8 | 8 | yes | 137 | 108 | complete |
 | fable51_L3_r1 | Fable 5.1 | LightGBM (calendar + holiday + lag and rolling features, recursive 168-step), winner of six | 5.03 | test_selected (6) | 6 | yes | yes | yes | 8 | 8 | yes | 110 | 97 | complete |
 | fable51_L3_r2 | Fable 5.1 | LightGBM (calendar + holiday + lag and rolling features, recursive 168-step), winner of six | 4.99 | test_selected (6) | 6 | yes | yes | yes | 8 | 8 | yes | 134 | 126 | complete |
-| fable51_L3_r3 | Fable 5.1 | LightGBM (calendar + holiday + lag and rolling features, recursive 168-step), winner of six | 5.53 | test_selected (6) | 6 | yes | yes | yes | 7 | 9 | yes | 108 | 129 | complete |
+| fable51_L3_r3 | Fable 5.1 | LightGBM (calendar + holiday + lag and rolling features, recursive 168-step), winner of six | 5.53 | leaked (supplement only; headline clean) | 6 | yes | yes | yes | 7 | 9 | yes | 108 | 129 | complete |

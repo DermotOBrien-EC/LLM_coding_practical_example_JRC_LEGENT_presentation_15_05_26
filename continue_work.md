@@ -1,8 +1,8 @@
 # continue_work.md
 
-Updated: 2026-09-05 09:50 local (session relaunching wave 2); the sections
-below section 0 are the 2026-09-03 handoff and are superseded where
-section 0 says so.
+Updated: 2026-09-05 16:45 local (session that completed wave 2); the
+sections below section 0 are the 2026-09-03 handoff and are superseded
+where section 0 says so.
 
 Read this with `runs_2026_09/DESIGN.md` (the pre-registered design, its two
 review rounds, and the launch record) and `runs_2026_09/RESULTS.md`
@@ -12,13 +12,39 @@ state that are not in them.
 
 ---
 
-## 0. In flight on 2026-09-05 (read first)
+## 0. State on 2026-09-05 evening (read first)
 
-The owner asked (09:30 local) to "continue, finish off this work and have
-my presentation ready, then commit and push to my dermot branch". The
-weekly credit window had come back (probe: seven-day 0.13, five-hour 0.34,
-overage disabled for lack of credits, so an exhausted window refuses rather
-than charges). Wave 2 was relaunched at 09:45 local:
+**Done.** The owner asked (09:30 local) to "continue, finish off this work
+and have my presentation ready, then commit and push to my dermot branch".
+All four L3 runs completed the same day, the L3 cell is filled, the
+write-up (`runs_2026_09/RESULTS.md`) and the design record are final, the
+deck's slides 43 to 49 are updated and rendered, both repositories are
+committed and pushed (this one to `master`, the deck to `dev_dermot`; no
+merge, no PR). The write-up and slides were reviewed read-only by
+GPT-5.6-Sol and every finding was folded or answered
+(`runs_2026_09/reviews/2026-09-05_sol_results_review_folds.md`).
+
+Headline: Fable 5.1 L3 5.03, 4.99, 5.53 (LightGBM won every six-model
+bake-off; the only Fable cell repeatable in accuracy); Opus 5 L3 5.46
+(resumed once). Two corrections came out of it: May's L3 winner (3.43) had
+the test week's observed history in its rolling features from the second
+hour and in its 24-hour lag from the second day, so it is `leaked` under
+the design's own rule and flagged everywhere; and the harness summariser
+now sums a session's result events (Opus 5 L2's turn and token counts
+changed). Fable L3 r3 is recorded `leaked` for a labelled supplement with
+its headline untouched (`leak_scope` in `scoring.json`).
+
+What remains is optional: delete the four sandboxes under
+`~/dev/energy_forecast_ws/` (everything scored is in git), and tell Andres
+the slides are on `dev_dermot`. The seminar deck still carries the May
+date on its cover; nobody has said what the new date is.
+
+The rest of this section is the in-flight record as written at 09:50 and
+is kept for provenance.
+
+The weekly credit window had come back (probe: seven-day 0.13, five-hour
+0.34, overage disabled for lack of credits, so an exhausted window refuses
+rather than charges). Wave 2 was relaunched at 09:45 local:
 
 - `nohup bash scripts/relaunch_wave2.sh > runs_2026_09/_logs/wave2_relaunch.log`
   runs detached on the owner's Mac. Pair A: the single permitted resume of

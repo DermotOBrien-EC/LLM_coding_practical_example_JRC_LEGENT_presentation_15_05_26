@@ -222,16 +222,21 @@ beside May's showed that the May L3 winner is `leaked` under this rule,
 not merely `test_selected`: `runs/L3/code/lightgbm_features.py` builds
 its features on the training, validation and test series concatenated
 (line 111, `pd.concat([trainval, test])`) and predicts each test hour
-from that frame (line 143), so for every test hour after the first day
-`lag_24h`, `rollmean_24h` and `rollstd_24h` are the test week's own
-actual loads. Six of the seven days were forecast with the previous day's
-observations as inputs, a day-ahead forecast, and the code's own comment
+from that frame (line 143). Its rolling 24-hour and 168-hour features are
+computed on the series shifted by one hour (line 46), so from the second
+test hour onward they contain the test week's own actual loads (167 of
+168 hours), and `lag_24h` (line 43) contains them from the second day
+onward (144 of 168 hours): the forecast had the observed history of the
+previous hour behind almost every test hour. The code's own comment
 ("only timestamps used for features") is wrong for the lag and rolling
 columns. All four September L3 sessions saw the same prescribed feature
 list and forecast the week recursively, feeding their own predictions
-into the 24-hour lag; one of them (Fable r3) also scored its model the
+into those features; one of them (Fable r3) also scored its model the
 May way, as a labelled supplement, and got 3.71 % against its 5.53 %
-week-ahead number. May's 3.43 % therefore stands in every table as the May
+recursive number, which under this rule as written makes that run
+`leaked` for the supplement while its headline stays untouched
+(`scoring.json`, `leak_scope`). May's 3.43 % therefore stands in every
+table as the May
 reference, flagged, and is not read as the same task as the September
 L3 numbers. The frozen prompt's own wording admits both readings ("all
 required lags must be present in the data"), so this is a finding about

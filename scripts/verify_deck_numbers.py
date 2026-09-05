@@ -83,7 +83,10 @@ def main(argv: list[str]) -> int:
         for run, sc in scoring.items():
             if sc.get("level") == level and sc.get("model_tag") == "fable51":
                 if key == "leaked":
-                    n += sc.get("test_selection") == "leaked"
+                    # the deck column is "target week entered the headline"; a run
+                    # whose leak is confined to a labelled supplement counts as clean
+                    n += (sc.get("test_selection") == "leaked"
+                          and not str(sc.get("leak_scope", "")).startswith("supplement"))
                 elif key == "finished":
                     n += not sc.get("status_note")
                 else:

@@ -69,3 +69,5 @@ runs_2026_09/*/output/**/__pycache__/
 runs_2026_09/*/output/**/.mypy_cache/
 runs_2026_09/*/output_outside/**/.ruff_cache/
 runs_2026_09/*/output_outside/**/.mypy_cache/
+# Cross-vendor review transport logs; the brief, the review and the fold record are kept.
+runs_2026_09/reviews/_transport/
