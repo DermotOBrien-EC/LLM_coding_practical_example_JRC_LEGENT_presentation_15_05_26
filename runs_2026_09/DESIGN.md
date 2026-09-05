@@ -323,7 +323,8 @@ the session log before it enters `RESULTS.md`.
   `scripts/launch_wave.sh`: a pre-registered wave; `scripts/resume_run.sh`:
   the single permitted L3 resume; `scripts/relaunch_wave2.sh`: the
   2026-09-05 relaunch driver (resume beside `wave2_pairA_fable`, then
-  `wave2_pairB`); `scripts/summarize_runs.py`: harness facts
+  `wave2_pairB`); `scripts/launch_extension.sh`: the Extension A driver
+  (`ext_waveA` then `ext_waveB`, section 11); `scripts/summarize_runs.py`: harness facts
   per run; `scripts/score_runs.py`: MAPE recomputation;
   `scripts/assess_fleet.sh` + `assess_schema.json` + `assess_brief_template.md`:
   independent per-run reader; `scripts/build_rerun_figures.py`: figure and
@@ -424,3 +425,70 @@ L3 reclassified as `test_selected` with the selection-free number reported
 beside the headline (F8); the wave manifest, the mechanical usage gate, the
 resume script, and honest wording on denials and blinding (F9, in part);
 the corrected launch record (F10).
+
+## 11. Extension A, pre-registered 2026-09-05 22:30 local: three OpenAI models on the same harness
+
+Written before any extension run was launched; the numbers go to
+`RESULTS.md` afterwards. Nothing above this section changes.
+
+- **Question Q4 (descriptive, cross-vendor).** On the same three frozen
+  prompts, the same sandbox and the same Claude Code build, what do
+  GPT-6-Astra, GPT-5.6-Sol and GPT-5.5 produce, three fresh sessions per
+  level each, and how do the cells read under the rules of section 6?
+  Twenty-seven counted runs: tags `astra` (`gpt-6-astra`), `sol`
+  (`gpt-5.6-sol`), `gpt55` (`gpt-5.5`), each at L1, L2 and L3, reps 1 to 3.
+- **Held fixed**, as in section 3: the pinned inputs, Claude Code 2.1.259
+  by absolute path, the sandbox and its identifier scan (extended with the
+  three new tags), the seatbelt, the prompt on stdin, auto permissions with
+  prompts routed to nobody, `--setting-sources project,local`, the 180-minute
+  cap, the print-mode keep-alive, the attempt policy (L1 and L2 never
+  resumed, L3 once on an infrastructure failure), the harvest, the
+  summariser, the scorer, the independent reader and the audit rules of
+  section 5.
+- **Route.** The agent's API traffic goes to the operator's local
+  CLIProxyAPI gateway at `http://127.0.0.1:8317`, which serves these models
+  to Claude Code under their Codex ids from the operator's Codex
+  subscription. The runner adds, for these tags only, the environment the
+  operator's `poly` launcher uses for the same models: `ANTHROPIC_BASE_URL`
+  and `ANTHROPIC_AUTH_TOKEN` (the gateway's local key, not recorded),
+  `CLAUDE_CODE_SUBAGENT_MODEL` set to the same model so any subagent stays
+  on it, `CLAUDE_CODE_ALWAYS_ENABLE_EFFORT=1`,
+  `CLAUDE_CODE_MAX_TOOL_USE_CONCURRENCY=3`,
+  `CLAUDE_CODE_MAX_CONTEXT_TOKENS=272000` and `ENABLE_TOOL_SEARCH=false`.
+  The runner refuses to start unless the gateway is up and lists the model.
+- **Known differences from the Claude arm, disclosed rather than removed.**
+  (a) The context window is pinned at 272,000 tokens; the Claude arm ran at
+  the build's default for `claude-fable-5-1` and `claude-opus-5`. (b) The
+  claude.ai connectors are disabled by the gateway credentials (the CLI
+  says so on stderr: an auth source other than the claude.ai login takes
+  precedence) and tool search is off; the Claude arm had the connectors
+  available and no counted run used one. (c) Parallel tool calls are capped
+  at three per turn. (d)
+  The effort parameter is enabled for these models at the gateway's default.
+  (e) The auto-mode permission classifier still runs on a Claude model,
+  through the gateway's Claude credentials. (f) Rate limits are the Codex
+  subscription's: the launcher's five-hour gate is inert for this arm, and a
+  session the gateway refuses is recorded as an API error (void for L1 and
+  L2, resumable once for L3). (g) The keep-alive is on for every level here,
+  whereas the Claude arm's L1 and L2 ran without it, so "session finished"
+  is not comparable across arms and is reported per arm. (h) Claude Code's
+  agent loop, tools and system prompt were built around Claude; a
+  cross-vendor difference is a difference in model plus translation layer
+  and is reported as descriptive only. Nothing in this design attributes a
+  difference between an OpenAI cell and a Claude cell to the model alone.
+- **Waves** (in `waves.json`). `ext_canary`: `astra L1 r1` alone, to validate
+  the route: tool calls execute, the classifier answers, a result event
+  arrives, the harvest works. A canary that fails on route grounds is voided
+  and the harness fixed before any counted run, exactly as in section 9; a
+  canary that completes counts. `ext_waveA`: the other seventeen L1 and L2
+  runs, six at a time. `ext_waveB`: the nine L3 runs, two at a time,
+  interleaved by model (`astra`, `sol`, `gpt55`, then the second reps, then
+  the third) so that no model takes all the late-night slots.
+- **Reading rules.** Section 6 applies per cell: range, repeatability
+  labels, process proportions, audit class per run, the L1-versus-L3
+  closeness rule within each model. Across models the reading is a
+  side-by-side of per-level ranges and process proportions, descriptive.
+  The May L3 correction of section 5.2 applies unchanged.
+- **Review.** One read-only review of this section and the harness diff by
+  GPT-6-Astra before the canary, recorded in section 10; the launch record
+  continues in section 9.

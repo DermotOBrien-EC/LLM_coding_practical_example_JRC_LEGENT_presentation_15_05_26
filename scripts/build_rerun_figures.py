@@ -40,8 +40,13 @@ SERIES = {
     "may2026": ("Opus 4.7, May 2026 (1 run)", "#7f7f7f", "D"),
     "fable51": ("Fable 5.1, Sep 2026 (3 runs)", "#ff7f0e", "o"),
     "opus5": ("Opus 5, Sep 2026 (1 run)", "#1f77b4", "s"),
+    # Extension A (DESIGN.md section 11): the OpenAI models on the same harness
+    "astra": ("GPT-6-Astra, Sep 2026 (3 runs)", "#2ca02c", "^"),
+    "sol": ("GPT-5.6-Sol, Sep 2026 (3 runs)", "#9467bd", "v"),
+    "gpt55": ("GPT-5.5, Sep 2026 (3 runs)", "#8c564b", "P"),
 }
-X_OFFSET = {"may2026": -0.22, "fable51": 0.0, "opus5": 0.22}
+X_OFFSET = {"may2026": -0.36, "fable51": -0.2, "opus5": -0.04, "astra": 0.1, "sol": 0.24, "gpt55": 0.38}
+THREE_RUN_TAGS = {"fable51", "astra", "sol", "gpt55"}
 
 
 def may_reference() -> dict[str, float]:
@@ -92,7 +97,7 @@ def build_figure(results: list[dict[str, object]], ref: dict[str, float]) -> Non
         v = float(r["mape_pct"])  # type: ignore[arg-type]
         lab, col, mk = SERIES[tag]
         rep = int(r.get("rep") or 1)
-        jitter = (rep - 2) * 0.09 if tag == "fable51" else 0.0
+        jitter = (rep - 2) * 0.04 if tag in THREE_RUN_TAGS else 0.0
         x = xs[lvl] + X_OFFSET[tag] + jitter
         hollow = str(r.get("source")) != "recomputed"
         incomplete = bool(scoring.get(str(r["run"]), {}).get("status_note"))

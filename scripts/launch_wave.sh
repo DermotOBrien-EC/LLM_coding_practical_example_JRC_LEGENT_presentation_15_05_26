@@ -85,7 +85,7 @@ while IFS= read -r spec; do
   if [ -z "$tag" ] || [ -z "$level" ] || [ -z "$rep" ] || [ -n "$extra" ]; then
     echo "bad spec in manifest: '$spec'" >&2; exit 2
   fi
-  case "$tag" in fable51|opus5) ;; *) echo "bad model tag in '$spec'" >&2; exit 2 ;; esac
+  case "$tag" in fable51|opus5|astra|sol|gpt55) ;; *) echo "bad model tag in '$spec'" >&2; exit 2 ;; esac
   case "$level" in L1|L2|L3) ;; *) echo "bad level in '$spec'" >&2; exit 2 ;; esac
   case "$rep" in ''|*[!0-9]*) echo "bad rep in '$spec'" >&2; exit 2 ;; esac
   name="${tag}_${level}_r${rep}"

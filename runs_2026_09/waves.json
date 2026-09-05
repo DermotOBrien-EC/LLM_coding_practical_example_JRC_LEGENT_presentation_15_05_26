@@ -6,5 +6,9 @@
   "_wave2_relaunch": "2026-09-05 (DESIGN.md section 9): wave2 produced no result on 2026-09-03 (credit refusals; opus5 L3 r1 cut off by print mode's background-task wait ceiling). The void fable51 L3 directories are archived under _void_wave2_credit_refusal/. Pair A of the relaunch is the single permitted resume of opus5_L3_r1 (scripts/resume_run.sh) beside wave2_pairA_fable; pair B is wave2_pairB. Same order and the same two-at-a-time rule as wave2.",
   "wave2_pairA_fable": {"concurrency": 1, "runs": ["fable51 L3 1"]},
   "wave2_pairB": {"concurrency": 2, "runs": ["fable51 L3 2", "fable51 L3 3"]},
+  "_extension_a": "Pre-registered 2026-09-05 (DESIGN.md section 11): the OpenAI models gpt-6-astra (tag astra), gpt-5.6-sol (sol) and gpt-5.5 (gpt55) on the same harness through the local gateway, three runs per level each. ext_canary validates the route alone; ext_waveA is every remaining L1 and L2 run; ext_waveB is the nine L3 runs two at a time, interleaved by model so no model gets all the late-night slots.",
+  "ext_canary": {"concurrency": 1, "runs": ["astra L1 1"]},
+  "ext_waveA": {"concurrency": 6, "runs": ["astra L1 2", "astra L1 3", "sol L1 1", "sol L1 2", "sol L1 3", "gpt55 L1 1", "gpt55 L1 2", "gpt55 L1 3", "astra L2 1", "astra L2 2", "astra L2 3", "sol L2 1", "sol L2 2", "sol L2 3", "gpt55 L2 1", "gpt55 L2 2", "gpt55 L2 3"]},
+  "ext_waveB": {"concurrency": 2, "runs": ["astra L3 1", "sol L3 1", "gpt55 L3 1", "astra L3 2", "sol L3 2", "gpt55 L3 2", "astra L3 3", "sol L3 3", "gpt55 L3 3"]},
   "usage_gate": {"max_five_hour_utilization": 0.35, "note": "A wave launches only if the latest rate_limit_event across all session logs shows five-hour utilization at or below this value, or its resetsAt is in the past (fresh window)."}
 }

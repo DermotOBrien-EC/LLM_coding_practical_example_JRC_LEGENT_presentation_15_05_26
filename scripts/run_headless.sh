@@ -44,15 +44,36 @@ CAP_SECONDS=10800   # the same cap for every level (design section 3)
 WS_BASE="$HOME/dev/energy_forecast_ws"
 STAGE_BASE="${TMPDIR:-/tmp}"
 
-MODEL_TAG="${1:?model tag (fable51|opus5)}"
+MODEL_TAG="${1:?model tag (fable51|opus5|astra|sol|gpt55)}"
 LEVEL="${2:?level (L1|L2|L3)}"
 REP="${3:?rep number}"
 
+# Extension A (DESIGN.md section 11): the OpenAI models run on this same
+# harness through the operator's local CLIProxyAPI gateway, which serves
+# them to Claude Code under their Codex ids. ROUTE=gateway adds exactly the
+# environment the operator's `poly` launcher uses; ROUTE=direct is the
+# Claude arm, unchanged.
+ROUTE="direct"
 case "$MODEL_TAG" in
   fable51) MODEL="claude-fable-5-1" ;;
   opus5)   MODEL="claude-opus-5" ;;
+  astra)   MODEL="gpt-6-astra";  ROUTE="gateway" ;;
+  sol)     MODEL="gpt-5.6-sol";  ROUTE="gateway" ;;
+  gpt55)   MODEL="gpt-5.5";      ROUTE="gateway" ;;
   *) echo "unknown model tag: $MODEL_TAG" >&2; exit 2 ;;
 esac
+GATEWAY_ENV=()
+if [ "$ROUTE" = "gateway" ]; then
+  SP="/Users/doob/dev/Default_project_skills_n_setup/scripts/sol-proxy.sh"
+  bash "$SP" ensure --with-claude > /dev/null || { echo "gateway not available" >&2; exit 4; }
+  bash "$SP" has-model "$MODEL" > /dev/null 2>&1 || { echo "gateway catalog lacks $MODEL" >&2; exit 4; }
+  GW_BASE="$(bash "$SP" print-base-url)" || exit 4
+  GW_KEY="$(bash "$SP" print-key)" || exit 4
+  GATEWAY_ENV=(ANTHROPIC_BASE_URL="$GW_BASE" ANTHROPIC_AUTH_TOKEN="$GW_KEY"
+               CLAUDE_CODE_SUBAGENT_MODEL="$MODEL" CLAUDE_CODE_ALWAYS_ENABLE_EFFORT=1
+               CLAUDE_CODE_MAX_TOOL_USE_CONCURRENCY=3 CLAUDE_CODE_MAX_CONTEXT_TOKENS=272000
+               ENABLE_TOOL_SEARCH=false)
+fi
 case "$LEVEL" in
   L1|L2|L3) ;;
   *) echo "unknown level: $LEVEL" >&2; exit 2 ;;
@@ -166,7 +187,7 @@ PROMPT_SHA="$(shasum -a 256 "$PROMPT_FILE" | cut -d' ' -f1)"
 # --- scan the sandbox (outside the venv's library tree) for identifiers ----
 # The L3 AGENTS.md and prompt legitimately name the study, so they are
 # excluded; everything else must be clean.
-LEAKS="$(cd "$WS" && /usr/bin/grep -rIl -E 'LLM_coding|LEGENT|jrc_andres|jrc-andres|prompt-engineering|three-level|fable51|opus5|runs_2026_09' \
+LEAKS="$(cd "$WS" && /usr/bin/grep -rIl -E 'LLM_coding|LEGENT|jrc_andres|jrc-andres|prompt-engineering|three-level|fable51|opus5|astra_L[123]|sol_L[123]|gpt55|runs_2026_09' \
   --exclude-dir=lib --exclude=AGENTS.md --exclude=L3.md . 2>/dev/null || true)"
 if [ -n "$LEAKS" ]; then
   echo "identifier scan failed; sandbox names the study in:" >&2
@@ -205,9 +226,9 @@ START_ISO="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 START_EPOCH="$(date +%s)"
 
 python3 - "$RUN/run_meta.json" "$MODEL_TAG" "$MODEL" "$LEVEL" "$REP" "$START_ISO" "$DATA_SHA" \
-          "$PROMPT_SHA" "$AGENTS_SHA" "$BIN" "$GOT_VERSION" "$CAP_SECONDS" "$WS" "$WORK" "$TOKEN" <<'PY'
+          "$PROMPT_SHA" "$AGENTS_SHA" "$BIN" "$GOT_VERSION" "$CAP_SECONDS" "$WS" "$WORK" "$TOKEN" "$ROUTE" <<'PY'
 import json, sys
-(out, tag, model, level, rep, start, dsha, psha, asha, binp, ver, cap, ws, work, token) = sys.argv[1:]
+(out, tag, model, level, rep, start, dsha, psha, asha, binp, ver, cap, ws, work, token, route) = sys.argv[1:]
 meta = {
     "model_tag": tag, "model": model, "level": level, "rep": int(rep),
     "started_utc": start,
@@ -228,7 +249,16 @@ meta = {
                    "PATH": "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin",
                    "CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS": "0 (wave 2 relaunch onwards: print mode waits for the agent's background jobs instead of ending the session 600 s after a turn with no tool call)"},
     "effort_flag": None, "attempts": 1, "resumed": False, "status": "running",
+    "route": route,
 }
+if route == "gateway":
+    meta["route"] = "gateway: local CLIProxyAPI (127.0.0.1:8317) serving the model from the operator's Codex subscription (DESIGN.md section 11)"
+    meta["env_passed"].update({
+        "ANTHROPIC_BASE_URL": "the local gateway (value recorded in DESIGN.md section 11)",
+        "ANTHROPIC_AUTH_TOKEN": "the local gateway's key (not recorded)",
+        "CLAUDE_CODE_SUBAGENT_MODEL": model,
+        "CLAUDE_CODE_ALWAYS_ENABLE_EFFORT": "1", "CLAUDE_CODE_MAX_TOOL_USE_CONCURRENCY": "3",
+        "CLAUDE_CODE_MAX_CONTEXT_TOKENS": "272000", "ENABLE_TOOL_SEARCH": "false"})
 json.dump(meta, open(out, "w"), indent=2)
 PY
 
@@ -240,6 +270,7 @@ python3 "$STAGE/sv.py" "$CAP_SECONDS" "$STAGE/input.txt" "$WORK" -- \
   env -i HOME="$HOME" USER="$USER" LOGNAME="$USER" SHELL=/bin/zsh LANG=en_US.UTF-8 \
       PATH=/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin \
       CLAUDE_CODE_PRINT_BG_WAIT_CEILING_MS=0 \
+      ${GATEWAY_ENV[@]+"${GATEWAY_ENV[@]}"} \
       "$BIN" -p --model "$MODEL" \
       --setting-sources project,local \
       --permission-mode auto --permission-prompts none \
