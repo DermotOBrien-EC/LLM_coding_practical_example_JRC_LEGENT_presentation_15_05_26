@@ -1,0 +1,26 @@
+fitted fold 2016-01-01
+fitted fold 2017-01-01
+fitted fold 2018-01-01
+fitted fold 2019-01-01
+
+=== MAPE % — all 4 folds ===
+window                    2016-01-01  2017-01-01  2018-01-01  2019-01-01  mean  worst
+model                                                                                
+ens_lgb+lin+yoy_50_25_25        9.23        6.33        4.75        3.37  5.92   9.23
+ens_lgb+lin_50_50               9.10        7.85        3.05        4.09  6.02   9.10
+ens_lgb+lin+yoy_60_20_20       10.03        6.29        4.94        3.19  6.11  10.03
+ens_lgb+lin_70_30              10.72        7.01        3.91        3.52  6.29  10.72
+linear_profile                  5.54        9.98        4.69        6.04  6.56   9.98
+lightgbm                       13.13        6.35        6.15        3.09  7.18  13.13
+year_ago_naive_364d             7.13        6.79        9.81        6.42  7.54   9.81
+
+=== MAPE % — excl. short-history 2016 fold ===
+window                    2017-01-01  2018-01-01  2019-01-01  mean  worst
+model                                                                    
+ens_lgb+lin+yoy_60_20_20        6.29        4.94        3.19  4.81   6.29
+ens_lgb+lin_70_30               7.01        3.91        3.52  4.81   7.01
+ens_lgb+lin+yoy_50_25_25        6.33        4.75        3.37  4.82   6.33
+ens_lgb+lin_50_50               7.85        3.05        4.09  5.00   7.85
+lightgbm                        6.35        6.15        3.09  5.19   6.35
+linear_profile                  9.98        4.69        6.04  6.90   9.98
+year_ago_naive_364d             6.79        9.81        6.42  7.67   9.81

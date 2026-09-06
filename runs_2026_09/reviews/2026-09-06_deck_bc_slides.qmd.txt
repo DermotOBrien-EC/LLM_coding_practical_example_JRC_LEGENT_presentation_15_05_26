@@ -1,0 +1,137 @@
+## Four months later: the same three prompts, run again {.tight}
+
+::: {.smaller}
+- **September 2026.** Same frozen prompts, same data file, same `AGENTS.md` files, Claude Code 2.1.259 run headless (L1 and L2 on 3 September, L3 on 5 September).
+- **Fable 5.1**: three fresh sessions per level. **Opus 5**: one per level. May 2026 (Opus 4.7) kept as the reference point.
+- Each session alone in a seatbelt-confined sandbox: the data file, a Python venv, the level's `AGENTS.md` (L2, L3) and for L3 the prompt file; no repository context. Every forecast re-scored from what the agent left on disk (one exception, marked).
+- **Questions:** does specificity still change the result, and where? Does the same prompt give the same answer three times? What does a second model do with it?
+- **Extensions, same night and the next day:** the same nine cells for **GPT-6-Astra, GPT-5.6-Sol and GPT-5.5** through a local gateway (27 runs); those runs again with one added paragraph (20); and **Opus 4.7, Opus 4.8 and Opus 5** at three runs per level (24). 90 sessions in all.
+:::
+
+::: {.source}
+Pre-registered design, harness, session logs and independent per-run assessments: `runs_2026_09/` in the repository above (design reviewed twice by GPT-5.6-Sol before launch; the extension once by GPT-6-Astra).
+:::
+
+## Accuracy: same prompts, four model generations {.tight}
+
+![](figures/exp-rerun-mape.png){.bigfig}
+
+::: {.belowtext .center}
+May 2026, one session per level: **10.8, 5.5, 3.4†**. September, three sessions per model per level.<br>
+Every September model beats May's 10.8 on the ten-word prompt, **including May's own model** (next slide). At L3 the picture inverts, and within this family it inverts cleanly: the runs that read the test week through their lag features score **3.2 to 3.5†**, the ones that forecast recursively score **4.6 to 5.5**.
+:::
+
+## What 10 words gets you now {.tight}
+
+![](figures/exp-rerun-l1-fable.png){.figtop}
+
+::: {.belowtext .center}
+Fable 5.1, run 2 of 3, prompt unchanged: **LightGBM** with holiday and lag features, a **p10 to p90 band**, a 2019 backtest, **MAPE 3.3%**.<br>
+In May the same 10 words produced three naive baselines and 10.8%.
+:::
+
+## What the prompt still had to buy: the discipline {.tight}
+
+::: {.smaller}
+| Level (runs) | Validation decided a choice | Prediction intervals | Written methods | Target week entered the headline | Session finished |
+|---|---|---|---|---|---|
+| Fable 5.1, L1 (3) | 1 of 3 | 2 of 3 | 0 of 3 | 1 of 3 | 3 of 3 |
+| Fable 5.1, L2 (3) | 0 of 3 | 0 of 3 | 1 of 3 | 0 of 3 | 2 of 3 |
+| Fable 5.1, L3 (3) | 3 of 3 | 3 of 3 | 3 of 3 | 0 of 3 | 3 of 3 |
+| Opus 5, L1 / L2 / L3 | yes / yes / yes | yes / no / yes | yes / no / yes | yes / yes / no | yes / no / yes |
+| May 2026, L1 / L2 / L3 | no / no / yes | no / no / yes | no / no / yes | no / no / yes† | yes / yes / yes |
+:::
+
+::: {.takeaway}
+No L1 or L2 session used a validation window to choose between model classes, and three of eight let the test week into a decision. Every L3 session validated inside each model class, produced intervals and measured their coverage, wrote a methods document, and kept the test week out of its headline forecast. The test week decided only the class ranking, which the L3 prompt itself asks for.
+:::
+
+::: {.source}
+Every L2 and L3 session read `AGENTS.md` within its first seven commands. † May's L3 model had the test week's observed history in its inputs (found in September). One Fable L3 run scored a labelled May-style supplement on the test week; its headline is clean. Opus 5 L3 was resumed once after a harness cut-off; the resume is disclosed in the design record.
+:::
+
+## Same prompts, OpenAI models: most stopped to ask {.tight}
+
+![](figures/exp-extension-outcomes.png){.nostretch width="76%" fig-align="center"}
+
+::: {.belowtext .center}
+**20 of 27** sessions ended on a clarifying question or a plan awaiting approval, no forecast written; the Claude arm: **0 of 12**. GPT-6-Astra asked in **9 of 9**, at L3 about the exact ambiguity May's run got wrong. Headless, nobody answers.<br>
+Six saved L1 forecasts sit with the Claude ones, one baseline apart (9.5); the one finished L3 study left no forecast file and reproduced May's leak. Same harness, other vendor: model plus translation layer, described, not ranked.
+:::
+
+::: {.source}
+Extension A, pre-registered in `runs_2026_09/DESIGN.md` section 11, results in `RESULTS.md` section 8. One Sol L1 run called a Claude subagent to review its method; one tried the operator's gateway probe and was blocked by the sandbox. Both disclosed.
+:::
+
+## The same model, four months later {.tight}
+
+::: {.smaller}
+| Prompt | May 2026, Opus 4.7, one session | September 2026, Opus 4.7, three sessions |
+|---|---|---|
+| L1, 10 words | **10.8**, three naive baselines, no model fitted | **3.6, 3.3, 7.7**, a learned model in all three |
+| L2, 46 words + `AGENTS.md` | **5.5**, one gradient-boosted model | **3.5, 2.9, 3.1**, LightGBM in all three |
+| L3, 1,673 words | **3.4†** | **3.2, 3.5†**, the same construction, the same leak |
+:::
+
+::: {.takeaway}
+The L1 result does not reproduce. Same model, same ten words, four months later: 3.3 to 7.7 instead of 10.8 (runs 1, 2, 3 in order). So most of what looked like "the models got better at beginner prompts" is not the model. What else changed: a different Claude Code build, headless instead of interactive, a clean sandbox, and three sessions instead of one. The experiment cannot separate them; a single session is simply not a measurement.
+:::
+
+::: {.source}
+† The L3 winner reads the test week's own loads through its 24-hour lag and rolling features. The September Opus 4.7 runs repeat May's construction exactly, and land on May's number. One of them names the risk in its own methods write-up, then reports the number anyway.
+:::
+
+## Why L3 looks worse: the newer models stopped peeking {.tight}
+
+::: {.smaller}
+| Model given the 1,673-word prompt | Test MAPE | How the 24-hour lag was filled |
+|---|---|---|
+| Opus 4.7, May 2026 | 3.4 | the week's observed loads |
+| Opus 4.7, September | 3.2, 3.5 | the week's observed loads |
+| Opus 4.8 | 4.8, 4.6 | its own predictions |
+| Opus 5 | 5.5, 5.5, 5.0 | its own predictions |
+| Fable 5.1 | 5.0, 5.0, 5.5 | its own predictions |
+| GPT-6-Astra (with the note) | 4.0, 5.1, 3.9 | its own predictions |
+:::
+
+::: {.takeaway}
+Every model picks LightGBM and puts it first. The number depends on one thing the prompt does not specify: whether the lag it prescribes is filled with the model's own predictions or with the answer. The older model fills it with the answer, in May and again in September. The newer Claude models do not, and pay about 1.5 points for the honesty. GPT-6-Astra forecasts recursively too and still reaches 3.9, so the cost is not a law. The prompt's own feature list is what invites the mistake.
+:::
+
+## Told that nobody can answer, they all delivered {.tight}
+
+![](figures/exp-openai-mape.png){.nostretch width="58%" fig-align="center"}
+
+::: {.belowtext .center}
+One paragraph added: the session is unattended, nobody can answer, make the reasonable choice, say what you assumed, finish the job.<br>
+**Every** run that had stopped delivered, and none stopped again. Astra, on ten words plus that paragraph, also validated, wrote a methods report and produced intervals: no Claude model did that at L1.
+:::
+
+## Three things the logs taught us {.tight}
+
+:::: {.tipgrid .cols-3}
+::: {#rerun01 .tipcard}
+#### ACCURACY
+
+Specificity buys honesty, not accuracy
+
+Ten words got a frontier model to 3 to 4 percent. The 1,673 words scored 5: honest, week-ahead, and worse. The prompt's May-era feature list (a 24-hour lag) leads to recursive forecasting, where errors compound; the ten-word runs chose weekly lags and forecast directly. The older model filled that lag with the answer instead and scored 3.4. What specificity still buys: validation, intervals with measured coverage, a write-up, and no test-week inputs.
+:::
+
+::: {#rerun02 .tipcard}
+#### REPEATABILITY
+
+Same model class every time; the number moves by 0.5 to 3 points
+
+Three L1 runs: LightGBM, LightGBM, LightGBM, MAPE 3.3 to 4.5. Three L2 runs: 2.3 to 5.4. Three L3 runs: LightGBM won every six-model bake-off, 5.0 to 5.5, Prophet second twice. Two of eight L1 and L2 sessions parked themselves on a background job; a one-line harness fix kept all four L3 sessions alive to the end, 71 to 129 minutes.
+:::
+
+::: {#rerun03 .tipcard .accent}
+#### A SECOND MODEL
+
+Harder work is not cleaner work, until the prompt says so
+
+Opus 5 spent 31 to 93 minutes where Fable 5.1 spent 6 to 44, built more, and let the test week into a decision in five of its six L1 and L2 runs. Given the L3 prompt its headline was clean, like every Fable L3 headline. Across 90 sessions the pattern held: where a run cheats, it cheats while choosing, in sweeps that never reach the delivered script. Only the session log shows it.
+:::
+::::
+

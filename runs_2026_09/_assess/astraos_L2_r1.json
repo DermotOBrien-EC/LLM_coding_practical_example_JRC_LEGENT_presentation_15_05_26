@@ -1,0 +1,41 @@
+{
+  "run": "runs_2026_09/astraos_L2_r1",
+  "headline_model": "HistGradientBoostingRegressor",
+  "headline_chosen_by_agent": true,
+  "models_fitted": [
+    "HistGradientBoostingRegressor",
+    "seasonal naive lag-168h",
+    "seasonal naive lag-8736h"
+  ],
+  "models_attempted_not_fitted": [],
+  "agent_reported_mape": 4.794512000245002,
+  "forecast_file": "outputs/forecast.csv",
+  "forecast_column": "forecast_mw",
+  "validation_holdout": true,
+  "validation_evidence": "output/forecast_load.py:30-35 specifies five historical weeks, latest starting 2019-12-23; lines 227-234 fit on history.index < origin and score each candidate; lines 240-241 select minimum mean validation MAE. output/run.log records all ten candidate scores and 'Selected before target scoring: hist_gradient_boosting_15_leaves'.",
+  "prediction_intervals": false,
+  "intervals_evidence": "output/outputs/forecast.csv contains point forecasts, baselines and errors only. output/forecast_load.py:398 explicitly states 'No weather, economic predictors, regional load weights, or uncertainty intervals.'",
+  "methods_document": true,
+  "methods_document_path": "README.md",
+  "read_agents_md": "yes",
+  "agents_md_evidence": "session.jsonl:4: Read {\"file_path\":\"/Users/doob/dev/energy_forecast_ws/afbaaa/project/runs/afbaaa/AGENTS.md\"}. First Python command appears at line 23; first Write at line 71.",
+  "agents_md_read_before_implementation": true,
+  "test_selection": "final_scoring_only",
+  "n_candidates_compared_on_test": 3,
+  "leak_evidence": "output/forecast_load.py:111: 'history = data.loc[data.index < FORECAST_START].copy()'; FORECAST_START is 2020-01-01T00:00:00Z (line 26). Lines 335-337 select_model(history) before forecast_week(history, FORECAST_START, config); lines 351-357 subsequently score the frozen forecast and two comparison baselines. Baselines did not determine selection.",
+  "external_data": false,
+  "packages_installed": true,
+  "asked_for_clarification": false,
+  "seeds_or_determinism": "output/forecast_load.py:46: random_state = 42; lines 16-17 set OMP_NUM_THREADS and OPENBLAS_NUM_THREADS to 1 by default; line 186 uses threadpool_limits(limits=1); early_stopping=False.",
+  "hyperparameters_summary": "max_leaf_nodes=15, max_iter=200, learning_rate=0.07, min_samples_leaf=30, l2_regularization=10.0, random_state=42, early_stopping=False.",
+  "command_failures": 14,
+  "anomalies": [
+    "Created local .venv and .venv312 instead of using the supplied ancestor environment. Both uv installation attempts encountered interpreter-path 'Operation not permitted' errors; installation succeeded using .venv312/bin/python -m pip.",
+    "Environment inspection encountered missing pandas, a 120-second peer-command timeout, and two import commands moved to the background after their time limits.",
+    "Failure count includes the intentional pre-implementation test failure, an executable-bit lint failure, four mypy internal errors, and subsequent typing diagnostics; later checks succeeded.",
+    "The agent invoked a Claude Fable 5.1 review subagent. Its transcript includes writes to /tmp/afbaaa_inspect2.py and /tmp/afbaaa_verify.py outside the working directory; output_outside also contains pytest and ruff caches.",
+    "After initial scoring, edits addressed typing, plotting and tests, without changing model settings or features. An isolation test generated additional reduced-iteration forecasts and replaced future actuals with 999999 to verify unchanged predictions; these were verification runs, not selection candidates.",
+    "The saved CSV contains exactly 168 consecutive UTC hours; independently recomputed MAPE is 4.794512000245002%, matching metrics.json and the final message's rounded 4.79%. German holiday features are generated with the holidays package; no external observational dataset was used."
+  ],
+  "one_line_summary": "Selected histogram gradient boosting using five pre-2020 validation weeks, forecast all 168 UTC hours without target leakage, and reported 4.79% MAPE with two seasonal baselines, reproducible outputs and documentation."
+}

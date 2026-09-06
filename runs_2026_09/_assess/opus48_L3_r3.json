@@ -1,0 +1,49 @@
+{
+  "run": "runs_2026_09/opus48_L3_r3",
+  "headline_model": "none",
+  "headline_chosen_by_agent": false,
+  "models_fitted": [
+    "SARIMA",
+    "LightGBM",
+    "N-BEATS",
+    "Prophet"
+  ],
+  "models_attempted_not_fitted": [
+    "TSMixer (planned PatchTST fallback)"
+  ],
+  "agent_reported_mape": null,
+  "forecast_file": null,
+  "forecast_column": null,
+  "validation_holdout": true,
+  "validation_evidence": "output/code/common.py:41-45 defines training ending 2019-09-30 and validation starting 2019-10-01. output/code/sarima.py:76-90 scores the first 168 validation hours and selects the lowest-MAPE order. session.jsonl:143 confirms execution and prints validation MAPEs 10.143, 12.038 and 16.965. LightGBM and Prophet also printed validation-selected settings.",
+  "prediction_intervals": false,
+  "intervals_evidence": "No saved bounds or figures exist: output/figures is empty and the manifest lists only Python source and run.log. Smoke tests computed quantiles and printed coverage, but did not save bounds.",
+  "methods_document": false,
+  "methods_document_path": null,
+  "read_agents_md": "yes",
+  "agents_md_evidence": "session.jsonl:19 Bash tool call: {\"command\":\"cat AGENTS.md\",\"description\":\"Read AGENTS.md\"}; contents returned at line 20.",
+  "agents_md_read_before_implementation": false,
+  "test_selection": "final_scoring_only",
+  "n_candidates_compared_on_test": 4,
+  "leak_evidence": "output/code/common.py:45: VAL_END = pd.Timestamp(\"2019-12-31 23:00\"); :133-135: train_plus_val_series returns slice_window(series, TRAIN_START, VAL_END). SARIMA refits with _recent(series, c.VAL_END) at sarima.py:94; Prophet, LightGBM and N-BEATS refit on train_plus_val_series. LightGBM recursively appends predictions, not test actuals (lightgbm_features.py:143). Four smoke tests scored test forecasts; no headline was selected. The test-MAPE winner selector in forecast.py:591-594 was not reached.",
+  "external_data": false,
+  "packages_installed": false,
+  "asked_for_clarification": false,
+  "seeds_or_determinism": "common.py:29: SEED: int = 42; lightgbm_features.py:67 and nbeats.py:66: random_state=c.SEED; nbeats.py:75: torch.manual_seed(c.SEED); forecast.py:666: np.random.seed(c.SEED). TSMixer source also sets random_state and torch.manual_seed.",
+  "hyperparameters_summary": "No headline model was delivered.",
+  "command_failures": 6,
+  "anomalies": [
+    "The session ended with a promise to report later. No forecast CSV, metrics files, methods document, cached results or figures survived; run.log ends after 'naive done in 0.0s'.",
+    "Smoke-test MAPEs were SARIMA 10.829%, LightGBM 4.419%, N-BEATS 14.324% and Prophet 7.614%. N-BEATS used only two epochs and 40 samples, not the intended full configuration.",
+    "Seasonal-naive execution completed, but no forecast file or printed metric exists for it; it is therefore excluded from models_fitted under the required evidence definition.",
+    "PatchTST was unavailable; a TSMixer fallback was written but has no confirmed execution.",
+    "AGENTS.md was read after a shell command had already run Python --version.",
+    "A Prophet import-shadowing diagnostic failed; an import loader subsequently enabled a successful test forecast. An N-BEATS quantile API error and a failed Edit were corrected.",
+    "Background launches failed, including a nohup console error. Two sleep-and-poll commands were blocked; ps was denied with 'operation not permitted'. A running forecast was killed and relaunched.",
+    "Package inspection exceeded its 120-second timeout and moved to the background.",
+    "A pgrep diagnostic exposed unrelated process command lines, including credential-bearing environment text, in the session log.",
+    "The uncompleted report code would choose the winner by test MAPE, contrary to AGENTS.md; no execution of that selection is evidenced.",
+    "The six counted failures comprise four is_error tool results, including one Edit, and two additional shell error outputs. Other operational failures lacked the specified counting markers."
+  ],
+  "one_line_summary": "Built a six-model workflow and scored four smoke-test forecasts with pre-test validation, but ended while background work remained, delivering no chosen model, forecast CSV, figures or methods report."
+}

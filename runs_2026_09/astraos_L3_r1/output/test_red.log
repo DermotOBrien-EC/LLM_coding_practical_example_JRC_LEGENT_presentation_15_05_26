@@ -1,0 +1,20 @@
+E
+======================================================================
+ERROR: test_study (unittest.loader._FailedTest.test_study)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_study
+Traceback (most recent call last):
+  File "/Users/doob/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/unittest/loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/doob/.local/share/uv/python/cpython-3.12.13-macos-aarch64-none/lib/python3.12/unittest/loader.py", line 339, in _get_module_from_name
+    __import__(name)
+  File "/Users/doob/dev/energy_forecast_ws/9031ab/project/runs/9031ab/code/test_study.py", line 8, in <module>
+    from common import QUANTILES, load_data, mape, metrics, quantile_frame, validation_blocks
+ModuleNotFoundError: No module named 'common'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)

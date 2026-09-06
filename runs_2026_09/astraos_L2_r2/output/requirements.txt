@@ -1,0 +1,8 @@
+# Tested with Python 3.12.13. No GPU or external data downloads are required.
+numpy==2.4.4
+pandas==2.3.3
+scikit-learn==1.7.2
+matplotlib==3.10.9
+holidays==0.96
+threadpoolctl==3.6.0
+pytest==8.4.2

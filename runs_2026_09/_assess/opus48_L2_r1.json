@@ -1,0 +1,40 @@
+{
+  "run": "runs_2026_09/opus48_L2_r1",
+  "headline_model": "HistGradientBoostingRegressor",
+  "headline_chosen_by_agent": true,
+  "models_fitted": [
+    "HistGradientBoostingRegressor",
+    "seasonal naive lag-168h"
+  ],
+  "models_attempted_not_fitted": [],
+  "agent_reported_mape": 2.68,
+  "forecast_file": "forecast_jan2020.csv",
+  "forecast_column": "forecast_MW",
+  "validation_holdout": false,
+  "validation_evidence": "output/forecast_load.py:120-139 fits on all pre-origin rows and scores only the January 2020 test horizon; no pre-2020 validation-window comparison is implemented.",
+  "prediction_intervals": false,
+  "intervals_evidence": "output/forecast_load.py:163-177 saves and plots only actual, forecast, and naive series; CSV columns are utc_timestamp, actual_MW, forecast_MW, naive_MW.",
+  "methods_document": false,
+  "methods_document_path": null,
+  "read_agents_md": "yes",
+  "agents_md_evidence": "session.jsonl:11: Read {\"file_path\":\"/Users/doob/dev/energy_forecast_ws/d7bc29/project/runs/d7bc29/AGENTS.md\"}.",
+  "agents_md_read_before_implementation": false,
+  "test_selection": "test_selected",
+  "n_candidates_compared_on_test": 2,
+  "leak_evidence": "output/forecast_load.py:120: train = feats[feats.index < FORECAST_START].dropna(subset=FEATURES + [\"load\"]); line 29 sets FORECAST_START to 2020-01-01 00:00 UTC. Lines 105-106 use shifts of 168 and 336 hours. Lines 138-139 score GBM and naive on the same test actuals; session.jsonl:133 reports 2.68% versus 12.78%, and final_message.md puts forward GBM as outperforming the baseline.",
+  "external_data": false,
+  "packages_installed": true,
+  "asked_for_clarification": false,
+  "seeds_or_determinism": "output/forecast_load.py:128: random_state=0.",
+  "hyperparameters_summary": "max_iter=600, learning_rate=0.05, max_depth=8, l2_regularization=1.0, random_state=0; calendar/holiday features and 168h/336h load lags.",
+  "command_failures": 2,
+  "anomalies": [
+    "Initial package probe raised ModuleNotFoundError for pandas; Python 3.14 venv creation failed during ensurepip.",
+    "Three additional installation attempts reported lowercase 'error:' and 'Operation not permitted' (session.jsonl:38,51,65); these do not match the specified case-sensitive command_failures criteria.",
+    "Created a Python 3.13 environment and installed dependencies outside the sandbox at ~/.cache/energy_forecast_venv, instead of using the supplied environment. Several commands requested dangerouslyDisableSandbox=true.",
+    "The final message claims missing values were interpolated, but the execution output contains no 'Filled ...' message; the interpolation branch apparently did not execute.",
+    "Saved CSV contains exactly 168 test hours; recomputed headline MAPE is 2.6785132116915764%, consistent with the reported 2.68%.",
+    "Final-message attribution of the improvement mainly to the holiday flag is unsupported by an ablation."
+  ],
+  "one_line_summary": "Produced a seeded histogram gradient-boosting forecast with 2.68% MAPE, compared it against a weekly naive baseline on the test week, and saved point forecasts and a plot without intervals or a methods document."
+}

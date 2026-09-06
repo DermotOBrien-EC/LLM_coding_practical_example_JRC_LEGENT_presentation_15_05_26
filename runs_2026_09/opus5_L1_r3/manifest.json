@@ -1,0 +1,97 @@
+[
+  {
+    "path": "out/README.md",
+    "bytes": 5110,
+    "sha256": "acf1e2c331655aeb282858535f4d0886733c26e077aa806147ab177653383da1"
+  },
+  {
+    "path": "out/forecast_2020_week1.csv",
+    "bytes": 17129,
+    "sha256": "eca0ba2d82668add6e63e4c9f10aa0bf1aaae8e240cdc707f291fd75d5b6d32a"
+  },
+  {
+    "path": "out/forecast_2020_week1.png",
+    "bytes": 373819,
+    "sha256": "3610d14966d55bb50428c0ab4b1bc77657c0e311c2404a3eb56208bcafa7ac56"
+  },
+  {
+    "path": "out/forecast_2020_week1_dark.png",
+    "bytes": 355478,
+    "sha256": "490723f3ceb03b3f573e681691cfbe5cac4abd4e32203215686a7525612ce847"
+  },
+  {
+    "path": "out/selection_2017_2019.csv",
+    "bytes": 3522,
+    "sha256": "d1d6242b3042db243b0570d2089a10f7b31442f5e6ba2990aabeace58498514e"
+  },
+  {
+    "path": "out/selection_log.txt",
+    "bytes": 1127,
+    "sha256": "2c97a745f8f77521939c584945af9057d1efa6e9a99007f097fbaf2ca40c4f41"
+  },
+  {
+    "path": "out/selection_summary.csv",
+    "bytes": 805,
+    "sha256": "e0db6777f53286f9f9612e17c3a6e8c5e9eca67458f779019c8d58768857d1bf"
+  },
+  {
+    "path": "out/summary.json",
+    "bytes": 2391,
+    "sha256": "ba6d044bea79b5d5b553222ecb50d920e47b561a7885b71491db528b49ae3abc"
+  },
+  {
+    "path": "work/backtest.py",
+    "bytes": 4608,
+    "sha256": "d35687eb54b77862f9b09d10898dcccd2e384fd569d5634e7e8160e263ab4382"
+  },
+  {
+    "path": "work/codex_review.md",
+    "bytes": 8924,
+    "sha256": "497ccc730e6d8900e52d9e53583655e608c75de6ab08e6eb8883648dbb83afeb"
+  },
+  {
+    "path": "work/deliver.py",
+    "bytes": 7531,
+    "sha256": "9808269f14b83e9b4441078213592c674ad9fd6df9c63ea8155b35ef5058284b"
+  },
+  {
+    "path": "work/eda.py",
+    "bytes": 753,
+    "sha256": "56fe546d5bd842eadd4403541ea2c880abe7f6d6c4bed3c174bd651cde165cc1"
+  },
+  {
+    "path": "work/fetch_temp.py",
+    "bytes": 2227,
+    "sha256": "635b924a33cd76b85cf9e56b56b4b2e73c21d82ace297ac7efe5fd27083be953"
+  },
+  {
+    "path": "work/loadfc.py",
+    "bytes": 15255,
+    "sha256": "045e36dd5aa5894282be2d27f4192cf2971951b467bc852c7f4dcb483b4aa6e1"
+  },
+  {
+    "path": "work/plot.py",
+    "bytes": 4880,
+    "sha256": "c8a9299b87c84f4e413ecbec89b354da01cbf036b6d0be434c9ada2eab0749fd"
+  },
+  {
+    "path": "work/qc.py",
+    "bytes": 828,
+    "sha256": "1502569c6f8decf532a7d6dd655347043e4fab09e3b7130524ddee8cae653a3a"
+  },
+  {
+    "path": "work/review_brief.md",
+    "bytes": 2442,
+    "sha256": "0289f48e0057c5740a1a7a46d507a7cd401db876da16c7f101a39bd45be03716"
+  },
+  {
+    "path": "work/select.py",
+    "bytes": 3345,
+    "sha256": "eed4cd2d98cc003782e4d69460d79070548a308d1fc9adfc08cba2e0c4172fc1"
+  },
+  {
+    "path": "work/temp_de.csv",
+    "bytes": 2245036,
+    "sha256": "9e3a8c5fc05915a1658f81de598f814a4307d00f05e271e97cf4e839c32d45f7"
+  }
+]

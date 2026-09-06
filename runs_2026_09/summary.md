@@ -47,9 +47,9 @@
 | opus47_L2_r1 | claude-opus-4-7 | completed | success | 12 | 1080/8.4 | 1.49 | 4 | 1 | 1 | 0 | 0 | 0 | False | yes (a1:t3 / a1:t7) | 1 | 0 | 1 | 0 | 0.30 |
 | opus47_L2_r2 | claude-opus-4-7 | completed | success | 15 | 1361/7.5 | 1.61 | 4 | 1 | 1 | 0 | 0 | 0 | False | yes (a1:t3 / a1:t7) | 1 | 0 | 3 | 0 | 0.30 |
 | opus47_L2_r3 | claude-opus-4-7 | completed | success | 17 | 1586/14.6 | 1.97 | 5 | 1 | 1 | 0 | 0 | 0 | False | yes (a1:t5 / a1:t8) | 1 | 0 | 2 | 0 | 0.32 |
-| opus47_L3_r1 | claude-opus-4-7 | timeout | success | 111 | 17160/77.6 | 13.96 | 326 | 9 | 8 | 0 | 1 | 1 | True | yes (a1:t4 / a1:t8) | 0 | 0 | 2 | 0 | 0.78 |
+| opus47_L3_r1 | claude-opus-4-7 | completed (after resume) resumed | success | 113 | 17600/78.8 | 16.13 | 326 | 9 | 8 | 0 | 1 | 1 | True | yes (a1:t4 / a1:t8) | 0 | 0 | 2 | 0 | 0.78 |
 | opus47_L3_r2 | claude-opus-4-7 | completed | success | 112 | 16214/69.1 | 11.75 | 78 | 8 | 8 | 0 | 1 | 1 | True | yes (a1:t3 / a1:t9) | 13 | 0 | 5 | 0 | 0.39 |
-| opus47_L3_r3 | claude-opus-4-7 | running | success | 211 | 37635/107.1 | 24.03 | 0 | 0 | 0 | 0 | 0 | 0 | False | yes (a1:t3 / a1:t23) | 13 | 0 | 3 | 0 | 0.57 |
+| opus47_L3_r3 | claude-opus-4-7 | completed | success | 233 | 43554/112.8 | 27.36 | 124 | 8 | 7 | 0 | 1 | 1 | True | yes (a1:t3 / a1:t23) | 13 | 0 | 3 | 0 | 0.57 |
 | opus48_L1_r1 | claude-opus-4-8 | completed | success | 7 | 533/7.3 | 1.12 | 4 | 1 | 1 | 0 | 0 | 1 | False | n/a (no AGENTS.md) (a1:t11 / a1:t7) | 0 | 0 | 0 | 0 | 0.09 |
 | opus48_L1_r2 | claude-opus-4-8 | completed | success | 21 | 1695/14.3 | 2.00 | 9 | 1 | 1 | 0 | 0 | 1 | False | n/a (no AGENTS.md) (a1:t17 / a1:t8) | 2 | 0 | 1 | 0 | 0.10 |
 | opus48_L1_r3 | claude-opus-4-8 | completed | success | 71 | 7056/39.9 | 5.70 | 20 | 3 | 1 | 0 | 0 | 1 | False | n/a (no AGENTS.md) (a1:t13 / a1:t8) | 2 | 0 | 5 | 0 | 0.16 |

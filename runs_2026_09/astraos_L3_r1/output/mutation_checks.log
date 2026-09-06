@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "scope": "Three copied-artifact mutations; original study untouched",
+  "results": [
+    {
+      "mutation": "increase reported winner MAPE by 1 percentage point",
+      "caught": true,
+      "evidence": "lightgbm.mape_test_pct: 4.957819624741382 differs from independently computed 3.957819624741381"
+    },
+    {
+      "mutation": "cross the winner's lower quantile above its upper quantile",
+      "caught": true,
+      "evidence": "lightgbm: crossed quantiles"
+    },
+    {
+      "mutation": "widen intervals without updating claimed coverage",
+      "caught": true,
+      "evidence": "coverage 80: 0.8630952380952381 differs from independently computed 0.9404761904761905"
+    }
+  ]
+}

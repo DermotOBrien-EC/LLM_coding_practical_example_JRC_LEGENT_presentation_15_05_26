@@ -1,0 +1,85 @@
+START naive
+DONE naive runtime_seconds=0.00
+START sarima
+sarima (1, 0, 0)(1, 0, 0, 24) validation MAPE=4.764%
+sarima (2, 0, 0)(1, 0, 0, 24) validation MAPE=5.084%
+DONE sarima runtime_seconds=14.34
+START prophet
+prophet mode=additive validation MAPE=5.639%
+prophet mode=multiplicative validation MAPE=5.647%
+DONE prophet runtime_seconds=17.99
+START lightgbm
+lightgbm leaves=15 validation MAPE=3.455%
+lightgbm leaves=31 validation MAPE=3.362%
+DONE lightgbm runtime_seconds=7.09
+START nbeats
+/Users/doob/dev/energy_forecast_ws/9031ab/project/.venv/lib/python3.12/site-packages/pytorch_lightning/trainer/setup.py:177: GPU available but not used. You can set it by doing `Trainer(accelerator='gpu')`.
+/Users/doob/dev/energy_forecast_ws/9031ab/project/.venv/lib/python3.12/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+/Users/doob/dev/energy_forecast_ws/9031ab/project/.venv/lib/python3.12/site-packages/torch/utils/data/dataloader.py:775: UserWarning: 'pin_memory' argument is set as true but not supported on MPS now, device pinned memory won't be used.
+  super().__init__(loader)
+_NBEATSModule epoch=1 validation MAPE=47.054%
+_NBEATSModule epoch=2 validation MAPE=18.252%
+_NBEATSModule epoch=3 validation MAPE=10.892%
+_NBEATSModule epoch=4 validation MAPE=8.090%
+_NBEATSModule epoch=5 validation MAPE=7.770%
+_NBEATSModule epoch=6 validation MAPE=7.163%
+_NBEATSModule epoch=7 validation MAPE=7.036%
+_NBEATSModule epoch=8 validation MAPE=6.911%
+_NBEATSModule epoch=9 validation MAPE=7.314%
+_NBEATSModule epoch=10 validation MAPE=7.240%
+_NBEATSModule epoch=11 validation MAPE=6.840%
+_NBEATSModule epoch=12 validation MAPE=6.985%
+_NBEATSModule epoch=13 validation MAPE=6.783%
+_NBEATSModule epoch=14 validation MAPE=6.524%
+_NBEATSModule epoch=15 validation MAPE=6.506%
+_NBEATSModule epoch=16 validation MAPE=6.636%
+_NBEATSModule epoch=17 validation MAPE=6.660%
+_NBEATSModule epoch=18 validation MAPE=6.595%
+_NBEATSModule epoch=19 validation MAPE=6.208%
+_NBEATSModule epoch=20 validation MAPE=6.591%
+_NBEATSModule epoch=21 validation MAPE=6.194%
+_NBEATSModule epoch=22 validation MAPE=6.042%
+_NBEATSModule epoch=23 validation MAPE=5.847%
+_NBEATSModule epoch=24 validation MAPE=6.198%
+_NBEATSModule epoch=25 validation MAPE=6.171%
+_NBEATSModule epoch=26 validation MAPE=6.384%
+_NBEATSModule epoch=27 validation MAPE=6.021%
+_NBEATSModule epoch=28 validation MAPE=5.856%
+/Users/doob/dev/energy_forecast_ws/9031ab/project/.venv/lib/python3.12/site-packages/pytorch_lightning/trainer/setup.py:177: GPU available but not used. You can set it by doing `Trainer(accelerator='gpu')`.
+/Users/doob/dev/energy_forecast_ws/9031ab/project/.venv/lib/python3.12/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+/Users/doob/dev/energy_forecast_ws/9031ab/project/.venv/lib/python3.12/site-packages/torch/utils/data/dataloader.py:775: UserWarning: 'pin_memory' argument is set as true but not supported on MPS now, device pinned memory won't be used.
+  super().__init__(loader)
+DONE nbeats runtime_seconds=26.87
+START patchtst
+/Users/doob/dev/energy_forecast_ws/9031ab/project/.venv/lib/python3.12/site-packages/torch/nn/modules/transformer.py:144: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.self_attn.batch_first was not True(use batch_first for better inference performance)
+  self.encoder = TransformerEncoder(
+/Users/doob/dev/energy_forecast_ws/9031ab/project/.venv/lib/python3.12/site-packages/pytorch_lightning/trainer/setup.py:177: GPU available but not used. You can set it by doing `Trainer(accelerator='gpu')`.
+/Users/doob/dev/energy_forecast_ws/9031ab/project/.venv/lib/python3.12/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+/Users/doob/dev/energy_forecast_ws/9031ab/project/.venv/lib/python3.12/site-packages/torch/utils/data/dataloader.py:775: UserWarning: 'pin_memory' argument is set as true but not supported on MPS now, device pinned memory won't be used.
+  super().__init__(loader)
+_TransformerModule epoch=1 validation MAPE=76.317%
+_TransformerModule epoch=2 validation MAPE=57.286%
+_TransformerModule epoch=3 validation MAPE=38.123%
+_TransformerModule epoch=4 validation MAPE=24.197%
+_TransformerModule epoch=5 validation MAPE=15.440%
+_TransformerModule epoch=6 validation MAPE=11.543%
+_TransformerModule epoch=7 validation MAPE=9.034%
+_TransformerModule epoch=8 validation MAPE=7.944%
+_TransformerModule epoch=9 validation MAPE=7.623%
+_TransformerModule epoch=10 validation MAPE=7.290%
+_TransformerModule epoch=11 validation MAPE=7.056%
+_TransformerModule epoch=12 validation MAPE=6.999%
+_TransformerModule epoch=13 validation MAPE=7.080%
+_TransformerModule epoch=14 validation MAPE=7.208%
+_TransformerModule epoch=15 validation MAPE=7.088%
+_TransformerModule epoch=16 validation MAPE=7.101%
+_TransformerModule epoch=17 validation MAPE=7.006%
+/Users/doob/dev/energy_forecast_ws/9031ab/project/.venv/lib/python3.12/site-packages/torch/nn/modules/transformer.py:144: UserWarning: enable_nested_tensor is True, but self.use_nested_tensor is False because encoder_layer.self_attn.batch_first was not True(use batch_first for better inference performance)
+  self.encoder = TransformerEncoder(
+/Users/doob/dev/energy_forecast_ws/9031ab/project/.venv/lib/python3.12/site-packages/pytorch_lightning/trainer/setup.py:177: GPU available but not used. You can set it by doing `Trainer(accelerator='gpu')`.
+/Users/doob/dev/energy_forecast_ws/9031ab/project/.venv/lib/python3.12/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+/Users/doob/dev/energy_forecast_ws/9031ab/project/.venv/lib/python3.12/site-packages/torch/utils/data/dataloader.py:775: UserWarning: 'pin_memory' argument is set as true but not supported on MPS now, device pinned memory won't be used.
+  super().__init__(loader)
+DONE patchtst runtime_seconds=12.58
+REPORT_DONE winner=lightgbm mape=3.9578% wall=85.21s
+ALL_DONE

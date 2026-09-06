@@ -81,3 +81,4 @@ opus5_L3_r3,opus5,L3,3,"LightGBM, winner of six by test MAPE as the prompt order
 opus48_L3_r3,opus48,L3,3,"none (session ended mid-run, no results written)",,,,,none,,no forecast or metrics file exists and the session ended mid-run
 solos_L3_r3,solos,L3,3,"LightGBM, winner of six by test MAPE as the prompt orders",5.28,,,5.28,agent_reported,,metrics.json names LightGBM at 5.2806 percent; no per-hour forecast file exists
 astraos_L3_r2,astraos,L3,2,"LightGBM, winner of six by test MAPE as the prompt orders",5.115,3639.2,2774.1,5.11,recomputed,timestamp,the agent's report names LightGBM at 5.11 percent and artifacts/lightgbm_forecast.csv::point_mw is its hourly forecast; recomputed 5.114
+opus47_L3_r3,opus47,L3,3,"LightGBM, winner of six by test MAPE as the prompt orders",4.45,,,4.45,agent_reported,,metrics.json names LightGBM at 4.4477 percent; no per-hour forecast file exists

@@ -1,0 +1,116 @@
+{
+  "test_start": "2020-01-01",
+  "test_end": "2020-01-07",
+  "n_test_observations": 168,
+  "random_seed": 20260906,
+  "models": [
+    {
+      "name": "naive",
+      "mape_test_pct": 12.7806,
+      "rmse_test_mw": 8808.6,
+      "mae_test_mw": 7237.98,
+      "mape_jan1_pct": 6.5196,
+      "mape_jan2_to_jan7_pct": 13.8241,
+      "runtime_seconds": 0.0,
+      "hyperparameters": {
+        "lag_hours": 168
+      }
+    },
+    {
+      "name": "sarima",
+      "mape_test_pct": 9.7864,
+      "rmse_test_mw": 6632.16,
+      "mae_test_mw": 5424.34,
+      "mape_jan1_pct": 11.1713,
+      "mape_jan2_to_jan7_pct": 9.5556,
+      "runtime_seconds": 588.38,
+      "hyperparameters": {
+        "order": [
+          1,
+          0,
+          1
+        ],
+        "seasonal_order": [
+          1,
+          1,
+          1,
+          24
+        ]
+      }
+    },
+    {
+      "name": "prophet",
+      "mape_test_pct": 7.6094,
+      "rmse_test_mw": 4874.46,
+      "mae_test_mw": 3794.9,
+      "mape_jan1_pct": 13.2761,
+      "mape_jan2_to_jan7_pct": 6.665,
+      "runtime_seconds": 17.85,
+      "hyperparameters": {
+        "country_holidays": "DE",
+        "seasonalities": [
+          "daily",
+          "weekly",
+          "yearly"
+        ],
+        "num_samples": 500
+      }
+    },
+    {
+      "name": "lightgbm",
+      "mape_test_pct": 3.2435,
+      "rmse_test_mw": 2166.51,
+      "mae_test_mw": 1732.35,
+      "mape_jan1_pct": 2.2391,
+      "mape_jan2_to_jan7_pct": 3.4109,
+      "runtime_seconds": 162.62,
+      "hyperparameters": {
+        "n_estimators": 800,
+        "learning_rate": 0.05,
+        "num_leaves": 63,
+        "min_child_samples": 20,
+        "val_mape_pct": 2.0097912746362496
+      }
+    },
+    {
+      "name": "nbeats",
+      "mape_test_pct": 11.0006,
+      "rmse_test_mw": 7118.01,
+      "mae_test_mw": 5626.01,
+      "mape_jan1_pct": 5.1342,
+      "mape_jan2_to_jan7_pct": 11.9783,
+      "runtime_seconds": 26.31,
+      "hyperparameters": {
+        "input_chunk_length": 168,
+        "output_chunk_length": 168,
+        "max_epochs": 40,
+        "batch_size": 64,
+        "residual_sd_mw": 7984.401475998722
+      }
+    },
+    {
+      "name": "patchtst",
+      "mape_test_pct": 8.2806,
+      "rmse_test_mw": 5512.71,
+      "mae_test_mw": 4314.35,
+      "mape_jan1_pct": 6.9204,
+      "mape_jan2_to_jan7_pct": 8.5073,
+      "runtime_seconds": 231.05,
+      "hyperparameters": {
+        "model_class": "TSMixerModel (substitute for PatchTST)",
+        "input_chunk_length": 168,
+        "output_chunk_length": 168,
+        "max_epochs": 15,
+        "batch_size": 64,
+        "residual_sd_mw": 7675.884358709248
+      }
+    }
+  ],
+  "winner": "lightgbm",
+  "winner_coverage_80pct": 0.744,
+  "winner_coverage_95pct": 0.9167,
+  "winner_pinball_loss_q10": 333.7274,
+  "winner_pinball_loss_q50": 866.1739,
+  "winner_pinball_loss_q90": 315.3487,
+  "total_runtime_seconds": 1026.21
+}

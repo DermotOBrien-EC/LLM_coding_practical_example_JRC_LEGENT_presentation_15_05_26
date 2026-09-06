@@ -1,0 +1,47 @@
+{
+  "name": "nbeats",
+  "runtime_seconds": 3.71793120901566,
+  "hyperparameters": {
+    "generic_architecture": true,
+    "num_stacks": 30,
+    "num_blocks": 1,
+    "num_layers": 4,
+    "layer_widths": 64,
+    "implementation": "NBEATSModel",
+    "input_chunk_length": 168,
+    "output_chunk_length": 168,
+    "selected_epochs": 2,
+    "maximum_epochs": 2,
+    "selection_epochs_run": 2,
+    "early_stop_patience": 5,
+    "early_stop_min_delta_mape_pct": 0.01,
+    "training_stride_hours": 24,
+    "batch_size": 32,
+    "learning_rate": 0.001,
+    "quantiles": [
+      0.025,
+      0.1,
+      0.5,
+      0.9,
+      0.975
+    ],
+    "scaling": "divide by fit-partition mean",
+    "seed": 2026,
+    "accelerator": "cpu",
+    "torch_threads": 4
+  },
+  "validation": [
+    {
+      "epoch": 1,
+      "mape_validation_pct": 11.10476608499198
+    },
+    {
+      "epoch": 2,
+      "mape_validation_pct": 10.247208498006067
+    }
+  ],
+  "diagnostics": {
+    "public_api_validation_agreement": true,
+    "interval_caveat": "Direct multi-horizon marginal quantile regression; sorted to prevent crossing; no post-hoc calibration."
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "lightgbm_forecast.csv": "c78fd94ea6bacf604924caf4bad973e42870272781f6a34269dfaec17e1f8ab5",
+  "naive_forecast.csv": "f8a145cea510ce6bb64763c5c1c976aa4aadfb752ab3c7d86e6e7c7f33a8f3a8",
+  "nbeats_forecast.csv": "81b01d9d0fe44dd8001844ca8dad7bcd98b062d3d077b93a15be1f09b5257f1e",
+  "patchtst_forecast.csv": "c14f337edb713eb4fd82959894b47cccdcca4d0c6f735f1d9883c5a15fe52dea",
+  "prophet_forecast.csv": "5c9edaab022573762bbfa8b4f31503c9064bea39d56eeaf64388a7085a55d438",
+  "sarima_forecast.csv": "a6c401a28efc62df1bb32ddadaed1f8493159f04b004906c187d1f9449da349b",
+  "lightgbm_validation.csv": "fb5357da2f08cc4186ef686edeab63f8889f65b135b8aa8cb69f9b7dbcbfef27",
+  "naive_validation.csv": "10019df7563825c06a1e394fb1cf78c385229f680b96f0ad0c2ec286eacb7349",
+  "nbeats_validation.csv": "02bb0ff4857785eb872ae2a07f149deeaa9882e94623b6316a86e18b7a8e98fa",
+  "patchtst_validation.csv": "7dfcaeea2053bdf36a8f8bfeeba3e5fb9dc63484bba7f90b652edd79cdd1f549",
+  "prophet_validation.csv": "262ec092aa0593e5d9a9e0c3b2d7e32914b2f877d8af1b7cfd494542b94e931a",
+  "sarima_validation.csv": "8779b642e7a1aad488ac4a3797e1d83577100d0b2c10973834a39c22253007fb"
+}

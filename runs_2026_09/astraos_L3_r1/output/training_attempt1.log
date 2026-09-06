@@ -1,0 +1,19 @@
+START naive
+DONE naive runtime_seconds=0.00
+START sarima
+Traceback (most recent call last):
+  File "/Users/doob/dev/energy_forecast_ws/9031ab/project/runs/9031ab/code/forecast.py", line 118, in <module>
+    main()
+  File "/Users/doob/dev/energy_forecast_ws/9031ab/project/runs/9031ab/code/forecast.py", line 95, in main
+    result = module.run(train.copy(), pretest.copy(), future.copy())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/doob/dev/energy_forecast_ws/9031ab/project/runs/9031ab/code/sarima.py", line 47, in run
+    fit = fit.extend(observed_difference)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/doob/dev/energy_forecast_ws/9031ab/project/.venv/lib/python3.12/site-packages/statsmodels/tsa/statespace/sarimax.py", line 1894, in extend
+    return super().extend(endog, exog=exog, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/doob/dev/energy_forecast_ws/9031ab/project/.venv/lib/python3.12/site-packages/statsmodels/tsa/statespace/mlemodel.py", line 4450, in extend
+    mod.k_states, 'known', constant=self.predicted_state[..., -1],
+                                    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+TypeError: 'NoneType' object is not subscriptable

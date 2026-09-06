@@ -1,0 +1,33 @@
+{
+  "added": [
+    "runs/c21ef5/code",
+    "runs/c21ef5/code/common.py",
+    "runs/c21ef5/code/forecast.py",
+    "runs/c21ef5/code/lightgbm_features.py",
+    "runs/c21ef5/code/naive.py",
+    "runs/c21ef5/code/nbeats.py",
+    "runs/c21ef5/code/patchtst.py",
+    "runs/c21ef5/code/prophet.py",
+    "runs/c21ef5/code/sarima.py",
+    "runs/c21ef5/code/write_transcript.py",
+    "runs/c21ef5/figures",
+    "runs/c21ef5/figures/01_overview.png",
+    "runs/c21ef5/figures/02_forecast_comparison.png",
+    "runs/c21ef5/figures/03_metric_comparison.png",
+    "runs/c21ef5/figures/04_per_day_mape.png",
+    "runs/c21ef5/figures/05_winner_with_intervals.png",
+    "runs/c21ef5/figures/06_residuals.png",
+    "runs/c21ef5/figures/07_feature_importance.png",
+    "runs/c21ef5/figures/08_decomposition.png",
+    "runs/c21ef5/metrics.csv",
+    "runs/c21ef5/metrics.json",
+    "runs/c21ef5/transcript.md"
+  ],
+  "modified": [],
+  "deleted": [],
+  "counts": {
+    "added": 22,
+    "modified": 0,
+    "deleted": 0
+  }
+}

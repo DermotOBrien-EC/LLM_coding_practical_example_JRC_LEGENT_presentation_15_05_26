@@ -1,0 +1,30 @@
+{
+  "added": [
+    "runs/4da134/.venv",
+    "runs/4da134/.venv/.gitignore",
+    "runs/4da134/.venv/bin",
+    "runs/4da134/.venv/bin/python",
+    "runs/4da134/.venv/bin/python3",
+    "runs/4da134/.venv/bin/python3.14",
+    "runs/4da134/.venv/bin/\ud835\udf0bthon",
+    "runs/4da134/.venv/include",
+    "runs/4da134/.venv/lib",
+    "runs/4da134/.venv/lib/python3.14",
+    "runs/4da134/.venv/lib/python3.14/site-packages",
+    "runs/4da134/.venv/pyvenv.cfg",
+    "runs/4da134/__pycache__",
+    "runs/4da134/__pycache__/forecast_german_load.cpython-314.pyc",
+    "runs/4da134/forecast_german_load.py",
+    "runs/4da134/outputs",
+    "runs/4da134/outputs/german_load_forecast_2020_01_01_to_2020_01_07.csv",
+    "runs/4da134/outputs/german_load_forecast_2020_01_01_to_2020_01_07.svg",
+    "runs/4da134/outputs/german_load_forecast_metrics.json"
+  ],
+  "modified": [],
+  "deleted": [],
+  "counts": {
+    "added": 19,
+    "modified": 0,
+    "deleted": 0
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "nbeats",
+  "runtime_seconds": 46.60998033400392,
+  "hyperparameters": {
+    "num_stacks": 4,
+    "num_blocks": 1,
+    "num_layers": 2,
+    "layer_widths": 128,
+    "dropout": 0.05,
+    "validation_mape_pct": 12.310170758004325,
+    "epochs": 20,
+    "early_stopping_patience": 3
+  },
+  "notes": []
+}

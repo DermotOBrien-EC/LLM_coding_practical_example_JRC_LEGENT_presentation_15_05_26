@@ -1,0 +1,58 @@
+{
+  "name": "sarima",
+  "runtime_seconds": 14.33624270799919,
+  "hyperparameters": {
+    "order": [
+      1,
+      0,
+      0
+    ],
+    "seasonal_order": [
+      1,
+      0,
+      0,
+      24
+    ],
+    "weekly_pre_difference_hours": 168,
+    "fixed_numeric_scale_mw": 10000.0,
+    "trend": "none",
+    "concentrate_scale": true,
+    "final_converged": true,
+    "uncertainty": "Gaussian forecast-error variance; fixed fitted parameters"
+  },
+  "validation_candidates": [
+    {
+      "order": [
+        1,
+        0,
+        0
+      ],
+      "seasonal_order": [
+        1,
+        0,
+        0,
+        24
+      ],
+      "validation_mape_pct": 4.7642775316949,
+      "converged": true
+    },
+    {
+      "order": [
+        2,
+        0,
+        0
+      ],
+      "seasonal_order": [
+        1,
+        0,
+        0,
+        24
+      ],
+      "validation_mape_pct": 5.0842834839733015,
+      "converged": true
+    }
+  ],
+  "extras": {
+    "optimizer_warnings": []
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "naive",
+  "runtime_seconds": 0.0016370829835068434,
+  "hyperparameters": {
+    "lag_hours": 168
+  },
+  "validation_candidates": [
+    {
+      "validation_mape_pct": 5.47934258968493
+    }
+  ],
+  "extras": {}
+}

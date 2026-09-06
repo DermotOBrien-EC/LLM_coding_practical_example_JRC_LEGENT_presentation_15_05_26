@@ -1,0 +1,22 @@
+[
+  {
+    "path": "backtest_2019.csv",
+    "bytes": 19968,
+    "sha256": "72347c6e95a717c2a37f35a1b4a89e9639fa86ea14bc56fc455ae4d2277c5cb2"
+  },
+  {
+    "path": "forecast_2020_week1.csv",
+    "bytes": 11963,
+    "sha256": "16072656a9fd7a5f2580ee39b898edeb1e6ab9814bf9de4973d2641db7861a49"
+  },
+  {
+    "path": "forecast_2020_week1.png",
+    "bytes": 289076,
+    "sha256": "91cc3425639ef559f8d030cbf52386a989cf98f4aa04a2f543c3bdd0ba0f78b3"
+  },
+  {
+    "path": "forecast_de_load.py",
+    "bytes": 21058,
+    "sha256": "7a4ae05e41b07b71cd69ed76610231d09e817c9bf9a146c5d0e8a5e50729f821"
+  }
+]

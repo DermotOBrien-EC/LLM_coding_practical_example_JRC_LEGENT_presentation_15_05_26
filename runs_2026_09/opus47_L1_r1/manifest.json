@@ -1,0 +1,12 @@
+[
+  {
+    "path": "forecast.py",
+    "bytes": 4244,
+    "sha256": "924c96ca49a858791cf6aa82b8b816bbd9e78d02d96954b0450cd1f1193d1eee"
+  },
+  {
+    "path": "forecast_2020w1.csv",
+    "bytes": 8797,
+    "sha256": "899ba6d56d271f1c5e6e659dfeef092c685b1049974c35d56dde5ecd4b1c4bb7"
+  }
+]

@@ -1,0 +1,41 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+________ test_lightgbm_validation_and_final_use_identical_quantile_sets ________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10ccc0ce0>
+
+    def test_lightgbm_validation_and_final_use_identical_quantile_sets(monkeypatch: pytest.MonkeyPatch) -> None:
+        from study import lightgbm_features
+        from study.common import QUANTILES
+    
+        requested: list[list[float]] = []
+    
+        class ConstantBooster:
+            def __init__(self, level: float) -> None:
+                self.level = level
+    
+            def predict(self, matrix: np.ndarray) -> np.ndarray:
+                return np.full(len(matrix), 40000 + self.level * 10000)
+    
+            def feature_importance(self, importance_type: str) -> np.ndarray:
+                return np.ones(len(FEATURES))
+    
+        def fake_fit(series: pd.Series, config: dict[str, int], levels: list[float]) -> dict[float, ConstantBooster]:
+            requested.append(levels)
+            return {level: ConstantBooster(level) for level in levels}
+    
+        monkeypatch.setattr(lightgbm_features, "fit_models", fake_fit)
+        lightgbm_features.run(load_data().loc[:"2019-12-31 23:00"])
+>       assert requested == [QUANTILES, QUANTILES, QUANTILES]
+E       assert [[0.5], [0.5]..., 0.9, 0.975]] == [[0.025, 0.1,..., 0.9, 0.975]]
+E         
+E         At index 0 diff: [0.5] != [0.025, 0.1, 0.5, 0.9, 0.975]
+E         Use -v to get more diff
+
+code/test_study.py:161: AssertionError
+----------------------------- Captured stdout call -----------------------------
+lightgbm validation {'num_leaves': 15, 'n_estimators': 250}: 20.1209%
+lightgbm validation {'num_leaves': 31, 'n_estimators': 400}: 20.1209%
+=========================== short test summary info ============================
+FAILED code/test_study.py::test_lightgbm_validation_and_final_use_identical_quantile_sets
+1 failed, 7 deselected in 1.41s

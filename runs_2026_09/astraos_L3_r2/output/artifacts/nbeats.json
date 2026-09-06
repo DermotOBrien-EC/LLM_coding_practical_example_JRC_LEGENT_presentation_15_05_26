@@ -1,0 +1,154 @@
+{
+  "name": "nbeats",
+  "runtime_seconds": 77.52896854100982,
+  "hyperparameters": {
+    "actual_class": "NBEATSModel",
+    "input_chunk_length": 168,
+    "output_chunk_length": 168,
+    "max_epochs": 30,
+    "selected_epochs": 24,
+    "early_stopping": "hour-weighted rolling-origin validation MAPE; patience=4 epochs",
+    "training_stride_hours": 24,
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "gradient_clip_val": 1.0,
+    "seed": 206,
+    "likelihood": "GaussianLikelihood",
+    "scaling": "divide by fitting-partition mean, no centering",
+    "accelerator": "cpu",
+    "threads": 4,
+    "generic_architecture": true,
+    "num_stacks": 30,
+    "num_blocks": 1,
+    "num_layers": 4,
+    "layer_widths": 256
+  },
+  "validation": [
+    {
+      "epoch": 1,
+      "mape_pct": 28.332119852911898
+    },
+    {
+      "epoch": 2,
+      "mape_pct": 13.950621865155707
+    },
+    {
+      "epoch": 3,
+      "mape_pct": 11.105853165398672
+    },
+    {
+      "epoch": 4,
+      "mape_pct": 9.31422779166908
+    },
+    {
+      "epoch": 5,
+      "mape_pct": 8.871329493467277
+    },
+    {
+      "epoch": 6,
+      "mape_pct": 8.261993299745264
+    },
+    {
+      "epoch": 7,
+      "mape_pct": 8.089893514942439
+    },
+    {
+      "epoch": 8,
+      "mape_pct": 7.593858582070061
+    },
+    {
+      "epoch": 9,
+      "mape_pct": 7.383679631125493
+    },
+    {
+      "epoch": 10,
+      "mape_pct": 6.777361500817376
+    },
+    {
+      "epoch": 11,
+      "mape_pct": 6.935538139275989
+    },
+    {
+      "epoch": 12,
+      "mape_pct": 7.10562927628362
+    },
+    {
+      "epoch": 13,
+      "mape_pct": 6.354946860217566
+    },
+    {
+      "epoch": 14,
+      "mape_pct": 6.834210323118493
+    },
+    {
+      "epoch": 15,
+      "mape_pct": 6.321192178241462
+    },
+    {
+      "epoch": 16,
+      "mape_pct": 6.671161319181297
+    },
+    {
+      "epoch": 17,
+      "mape_pct": 6.339480411004626
+    },
+    {
+      "epoch": 18,
+      "mape_pct": 6.294682674479733
+    },
+    {
+      "epoch": 19,
+      "mape_pct": 6.491376231657305
+    },
+    {
+      "epoch": 20,
+      "mape_pct": 6.471613027483195
+    },
+    {
+      "epoch": 21,
+      "mape_pct": 5.820145684291022
+    },
+    {
+      "epoch": 22,
+      "mape_pct": 5.947336175263404
+    },
+    {
+      "epoch": 23,
+      "mape_pct": 6.003518331309339
+    },
+    {
+      "epoch": 24,
+      "mape_pct": 5.436567671777028
+    },
+    {
+      "epoch": 25,
+      "mape_pct": 5.755921877126392
+    },
+    {
+      "epoch": 26,
+      "mape_pct": 6.525946933357426
+    },
+    {
+      "epoch": 27,
+      "mape_pct": 5.767968241647964
+    },
+    {
+      "epoch": 28,
+      "mape_pct": 5.6803136129956915
+    }
+  ],
+  "diagnostics": {
+    "epochs_evaluated": 28,
+    "best_validation_mape_pct": 5.436567671777028,
+    "training_windows": 1721,
+    "refit_windows": 1813,
+    "custom_evaluator_matches_public_api": true
+  },
+  "model_source_sha256": {
+    "__init__.py": "95d136305d22fea62a868714ec3ffa8c8ef448499c5ae665b11bd13156610b7c",
+    "common.py": "7d42cea63d8d9c7d248d43dfd2f2ccfd9b9d909b313c8dbb1b52cf199fb5f116",
+    "nbeats.py": "b2738a6b6b45562ef58e06ff8c63b9214f392c98235b048cb56e7702d406cccb",
+    "neural.py": "76c81410562d8bc190c9b922f56966a5abb3e734e0459f5e69ce9179d0c83904"
+  },
+  "input_sha256": "2f20c7560c962c7b5804b1854243c1b27ecd6358e24951238e12ae4336fa529c"
+}

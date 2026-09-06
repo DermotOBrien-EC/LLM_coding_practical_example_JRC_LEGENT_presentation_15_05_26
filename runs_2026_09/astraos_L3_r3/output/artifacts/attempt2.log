@@ -1,0 +1,9 @@
+START naive
+DONE naive runtime_seconds=0.001
+START sarima
+/Users/doob/dev/energy_forecast_ws/b260d4/project/.venv/lib/python3.12/site-packages/statsmodels/tsa/statespace/kalman_filter.py:1762: RuntimeWarning: invalid value encountered in scalar divide
+  self.scale = np.sum(scale_obs[d:]) / nobs_k_endog
+sarima validation (1, 0, 0): 6.4726% converged=True
+/Users/doob/dev/energy_forecast_ws/b260d4/project/.venv/lib/python3.12/site-packages/statsmodels/tsa/statespace/kalman_filter.py:1762: RuntimeWarning: invalid value encountered in scalar divide
+  self.scale = np.sum(scale_obs[d:]) / nobs_k_endog
+sarima validation (2, 0, 0): 5.6541% converged=True

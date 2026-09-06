@@ -1,0 +1,8 @@
+{
+  "name": "naive",
+  "runtime_seconds": 0.0002694999857340008,
+  "hyperparameters": {
+    "lag_hours": 168
+  },
+  "notes": []
+}

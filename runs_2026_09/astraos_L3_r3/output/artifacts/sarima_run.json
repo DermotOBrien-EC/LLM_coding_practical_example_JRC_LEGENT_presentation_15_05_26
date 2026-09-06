@@ -1,0 +1,52 @@
+{
+  "name": "sarima",
+  "runtime_seconds": 459.9740307920147,
+  "hyperparameters": {
+    "order": [
+      2,
+      0,
+      0
+    ],
+    "seasonal_order": [
+      1,
+      1,
+      0,
+      24
+    ],
+    "weekly_fourier_harmonics": 3,
+    "maxiter": 60,
+    "enforce_stationarity": false,
+    "enforce_invertibility": false,
+    "concentrate_scale": false,
+    "intervals": "Gaussian state-space forecast errors, fixed estimated parameters"
+  },
+  "validation": [
+    {
+      "order": [
+        1,
+        0,
+        0
+      ],
+      "mape_validation_pct": 6.476160874916354,
+      "converged": true,
+      "warnings": [],
+      "iterations": 28
+    },
+    {
+      "order": [
+        2,
+        0,
+        0
+      ],
+      "mape_validation_pct": 5.655839558547218,
+      "converged": true,
+      "warnings": [],
+      "iterations": 32
+    }
+  ],
+  "diagnostics": {
+    "final_converged": true,
+    "final_warnings": [],
+    "final_iterations": 33
+  }
+}

@@ -941,14 +941,15 @@
     "headline_prespecified": false,
     "agent_reported_mape": 4.14,
     "n_models_fitted": 1,
-    "validation": false,
+    "validation": true,
     "intervals": false,
     "methods_doc": false,
-    "test_selection": "final_scoring_only",
-    "n_candidates": 1,
+    "test_selection": "leaked",
+    "n_candidates": 8,
     "headline_model": "ridge regression on calendar and lag features",
-    "audit_note": "One model, fit cut at the forecast origin, scored once on the test week at the end; no validation hold-out, no intervals, no methods document.",
-    "reason": "the agent's final message names german_load_forecast_jan2020.csv::forecast_mw; recomputed 4.143 vs reported 4.14"
+    "audit_note": "One ridge model in the delivered script, fit cut at the forecast origin and scored once at the end, with historical alpha validation on the 2017 to 2019 January weeks (session line 219). But the feature set itself was chosen with the answer visible: at line 200 the agent swept eight lag combinations and printed each one's target-week MAE, RMSE and MAPE, then adopted the winner. Recorded final_scoring_only at first; the cross-vendor review of this section found the sweep and the class was corrected to leaked.",
+    "reason": "the agent's final message names german_load_forecast_jan2020.csv::forecast_mw; recomputed 4.143 vs reported 4.14",
+    "leak_scope": "feature selection: eight lag sets were scored on the target week and their target MAPEs printed (session lines 200 and 204) before the winning 72-hour lag was added at line 214; the delivered fit uses no test observation"
   },
   "gpt55os_L3_r3": {
     "model_tag": "gpt55os",
@@ -1006,7 +1007,7 @@
     "headline_model": "multiplicative day-of-week and hour profile with calendar-day factors and a December level correction",
     "audit_note": "LEAKED, verified in the log by the orchestrator: the agent wrote a forecast, scored it on the test week (MAPE 4.82 at session line 42), read which day was worst, added a bridge-day factor for that day and re-scored (3.77 at line 60), then read the residual bias, added a level correction and re-scored (3.32 at line 71). Each feature was chosen because the test week showed it was missing, so the headline 3.32 is the result of three rounds of fitting to the answer. The delivered script's own fit is cut at 2019-12-31, which is why the code alone looks clean. Found by the independent reader (Astra), confirmed here.",
     "reason": "the agent's final message names forecast_2020_w01.csv::forecast_mw; recomputed 3.325 vs reported 3.32, and the number is not a forecast made without the answer",
-    "leak_scope": "headline: three features were added in response to the test-week error of the previous iteration (session lines 42 to 71)"
+    "leak_scope": "design after scoring: three features were added in response to the test-week error of the previous iteration (session lines 42 to 71); the delivered script's own fit is cut at 2019-12-31"
   },
   "opus47_L1_r3": {
     "model_tag": "opus47",
@@ -1211,11 +1212,12 @@
     "validation": true,
     "intervals": true,
     "methods_doc": true,
-    "test_selection": "test_selected",
+    "test_selection": "leaked",
     "n_candidates": 9,
     "headline_model": "LightGBM, winner of six by test MAPE as the prompt orders",
     "audit_note": "A complete six-model bake-off: settings on the 2019 Q4 validation window, refit on train plus validation, all six scored on the test week and ranked, which is what the frozen prompt asks for. The reader counts nine test-scored forecasts because three models were re-run after failures. metrics.json, metrics.csv, eight figures and a transcript were written, but no hourly forecast file, so the 4.83 is the agent's own number. 110 minutes. One disclosure the reader found and the orchestrator confirmed: SARIMA's first pass returned a 100 percent test MAPE, the agent read that number, diagnosed a level-scale bug, edited sarima.py and re-ran (session lines 890 to 969), so a non-winning model was repaired in response to its test score; the reported 11.00 is the repaired pass. The winning LightGBM is untouched by it. This is the same shape as the SARIMA re-scoring in the frozen-prompt GPT-5.5 L3 run (section 8.3) and is recorded, not reclassified, because a bug fix on a losing model is not a choice of the headline.",
-    "reason": "metrics.json names LightGBM at 4.8285 percent; no per-hour forecast file exists, so the number is carried as agent_reported"
+    "reason": "metrics.json names LightGBM at 4.8285 percent; no per-hour forecast file exists, so the number is carried as agent_reported",
+    "leak_scope": "a non-winning model was reconfigured after its test score: SARIMA returned a 100 percent test MAPE, the agent read it, diagnosed a level-scale bug, edited sarima.py and re-ran (session lines 890 to 969); the reported 11.00 is the repaired pass. The winning LightGBM forecast is untouched"
   },
   "opus48_L3_r2": {
     "model_tag": "opus48",
@@ -1274,9 +1276,9 @@
     "n_candidates": 9,
     "time_col": "utc_timestamp",
     "headline_model": "ridge regression on log load with a calendar analog and temperature proxy, chosen on historical backtests",
-    "audit_note": "The delivered fit is cut at the forecast origin (deliver.py:36) and the model was chosen on historical backtests, but the agent printed the Dec 20 to Jan 10 daily profile of every season including 2019/2020, the target week itself, before designing its features (session line 75), and the reader counts nine test-scored candidates during development. Leaked under 5.2 read literally, in the same class as Opus 4.7 L1 r2 rather than the milder indeterminate of Extension A, because the design followed the inspection. The file is stamped in Berlin local time and also carries a UTC column; scored on the UTC column, whose own actuals column verifies exactly, the forecast covers the Berlin week and scores 5.35 (scoring it on the mislabelled local column would give 6.40, an artefact of the one-hour shift).",
+    "audit_note": "The delivered fit is cut at the forecast origin (deliver.py:36) and the model was chosen on historical backtests, but the agent printed the Dec 20 to Jan 10 daily profile of every season including 2019/2020, the target week itself, before designing its features (session line 75), and the reader counts nine test-scored candidates during development. Leaked under 5.2 read literally, in the same class as Opus 4.7 L1 r2 rather than the milder indeterminate of Extension A, because the design followed the inspection. The file is stamped in Berlin local time and also carries a UTC column; scored on the UTC column, whose own actuals column verifies exactly, the forecast covers the Berlin week and scores 5.35 (scoring it on the mislabelled local column would give 6.40, an artefact of the one-hour shift). MATERIAL EXTERNAL INPUT, found by the cross-vendor review of this section and confirmed here: the run downloaded hourly ERA5 2-metre temperature for fourteen German cities from the Open-Meteo archive (work/fetch_temp.py) and used the target week's own temperature as a predictor, which its README states as a deliberate perfect-weather-forecast assumption and quantifies in a sensitivity run. Its 5.35 is therefore not comparable with the other L1 numbers, none of which used any input beyond the frozen CSV. The delivered artefact also carries a labelled post-test feature variant (work/deliver.py:24-25).",
     "reason": "the agent's final message names out/forecast_2020_week1.csv::forecast_MW; recomputed 5.35 on the week the file is stamped for, matching the agent's own 5.35",
-    "leak_scope": "selection and design: the target week was summarised before feature design and candidates were scored on it; the delivered fit itself uses no test observation"
+    "leak_scope": "selection, design and external input: the target week was summarised before feature design, candidates were scored on it, and the delivered model uses the target week's observed temperature as a known predictor; the load fit itself uses no test-week load"
   },
   "opus5_L2_r2": {
     "model_tag": "opus5",
@@ -1350,11 +1352,12 @@
     "validation": true,
     "intervals": false,
     "methods_doc": false,
-    "test_selection": "test_selected",
+    "test_selection": "leaked",
     "n_candidates": 24,
     "headline_model": "ExtraTrees regressor, chosen over three model classes on historical validation",
-    "audit_note": "The headline's training mask excludes the test week (forecast_load.py:167) and the choice among model classes was made on historical validation, but the reader counts 24 configurations scored on the test window during the run, so the class is test_selected under the literal rule. The reader additionally classes the run leaked because a late robustness probe re-ran the same script from a March and a May 2020 origin, whose training then includes January 2020; the orchestrator does not adopt that reading, because those runs wrote to a scratch directory outside the deliverable and are a different forecast, not the January one. The script was edited after those probes, so the log does not prove the final model predates them; that is stated here rather than resolved. 149 turns and 41 minutes, with a self-run review fan-out.",
-    "reason": "the agent's final message names outputs/forecast_results.csv::forecast_mw; recomputed 3.464 vs reported 3.46"
+    "audit_note": "The headline's training mask excludes the test week (forecast_load.py:167) and the choice among model classes was made on historical validation, but the reader counts 24 configurations scored on the test window during the run, so the class is test_selected under the literal rule. The reader additionally classes the run leaked because a late robustness probe re-ran the same script from a March and a May 2020 origin, whose training then includes January 2020; the orchestrator does not adopt that reading, because those runs wrote to a scratch directory outside the deliverable and are a different forecast, not the January one. The script was edited after those probes, so the log does not prove the final model predates them; that is stated here rather than resolved. 149 turns and 41 minutes, with a self-run review fan-out. The orchestrator first declined the reader's leaked call on the ground that the probes were a different forecast; on the cross-vendor review of this section it was withdrawn, because those probes did produce forecasts and scores from data containing the test week and the script was edited afterwards, so the rule as written applies and the scope records what was and was not affected.",
+    "reason": "the agent's final message names outputs/forecast_results.csv::forecast_mw; recomputed 3.464 vs reported 3.46",
+    "leak_scope": "robustness probes: the same script was re-run from a March and a May 2020 origin, whose training windows contain the test week, and those runs produced forecasts and scores (session lines 507 and 765) in a scratch directory outside the deliverable; the delivered January forecast's own training mask excludes the test week"
   },
   "solos_L2_r2": {
     "model_tag": "solos",
@@ -1430,12 +1433,12 @@
     "intervals": true,
     "methods_doc": true,
     "test_selection": "leaked",
-    "n_candidates": 6,
+    "n_candidates": 8,
     "headline_model": "LightGBM, winner of six by test MAPE as the prompt orders",
-    "status_note": "wall-clock cap reached (exit 124) after the study was complete; not resumed, because every deliverable was already on disk and a resume could only have added a closing message",
-    "audit_note": "A complete six-model study (code, eight figures, metrics.csv, metrics.json, transcript) written before the cap. The winner's features are built on the whole series and the test rows are predicted directly from them, so from the second test hour the rolling statistics and from the second test day lag_24h read the test week's own actual loads: the construction of May's L3 winner (DESIGN.md 5.2, correction of 2026-09-05), not the recursive week-ahead forecast every September Claude L3 run of section 2 produced. The number therefore belongs beside May's 3.43, not beside the 4.6 to 5.5 of the recursive runs. The transcript states the opposite in as many words, that refitting on train plus validation gives the model the largest information base 'without leaking any test-window observation into the fit', which is true of the fit and false of the features. No hourly forecast file, so 3.24 is the agent's own number. Wall clock reads 326 minutes because the machine slept for about two and a half hours during the run (DESIGN.md section 9); the session's own work was about three hours, which is what reached the cap.",
+    "status_note": "wall-clock cap reached (exit 124) after the study was written, then resumed once for 29 seconds under the attempt policy; the 326-minute wall clock covers both attempts and about two and a half hours of machine sleep",
+    "audit_note": "A complete six-model study (code, eight figures, metrics.csv, metrics.json, transcript) written before the cap. The winner's features are built on the whole series and the test rows are predicted directly from them, so from the second test hour the rolling statistics and from the second test day lag_24h read the test week's own actual loads: the construction of May's L3 winner (DESIGN.md 5.2, correction of 2026-09-05), not the recursive week-ahead forecast every September Claude L3 run of section 2 produced. The number therefore belongs beside May's 3.43, not beside the 4.6 to 5.5 of the recursive runs. The transcript states the opposite in as many words, that refitting on train plus validation gives the model the largest information base 'without leaking any test-window observation into the fit', which is true of the fit and false of the features. No hourly forecast file, so 3.24 is the agent's own number. Wall clock reads 326 minutes because the machine slept for about two and a half hours during the run (DESIGN.md section 9); the session's own work was about three hours, which is what reached the cap. Corrections from the cross-vendor review of this section: the run was resumed once (run_meta.json records two attempts and a 29-second resume), not left unresumed; the reader counts eight test-scored forecasts because two models were re-run; and the agent raised N-BEATS epochs after reading its test score, which is a second, smaller use of the test week.",
     "reason": "metrics.json names LightGBM at 3.2435 percent; no per-hour forecast file exists",
-    "leak_scope": "headline: the winning forecast reads test-week actuals through lag_24h from the second day and the rolling features from the second hour"
+    "leak_scope": "headline and tuning: the winning forecast reads test-week actuals through lag_24h from the second day and the rolling features from the second hour, and N-BEATS epochs were raised after its test MAPE was read (session line 473)"
   },
   "opus47_L3_r2": {
     "model_tag": "opus47",
@@ -1470,11 +1473,12 @@
     "validation": true,
     "intervals": true,
     "methods_doc": true,
-    "test_selection": "test_selected",
+    "test_selection": "leaked",
     "n_candidates": 6,
     "headline_model": "LightGBM, winner of six by test MAPE as the prompt orders",
-    "audit_note": "A second complete bake-off, 62 minutes: validation-selected settings, refit, six models scored on the test week and ranked. The winner is a recursive median path with sorted marginal quantiles (lightgbm_features.py:54, 126, 133, 150), so no test observation enters its features. Interval coverage 75.6 percent at the 80 percent level and 95.8 at the 95 percent level, the best-calibrated intervals in the study. An earlier artefact directory (pre_quantile_protocol_fix) is kept beside the final one, which is the agent's own record of a protocol correction it made mid-run. Independent reader (Astra) classes the run leaked because an exploratory command (session line 128) fitted two SARIMAX models on a window ending 2020-06-30, which contains the test week, in order to time them; the orchestrator does not adopt that reading, because the probe printed elapsed seconds and a log-likelihood, produced no forecast and no score, and informed no choice about the delivered models. The disagreement is recorded rather than resolved.",
-    "reason": "the agent's report names LightGBM at 3.91 percent and artifacts/lightgbm_forecast.csv::point_mw is its hourly forecast; recomputed 3.912"
+    "audit_note": "A second complete bake-off, 62 minutes: validation-selected settings, refit, six models scored on the test week and ranked. The winner is a recursive median path with sorted marginal quantiles (lightgbm_features.py:54, 126, 133, 150), so no test observation enters its features. Interval coverage 75.6 percent at the 80 percent level and 95.8 at the 95 percent level, the best-calibrated intervals in the study. An earlier artefact directory (pre_quantile_protocol_fix) is kept beside the final one, which is the agent's own record of a protocol correction it made mid-run. Independent reader (Astra) classes the run leaked because an exploratory command (session line 128) fitted two SARIMAX models on a window ending 2020-06-30, which contains the test week, in order to time them; the orchestrator does not adopt that reading, because the probe printed elapsed seconds and a log-likelihood, produced no forecast and no score, and informed no choice about the delivered models. The disagreement is recorded rather than resolved. On the cross-vendor review of this section the orchestrator withdrew its earlier reading: the rule as written covers any fitting on test-window observations, and the Fable L3 r3 precedent already records a leak whose scope is confined to a supplement, so the same treatment is applied here rather than an exemption for fits outside the headline's causal chain.",
+    "reason": "the agent's report names LightGBM at 3.91 percent and artifacts/lightgbm_forecast.csv::point_mw is its hourly forecast; recomputed 3.912",
+    "leak_scope": "exploratory fits only: two SARIMAX models were fitted on a window that contains the test week in order to time them (session line 128); they produced no forecast and no score, and the delivered bake-off and its recursive winner use no test observation"
   },
   "solos_L3_r1": {
     "model_tag": "solos",
@@ -1543,14 +1547,14 @@
     "headline_prespecified": false,
     "headline_model": "none (session ended mid-run, no results written)",
     "agent_reported_mape": null,
-    "n_models_fitted": 0,
-    "validation": false,
+    "n_models_fitted": 4,
+    "validation": true,
     "intervals": false,
     "methods_doc": false,
-    "test_selection": "n/a (no forecast)",
-    "n_candidates": 0,
+    "test_selection": "final_scoring_only",
+    "n_candidates": 4,
     "status_note": "session ended before the agent's final step: it had written the whole bake-off and started it, and its last message says it had set a completion waiter and would report when the run finished",
-    "audit_note": "The six model modules and the driver were written and the bake-off was started, but the session ended 27 minutes in with the deep models still fitting, so there is no metrics.json, no figures beyond the directory and nothing to score. Nothing was scored on the test week. The print-mode keep-alive of DESIGN.md section 3 keeps a session alive for background jobs the harness tracks; here the agent ended its own turn after arming a waiter, which is the same shape as GPT-5.5 L3 r1 in Extension B and as the two incomplete runs of section 4.",
+    "audit_note": "The six model modules and the driver were written and the bake-off was started, but the session ended 27 minutes in with the deep models still fitting, so there is no metrics.json, no figures beyond the directory and nothing to score. The independent reader (Astra) records four smoke-test forecasts scored on the test week while the agent was checking the pipeline, and that the LightGBM path appends its own predictions rather than test actuals; the class is final_scoring_only on that evidence, with no headline to select. The print-mode keep-alive of DESIGN.md section 3 keeps a session alive for background jobs the harness tracks; here the agent ended its own turn after arming a waiter, which is the same shape as GPT-5.5 L3 r1 in Extension B and as the two incomplete runs of section 4. Corrected on review: the code executes validation selection (sarima.py:76-90) and four smoke-test forecasts were scored while the pipeline was being checked, so the run did fit and validate models before it ran out of session; what it never produced is a chosen model, metrics or figures.",
     "reason": "no forecast or metrics file exists and the session ended mid-run"
   },
   "solos_L3_r3": {
@@ -1569,8 +1573,8 @@
     "methods_doc": true,
     "test_selection": "test_selected",
     "n_candidates": 6,
-    "status_note": "wall-clock cap reached (exit 124) after the study was complete; not resumed, because every deliverable was already on disk",
-    "audit_note": "A complete six-model study written well inside the cap: settings on validation, refit, six models scored on the test week and ranked, metrics.json recording for LightGBM 'test_forecast_mode: recursive_without_observed_test_updates', so the winner reads none of the test week. Interval coverage 83.3 percent at the 80 percent level and 100 percent at the 95. The session then spent its remaining time coordinating with subagents it had spawned and was killed by the three-hour cap; the run is complete in substance and the cap is recorded rather than resumed (a resume could only have added a closing message). 8,372 stream events, the most of any run in the study.",
+    "status_note": "wall-clock cap reached (exit 124) with the reported study already on disk, but a later regeneration was still running when the cap hit, so the delivered code and the transcript disagree; not resumed",
+    "audit_note": "A complete six-model study written well inside the cap: settings on validation, refit, six models scored on the test week and ranked, metrics.json recording for LightGBM 'test_forecast_mode: recursive_without_observed_test_updates', so the winner reads none of the test week. Interval coverage 83.3 percent at the 80 percent level and 100 percent at the 95. The session then spent its remaining time coordinating with subagents it had spawned and was killed by the three-hour cap; the run is complete in substance and the cap is recorded rather than resumed (a resume could only have added a closing message). 8,372 stream events, the most of any run in the study. Correction from the cross-vendor review of this section: late in the session the agent replaced the recursive quantile paths with residual-based intervals (session line 8210) and the final code calls that replacement (lightgbm_features.py:198), while the transcript still describes per-quantile recursive paths; the regeneration that would have made the artefacts match was killed during N-BEATS (line 8509). The reported numbers are the earlier, complete pass, and the run is no longer described as complete in substance.",
     "reason": "metrics.json names LightGBM at 5.2806 percent; no per-hour forecast file exists"
   },
   "astraos_L3_r2": {
@@ -1591,5 +1595,24 @@
     "n_candidates": 6,
     "audit_note": "The one Extension B run that needed its single permitted resume: the gateway refused it with a 429 after 101 tool calls and 34 minutes, with five of the six model forecasts already written and no scoring done (DESIGN.md section 12 amendment). Resumed once with 'Continue.' on the restored route, it finished the bake-off in a further 24 minutes: validation-selected settings, refit, six models scored on the test week and ranked, recursive winner, interval coverage 79.2 percent at the 80 percent level and 97.6 at the 95. A first resume attempt on 2026-09-06 at 10:21 local never started because the pinned 2.1.259 binary was missing at that moment; it produced no session and its artefacts are kept under _failed_resume1_binary_missing/, with the attempt counter restored (run_meta.json failed_resume_note).",
     "reason": "the agent's report names LightGBM at 5.11 percent and artifacts/lightgbm_forecast.csv::point_mw is its hourly forecast; recomputed 5.114"
+  },
+  "opus47_L3_r3": {
+    "model_tag": "opus47",
+    "model_label": "Opus 4.7",
+    "level": "L3",
+    "rep": 3,
+    "file": null,
+    "column": null,
+    "headline_prespecified": false,
+    "headline_model": "LightGBM, winner of six by test MAPE as the prompt orders",
+    "agent_reported_mape": 4.45,
+    "n_models_fitted": 6,
+    "validation": true,
+    "intervals": true,
+    "methods_doc": true,
+    "test_selection": "test_selected",
+    "n_candidates": 6,
+    "audit_note": "The third Opus 4.7 L3 run, and the one that does not repeat May's construction: it forecasts the week hour by hour and overwrites each test hour with its own prediction so that the 24-hour lag reads the forecast rather than the observation (lightgbm_features.py:146-172, a _walk_forward loop whose docstring states the intent). It scores 4.45 where its two leaked siblings score 3.24 and 3.52, which is the difference the construction makes inside one model. Validation-selected settings, refit, six models scored on the test week and ranked; interval coverage 81.0 percent at the 80 percent level and 89.3 at the 95. 124 minutes, 233 turns, the most turns of any Claude-family run. No hourly forecast file.",
+    "reason": "metrics.json names LightGBM at 4.4477 percent; no per-hour forecast file exists"
   }
 }

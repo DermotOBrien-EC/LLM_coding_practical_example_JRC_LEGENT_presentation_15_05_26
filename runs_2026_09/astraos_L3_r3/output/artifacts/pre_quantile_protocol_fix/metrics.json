@@ -1,0 +1,186 @@
+{
+  "test_start": "2020-01-01",
+  "test_end": "2020-01-07",
+  "n_test_observations": 168,
+  "models": [
+    {
+      "name": "lightgbm",
+      "mape_test_pct": 3.9122999868145625,
+      "rmse_test_mw": 2359.6510407728424,
+      "mae_test_mw": 1983.0083355355328,
+      "mape_jan1_pct": 5.649947521374454,
+      "mape_jan2_to_jan7_pct": 3.622692064387914,
+      "runtime_seconds": 10.980998625018401,
+      "hyperparameters": {
+        "num_leaves": 31,
+        "n_estimators": 400,
+        "learning_rate": 0.05,
+        "min_child_samples": 40,
+        "reg_lambda": 1.0,
+        "objective": "quantile",
+        "quantiles": [
+          0.025,
+          0.1,
+          0.5,
+          0.9,
+          0.975
+        ],
+        "lag_hours": [
+          24,
+          168,
+          8760
+        ],
+        "rolling_ddof": 0,
+        "seed": 2026,
+        "forecast_strategy": "recursive median path, sorted marginal quantiles"
+      }
+    },
+    {
+      "name": "prophet",
+      "mape_test_pct": 7.613812590065698,
+      "rmse_test_mw": 4878.173143029159,
+      "mae_test_mw": 3798.041042896736,
+      "mape_jan1_pct": 13.275147650804811,
+      "mape_jan2_to_jan7_pct": 6.670256746609178,
+      "runtime_seconds": 24.523138999997173,
+      "hyperparameters": {
+        "country_holidays": "DE",
+        "daily_seasonality": true,
+        "weekly_seasonality": true,
+        "yearly_seasonality": true,
+        "seasonality_mode": "additive",
+        "changepoint_prior_scale": 0.05,
+        "holidays_prior_scale": 10.0,
+        "seasonality_prior_scale": 10.0,
+        "posterior_predictive_samples": 1000,
+        "seed": 2026,
+        "mcmc_samples": 0,
+        "implementation": "darts.models.Prophet"
+      }
+    },
+    {
+      "name": "naive",
+      "mape_test_pct": 12.780588824669476,
+      "rmse_test_mw": 8808.602996502907,
+      "mae_test_mw": 7237.976190476191,
+      "mape_jan1_pct": 6.51955384895017,
+      "mape_jan2_to_jan7_pct": 13.824094653956026,
+      "runtime_seconds": 0.0012714159965980798,
+      "hyperparameters": {
+        "seasonal_lag_hours": 168
+      }
+    },
+    {
+      "name": "patchtst",
+      "mape_test_pct": 12.985133519171722,
+      "rmse_test_mw": 8512.720011794527,
+      "mae_test_mw": 6356.94284576956,
+      "mape_jan1_pct": 31.799878174904663,
+      "mape_jan2_to_jan7_pct": 9.849342743216232,
+      "runtime_seconds": 10.610962915990967,
+      "hyperparameters": {
+        "d_model": 32,
+        "nhead": 4,
+        "num_encoder_layers": 2,
+        "num_decoder_layers": 2,
+        "dim_feedforward": 64,
+        "dropout": 0.1,
+        "implementation": "TransformerModel",
+        "input_chunk_length": 168,
+        "output_chunk_length": 168,
+        "selected_epochs": 2,
+        "maximum_epochs": 2,
+        "selection_epochs_run": 2,
+        "early_stop_patience": 5,
+        "early_stop_min_delta_mape_pct": 0.01,
+        "training_stride_hours": 24,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "quantiles": [
+          0.025,
+          0.1,
+          0.5,
+          0.9,
+          0.975
+        ],
+        "scaling": "divide by fit-partition mean",
+        "seed": 2026,
+        "accelerator": "cpu",
+        "torch_threads": 4
+      }
+    },
+    {
+      "name": "nbeats",
+      "mape_test_pct": 13.447379691661062,
+      "rmse_test_mw": 8744.414748704236,
+      "mae_test_mw": 6920.504943412249,
+      "mape_jan1_pct": 25.596338026421268,
+      "mape_jan2_to_jan7_pct": 11.42255330253436,
+      "runtime_seconds": 3.2432645829976536,
+      "hyperparameters": {
+        "generic_architecture": true,
+        "num_stacks": 30,
+        "num_blocks": 1,
+        "num_layers": 4,
+        "layer_widths": 64,
+        "implementation": "NBEATSModel",
+        "input_chunk_length": 168,
+        "output_chunk_length": 168,
+        "selected_epochs": 2,
+        "maximum_epochs": 2,
+        "selection_epochs_run": 2,
+        "early_stop_patience": 5,
+        "early_stop_min_delta_mape_pct": 0.01,
+        "training_stride_hours": 24,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "quantiles": [
+          0.025,
+          0.1,
+          0.5,
+          0.9,
+          0.975
+        ],
+        "scaling": "divide by fit-partition mean",
+        "seed": 2026,
+        "accelerator": "cpu",
+        "torch_threads": 4
+      }
+    },
+    {
+      "name": "sarima",
+      "mape_test_pct": 19.249997642848392,
+      "rmse_test_mw": 11521.045895956859,
+      "mae_test_mw": 10472.962102665724,
+      "mape_jan1_pct": 10.233468920148976,
+      "mape_jan2_to_jan7_pct": 20.752752429964964,
+      "runtime_seconds": 560.7068080000172,
+      "hyperparameters": {
+        "order": [
+          2,
+          0,
+          0
+        ],
+        "seasonal_order": [
+          1,
+          1,
+          0,
+          24
+        ],
+        "weekly_fourier_harmonics": 3,
+        "maxiter": 60,
+        "enforce_stationarity": false,
+        "enforce_invertibility": false,
+        "concentrate_scale": false,
+        "intervals": "Gaussian state-space forecast errors, fixed estimated parameters"
+      }
+    }
+  ],
+  "winner": "lightgbm",
+  "winner_coverage_80pct": 0.7559523809523809,
+  "winner_coverage_95pct": 0.9583333333333334,
+  "winner_pinball_loss_q10": 465.06337836372074,
+  "winner_pinball_loss_q50": 991.5041677677664,
+  "winner_pinball_loss_q90": 384.88424931397213,
+  "total_runtime_seconds": 619.1356198750145
+}

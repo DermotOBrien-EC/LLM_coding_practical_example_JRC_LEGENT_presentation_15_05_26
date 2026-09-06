@@ -1,0 +1,41 @@
+{
+  "added": [
+    ".ruff_cache",
+    ".ruff_cache/.gitignore",
+    ".ruff_cache/0.15.12",
+    ".ruff_cache/0.15.12/7107880289586237919",
+    ".ruff_cache/CACHEDIR.TAG",
+    ".venv/lib/python3.12/site-packages/ruff/__pycache__",
+    ".venv/lib/python3.12/site-packages/ruff/__pycache__/__init__.cpython-312.pyc",
+    ".venv/lib/python3.12/site-packages/ruff/__pycache__/__main__.cpython-312.pyc",
+    ".venv/lib/python3.12/site-packages/ruff/__pycache__/_find_ruff.cpython-312.pyc",
+    "runs/3cf0f7/code",
+    "runs/3cf0f7/code/common.py",
+    "runs/3cf0f7/code/forecast.py",
+    "runs/3cf0f7/code/lightgbm_features.py",
+    "runs/3cf0f7/code/naive.py",
+    "runs/3cf0f7/code/nbeats.py",
+    "runs/3cf0f7/code/patchtst.py",
+    "runs/3cf0f7/code/prophet.py",
+    "runs/3cf0f7/code/sarima.py",
+    "runs/3cf0f7/figures",
+    "runs/3cf0f7/figures/01_overview.png",
+    "runs/3cf0f7/figures/02_forecast_comparison.png",
+    "runs/3cf0f7/figures/03_metric_comparison.png",
+    "runs/3cf0f7/figures/04_per_day_mape.png",
+    "runs/3cf0f7/figures/05_winner_with_intervals.png",
+    "runs/3cf0f7/figures/06_residuals.png",
+    "runs/3cf0f7/figures/07_feature_importance.png",
+    "runs/3cf0f7/figures/08_decomposition.png",
+    "runs/3cf0f7/metrics.csv",
+    "runs/3cf0f7/metrics.json",
+    "runs/3cf0f7/transcript.md"
+  ],
+  "modified": [],
+  "deleted": [],
+  "counts": {
+    "added": 30,
+    "modified": 0,
+    "deleted": 0
+  }
+}

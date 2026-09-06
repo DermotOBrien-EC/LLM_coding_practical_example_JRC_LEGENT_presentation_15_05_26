@@ -1,0 +1,75 @@
+{
+  "forecast_period_utc": {
+    "start": "2020-01-01T00:00:00+00:00",
+    "end_exclusive": "2020-01-08T00:00:00+00:00",
+    "hours": 168
+  },
+  "model": {
+    "type": "LightGBM gradient-boosted decision trees",
+    "features": "German local calendar, cyclic time, trend, and federal public holidays",
+    "training_window_years": 2,
+    "random_seed": 42
+  },
+  "final_training_period_utc": {
+    "start": "2018-01-01T00:00:00+00:00",
+    "end": "2019-12-31T23:00:00+00:00"
+  },
+  "target_metrics": {
+    "mae_mw": 2233.277138415439,
+    "rmse_mw": 2714.1739801153626,
+    "mape_percent": 4.025912340746371,
+    "smape_percent": 4.019845577144763,
+    "r_squared": 0.9020304931801514
+  },
+  "historical_new_year_backtests": [
+    {
+      "year": 2017,
+      "training_start_utc": "2015-01-01T00:00:00+00:00",
+      "training_end_utc": "2016-12-31T23:00:00+00:00",
+      "metrics": {
+        "mae_mw": 2860.174142378239,
+        "rmse_mw": 3426.42082123758,
+        "mape_percent": 5.495427271873881,
+        "smape_percent": 5.4915825287874425,
+        "r_squared": 0.8851641001309124
+      }
+    },
+    {
+      "year": 2018,
+      "training_start_utc": "2016-01-01T00:00:00+00:00",
+      "training_end_utc": "2017-12-31T23:00:00+00:00",
+      "metrics": {
+        "mae_mw": 2054.6218145135545,
+        "rmse_mw": 2568.8020396970296,
+        "mape_percent": 4.0571306011916795,
+        "smape_percent": 3.9325871394912086,
+        "r_squared": 0.9306499473104439
+      }
+    },
+    {
+      "year": 2019,
+      "training_start_utc": "2017-01-01T00:00:00+00:00",
+      "training_end_utc": "2018-12-31T23:00:00+00:00",
+      "metrics": {
+        "mae_mw": 1610.825829266271,
+        "rmse_mw": 2031.0696776380832,
+        "mape_percent": 2.996913299276411,
+        "smape_percent": 2.9896034689539555,
+        "r_squared": 0.9538716302622539
+      }
+    }
+  ],
+  "mean_backtest_metrics": {
+    "mae_mw": 2175.2072620526883,
+    "rmse_mw": 2675.4308461908972,
+    "mape_percent": 4.183157057447324,
+    "smape_percent": 4.1379243790775355,
+    "r_squared": 0.9232285592345367
+  },
+  "artifacts": {
+    "forecast_csv": "german_load_forecast_2020_week1.csv",
+    "forecast_csv_sha256": "290bdec2162d10d65c400d9381a7231bfdfdb880fa415657aaf8603f46b9b3c2",
+    "plot_png": "german_load_forecast_2020_week1.png",
+    "plot_png_sha256": "8aa766db8d1da25ef05867c33ed6636ed345cfc1af5bf48e7f4d21bdf7c1bcd6"
+  }
+}

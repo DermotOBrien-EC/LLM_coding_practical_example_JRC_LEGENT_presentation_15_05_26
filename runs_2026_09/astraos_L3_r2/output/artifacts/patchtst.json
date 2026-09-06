@@ -1,0 +1,132 @@
+{
+  "name": "patchtst",
+  "runtime_seconds": 90.02686362498207,
+  "hyperparameters": {
+    "actual_class": "TransformerModel",
+    "input_chunk_length": 168,
+    "output_chunk_length": 168,
+    "max_epochs": 30,
+    "selected_epochs": 18,
+    "early_stopping": "hour-weighted rolling-origin validation MAPE; patience=4 epochs",
+    "training_stride_hours": 24,
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "gradient_clip_val": 1.0,
+    "seed": 206,
+    "likelihood": "GaussianLikelihood",
+    "scaling": "divide by fitting-partition mean, no centering",
+    "accelerator": "cpu",
+    "threads": 4,
+    "substitution": "PatchTSTModel unavailable in Darts 0.41.0; TransformerModel used, not TSMixer",
+    "d_model": 32,
+    "nhead": 4,
+    "num_encoder_layers": 2,
+    "num_decoder_layers": 1,
+    "dim_feedforward": 64,
+    "dropout": 0.1
+  },
+  "validation": [
+    {
+      "epoch": 1,
+      "mape_pct": 36.75210583684717
+    },
+    {
+      "epoch": 2,
+      "mape_pct": 14.535870803953973
+    },
+    {
+      "epoch": 3,
+      "mape_pct": 11.677436533625094
+    },
+    {
+      "epoch": 4,
+      "mape_pct": 11.327193824180881
+    },
+    {
+      "epoch": 5,
+      "mape_pct": 11.396914383139608
+    },
+    {
+      "epoch": 6,
+      "mape_pct": 11.4818122711872
+    },
+    {
+      "epoch": 7,
+      "mape_pct": 11.612128271044869
+    },
+    {
+      "epoch": 8,
+      "mape_pct": 11.059566804397992
+    },
+    {
+      "epoch": 9,
+      "mape_pct": 10.68695494373906
+    },
+    {
+      "epoch": 10,
+      "mape_pct": 11.113638398703598
+    },
+    {
+      "epoch": 11,
+      "mape_pct": 10.498427091161679
+    },
+    {
+      "epoch": 12,
+      "mape_pct": 10.891732476764513
+    },
+    {
+      "epoch": 13,
+      "mape_pct": 9.373686211925817
+    },
+    {
+      "epoch": 14,
+      "mape_pct": 8.742802345949116
+    },
+    {
+      "epoch": 15,
+      "mape_pct": 8.079596473070483
+    },
+    {
+      "epoch": 16,
+      "mape_pct": 7.264693713701019
+    },
+    {
+      "epoch": 17,
+      "mape_pct": 7.278019977353408
+    },
+    {
+      "epoch": 18,
+      "mape_pct": 6.886319464650589
+    },
+    {
+      "epoch": 19,
+      "mape_pct": 7.332338189898876
+    },
+    {
+      "epoch": 20,
+      "mape_pct": 7.214842677491616
+    },
+    {
+      "epoch": 21,
+      "mape_pct": 7.0189813624823305
+    },
+    {
+      "epoch": 22,
+      "mape_pct": 7.1286964145795215
+    }
+  ],
+  "diagnostics": {
+    "epochs_evaluated": 22,
+    "best_validation_mape_pct": 6.886319464650589,
+    "training_windows": 1721,
+    "refit_windows": 1813,
+    "custom_evaluator_matches_public_api": true
+  },
+  "model_source_sha256": {
+    "__init__.py": "95d136305d22fea62a868714ec3ffa8c8ef448499c5ae665b11bd13156610b7c",
+    "common.py": "7d42cea63d8d9c7d248d43dfd2f2ccfd9b9d909b313c8dbb1b52cf199fb5f116",
+    "patchtst.py": "8f0ae827659b0f835a8295e6059974c2beb599793645d6cf87cf3483868f5c1a",
+    "neural.py": "76c81410562d8bc190c9b922f56966a5abb3e734e0459f5e69ce9179d0c83904"
+  },
+  "input_sha256": "2f20c7560c962c7b5804b1854243c1b27ecd6358e24951238e12ae4336fa529c"
+}

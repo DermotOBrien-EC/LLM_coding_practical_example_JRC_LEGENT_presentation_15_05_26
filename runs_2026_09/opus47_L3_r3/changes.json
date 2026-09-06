@@ -1,0 +1,31 @@
+{
+  "added": [
+    "runs/06fa98/code",
+    "runs/06fa98/code/common.py",
+    "runs/06fa98/code/forecast.py",
+    "runs/06fa98/code/lightgbm_features.py",
+    "runs/06fa98/code/naive.py",
+    "runs/06fa98/code/nbeats.py",
+    "runs/06fa98/code/patchtst.py",
+    "runs/06fa98/code/prophet.py",
+    "runs/06fa98/code/sarima.py",
+    "runs/06fa98/figures",
+    "runs/06fa98/figures/01_overview.png",
+    "runs/06fa98/figures/02_forecast_comparison.png",
+    "runs/06fa98/figures/03_metric_comparison.png",
+    "runs/06fa98/figures/04_per_day_mape.png",
+    "runs/06fa98/figures/05_winner_with_intervals.png",
+    "runs/06fa98/figures/06_residuals.png",
+    "runs/06fa98/figures/07_feature_importance.png",
+    "runs/06fa98/metrics.csv",
+    "runs/06fa98/metrics.json",
+    "runs/06fa98/transcript.md"
+  ],
+  "modified": [],
+  "deleted": [],
+  "counts": {
+    "added": 20,
+    "modified": 0,
+    "deleted": 0
+  }
+}

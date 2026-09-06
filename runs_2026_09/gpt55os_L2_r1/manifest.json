@@ -1,0 +1,17 @@
+[
+  {
+    "path": "forecast_de_load.py",
+    "bytes": 8749,
+    "sha256": "fd8899a5312b9932f464dca7c75338881eb1f50b31013cb88907c18cef4a0d4f"
+  },
+  {
+    "path": "forecast_de_load_jan2020.csv",
+    "bytes": 10307,
+    "sha256": "0d91aaf2da996a6359bd5895c165dbbe0968f2e9d237ef16498052ee64d09ef6"
+  },
+  {
+    "path": "forecast_de_load_jan2020.png",
+    "bytes": 235542,
+    "sha256": "cd44c6c762f39a8dbff42bd4d1d04cd2a3d7a29e39b756caeef22d4d760b4a02"
+  }
+]

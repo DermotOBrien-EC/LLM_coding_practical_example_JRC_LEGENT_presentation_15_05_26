@@ -1,0 +1,127 @@
+{
+  "test_start": "2020-01-01",
+  "test_end": "2020-01-07",
+  "n_test_observations": 168,
+  "models": [
+    {
+      "name": "naive",
+      "mape_test_pct": 12.780588824669476,
+      "rmse_test_mw": 8808.602996502907,
+      "mae_test_mw": 7237.976190476191,
+      "mape_jan1_pct": 6.51955384895017,
+      "mape_jan2_to_jan7_pct": 13.824094653956026,
+      "runtime_seconds": 0.001121750014135614,
+      "hyperparameters": {
+        "lag_hours": 168
+      }
+    },
+    {
+      "name": "sarima",
+      "mape_test_pct": 12.552533613077706,
+      "rmse_test_mw": 8440.904157397448,
+      "mae_test_mw": 7028.5050000664305,
+      "mape_jan1_pct": 9.710748810916918,
+      "mape_jan2_to_jan7_pct": 13.026164413437838,
+      "runtime_seconds": 647.7962797499786,
+      "hyperparameters": {
+        "order": [
+          3,
+          1,
+          1
+        ],
+        "seasonal_order": [
+          1,
+          1,
+          1,
+          24
+        ],
+        "validation_mape_pct": 11.756966579890761
+      }
+    },
+    {
+      "name": "prophet",
+      "mape_test_pct": 7.625201142487901,
+      "rmse_test_mw": 4894.368602634488,
+      "mae_test_mw": 3807.561902608717,
+      "mape_jan1_pct": 13.382130798527728,
+      "mape_jan2_to_jan7_pct": 6.665712866481263,
+      "runtime_seconds": 14.88046112502343,
+      "hyperparameters": {
+        "yearly_seasonality": true,
+        "weekly_seasonality": true,
+        "daily_seasonality": true,
+        "country_holidays": "DE",
+        "validation_mape_pct": 5.635830073898914
+      }
+    },
+    {
+      "name": "lightgbm",
+      "mape_test_pct": 4.447706997731814,
+      "rmse_test_mw": 3010.268239663823,
+      "mae_test_mw": 2400.4825669244215,
+      "mape_jan1_pct": 3.3276471596611734,
+      "mape_jan2_to_jan7_pct": 4.634383637410253,
+      "runtime_seconds": 144.73968412500108,
+      "hyperparameters": {
+        "n_estimators": 600,
+        "learning_rate": 0.05,
+        "num_leaves": 63,
+        "min_child_samples": 20,
+        "subsample": 0.9,
+        "subsample_freq": 1,
+        "colsample_bytree": 0.9,
+        "validation_mape_pct": 2.005241614739437
+      }
+    },
+    {
+      "name": "nbeats",
+      "mape_test_pct": 9.41636986615633,
+      "rmse_test_mw": 6119.943897789988,
+      "mae_test_mw": 4959.808705663997,
+      "mape_jan1_pct": 7.9744340110922245,
+      "mape_jan2_to_jan7_pct": 9.656692508667014,
+      "runtime_seconds": 49.10495958299725,
+      "hyperparameters": {
+        "input_chunk_length": 168,
+        "output_chunk_length": 168,
+        "n_epochs": 30,
+        "batch_size": 512,
+        "num_stacks": 2,
+        "num_blocks": 2,
+        "num_layers": 3,
+        "layer_widths": 128,
+        "dropout": 0.1,
+        "validation_mape_pct": 11.116612061995092
+      }
+    },
+    {
+      "name": "patchtst",
+      "mape_test_pct": 7.379522666005535,
+      "rmse_test_mw": 5279.886150989571,
+      "mae_test_mw": 4104.997461150695,
+      "mape_jan1_pct": 4.766443863455531,
+      "mape_jan2_to_jan7_pct": 7.815035799763869,
+      "runtime_seconds": 577.6918623329839,
+      "hyperparameters": {
+        "substituted_for": "PatchTSTModel (not exposed in installed darts 0.41.0)",
+        "model_class": "TSMixerModel",
+        "input_chunk_length": 168,
+        "output_chunk_length": 168,
+        "n_epochs": 15,
+        "batch_size": 512,
+        "hidden_size": 64,
+        "ff_size": 64,
+        "num_blocks": 2,
+        "dropout": 0.1,
+        "validation_mape_pct": 12.507126450766728
+      }
+    }
+  ],
+  "winner": "lightgbm",
+  "winner_coverage_80pct": 0.8095238095238095,
+  "winner_coverage_95pct": 0.8928571428571429,
+  "winner_pinball_loss_q10": 346.1366845522642,
+  "winner_pinball_loss_q50": 1200.2412834622107,
+  "winner_pinball_loss_q90": 353.1903799250994,
+  "total_runtime_seconds": 1439.3644829590048
+}

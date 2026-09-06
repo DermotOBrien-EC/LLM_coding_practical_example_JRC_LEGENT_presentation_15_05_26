@@ -1,0 +1,17 @@
+[
+  {
+    "path": "forecast.py",
+    "bytes": 5458,
+    "sha256": "bc7aa635daa1e509f0f663a08220825cb6e943092019369adf553fdf9b7d3513"
+  },
+  {
+    "path": "forecast_jan2020_week1.csv",
+    "bytes": 12308,
+    "sha256": "a8479bd058f1faab468acaa4079f4dbc28e38b2d12edd5f96f1fa27b70e2636e"
+  },
+  {
+    "path": "forecast_jan2020_week1.png",
+    "bytes": 156320,
+    "sha256": "6f03a523b7847cd5196c708869b4a3dc4c3ee5619d1d58e52ea117ade86fb20a"
+  }
+]

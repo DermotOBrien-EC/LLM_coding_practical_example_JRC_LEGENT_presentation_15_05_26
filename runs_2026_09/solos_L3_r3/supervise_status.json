@@ -1,0 +1,8 @@
+{
+  "child_exit": 143,
+  "exit": 124,
+  "timeout": true,
+  "stopped": false,
+  "group_survivors_after_kill": false,
+  "seconds": 10800.7
+}

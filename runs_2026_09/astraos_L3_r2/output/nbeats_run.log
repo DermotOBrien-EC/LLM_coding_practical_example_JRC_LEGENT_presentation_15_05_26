@@ -1,0 +1,38 @@
+START nbeats
+Seed set to 206
+/Users/doob/dev/energy_forecast_ws/206ebc/project/.venv/lib/python3.12/site-packages/pytorch_lightning/trainer/setup.py:177: GPU available but not used. You can set it by doing `Trainer(accelerator='gpu')`.
+/Users/doob/dev/energy_forecast_ws/206ebc/project/.venv/lib/python3.12/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+VALIDATION epoch=1 mape_pct=28.33212
+VALIDATION epoch=2 mape_pct=13.95062
+VALIDATION epoch=3 mape_pct=11.10585
+VALIDATION epoch=4 mape_pct=9.31423
+VALIDATION epoch=5 mape_pct=8.87133
+VALIDATION epoch=6 mape_pct=8.26199
+VALIDATION epoch=7 mape_pct=8.08989
+VALIDATION epoch=8 mape_pct=7.59386
+VALIDATION epoch=9 mape_pct=7.38368
+VALIDATION epoch=10 mape_pct=6.77736
+VALIDATION epoch=11 mape_pct=6.93554
+VALIDATION epoch=12 mape_pct=7.10563
+VALIDATION epoch=13 mape_pct=6.35495
+VALIDATION epoch=14 mape_pct=6.83421
+VALIDATION epoch=15 mape_pct=6.32119
+VALIDATION epoch=16 mape_pct=6.67116
+VALIDATION epoch=17 mape_pct=6.33948
+VALIDATION epoch=18 mape_pct=6.29468
+VALIDATION epoch=19 mape_pct=6.49138
+VALIDATION epoch=20 mape_pct=6.47161
+VALIDATION epoch=21 mape_pct=5.82015
+VALIDATION epoch=22 mape_pct=5.94734
+VALIDATION epoch=23 mape_pct=6.00352
+VALIDATION epoch=24 mape_pct=5.43657
+VALIDATION epoch=25 mape_pct=5.75592
+VALIDATION epoch=26 mape_pct=6.52595
+VALIDATION epoch=27 mape_pct=5.76797
+VALIDATION epoch=28 mape_pct=5.68031
+Seed set to 206
+/Users/doob/dev/energy_forecast_ws/206ebc/project/.venv/lib/python3.12/site-packages/pytorch_lightning/trainer/setup.py:177: GPU available but not used. You can set it by doing `Trainer(accelerator='gpu')`.
+/Users/doob/dev/energy_forecast_ws/206ebc/project/.venv/lib/python3.12/site-packages/pytorch_lightning/utilities/_pytree.py:21: `isinstance(treespec, LeafSpec)` is deprecated, use `isinstance(treespec, TreeSpec) and treespec.is_leaf()` instead.
+/Users/doob/dev/energy_forecast_ws/206ebc/project/.venv/lib/python3.12/site-packages/torch/utils/data/dataloader.py:775: UserWarning: 'pin_memory' argument is set as true but not supported on MPS now, device pinned memory won't be used.
+  super().__init__(loader)
+DONE nbeats seconds=67.08

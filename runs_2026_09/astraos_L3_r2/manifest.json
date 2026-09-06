@@ -1,0 +1,282 @@
+[
+  {
+    "path": ".cache/mplconfigdir/fontlist-v390.json",
+    "bytes": 125096,
+    "sha256": "ffdb7cbddf0c98f5336dbbfb59dcf92ee9f68b109b3b0a9c4d387ba7fffc2157"
+  },
+  {
+    "path": "artifacts/execution.json",
+    "bytes": 99,
+    "sha256": "92d9362b660a6467201cfe7c569290e5bc1d5f429d99715c7d5ebae58c45466f"
+  },
+  {
+    "path": "artifacts/lightgbm.json",
+    "bytes": 2279,
+    "sha256": "d78cc95018998dfb6d6cf3d3f55402e8e8ff59d48dcfb61bafe5fd15854ad0f7"
+  },
+  {
+    "path": "artifacts/lightgbm_forecast.csv",
+    "bytes": 21735,
+    "sha256": "ac52240fea13eb99fb03fb52dec03dbbeb23890d2163ce25bca67dd530824540"
+  },
+  {
+    "path": "artifacts/naive.json",
+    "bytes": 538,
+    "sha256": "ebbb299b287ea8674f99be0f468fa6d125717cbeedf2685f03002591183ecfe3"
+  },
+  {
+    "path": "artifacts/naive_forecast.csv",
+    "bytes": 4727,
+    "sha256": "9efc7adae53c56d23381222fe400c113c06694ae9b29d519aa51be11ca7515f9"
+  },
+  {
+    "path": "artifacts/nbeats.json",
+    "bytes": 3314,
+    "sha256": "e804f2ed593ca3eecdee0bc155601db8f6bab4dd2a19026e5a840d7266f60573"
+  },
+  {
+    "path": "artifacts/nbeats_forecast.csv",
+    "bytes": 19581,
+    "sha256": "7630d1ac4a2ce6fa2025ec24c6e5fdcd3c0d086bf83c16a9f157947065dda58c"
+  },
+  {
+    "path": "artifacts/patchtst.json",
+    "bytes": 3041,
+    "sha256": "65439a63b599ec0a83cbd8b8e4bff74a0004e21941aeaa1d7ab9f263fee8055f"
+  },
+  {
+    "path": "artifacts/patchtst_forecast.csv",
+    "bytes": 19547,
+    "sha256": "f94e87b51e90f7813372428549edcf9e02ab952562aeff7ac17047ab1193fde1"
+  },
+  {
+    "path": "artifacts/per_day_mape.csv",
+    "bytes": 905,
+    "sha256": "0efb4f1b763107c29051ecd3c19025eab4dac8572421a415bd19feab8bbec5cb"
+  },
+  {
+    "path": "artifacts/probabilistic_metrics.csv",
+    "bytes": 885,
+    "sha256": "dc35403346c512c52d3189e07bda1cc863b2079cf4efbf739a84bd6f871468ef"
+  },
+  {
+    "path": "artifacts/prophet.json",
+    "bytes": 1159,
+    "sha256": "e652bd55e2ac1601ae5862e6e93d50e4df2be5470df88f9c61077cbe24f74b58"
+  },
+  {
+    "path": "artifacts/prophet_forecast.csv",
+    "bytes": 21739,
+    "sha256": "4898dcccaa252063673fb18406da6b0d6538d30941e5a5d70bac04fd58bb4901"
+  },
+  {
+    "path": "artifacts/prophet_trend.csv",
+    "bytes": 53489,
+    "sha256": "3f3fdb35f35456115ee04329bbff204c18f24ca24dd6df28842c501cad634c27"
+  },
+  {
+    "path": "artifacts/prophet_weekly.csv",
+    "bytes": 6514,
+    "sha256": "c24b0b60f86235a6da4cfd37aa253d810de789a4ffca84cb25cf3309186d18c1"
+  },
+  {
+    "path": "artifacts/prophet_yearly.csv",
+    "bytes": 10983,
+    "sha256": "89d927563bb8edbd3988587fc82e25d804c87b6d16286bef400eedfbf2a7081d"
+  },
+  {
+    "path": "artifacts/provenance.json",
+    "bytes": 2882,
+    "sha256": "7db85b18d4d666f3c1b6e32156a2a63e0436cb68e7b25b077fe5ebb0a4172d40"
+  },
+  {
+    "path": "artifacts/review_record.md",
+    "bytes": 12671,
+    "sha256": "c9ce4bee0507a2d7d8806f5729a6c971a16ff119c600dfff2aff0f3f4f240c58"
+  },
+  {
+    "path": "artifacts/sarima.json",
+    "bytes": 1204,
+    "sha256": "928bde7ccf52eeae5450d4c027bcf766c792d05dc2288db6ca7cd7bab86c6f6e"
+  },
+  {
+    "path": "artifacts/sarima_forecast.csv",
+    "bytes": 21760,
+    "sha256": "1ee2f1098f1a402584fcfaaefeec32d4c242c58b4fc1b05409062e83610c61ef"
+  },
+  {
+    "path": "artifacts/verification.json",
+    "bytes": 901,
+    "sha256": "44bb6e6d41c7a5f5aeace4139197225ee91362c1ed037e4c2e59544d3710cc67"
+  },
+  {
+    "path": "code/__init__.py",
+    "bytes": 98,
+    "sha256": "95d136305d22fea62a868714ec3ffa8c8ef448499c5ae665b11bd13156610b7c"
+  },
+  {
+    "path": "code/common.py",
+    "bytes": 7918,
+    "sha256": "7d42cea63d8d9c7d248d43dfd2f2ccfd9b9d909b313c8dbb1b52cf199fb5f116"
+  },
+  {
+    "path": "code/forecast.py",
+    "bytes": 2253,
+    "sha256": "d89e9cc3200c9b54a1f443fe3235ab0ed46adb8a251c1c278d7d92b1d3dc4b11"
+  },
+  {
+    "path": "code/lightgbm_features.py",
+    "bytes": 7318,
+    "sha256": "d3630204a6c90b31840dc327319b4c737d859d91726f83ad0d0cf333228c91a2"
+  },
+  {
+    "path": "code/naive.py",
+    "bytes": 357,
+    "sha256": "b18dd02d79d576d431dee1bf47c6b7edf77f8ae17ac710c4c3b4d3336263e0b3"
+  },
+  {
+    "path": "code/nbeats.py",
+    "bytes": 206,
+    "sha256": "b2738a6b6b45562ef58e06ff8c63b9214f392c98235b048cb56e7702d406cccb"
+  },
+  {
+    "path": "code/neural.py",
+    "bytes": 7041,
+    "sha256": "76c81410562d8bc190c9b922f56966a5abb3e734e0459f5e69ce9179d0c83904"
+  },
+  {
+    "path": "code/patchtst.py",
+    "bytes": 208,
+    "sha256": "8f0ae827659b0f835a8295e6059974c2beb599793645d6cf87cf3483868f5c1a"
+  },
+  {
+    "path": "code/prophet.py",
+    "bytes": 2617,
+    "sha256": "cfdeeb5f39f850af44c32c28dca399dc716718b3824e7eda1693a1e8db35cdb0"
+  },
+  {
+    "path": "code/report.py",
+    "bytes": 25646,
+    "sha256": "c7961d06c844b9ea0d6d1b64b22b8165375d6a3d083041a6bc432f47fc6f6e59"
+  },
+  {
+    "path": "code/sarima.py",
+    "bytes": 3142,
+    "sha256": "54004cf155040ed06faf7c748dcb24e150be14bd3d2f97d559ab61d08eafe22a"
+  },
+  {
+    "path": "code/test_study.py",
+    "bytes": 2937,
+    "sha256": "46e517ba20c7a162590de18e689f70d3a64f50725634eb10cddcf1e49a7022a7"
+  },
+  {
+    "path": "code/verify_outputs.py",
+    "bytes": 5025,
+    "sha256": "67d80c3da6401e2381d3fbbe1c478af11d4f6ca4b823ebd39844e84eda4e1ea8"
+  },
+  {
+    "path": "figures/01_overview.png",
+    "bytes": 243654,
+    "sha256": "813e984b1bf02959eb2240b5b87a384cded4a336ebb73fbd497a64849b315eae"
+  },
+  {
+    "path": "figures/02_forecast_comparison.png",
+    "bytes": 610669,
+    "sha256": "572f9913c634119887348da92e9e5da27855fd20ad472573e675161d6bc151aa"
+  },
+  {
+    "path": "figures/03_metric_comparison.png",
+    "bytes": 180461,
+    "sha256": "f15aa73cb31028a660a722c082d569af306ac60c4d4452293cb06aa51e39f952"
+  },
+  {
+    "path": "figures/04_per_day_mape.png",
+    "bytes": 176866,
+    "sha256": "a9fc6584ca9017655807133e4aa78fe89126ec188f97281122cd824fe9845e69"
+  },
+  {
+    "path": "figures/05_winner_with_intervals.png",
+    "bytes": 722092,
+    "sha256": "11c315e7f805cdafbf5654c2842e7266a5314926175f0529cf44469cfa858076"
+  },
+  {
+    "path": "figures/06_residuals.png",
+    "bytes": 169846,
+    "sha256": "24a79943db495057edbd8b007df8a3011ab0b273ba2f13135d8bb9b362aa213e"
+  },
+  {
+    "path": "figures/07_feature_importance.png",
+    "bytes": 109951,
+    "sha256": "f22a0f8b5d754e43063c63378bafe3820af5ee6d726a6a22a618b6fe94541b6e"
+  },
+  {
+    "path": "figures/08_decomposition.png",
+    "bytes": 274194,
+    "sha256": "677712a813576de584c58e4325dc50f94be8ee9abb28e89c13808b4f96cc1d55"
+  },
+  {
+    "path": "lightgbm_run.log",
+    "bytes": 43,
+    "sha256": "88c65b966622e7b274cfb00d108696ba5597e11338b93a4ef987db55a6ada9d8"
+  },
+  {
+    "path": "metrics.csv",
+    "bytes": 4572,
+    "sha256": "498b68096301d30565f2a94cd0428aea396b98b38cdb0fe4be0bbe9bfded54ea"
+  },
+  {
+    "path": "metrics.json",
+    "bytes": 5702,
+    "sha256": "fd0b7c778133ef6f0a2d5b9e6eceecd6abd98d2aac7221c18a08c1712416ddfd"
+  },
+  {
+    "path": "mypy_check.log",
+    "bytes": 348,
+    "sha256": "9b3f2f064d2f3fae13a63947fc2ef9d73b3b5a23f48b2521703c3af873fb4a2b"
+  },
+  {
+    "path": "nbeats_run.log",
+    "bytes": 2269,
+    "sha256": "4956ffb04ba478057f427690375f8b60eb3792de7c29737f824e153bcd2eb5d6"
+  },
+  {
+    "path": "patchtst_run.log",
+    "bytes": 2750,
+    "sha256": "ae81cd9f026ad7f200fc2272bec9e3bbb9053ff1827a09772f06dcf85b451f0f"
+  },
+  {
+    "path": "prophet_retry.log",
+    "bytes": 41,
+    "sha256": "d1f060a15956b90dcabdb5c6fa0ba0557b7dfb7841c6f50b95a3c01fc8280bc5"
+  },
+  {
+    "path": "prophet_run.log",
+    "bytes": 1348,
+    "sha256": "76af8f148a909e0b6435938aacf359735c28503a854d15d30366a043add0104f"
+  },
+  {
+    "path": "report_refresh.log",
+    "bytes": 794,
+    "sha256": "f149bbeafac57d70975b45c18b8ec2f010cc51ddb9144287c34618694ec775e5"
+  },
+  {
+    "path": "reproduction_run.log",
+    "bytes": 6242,
+    "sha256": "62d7fd000edd1e696e00c9be628480ae68bdf5c4b17418711699c027cdd5105c"
+  },
+  {
+    "path": "sarima_retry.log",
+    "bytes": 574,
+    "sha256": "f2bdf81edaff349e53e5f3833e6b1e83c241f6a266c6dc5bc14b3f8d11101351"
+  },
+  {
+    "path": "sarima_run.log",
+    "bytes": 1194,
+    "sha256": "770b461113a58a568e034fab743a24e7288849bf8f74e9ddae34475eb9eacb6d"
+  },
+  {
+    "path": "transcript.md",
+    "bytes": 7999,
+    "sha256": "683429cb19d128505bf5b41b2c2a782aea90be46c5f81629cad17b7e69178c76"
+  }
+]

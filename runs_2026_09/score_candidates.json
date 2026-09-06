@@ -2983,8 +2983,19 @@
   },
   "opus47_L3_r3": {
     "candidates": [],
-    "metrics_json": null,
-    "note": "no output/ dir"
+    "metrics_json": {
+      "winner": "lightgbm",
+      "models": {
+        "naive": 12.780588824669476,
+        "sarima": 12.552533613077706,
+        "prophet": 7.625201142487901,
+        "lightgbm": 4.447706997731814,
+        "nbeats": 9.41636986615633,
+        "patchtst": 7.379522666005535
+      },
+      "coverage_80": 0.8095238095238095,
+      "coverage_95": 0.8928571428571429
+    }
   },
   "opus48_L1_r1": {
     "candidates": [

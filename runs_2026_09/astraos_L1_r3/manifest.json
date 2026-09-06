@@ -1,0 +1,67 @@
+[
+  {
+    "path": "backtest_metrics.csv",
+    "bytes": 4738,
+    "sha256": "78af813d3e9c43b6a95f58c92963c0f02e6f3790fb64285e41a1447ee2ca029a"
+  },
+  {
+    "path": "backtest_predictions.csv",
+    "bytes": 838061,
+    "sha256": "7157dd3032282040c108ae8c2e230e4ea98a4f1d3923ff0851ecc21706d7aa3e"
+  },
+  {
+    "path": "daily_summary.csv",
+    "bytes": 425,
+    "sha256": "4061700352dff433961a1cdde5e055a4d81797b766810abcbb977a1580ab5992"
+  },
+  {
+    "path": "forecast.csv",
+    "bytes": 5911,
+    "sha256": "8f7b23e8af8f78d39bdc9b7b49c40b9be555b8c627e4aad9df4e8e104c5c4232"
+  },
+  {
+    "path": "forecast_load.py",
+    "bytes": 21323,
+    "sha256": "4df217e4253b7882ea9a1635b0b7a64b8f098a47734631cd6d262a898ceb418e"
+  },
+  {
+    "path": "forecast_report.md",
+    "bytes": 8115,
+    "sha256": "d18f825fd931483a4bc4ded45ecad456b1099eff2dbc30589988769ccad4776c"
+  },
+  {
+    "path": "plan_review.md",
+    "bytes": 8222,
+    "sha256": "505e7191725d26da1b36c6dc5130c4d27a0d08b5725471bbb0036b116a514ba7"
+  },
+  {
+    "path": "review_followup.md",
+    "bytes": 2684,
+    "sha256": "37b6489d7da144e7593bb1e647df4655e732a05a8cc7dbcde90d727a5b4a6ab1"
+  },
+  {
+    "path": "run_metadata.json",
+    "bytes": 1749,
+    "sha256": "6c7a84a3e58fb386a621e1f08bd76bc41f6090a465477df43b6dd75ac81daeb4"
+  },
+  {
+    "path": "test_forecast_load.py",
+    "bytes": 4357,
+    "sha256": "9a088c0166f191689fbca9d81928bedb49540bc31abbfa887ab54caf94801bb7"
+  },
+  {
+    "path": "verification.md",
+    "bytes": 9217,
+    "sha256": "6b111307b44404b7e24eed42e9a989a6f1d8a138e14c6cac2a428e37411f67f9"
+  },
+  {
+    "path": "[outside] verify_scratch/verify.py",
+    "bytes": 5617,
+    "sha256": "1e4dfb2fe1f047491d012d334d4c1c77aa5d5dbb5a27151afa52e6a1f4cf5367"
+  },
+  {
+    "path": "[outside] verify_scratch/verify2.py",
+    "bytes": 1340,
+    "sha256": "87ff05a07e8b1f29b242fedb91f1b1b613a7986e0d976ae4d57bf8c9657497b1"
+  }
+]

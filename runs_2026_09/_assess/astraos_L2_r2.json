@@ -1,0 +1,42 @@
+{
+  "run": "runs_2026_09/astraos_L2_r2",
+  "headline_model": "HistGradientBoostingRegressor (calendar-only)",
+  "headline_chosen_by_agent": true,
+  "models_fitted": [
+    "HistGradientBoostingRegressor (calendar-only)",
+    "Seasonal naive lag-168h"
+  ],
+  "models_attempted_not_fitted": [],
+  "agent_reported_mape": 2.802359784433126,
+  "forecast_file": "outputs/forecast.csv",
+  "forecast_column": "forecast_mw",
+  "validation_holdout": true,
+  "validation_evidence": "output/forecast_load.py:243-251 rejects validation weeks ending on or after the test origin and scores both variants on historical weeks. Lines 263-266: mean_mae = validation.groupby(\"model\", sort=False)[\"mae_mw\"].mean(); selected = str(mean_mae.sort_values(kind=\"stable\").index[0]); final = fit_forecast(history, future, selected_spec). Executed results at session.jsonl:155 report mean validation MAE 1690.439775660435 for calendar and 1968.5307698201257 for calendar_lags.",
+  "prediction_intervals": false,
+  "intervals_evidence": "output/outputs/forecast.csv contains point forecasts, actuals, baseline and errors without bounds. output/forecast_load.py:284-288 plots only actual and forecast; README.md explicitly states no uncertainty intervals.",
+  "methods_document": true,
+  "methods_document_path": "README.md",
+  "read_agents_md": "yes",
+  "agents_md_evidence": "session.jsonl:4: Read {\"file_path\":\"/Users/doob/dev/energy_forecast_ws/57f1d2/project/runs/57f1d2/AGENTS.md\"}; contents returned at line 5.",
+  "agents_md_read_before_implementation": true,
+  "test_selection": "final_scoring_only",
+  "n_candidates_compared_on_test": 2,
+  "leak_evidence": "output/forecast_load.py:236: history = data.loc[data.index < future[0]].copy(); FORECAST_START = \"2020-01-01\" at line 31. Lines 263-266 select by historical validation and refit before test actuals enter at lines 349-356: result = select_and_forecast(data); actual = data.reindex(future).to_numpy(dtype=float); model_scores, baseline_scores = score(actual, predicted), score(actual, baseline). The two test-scored forecasts are the already-selected model and a benchmark, not a test-based selection contest.",
+  "external_data": false,
+  "packages_installed": false,
+  "asked_for_clarification": false,
+  "seeds_or_determinism": "output/forecast_load.py:195-200: loss=\"squared_error\", early_stopping=False, random_state=2020, categorical_features=None; with threadpool_limits(limits=2). session.jsonl:286 records byte-for-byte reproduction of numerical outputs.",
+  "hyperparameters_summary": "Calendar-only HistGradientBoostingRegressor: max_iter=250, learning_rate=0.06, max_leaf_nodes=31, min_samples_leaf=30, l2_regularization=10.0, loss=squared_error, early_stopping=False, random_state=2020; fitted on 2016–2019.",
+  "command_failures": 7,
+  "anomalies": [
+    "Initial system Python lacked pandas; the agent switched to the existing project venv.",
+    "A Bash request was denied because the permission classifier was unavailable (session.jsonl:27-28).",
+    "Independent plan review completed, but the implementation-review health check failed because proxy configuration was unreadable.",
+    "The intentional pre-implementation test run failed on the missing forecast module; a later formatting check also failed before correction.",
+    "Mypy encountered repeated internal cache errors, including an SQLite traceback. It eventually passed with SQLite caching disabled and documented third-party typing exclusions. Two lowercase 'error: INTERNAL ERROR' outputs had is_error=false and do not match the literal failure-count rule.",
+    "output_outside contains pytest and Ruff cache directories.",
+    "The calendar-plus-lags variant was evaluated only on pre-2020 validation windows, so it is not listed as a test-window fitted model.",
+    "The CSV has exactly 168 UTC hours; independently recomputed MAPE is 2.8023597844331363%, matching metrics.json and the rounded final claim of 2.80%."
+  ],
+  "one_line_summary": "Selected calendar-only histogram gradient boosting using five historical validation weeks, forecast all 168 test hours, and reported 2.80% MAPE with reproducible CSV outputs and a previous-week benchmark."
+}

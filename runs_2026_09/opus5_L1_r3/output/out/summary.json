@@ -1,0 +1,96 @@
+{
+  "primary_config": {
+    "weather": true,
+    "window": 30,
+    "alpha": 0.3,
+    "lc": false,
+    "run_feat": false
+  },
+  "posthoc_config": {
+    "weather": true,
+    "window": null,
+    "alpha": 1.0,
+    "lc": true,
+    "run_feat": true
+  },
+  "alt_config": {
+    "weather": true,
+    "window": null,
+    "alpha": 1.0,
+    "lc": true,
+    "run_feat": false
+  },
+  "posthoc_w30_config": {
+    "weather": true,
+    "window": 30,
+    "alpha": 0.3,
+    "lc": false,
+    "run_feat": true
+  },
+  "metrics_2020": {
+    "primary (selected)": {
+      "n_hours": 168.0,
+      "MAPE_%": 5.349080900577314,
+      "MAE_MW": 2872.5671935867044,
+      "RMSE_MW": 3456.3342690927093,
+      "bias_MW": 2829.082411231533,
+      "peak_MAPE_%": 6.06029119502805
+    },
+    "alt full-history": {
+      "n_hours": 168.0,
+      "MAPE_%": 2.9526106012950826,
+      "MAE_MW": 1607.7090409801854,
+      "RMSE_MW": 2080.807932968106,
+      "bias_MW": 444.9660397553603,
+      "peak_MAPE_%": 3.377263249237916
+    },
+    "posthoc_runfeat": {
+      "n_hours": 168.0,
+      "MAPE_%": 2.251261194841969,
+      "MAE_MW": 1210.0809092902182,
+      "RMSE_MW": 1455.6775273254036,
+      "bias_MW": -102.61568735866153,
+      "peak_MAPE_%": 2.6058591874357404
+    },
+    "posthoc_runfeat_w30": {
+      "n_hours": 168.0,
+      "MAPE_%": 4.196124544418955,
+      "MAE_MW": 2258.2600059913693,
+      "RMSE_MW": 2553.326777646569,
+      "bias_MW": 2213.129129150301,
+      "peak_MAPE_%": 4.851230624990358
+    },
+    "naive_lag168": {
+      "n_hours": 168.0,
+      "MAPE_%": 12.688515024216496,
+      "MAE_MW": 7186.875,
+      "RMSE_MW": 8773.338931441802,
+      "bias_MW": -6857.422619047619,
+      "peak_MAPE_%": 11.851410380345685
+    },
+    "analog_3y": {
+      "n_hours": 168.0,
+      "MAPE_%": 10.157662884319342,
+      "MAE_MW": 5518.07896455323,
+      "RMSE_MW": 6739.590764324408,
+      "bias_MW": 1680.951829284237,
+      "peak_MAPE_%": 9.449678801670448
+    }
+  },
+  "pi80_coverage_pct": {
+    "newyear_cal": 27.976190476190478,
+    "winter_cal": 30.357142857142854
+  },
+  "weather_sensitivity_MAPE": {
+    "count": 60.0,
+    "mean": 5.458160823883172,
+    "std": 0.4159143422893694,
+    "min": 4.786202313524298,
+    "25%": 5.1690840419183255,
+    "50%": 5.364294937601031,
+    "75%": 5.694919572914245,
+    "max": 6.433188377711124
+  },
+  "forecast_total_GWh": 9436.076845086898,
+  "actual_total_GWh": 8960.791
+}

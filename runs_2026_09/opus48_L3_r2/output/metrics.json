@@ -1,0 +1,114 @@
+{
+  "test_start": "2020-01-01",
+  "test_end": "2020-01-07",
+  "n_test_observations": 168,
+  "models": [
+    {
+      "name": "lightgbm",
+      "mape_test_pct": 4.6115,
+      "rmse_test_mw": 3093.6988,
+      "mae_test_mw": 2486.5466,
+      "mape_jan1_pct": 2.7696,
+      "mape_jan2_to_jan7_pct": 4.9185,
+      "runtime_seconds": 146.8,
+      "hyperparameters": {
+        "n_estimators": 400,
+        "num_leaves": 31,
+        "learning_rate": 0.05
+      }
+    },
+    {
+      "name": "prophet",
+      "mape_test_pct": 7.6628,
+      "rmse_test_mw": 4888.4114,
+      "mae_test_mw": 3821.8787,
+      "mape_jan1_pct": 13.4287,
+      "mape_jan2_to_jan7_pct": 6.7018,
+      "runtime_seconds": 51.0,
+      "hyperparameters": {
+        "seasonality_mode": "additive",
+        "changepoint_prior_scale": 0.05
+      }
+    },
+    {
+      "name": "nbeats",
+      "mape_test_pct": 9.8647,
+      "rmse_test_mw": 6690.9557,
+      "mae_test_mw": 5390.8885,
+      "mape_jan1_pct": 10.9431,
+      "mape_jan2_to_jan7_pct": 9.685,
+      "runtime_seconds": 53.06,
+      "hyperparameters": {
+        "input_chunk_length": 168,
+        "output_chunk_length": 168,
+        "max_epochs": 20,
+        "selected_epochs": 3,
+        "early_stopping_patience": 5,
+        "batch_size": 1024,
+        "accelerator": "mps"
+      }
+    },
+    {
+      "name": "patchtst",
+      "mape_test_pct": 11.5478,
+      "rmse_test_mw": 8612.8317,
+      "mae_test_mw": 6729.2667,
+      "mape_jan1_pct": 5.5204,
+      "mape_jan2_to_jan7_pct": 12.5524,
+      "runtime_seconds": 42.5,
+      "hyperparameters": {
+        "input_chunk_length": 168,
+        "output_chunk_length": 168,
+        "max_epochs": 20,
+        "selected_epochs": 3,
+        "early_stopping_patience": 5,
+        "batch_size": 1024,
+        "accelerator": "mps",
+        "actual_model": "TSMixerModel",
+        "substitution_reason": "darts 0.41.0 does not expose PatchTSTModel"
+      }
+    },
+    {
+      "name": "naive",
+      "mape_test_pct": 12.7806,
+      "rmse_test_mw": 8808.603,
+      "mae_test_mw": 7237.9762,
+      "mape_jan1_pct": 6.5196,
+      "mape_jan2_to_jan7_pct": 13.8241,
+      "runtime_seconds": 0.0,
+      "hyperparameters": {
+        "lag_hours": 168
+      }
+    },
+    {
+      "name": "sarima",
+      "mape_test_pct": 12.8715,
+      "rmse_test_mw": 8835.3758,
+      "mae_test_mw": 7292.1328,
+      "mape_jan1_pct": 8.4531,
+      "mape_jan2_to_jan7_pct": 13.6079,
+      "runtime_seconds": 37.85,
+      "hyperparameters": {
+        "order": [
+          2,
+          1,
+          1
+        ],
+        "seasonal_order": [
+          0,
+          1,
+          1,
+          24
+        ],
+        "train_window_hours": 2160
+      }
+    }
+  ],
+  "winner": "lightgbm",
+  "winner_coverage_80pct": 0.7679,
+  "winner_coverage_95pct": 0.9643,
+  "winner_pinball_loss_q10": 419.5969,
+  "winner_pinball_loss_q50": 1065.2347,
+  "winner_pinball_loss_q90": 367.659,
+  "total_runtime_seconds": 331.23
+}

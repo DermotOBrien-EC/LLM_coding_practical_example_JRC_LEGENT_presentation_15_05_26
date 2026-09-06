@@ -1,0 +1,83 @@
+{
+  "cutoff_exclusive_utc": "2020-01-01T00:00:00+00:00",
+  "forecast_hours": 168,
+  "training_rows": 43824,
+  "training_last_utc": "2019-12-31T23:00:00+00:00",
+  "input_sha256": "2f20c7560c962c7b5804b1854243c1b27ecd6358e24951238e12ae4336fa529c",
+  "selected_model": "equal_blend",
+  "selection_metric": "mean January 2017/2018/2019 MAE only",
+  "folds": [
+    {
+      "start": "2017-01-01",
+      "kind": "new_year"
+    },
+    {
+      "start": "2018-01-01",
+      "kind": "new_year"
+    },
+    {
+      "start": "2019-01-01",
+      "kind": "new_year"
+    },
+    {
+      "start": "2019-10-09",
+      "kind": "robustness"
+    },
+    {
+      "start": "2019-11-06",
+      "kind": "robustness"
+    },
+    {
+      "start": "2019-12-04",
+      "kind": "robustness"
+    },
+    {
+      "start": "2019-12-18",
+      "kind": "robustness"
+    },
+    {
+      "start": "2019-12-25",
+      "kind": "robustness"
+    }
+  ],
+  "lags_hours": [
+    168,
+    336,
+    504,
+    672,
+    8736,
+    8760,
+    8784
+  ],
+  "training_half_life_days": 730,
+  "lightgbm_parameters": {
+    "boosting_type": "gbdt",
+    "class_weight": null,
+    "colsample_bytree": 0.9,
+    "importance_type": "split",
+    "learning_rate": 0.035,
+    "max_depth": -1,
+    "min_child_samples": 24,
+    "min_child_weight": 0.001,
+    "min_split_gain": 0.0,
+    "n_estimators": 650,
+    "n_jobs": 2,
+    "num_leaves": 31,
+    "objective": "regression",
+    "random_state": 2020,
+    "reg_alpha": 0.0,
+    "reg_lambda": 20.0,
+    "subsample": 1.0,
+    "subsample_for_bin": 200000,
+    "subsample_freq": 0,
+    "deterministic": true,
+    "force_col_wise": true,
+    "verbosity": -1
+  },
+  "versions": {
+    "numpy": "2.4.4",
+    "pandas": "2.3.3",
+    "lightgbm": "4.6.0",
+    "holidays": "0.96"
+  }
+}

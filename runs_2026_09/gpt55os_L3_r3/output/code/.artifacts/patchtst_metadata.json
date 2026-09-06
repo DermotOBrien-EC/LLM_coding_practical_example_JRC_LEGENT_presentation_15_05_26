@@ -1,0 +1,17 @@
+{
+  "name": "patchtst",
+  "runtime_seconds": 156.62562504201196,
+  "hyperparameters": {
+    "hidden_size": 32,
+    "ff_size": 32,
+    "num_blocks": 1,
+    "dropout": 0.1,
+    "validation_mape_pct": 11.187587842829991,
+    "epochs": 12,
+    "early_stopping_patience": 3,
+    "substitution": "PatchTSTModel is not exposed by darts 0.41.0, so TSMixerModel is used as the transformer-family univariate substitute requested in the prompt."
+  },
+  "notes": [
+    "PatchTSTModel is not exposed by darts 0.41.0, so TSMixerModel is used as the transformer-family univariate substitute requested in the prompt."
+  ]
+}

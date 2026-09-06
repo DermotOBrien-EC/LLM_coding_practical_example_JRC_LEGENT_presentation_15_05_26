@@ -1,0 +1,17 @@
+START sarima
+Traceback (most recent call last):
+  File "/Users/doob/dev/energy_forecast_ws/206ebc/project/runs/206ebc/code/forecast.py", line 49, in <module>
+    main()
+  File "/Users/doob/dev/energy_forecast_ws/206ebc/project/runs/206ebc/code/forecast.py", line 37, in main
+    result = module.run(pretest)
+             ^^^^^^^^^^^^^^^^^^^
+  File "/Users/doob/dev/energy_forecast_ws/206ebc/project/runs/206ebc/code/sarima.py", line 36, in run
+    result = result.extend(target / 1000, exog=weekly_terms(target.index))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/doob/dev/energy_forecast_ws/206ebc/project/.venv/lib/python3.12/site-packages/statsmodels/tsa/statespace/sarimax.py", line 1894, in extend
+    return super().extend(endog, exog=exog, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/doob/dev/energy_forecast_ws/206ebc/project/.venv/lib/python3.12/site-packages/statsmodels/tsa/statespace/mlemodel.py", line 4450, in extend
+    mod.k_states, 'known', constant=self.predicted_state[..., -1],
+                                    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+TypeError: 'NoneType' object is not subscriptable

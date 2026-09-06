@@ -128,7 +128,13 @@ def build_figure(results: list[dict[str, object]], ref: dict[str, float], tags: 
         hollow = str(r.get("source")) != "recomputed"
         incomplete = bool(sc.get("status_note"))
         # a headline that read the test week's own loads (DESIGN.md 5.2) is drawn like May's L3
-        leaked = sc.get("test_selection") == "leaked" and str(sc.get("leak_scope", "")).startswith("headline")
+        # the dagger marks one mechanism only: the winner's own inputs contain
+        # test-week observations, so that number measures an easier task. Other
+        # leak scopes (a selection sweep, a probe, a labelled supplement) are
+        # recorded per run in scoring.json, not on the figure.
+        scope = str(sc.get("leak_scope", ""))
+        leaked = sc.get("test_selection") == "leaked" and scope.startswith("headline") and (
+            "reads test-week actuals" in scope or "the winning forecast" in scope)
         open_faced = hollow or incomplete or leaked or tag in ONESHOT_TAGS
         ax.scatter(x, v, marker=mk, s=110, zorder=3,
                    facecolors="white" if open_faced else col, edgecolors=col, linewidths=1.8,
@@ -153,7 +159,12 @@ def build_figure(results: list[dict[str, object]], ref: dict[str, float], tags: 
 
 
 OUT_FIG2 = RUNS / "figures" / "exp-extension-outcomes.png"
+# The outcomes grid answers one question, from Extension A: under the frozen
+# prompt, how did each session end? It therefore shows the twelve runs of
+# section 2 and the 27 of section 11, and nothing from the later extensions.
 OUTCOME_ORDER = ["fable51", "opus5", "astra", "sol", "gpt55"]
+OUTCOME_RUNS = {"fable51": (1, 2, 3), "opus5": (1,), "astra": (1, 2, 3),
+                "sol": (1, 2, 3), "gpt55": (1, 2, 3)}
 
 
 def outcome_of(run: str, scoring: dict[str, dict[str, object]], results: dict[str, dict[str, object]]) -> str:
@@ -183,14 +194,16 @@ def build_outcomes_figure(results: list[dict[str, object]]) -> None:
     fig, ax = plt.subplots(figsize=(11, 3.9))
     for yi, tag in enumerate(rows):
         for xi, lvl in enumerate(LEVELS):
-            reps = sorted(int(r.get("rep") or 1) for r in results if str(r["model_tag"]) == tag and str(r["level"]) == lvl)
+            reps = sorted(int(r.get("rep") or 1) for r in results if str(r["model_tag"]) == tag
+                          and str(r["level"]) == lvl and int(r.get("rep") or 1) in OUTCOME_RUNS[tag])
             for k, rep in enumerate(reps):
                 run = f"{tag}_{lvl}_r{rep}"
                 oc = outcome_of(run, scoring, by_run)
                 x = xi * 3.6 + k
                 ax.add_patch(plt.Rectangle((x, yi), 0.9, 0.9, color=colours[oc]))
                 mape = by_run[run].get("mape_pct")
-                txt = f"{float(mape):.1f}" if mape not in (None, "") else ("?" if oc == "asked" else "plan")  # type: ignore[arg-type]
+                txt = (f"{float(mape):.1f}" if mape not in (None, "")  # type: ignore[arg-type]
+                       else {"asked": "?", "plan": "plan"}.get(oc, "cut short"))
                 if oc == "forecast" or oc == "incomplete":
                     sc = scoring.get(run, {})
                     if sc.get("test_selection") == "leaked" and str(sc.get("leak_scope", "")).startswith("headline"):
@@ -243,14 +256,24 @@ def build_table(results: list[dict[str, object]]) -> None:
             audit += f" ({sc.get('n_candidates', '?')})"
         elif audit == "leaked":
             scope = str(sc.get("leak_scope", ""))
-            if scope.startswith("supplement"):
-                audit += " (supplement only; headline clean)"
-            elif scope.startswith("selection"):
-                audit += " (selection stage; headline features clean)"
-            elif scope.startswith("intermediate"):
-                audit += " (intermediate file only; final forecast clean)"
-            elif scope.startswith("headline"):
-                audit += " (headline)"
+            label = next((lab for pre, lab in (
+                ("supplement", "supplement only; headline clean"),
+                ("selection stage", "selection stage; headline features clean"),
+                ("selection and design", "selection and design; the fit itself is clean"),
+                ("selection, design and external", "selection, design and an external input"),
+                ("design stage", "design stage; the fit itself is clean"),
+                ("feature selection", "feature selection on the target week"),
+                ("intermediate", "intermediate file only; final forecast clean"),
+                ("exploration", "exploration only; no forecast delivered"),
+                ("exploratory", "exploratory fits only; headline clean"),
+                ("robustness", "robustness probes only; headline clean"),
+                ("a non-winning", "a losing model repaired after its test score"),
+                ("design after scoring", "features added after reading a test score"),
+                ("headline and tuning", "headline inputs, and tuning after a test score"),
+                ("headline", "headline inputs"),
+            ) if scope.startswith(pre)), None)
+            if label:
+                audit += f" ({label})"
         agents = str(sm.get("agents_md_read", "?"))
         if agents.startswith("n/a"):
             agents = "n/a"
@@ -267,10 +290,12 @@ def build_table(results: list[dict[str, object]]) -> None:
 
 
 CLAUDE_FOOT = (
-    "Hollow marker with * = session ended before the agent's final step, scored on the forecast it had written.\n"
-    "† = the LightGBM winner read the test week's own actual loads through its rolling features from the 2nd hour and its\n"
-    "24 h lag from the 2nd day; the other September L3 forecasts are recursive week-ahead forecasts. Opus 4.7, 4.8 and\n"
-    "Opus 5 runs 2 and 3 are Extension C (DESIGN.md section 13); one May 2026 run per level is the reference point.")
+    "Hollow marker with * = the session ended before the agent's final step; the number is the forecast it had written.\n"
+    "† = the winner's own inputs contain test-week observations (24 h lag from the 2nd day, rolling features from the 2nd\n"
+    "hour), so that number measures an easier task than the recursive week-ahead forecasts beside it. Other uses of the\n"
+    "test week, in selection sweeps, probes and labelled supplements, are recorded per run in scoring.json, not here.\n"
+    "Numbers with no forecast file on disk are the agent's own (RESULTS_table.md marks them). Opus 4.7, 4.8 and Opus 5\n"
+    "runs 2 and 3 are Extension C (DESIGN.md section 13); one May 2026 run per level is the reference point.")
 OPENAI_FOOT = (
     "Filled = the frozen prompt (Extension A). Open = the same prompt plus a one-paragraph note that nobody can answer a\n"
     "question and the job must be finished in the session (Extension B, DESIGN.md section 12). A missing marker is a run\n"

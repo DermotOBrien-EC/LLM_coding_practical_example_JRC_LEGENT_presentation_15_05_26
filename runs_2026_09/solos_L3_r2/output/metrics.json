@@ -1,0 +1,188 @@
+{
+  "test_start": "2020-01-01",
+  "test_end": "2020-01-07",
+  "n_test_observations": 168,
+  "models": [
+    {
+      "name": "naive",
+      "mape_test_pct": 12.780588824669476,
+      "rmse_test_mw": 8808.602996502907,
+      "mae_test_mw": 7237.976190476191,
+      "mape_jan1_pct": 6.51955384895017,
+      "mape_jan2_to_jan7_pct": 13.824094653956026,
+      "runtime_seconds": 0.0008757920004427433,
+      "hyperparameters": {
+        "seasonal_lag_hours": 168
+      }
+    },
+    {
+      "name": "sarima",
+      "mape_test_pct": 12.218679146904798,
+      "rmse_test_mw": 8584.124655865708,
+      "mae_test_mw": 6974.32658679364,
+      "mape_jan1_pct": 5.222636356981175,
+      "mape_jan2_to_jan7_pct": 13.384686278558739,
+      "runtime_seconds": 3.575921334006125,
+      "hyperparameters": {
+        "order": [
+          168,
+          0,
+          0
+        ],
+        "seasonal_order": [
+          0,
+          1,
+          0,
+          24
+        ],
+        "estimator": "Burg conditional AR fit after explicit daily differencing",
+        "candidate_ar_orders": [
+          1,
+          24,
+          168
+        ],
+        "candidate_validation_mape_pct": {
+          "p=1": 17.976129673785817,
+          "p=24": 11.963653410986632,
+          "p=168": 9.187300364719778
+        },
+        "probabilistic_paths": 2000,
+        "interval_method": "Gaussian AR innovation simulation"
+      }
+    },
+    {
+      "name": "prophet",
+      "mape_test_pct": 7.613812590065695,
+      "rmse_test_mw": 4878.173143029159,
+      "mae_test_mw": 3798.0410428967352,
+      "mape_jan1_pct": 13.275147650804811,
+      "mape_jan2_to_jan7_pct": 6.670256746609178,
+      "runtime_seconds": 47.079549000016414,
+      "hyperparameters": {
+        "country_holidays": "DE",
+        "daily_seasonality": true,
+        "weekly_seasonality": true,
+        "yearly_seasonality": true,
+        "changepoint_prior_scale": 0.05,
+        "seasonality_mode": "additive",
+        "seasonality_prior_scale": 10.0,
+        "holidays_prior_scale": 10.0,
+        "candidate_validation_mape_pct": {
+          "cps=0.05,mode=additive": 5.635830073898914,
+          "cps=0.2,mode=additive": 5.719687607491421,
+          "cps=0.05,mode=multiplicative": 5.6716928343894715
+        },
+        "probabilistic_samples": 1000
+      }
+    },
+    {
+      "name": "lightgbm",
+      "mape_test_pct": 5.1053797189584,
+      "rmse_test_mw": 3676.657692829482,
+      "mae_test_mw": 2768.3079336914207,
+      "mape_jan1_pct": 4.4978085919722774,
+      "mape_jan2_to_jan7_pct": 5.206641573456086,
+      "runtime_seconds": 68.14351970801363,
+      "hyperparameters": {
+        "n_estimators": 700,
+        "learning_rate": 0.03,
+        "num_leaves": 63,
+        "min_child_samples": 30,
+        "subsample": 0.9,
+        "colsample_bytree": 0.9,
+        "reg_lambda": 0.5,
+        "objective": "regression_l1",
+        "annual_lag_hours": 8736,
+        "rolling_features_use_prior_values_only": true,
+        "validation_and_test_forecasts_are_recursive": true,
+        "candidate_validation_mape_pct": {
+          "leaves=31,trees=500,lr=0.05": 4.821400240555215,
+          "leaves=63,trees=700,lr=0.03": 4.296342682273787,
+          "leaves=15,trees=400,lr=0.05": 5.290380625602336
+        },
+        "quantile_objective_levels": [
+          0.025,
+          0.1,
+          0.5,
+          0.9,
+          0.975
+        ],
+        "quantile_crossing_hours_before_sorting": 53
+      }
+    },
+    {
+      "name": "nbeats",
+      "mape_test_pct": 12.546521270248089,
+      "rmse_test_mw": 8465.98269302191,
+      "mae_test_mw": 6277.998774707317,
+      "mape_jan1_pct": 33.682169343676556,
+      "mape_jan2_to_jan7_pct": 9.023913258010014,
+      "runtime_seconds": 9.371182542003226,
+      "hyperparameters": {
+        "input_chunk_length": 168,
+        "output_chunk_length": 168,
+        "architecture": "default generic N-BEATS stacks",
+        "likelihood": "quantile_regression",
+        "quantiles": [
+          0.025,
+          0.1,
+          0.5,
+          0.9,
+          0.975
+        ],
+        "max_epochs": 8,
+        "selected_epochs": 8,
+        "early_stopping_metric": "validation MAPE",
+        "early_stopping_patience": 2,
+        "training_stride_hours": 336,
+        "batch_size": 8,
+        "optimizer": "Adam",
+        "learning_rate": 0.001,
+        "accelerator": "cpu",
+        "probabilistic_samples": 500
+      }
+    },
+    {
+      "name": "patchtst",
+      "mape_test_pct": 10.246280280290323,
+      "rmse_test_mw": 7260.272142178598,
+      "mae_test_mw": 5100.75540909313,
+      "mape_jan1_pct": 32.88808901762192,
+      "mape_jan2_to_jan7_pct": 6.472645490735057,
+      "runtime_seconds": 6.1563767089974135,
+      "hyperparameters": {
+        "requested_model": "PatchTST",
+        "implemented_model": "TSMixerModel",
+        "substitution_reason": "Darts 0.41.0 does not expose PatchTSTModel",
+        "input_chunk_length": 168,
+        "output_chunk_length": 168,
+        "architecture": "default TSMixer configuration",
+        "likelihood": "quantile_regression",
+        "quantiles": [
+          0.025,
+          0.1,
+          0.5,
+          0.9,
+          0.975
+        ],
+        "max_epochs": 15,
+        "selected_epochs": 15,
+        "early_stopping_metric": "validation MAPE",
+        "early_stopping_patience": 4,
+        "training_stride_hours": 168,
+        "batch_size": 32,
+        "optimizer": "Adam",
+        "learning_rate": 0.001,
+        "accelerator": "cpu",
+        "probabilistic_samples": 500
+      }
+    }
+  ],
+  "winner": "lightgbm",
+  "winner_coverage_80pct": 0.8511904761904762,
+  "winner_coverage_95pct": 1.0,
+  "winner_pinball_loss_q10": 553.2141912702142,
+  "winner_pinball_loss_q50": 1379.6942076536607,
+  "winner_pinball_loss_q90": 655.2178006061571,
+  "total_runtime_seconds": 134.32742508503725
+}

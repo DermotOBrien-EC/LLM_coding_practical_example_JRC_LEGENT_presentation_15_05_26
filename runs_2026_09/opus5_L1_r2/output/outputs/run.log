@@ -1,0 +1,13 @@
+history: 2015-01-01 00:00:00+00:00 .. 2019-12-31 23:00:00+00:00  (43824 h)
+
+calibrating intervals on prior January weeks:
+  calibration fold 2016: MAPE 9.23%
+  calibration fold 2017: MAPE 6.33%
+  calibration fold 2018: MAPE 4.75%
+  calibration fold 2019: MAPE 3.37%
+
+fitting final models on full history:
+  seasonal_naive_168h: done
+  year_ago_naive_364d: done
+  holiday_adjusted_naive: done
+  linear_profile: done

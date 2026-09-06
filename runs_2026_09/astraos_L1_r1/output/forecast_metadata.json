@@ -1,0 +1,51 @@
+{
+  "forecast_origin_utc": "2020-01-01 00:00:00+00:00",
+  "forecast_end_utc": "2020-01-07 23:00:00+00:00",
+  "forecast_hours": 168,
+  "units_assumption": "MW, following the supplied OPSD ENTSO-E load series convention",
+  "training_start_utc": "2015-01-01 00:00:00+00:00",
+  "training_end_utc": "2019-12-31 23:00:00+00:00",
+  "training_rows": 43824,
+  "training_sha256": "c808d374cd0f25f8db3c967a988c9d6de7841c20671b10b239005cf30e12560e",
+  "input_file_sha256": "2f20c7560c962c7b5804b1854243c1b27ecd6358e24951238e12ae4336fa529c",
+  "selected_model": "calendar_boosting",
+  "selection_rule": "Lowest mean January-week MAE across 2017, 2018 and 2019",
+  "backtest_years": [
+    2017,
+    2018,
+    2019
+  ],
+  "selected_model_backtest": {
+    "mae_mw": 2155.7183953623075,
+    "rmse_mw": 2513.9155160518453,
+    "mape_pct": 3.9918465108520387,
+    "bias_mw": -309.42046374516093
+  },
+  "baseline_backtest": {
+    "mae_mw": 7823.68253968254,
+    "rmse_mw": 9138.635424074911,
+    "mape_pct": 13.199638428572053,
+    "bias_mw": -7359.662698412699
+  },
+  "uncertainty": {
+    "method": "5th and 95th percentiles of pooled selected-model validation residuals",
+    "residual_count": 504,
+    "lower_offset_mw": -3760.927778104137,
+    "upper_offset_mw": 4753.494618149571,
+    "caveat": "Nominal pointwise 90% empirical bands, not independently calibrated coverage. Model selection and interval estimation reuse the same three January weeks. Hourly residuals are correlated; these are not simultaneous weekly bands."
+  },
+  "forecast_mean_mw": 53622.46711623343,
+  "forecast_energy_mwh": 9008574.475527216,
+  "forecast_min_mw": 37450.25209973429,
+  "forecast_min_utc": "2020-01-01 05:00:00+00:00",
+  "forecast_peak_mw": 67906.273948523,
+  "forecast_peak_utc": "2020-01-07 10:00:00+00:00",
+  "versions": {
+    "numpy": "2.4.4",
+    "pandas": "2.3.3",
+    "scikit_learn": "1.7.2",
+    "lightgbm": "4.6.0",
+    "holidays": "0.96"
+  },
+  "post_origin_actuals_used": false
+}

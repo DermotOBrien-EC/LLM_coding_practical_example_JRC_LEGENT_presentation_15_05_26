@@ -1,0 +1,40 @@
+{
+  "name": "prophet",
+  "runtime_seconds": 24.315773165988503,
+  "hyperparameters": {
+    "changepoint_prior_scale": 0.05,
+    "daily_seasonality": 10,
+    "weekly_seasonality": 6,
+    "yearly_seasonality": 10,
+    "country_holidays": "DE",
+    "seasonality_mode": "additive",
+    "uncertainty_samples": 1000,
+    "random_state": 206,
+    "mcmc_samples": 0
+  },
+  "validation": [
+    {
+      "configuration": {
+        "changepoint_prior_scale": 0.01,
+        "daily_seasonality": 4,
+        "weekly_seasonality": 3
+      },
+      "mape_pct": 5.639192392335421
+    },
+    {
+      "configuration": {
+        "changepoint_prior_scale": 0.05,
+        "daily_seasonality": 10,
+        "weekly_seasonality": 6
+      },
+      "mape_pct": 4.901599608093927
+    }
+  ],
+  "diagnostics": {},
+  "model_source_sha256": {
+    "__init__.py": "95d136305d22fea62a868714ec3ffa8c8ef448499c5ae665b11bd13156610b7c",
+    "common.py": "7d42cea63d8d9c7d248d43dfd2f2ccfd9b9d909b313c8dbb1b52cf199fb5f116",
+    "prophet.py": "cfdeeb5f39f850af44c32c28dca399dc716718b3824e7eda1693a1e8db35cdb0"
+  },
+  "input_sha256": "2f20c7560c962c7b5804b1854243c1b27ecd6358e24951238e12ae4336fa529c"
+}

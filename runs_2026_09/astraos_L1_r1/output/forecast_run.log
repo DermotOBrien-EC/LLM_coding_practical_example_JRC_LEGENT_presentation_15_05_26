@@ -1,0 +1,66 @@
+{"year": 2017, "model": "weekly_naive", "mae_mw": 9521.47619047619, "rmse_mw": 10273.894771400452, "mape_pct": 15.974738337527489, "bias_mw": -8690.297619047618}
+{"year": 2017, "model": "calendar_ridge", "mae_mw": 4673.0753563712815, "rmse_mw": 5218.973500102574, "mape_pct": 8.363189275416671, "bias_mw": -3176.5309534484736}
+{"year": 2017, "model": "calendar_boosting", "mae_mw": 3274.2783339857956, "rmse_mw": 3675.881021083472, "mape_pct": 6.007819677522322, "bias_mw": -1907.9596906779313}
+{"year": 2017, "model": "lagged_boosting", "mae_mw": 2904.1062049457687, "rmse_mw": 3753.2059921485143, "mape_pct": 5.426799999865268, "bias_mw": -1235.9490616186692}
+{"year": 2017, "model": "holiday_ensemble", "mae_mw": 3497.5714607105606, "rmse_mw": 3891.074561751955, "mape_pct": 6.387767935197782, "bias_mw": -2106.8132352483576}
+{"year": 2018, "model": "weekly_naive", "mae_mw": 6895.9047619047615, "rmse_mw": 8228.874782768067, "mape_pct": 11.916884443132567, "bias_mw": -6634.630952380952}
+{"year": 2018, "model": "calendar_ridge", "mae_mw": 1428.2419942318832, "rmse_mw": 1872.0773781702817, "mape_pct": 2.956201872371047, "bias_mw": 1042.394939741569}
+{"year": 2018, "model": "calendar_boosting", "mae_mw": 1809.7497683168317, "rmse_mw": 2149.52370867702, "mape_pct": 3.487016658131455, "bias_mw": 1076.0494796035682}
+{"year": 2018, "model": "lagged_boosting", "mae_mw": 3248.36904728539, "rmse_mw": 3772.062309433573, "mape_pct": 6.40140869551446, "bias_mw": 3083.2551844886334}
+{"year": 2018, "model": "holiday_ensemble", "mae_mw": 1838.7207679700728, "rmse_mw": 2210.3716670825984, "mape_pct": 3.6825694364763364, "bias_mw": 1733.8998679445906}
+{"year": 2019, "model": "weekly_naive", "mae_mw": 7053.666666666667, "rmse_mw": 8913.136718056216, "mape_pct": 11.707292505056104, "bias_mw": -6754.059523809524}
+{"year": 2019, "model": "calendar_ridge", "mae_mw": 1967.5007539791757, "rmse_mw": 2457.5615090684464, "mape_pct": 3.6180200353530845, "bias_mw": -751.0454620384533}
+{"year": 2019, "model": "calendar_boosting", "mae_mw": 1383.1270837842949, "rmse_mw": 1716.3418183950446, "mape_pct": 2.480703196902339, "bias_mw": -96.35118016111959}
+{"year": 2019, "model": "lagged_boosting", "mae_mw": 1133.7056821041547, "rmse_mw": 1392.5975421050068, "mape_pct": 2.0777590654179323, "bias_mw": 172.05284145606385}
+{"year": 2019, "model": "holiday_ensemble", "mae_mw": 1288.1463881266925, "rmse_mw": 1579.6408447469514, "mape_pct": 2.344052411301642, "bias_mw": -225.1146002478368}
+{
+  "forecast_origin_utc": "2020-01-01 00:00:00+00:00",
+  "forecast_end_utc": "2020-01-07 23:00:00+00:00",
+  "forecast_hours": 168,
+  "units_assumption": "MW, following the supplied OPSD ENTSO-E load series convention",
+  "training_start_utc": "2015-01-01 00:00:00+00:00",
+  "training_end_utc": "2019-12-31 23:00:00+00:00",
+  "training_rows": 43824,
+  "training_sha256": "c808d374cd0f25f8db3c967a988c9d6de7841c20671b10b239005cf30e12560e",
+  "input_file_sha256": "2f20c7560c962c7b5804b1854243c1b27ecd6358e24951238e12ae4336fa529c",
+  "selected_model": "calendar_boosting",
+  "selection_rule": "Lowest mean January-week MAE across 2017, 2018 and 2019",
+  "backtest_years": [
+    2017,
+    2018,
+    2019
+  ],
+  "selected_model_backtest": {
+    "mae_mw": 2155.7183953623075,
+    "rmse_mw": 2513.9155160518453,
+    "mape_pct": 3.9918465108520387,
+    "bias_mw": -309.42046374516093
+  },
+  "baseline_backtest": {
+    "mae_mw": 7823.68253968254,
+    "rmse_mw": 9138.635424074911,
+    "mape_pct": 13.199638428572053,
+    "bias_mw": -7359.662698412699
+  },
+  "uncertainty": {
+    "method": "5th and 95th percentiles of pooled selected-model validation residuals",
+    "residual_count": 504,
+    "lower_offset_mw": -3760.927778104137,
+    "upper_offset_mw": 4753.494618149571,
+    "caveat": "Nominal pointwise 90% empirical bands, not independently calibrated coverage. Model selection and interval estimation reuse the same three January weeks. Hourly residuals are correlated; these are not simultaneous weekly bands."
+  },
+  "forecast_mean_mw": 53622.46711623343,
+  "forecast_energy_mwh": 9008574.475527216,
+  "forecast_min_mw": 37450.25209973429,
+  "forecast_min_utc": "2020-01-01 05:00:00+00:00",
+  "forecast_peak_mw": 67906.273948523,
+  "forecast_peak_utc": "2020-01-07 10:00:00+00:00",
+  "versions": {
+    "numpy": "2.4.4",
+    "pandas": "2.3.3",
+    "scikit_learn": "1.7.2",
+    "lightgbm": "4.6.0",
+    "holidays": "0.96"
+  },
+  "post_origin_actuals_used": false
+}

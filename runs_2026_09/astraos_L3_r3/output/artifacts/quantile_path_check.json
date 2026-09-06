@@ -1,0 +1,5 @@
+{
+  "median_trajectory_changed_by_interval_sorting": 9,
+  "hours_checked": 168,
+  "interpretation": "Sorting can change the median; candidate validation and final refit must both fit the same five quantiles."
+}

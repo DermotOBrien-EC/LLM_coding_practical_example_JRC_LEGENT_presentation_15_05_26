@@ -1,0 +1,32 @@
+[
+  {
+    "path": ".german_load_forecast_2020-01-01_to_2020-01-07.lock",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "forecast_load.py",
+    "bytes": 25584,
+    "sha256": "97d9ad4a05a9a9249757940288a7914024a88dd729882e1604a8b9ca5fd857a5"
+  },
+  {
+    "path": "german_load_forecast_2020-01-01_to_2020-01-07.csv",
+    "bytes": 10326,
+    "sha256": "2621b01120758b8d37d104846dcf388e9bb58083ca03d31382c21d28c33048cd"
+  },
+  {
+    "path": "german_load_forecast_2020-01-01_to_2020-01-07.png",
+    "bytes": 306092,
+    "sha256": "30ebb7d383b3df209680acb978947876768c0ee4aae6367a7012855308282435"
+  },
+  {
+    "path": "german_load_forecast_2020-01-01_to_2020-01-07_metrics.json",
+    "bytes": 1563,
+    "sha256": "4d6314ed9f7140c3c681852324a2e82ea63b4412b344edac72633c21850fd66d"
+  },
+  {
+    "path": "test_forecast_load.py",
+    "bytes": 11390,
+    "sha256": "5046488dc9ba5e5760cd179fffc229da515ebe8461d604ca0355c821e815fea2"
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "name": "naive",
+  "runtime_seconds": 4.900002386420965e-05,
+  "hyperparameters": {
+    "seasonal_lag_hours": 168
+  },
+  "validation": [],
+  "diagnostics": {},
+  "model_source_sha256": {
+    "__init__.py": "95d136305d22fea62a868714ec3ffa8c8ef448499c5ae665b11bd13156610b7c",
+    "common.py": "7d42cea63d8d9c7d248d43dfd2f2ccfd9b9d909b313c8dbb1b52cf199fb5f116",
+    "naive.py": "b18dd02d79d576d431dee1bf47c6b7edf77f8ae17ac710c4c3b4d3336263e0b3"
+  },
+  "input_sha256": "2f20c7560c962c7b5804b1854243c1b27ecd6358e24951238e12ae4336fa529c"
+}

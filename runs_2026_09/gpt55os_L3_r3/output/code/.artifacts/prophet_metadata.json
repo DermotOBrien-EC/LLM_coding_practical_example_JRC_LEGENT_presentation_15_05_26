@@ -1,0 +1,12 @@
+{
+  "name": "prophet",
+  "runtime_seconds": 35.568467957986286,
+  "hyperparameters": {
+    "seasonality_mode": "additive",
+    "changepoint_prior_scale": 0.05,
+    "seasonality_prior_scale": 10.0,
+    "validation_mape_pct": 5.635830073898914,
+    "implementation": "darts_prophet_with_country_holidays_de"
+  },
+  "notes": []
+}

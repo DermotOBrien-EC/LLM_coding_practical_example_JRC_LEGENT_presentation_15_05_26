@@ -1,0 +1,156 @@
+{
+  "test_start": "2020-01-01",
+  "test_end": "2020-01-07",
+  "n_test_observations": 168,
+  "models": [
+    {
+      "name": "naive",
+      "mape_test_pct": 12.7806,
+      "rmse_test_mw": 8808.6,
+      "mae_test_mw": 7237.98,
+      "mape_jan1_pct": 6.5196,
+      "mape_jan2_to_jan7_pct": 13.8241,
+      "runtime_seconds": 0.0,
+      "hyperparameters": {
+        "seasonal_lag_hours": 168
+      }
+    },
+    {
+      "name": "sarima",
+      "mape_test_pct": 13.244,
+      "rmse_test_mw": 8951.26,
+      "mae_test_mw": 7451.95,
+      "mape_jan1_pct": 8.711,
+      "mape_jan2_to_jan7_pct": 13.9995,
+      "runtime_seconds": 111.13,
+      "hyperparameters": {
+        "order": [
+          2,
+          1,
+          2
+        ],
+        "seasonal_order": [
+          1,
+          1,
+          1,
+          24
+        ],
+        "training_window_hours": 2184,
+        "selection_metric": "mean MAPE over 4 held-out validation weeks",
+        "interval_method": "analytic Gaussian from state-space forecast standard errors"
+      }
+    },
+    {
+      "name": "prophet",
+      "mape_test_pct": 7.6138,
+      "rmse_test_mw": 4878.17,
+      "mae_test_mw": 3798.04,
+      "mape_jan1_pct": 13.2751,
+      "mape_jan2_to_jan7_pct": 6.6703,
+      "runtime_seconds": 51.89,
+      "hyperparameters": {
+        "changepoint_prior_scale": 0.05,
+        "seasonality_mode": "additive",
+        "country_holidays": "DE",
+        "seasonalities": [
+          "daily",
+          "weekly",
+          "yearly"
+        ],
+        "uncertainty_samples": 500,
+        "selection_metric": "mean MAPE over 13 held-out validation weeks",
+        "interval_method": "quantiles of Prophet posterior draws"
+      }
+    },
+    {
+      "name": "lightgbm",
+      "mape_test_pct": 4.9943,
+      "rmse_test_mw": 3594.42,
+      "mae_test_mw": 2792.64,
+      "mape_jan1_pct": 2.3881,
+      "mape_jan2_to_jan7_pct": 5.4287,
+      "runtime_seconds": 246.42,
+      "hyperparameters": {
+        "n_estimators": 800,
+        "learning_rate": 0.05,
+        "num_leaves": 63,
+        "features": [
+          "hour",
+          "day_of_week",
+          "month",
+          "is_weekend",
+          "is_public_holiday_de",
+          "lag_24h",
+          "lag_168h",
+          "lag_8736h",
+          "lag_8760h",
+          "roll_mean_24h",
+          "roll_std_24h",
+          "roll_mean_168h",
+          "roll_std_168h"
+        ],
+        "categorical_features": [
+          "hour",
+          "day_of_week",
+          "month"
+        ],
+        "forecast_strategy": "recursive, 168 one-step-ahead calls",
+        "selection_metric": "mean MAPE over 13 held-out validation weeks",
+        "interval_method": "separate LGBM quantile fits at 0.025/0.1/0.5/0.9/0.975"
+      }
+    },
+    {
+      "name": "nbeats",
+      "mape_test_pct": 11.125,
+      "rmse_test_mw": 7367.88,
+      "mae_test_mw": 5731.66,
+      "mape_jan1_pct": 7.5837,
+      "mape_jan2_to_jan7_pct": 11.7153,
+      "runtime_seconds": 450.22,
+      "hyperparameters": {
+        "learning_rate": 0.001,
+        "batch_size": 1024,
+        "input_chunk_length": 168,
+        "output_chunk_length": 168,
+        "epochs_used_for_final_fit": 29,
+        "max_epochs": 30,
+        "early_stopping_patience": 5,
+        "likelihood": "QuantileRegression(0.025, 0.1, 0.5, 0.9, 0.975)",
+        "scaler": "min-max on the training sample",
+        "selection_metric": "mean MAPE over 13 held-out validation weeks",
+        "interval_method": "quantiles of 500 predictive draws"
+      }
+    },
+    {
+      "name": "patchtst",
+      "mape_test_pct": 10.7301,
+      "rmse_test_mw": 8022.56,
+      "mae_test_mw": 6193.99,
+      "mape_jan1_pct": 4.8995,
+      "mape_jan2_to_jan7_pct": 11.7018,
+      "runtime_seconds": 973.36,
+      "hyperparameters": {
+        "learning_rate": 0.001,
+        "batch_size": 1024,
+        "input_chunk_length": 168,
+        "output_chunk_length": 168,
+        "epochs_used_for_final_fit": 25,
+        "max_epochs": 30,
+        "early_stopping_patience": 5,
+        "likelihood": "QuantileRegression(0.025, 0.1, 0.5, 0.9, 0.975)",
+        "scaler": "min-max on the training sample",
+        "selection_metric": "mean MAPE over 13 held-out validation weeks",
+        "interval_method": "quantiles of 500 predictive draws",
+        "substitution": "darts 0.41.0 does not expose PatchTSTModel; TSMixerModel was used instead, as permitted by the study brief.",
+        "darts_class": "TSMixerModel"
+      }
+    }
+  ],
+  "winner": "lightgbm",
+  "winner_coverage_80pct": 0.5655,
+  "winner_coverage_95pct": 0.9286,
+  "winner_pinball_loss_q10": 731.312,
+  "winner_pinball_loss_q50": 1449.327,
+  "winner_pinball_loss_q90": 436.643,
+  "total_runtime_seconds": 1833.13
+}

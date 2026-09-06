@@ -1,0 +1,36 @@
+{
+  "added": [
+    "runs/e081a3/out",
+    "runs/e081a3/out/README.md",
+    "runs/e081a3/out/forecast_2020_week1.csv",
+    "runs/e081a3/out/forecast_2020_week1.png",
+    "runs/e081a3/out/forecast_2020_week1_dark.png",
+    "runs/e081a3/out/selection_2017_2019.csv",
+    "runs/e081a3/out/selection_log.txt",
+    "runs/e081a3/out/selection_summary.csv",
+    "runs/e081a3/out/summary.json",
+    "runs/e081a3/work",
+    "runs/e081a3/work/__pycache__",
+    "runs/e081a3/work/__pycache__/backtest.cpython-313.pyc",
+    "runs/e081a3/work/__pycache__/deliver.cpython-313.pyc",
+    "runs/e081a3/work/__pycache__/loadfc.cpython-313.pyc",
+    "runs/e081a3/work/backtest.py",
+    "runs/e081a3/work/codex_review.md",
+    "runs/e081a3/work/deliver.py",
+    "runs/e081a3/work/eda.py",
+    "runs/e081a3/work/fetch_temp.py",
+    "runs/e081a3/work/loadfc.py",
+    "runs/e081a3/work/plot.py",
+    "runs/e081a3/work/qc.py",
+    "runs/e081a3/work/review_brief.md",
+    "runs/e081a3/work/select.py",
+    "runs/e081a3/work/temp_de.csv"
+  ],
+  "modified": [],
+  "deleted": [],
+  "counts": {
+    "added": 25,
+    "modified": 0,
+    "deleted": 0
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "input": "opsd_de_load.csv",
+  "input_sha256": "2f20c7560c962c7b5804b1854243c1b27ecd6358e24951238e12ae4336fa529c",
+  "training_start_utc": "2015-01-01 00:00:00+00:00",
+  "training_end_utc": "2019-12-31 23:00:00+00:00",
+  "historical_rows": 43824,
+  "fit_window_years": 3,
+  "forecast_start_utc": "2020-01-01 00:00:00+00:00",
+  "forecast_end_utc": "2020-01-07 23:00:00+00:00",
+  "forecast_hours": 168,
+  "unit": "MW (assumed from OPSD ENTSO-E load column)",
+  "selected_model": "blend",
+  "selection_weight_new_year": 0.75,
+  "selection_weight_autumn": 0.25,
+  "selection_origins": [
+    "2017-01-01",
+    "2018-01-01",
+    "2019-01-01",
+    "2019-09-04",
+    "2019-10-02",
+    "2019-10-23"
+  ],
+  "calibration_origins": [
+    "2019-11-06",
+    "2019-11-20",
+    "2019-12-04",
+    "2019-12-18",
+    "2019-12-25"
+  ],
+  "empirical_interval_half_width_80_mw": 2692.9203003738803,
+  "empirical_interval_half_width_95_mw": 5155.572328734561,
+  "interval_caveat": "Pointwise empirical error bands, not guaranteed coverage or simultaneous week bands. Five calibration weeks, with serially correlated errors and no weather forecast.",
+  "mean_load_mw": 55358.045238095234,
+  "total_energy_mwh": 9300151.6,
+  "peak_load_mw": 71847.1,
+  "peak_utc": "2020-01-07 16:00:00+00:00",
+  "minimum_load_mw": 38731.9,
+  "minimum_utc": "2020-01-01 06:00:00+00:00",
+  "target_actuals_used": false
+}

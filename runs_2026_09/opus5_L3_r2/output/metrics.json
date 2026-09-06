@@ -1,0 +1,155 @@
+{
+  "test_start": "2020-01-01",
+  "test_end": "2020-01-07",
+  "n_test_observations": 168,
+  "models": [
+    {
+      "name": "lightgbm",
+      "mape_test_pct": 5.4705,
+      "rmse_test_mw": 3586.059,
+      "mae_test_mw": 2873.469,
+      "mape_jan1_pct": 4.5591,
+      "mape_jan2_to_jan7_pct": 5.6224,
+      "runtime_seconds": 1683.41,
+      "hyperparameters": {
+        "n_estimators": 800,
+        "learning_rate": 0.03,
+        "num_leaves": 127,
+        "min_child_samples": 40,
+        "yearly_lag_hours": 8760,
+        "objective": "regression (L2) for the point path",
+        "quantile_objective_alphas": [
+          0.025,
+          0.1,
+          0.5,
+          0.9,
+          0.975
+        ],
+        "forecast_mode": "recursive 168-step",
+        "features": [
+          "hour",
+          "day_of_week",
+          "month",
+          "is_weekend",
+          "is_public_holiday_de",
+          "lag_24h",
+          "lag_168h",
+          "lag_8760h",
+          "roll_mean_24h",
+          "roll_std_24h",
+          "roll_mean_168h",
+          "roll_std_168h"
+        ]
+      }
+    },
+    {
+      "name": "prophet",
+      "mape_test_pct": 7.3078,
+      "rmse_test_mw": 4721.446,
+      "mae_test_mw": 3636.759,
+      "mape_jan1_pct": 13.3484,
+      "mape_jan2_to_jan7_pct": 6.301,
+      "runtime_seconds": 287.63,
+      "hyperparameters": {
+        "seasonality_mode": "multiplicative",
+        "changepoint_prior_scale": 0.01,
+        "seasonality_prior_scale": 10.0,
+        "country_holidays": "DE",
+        "daily_seasonality": true,
+        "weekly_seasonality": true,
+        "yearly_seasonality": true,
+        "n_uncertainty_samples": 500
+      }
+    },
+    {
+      "name": "patchtst",
+      "mape_test_pct": 8.6156,
+      "rmse_test_mw": 5500.067,
+      "mae_test_mw": 4552.629,
+      "mape_jan1_pct": 4.6185,
+      "mape_jan2_to_jan7_pct": 9.2818,
+      "runtime_seconds": 3505.26,
+      "hyperparameters": {
+        "learning_rate": 0.001,
+        "batch_size": 512,
+        "hidden_size": 64,
+        "substituted_model": "darts.models.TSMixerModel",
+        "requested_model": "PatchTST",
+        "substitution_reason": "darts 0.41.0 does not expose PatchTSTModel",
+        "input_chunk_length": 168,
+        "output_chunk_length": 168,
+        "max_epochs": 30,
+        "early_stopping_patience": 5,
+        "epochs_used_for_final_refit": 30,
+        "likelihood": "QuantileRegression[0.025, 0.1, 0.25, 0.5, 0.75, 0.9, 0.975]",
+        "n_prediction_samples": 500
+      }
+    },
+    {
+      "name": "nbeats",
+      "mape_test_pct": 11.1297,
+      "rmse_test_mw": 7805.746,
+      "mae_test_mw": 5856.876,
+      "mape_jan1_pct": 2.9953,
+      "mape_jan2_to_jan7_pct": 12.4854,
+      "runtime_seconds": 2812.01,
+      "hyperparameters": {
+        "learning_rate": 0.001,
+        "batch_size": 512,
+        "input_chunk_length": 168,
+        "output_chunk_length": 168,
+        "architecture": "generic default (30 stacks, 1 block, 4 layers, width 256)",
+        "max_epochs": 30,
+        "early_stopping_patience": 5,
+        "epochs_used_for_final_refit": 30,
+        "likelihood": "QuantileRegression[0.025, 0.1, 0.25, 0.5, 0.75, 0.9, 0.975]",
+        "n_prediction_samples": 500
+      }
+    },
+    {
+      "name": "naive",
+      "mape_test_pct": 12.7806,
+      "rmse_test_mw": 8808.603,
+      "mae_test_mw": 7237.976,
+      "mape_jan1_pct": 6.5196,
+      "mape_jan2_to_jan7_pct": 13.8241,
+      "runtime_seconds": 0.0,
+      "hyperparameters": {
+        "seasonal_lag_hours": 168
+      }
+    },
+    {
+      "name": "sarima",
+      "mape_test_pct": 14.3305,
+      "rmse_test_mw": 9482.301,
+      "mae_test_mw": 8057.981,
+      "mape_jan1_pct": 6.2396,
+      "mape_jan2_to_jan7_pct": 15.679,
+      "runtime_seconds": 1040.7,
+      "hyperparameters": {
+        "order": [
+          3,
+          0,
+          1
+        ],
+        "seasonal_order": [
+          2,
+          0,
+          2,
+          24
+        ],
+        "variant": "weekly-diff",
+        "window_weeks": 26,
+        "n_training_hours_final_fit": 4368,
+        "intervals": "analytic Gaussian from the state-space model"
+      }
+    }
+  ],
+  "winner": "lightgbm",
+  "winner_coverage_80pct": 0.7738,
+  "winner_coverage_95pct": 0.9881,
+  "winner_pinball_loss_q10": 401.776,
+  "winner_pinball_loss_q50": 1177.365,
+  "winner_pinball_loss_q90": 372.916,
+  "total_runtime_seconds": 9329.01
+}

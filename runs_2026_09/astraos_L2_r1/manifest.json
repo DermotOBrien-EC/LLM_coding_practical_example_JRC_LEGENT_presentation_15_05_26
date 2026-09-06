@@ -1,0 +1,77 @@
+[
+  {
+    "path": ".mplconfig/fontlist-v3.11.0.json",
+    "bytes": 290596,
+    "sha256": "d2fec86b8f039b151066d94693e583524190e3d89367bfe9d48fcb7f61289791"
+  },
+  {
+    "path": "PLAN.md",
+    "bytes": 3196,
+    "sha256": "16e456e080aae7d1737f59d24473c545ed126a0bb86dae8723096c2538f4bea8"
+  },
+  {
+    "path": "README.md",
+    "bytes": 7690,
+    "sha256": "7968f3eecd87fd75bde06c617c19b99a117f0330e52e2c096e7ff1108fdfd9bf"
+  },
+  {
+    "path": "REVIEW.md",
+    "bytes": 8299,
+    "sha256": "852e518073b9b47076308b7bb89e3993df2b8b3c50b665e2e53a58c076e247f7"
+  },
+  {
+    "path": "forecast_load.py",
+    "bytes": 19186,
+    "sha256": "649c535e43c7b507af2ae896f46e4870cd93c885e00bb3bddfb7dc94e5fc1123"
+  },
+  {
+    "path": "outputs/daily_metrics.csv",
+    "bytes": 816,
+    "sha256": "1a6f4c9ff8f3fdf027f132529d28ed33ab310c87daee4fcefeb19323ee5ab0db"
+  },
+  {
+    "path": "outputs/forecast.csv",
+    "bytes": 20849,
+    "sha256": "84f7afa839717b4f98143c25cfe9274d1b32f0a33c8fb45388f88009f2628d33"
+  },
+  {
+    "path": "outputs/forecast_vs_actual.png",
+    "bytes": 252492,
+    "sha256": "a03b6274e004cc5477651a53581d391d8505bd7b27bc2cab0218dc439e406b2e"
+  },
+  {
+    "path": "outputs/forecast_vs_actual.svg",
+    "bytes": 79999,
+    "sha256": "3cf57f2cf0b0a214d4d6437a111ec01ad37b044683c28eb8933eeaa12953f364"
+  },
+  {
+    "path": "outputs/metrics.json",
+    "bytes": 3316,
+    "sha256": "839477be3d7d55684c6ba22a0cf13e9d8341c9ebdece11820a735c1a568636ca"
+  },
+  {
+    "path": "outputs/validation.csv",
+    "bytes": 2927,
+    "sha256": "f5e33f254ed458f698e599935c1f2c7c579721bc1da59119614b20dc0d515d8d"
+  },
+  {
+    "path": "requirements-dev.txt",
+    "bytes": 86,
+    "sha256": "6d5cb2a1f251eb39c3fffcc7f83c55678112074e3ad4338837aaa3b9ce499de2"
+  },
+  {
+    "path": "requirements.txt",
+    "bytes": 178,
+    "sha256": "41233745ae51934a6c31e78c76111ec2d8e6b21a9b5079e1dec07e3083be05f7"
+  },
+  {
+    "path": "run.log",
+    "bytes": 4207,
+    "sha256": "5cd46f6d39ecca3a05499970f2dedcb9d7ed1b0fdb5ff8941e4f8a5aa3759a98"
+  },
+  {
+    "path": "test_forecast_load.py",
+    "bytes": 7421,
+    "sha256": "8b35e28310e22e1b47140772868efd38fea6fe49f51a0b618fcb3922ab550c58"
+  }
+]

@@ -1,0 +1,24 @@
+{
+  "checks": [
+    "lightgbm: independent score recomputation and forecast-grid checks passed",
+    "prophet: independent score recomputation and forecast-grid checks passed",
+    "nbeats: independent score recomputation and forecast-grid checks passed",
+    "patchtst: independent score recomputation and forecast-grid checks passed",
+    "naive: independent score recomputation and forecast-grid checks passed",
+    "sarima: independent score recomputation and forecast-grid checks passed"
+  ],
+  "required_figures_checked": [
+    "01_overview.png",
+    "02_forecast_comparison.png",
+    "03_metric_comparison.png",
+    "04_per_day_mape.png",
+    "05_winner_with_intervals.png",
+    "06_residuals.png",
+    "07_feature_importance.png",
+    "08_decomposition.png"
+  ],
+  "figure_dimensions_and_300dpi": true,
+  "discussion_words": 309,
+  "transcript_words": 1175,
+  "artifact_digests_match": true
+}

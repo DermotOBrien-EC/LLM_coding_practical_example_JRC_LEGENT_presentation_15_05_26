@@ -1,0 +1,87 @@
+[
+  {
+    "path": ".matplotlib/fontlist-v3.11.0.json",
+    "bytes": 290596,
+    "sha256": "a6113b7728c1c9f66d3e2e4a040aaf29a2b15da70a20bde91352fd74d18a1baa"
+  },
+  {
+    "path": "README.md",
+    "bytes": 9627,
+    "sha256": "14655ac6dacb93977b3c89851005d84b5d969cafc802ec58d67151edd83c5cc5"
+  },
+  {
+    "path": "forecast.py",
+    "bytes": 15516,
+    "sha256": "9e359dc90a1d49ce5fe32923b7d75c3b188d3fca3a5b9dcd064f8206833d48ef"
+  },
+  {
+    "path": "forecast_run.log",
+    "bytes": 2335,
+    "sha256": "5e9d38cda2246cfa9602b75ba36e34b30eaf59bb2977f2a8e4b44f08cebbb6f4"
+  },
+  {
+    "path": "outputs/backtest_metrics.csv",
+    "bytes": 3104,
+    "sha256": "d1d4e34900d8faadc912a30f7b0114649db69b02f3bfa8b3750d2b219c2984b6"
+  },
+  {
+    "path": "outputs/backtest_predictions.csv",
+    "bytes": 485827,
+    "sha256": "5ef66dda124eba0d8760b34603eac926d065ac5ef2e148587a139bad2d714fe1"
+  },
+  {
+    "path": "outputs/daily_summary.csv",
+    "bytes": 365,
+    "sha256": "448527b7e7c6cce13228667e99767b9ae09a1ff91e65dc58a71bda68008e404f"
+  },
+  {
+    "path": "outputs/forecast.csv",
+    "bytes": 15546,
+    "sha256": "469eec83af8550b7a4a725dd19c6064860a513b399203e7336fc02425dea4d0c"
+  },
+  {
+    "path": "outputs/forecast.png",
+    "bytes": 205415,
+    "sha256": "c9df59eaf4200b90861b654214c8c4205caee1ef77dec649454551c5ecdb307b"
+  },
+  {
+    "path": "outputs/interval_diagnostics.csv",
+    "bytes": 361,
+    "sha256": "eab2aa934b110234fe328f63ae2e3590f6ff1f5d3b277682dacde2cba8ef1846"
+  },
+  {
+    "path": "outputs/metadata.json",
+    "bytes": 1381,
+    "sha256": "58c48809947ee55e285696d435b9c562185d584e58a56a435cb739949a8ce135"
+  },
+  {
+    "path": "outputs/model_selection.csv",
+    "bytes": 385,
+    "sha256": "950e96695c24b381bf22cde9b11bc7502555b308e70156a0fac57e17faa0efd9"
+  },
+  {
+    "path": "outputs/review.md",
+    "bytes": 13543,
+    "sha256": "67942f184931f632a5f265c1c157b8bbb79c09f139911225ed7a5e588a6d4028"
+  },
+  {
+    "path": "outputs/weekly_bias.csv",
+    "bytes": 484,
+    "sha256": "c535438f77b252174e871b2aa39034d8e2240be91d8a20a73132d265e754d9c8"
+  },
+  {
+    "path": "plot_forecast.py",
+    "bytes": 3750,
+    "sha256": "22724cc201d138ca67ab76db71baa0bf8135ceb2460a3770823fdf8e8924de8c"
+  },
+  {
+    "path": "requirements.txt",
+    "bytes": 370,
+    "sha256": "8781eca86f43fe5bf8ddd206490314e2537c7c03b1fc51b7065b082ae2265eed"
+  },
+  {
+    "path": "test_forecast.py",
+    "bytes": 3373,
+    "sha256": "d7102ceb94e93eae9d2c45640d980da71c981b8487a1deeff5d711a56dc2f467"
+  }
+]

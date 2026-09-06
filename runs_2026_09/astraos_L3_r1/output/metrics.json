@@ -1,0 +1,206 @@
+{
+  "test_start": "2020-01-01",
+  "test_end": "2020-01-07",
+  "n_test_observations": 168,
+  "models": [
+    {
+      "name": "lightgbm",
+      "mape_test_pct": 3.957819624741382,
+      "rmse_test_mw": 2456.7508442848516,
+      "mae_test_mw": 2041.642233064881,
+      "mape_jan1_pct": 5.823362123163928,
+      "mape_jan2_to_jan7_pct": 3.6468958750042906,
+      "runtime_seconds": 7.087663834012346,
+      "hyperparameters": {
+        "num_leaves": 31,
+        "n_estimators": 300,
+        "learning_rate": 0.05,
+        "min_child_samples": 60,
+        "reg_lambda": 1.0,
+        "quantiles": [
+          0.025,
+          0.1,
+          0.5,
+          0.9,
+          0.975
+        ],
+        "seed": 20200101,
+        "features": [
+          "hour",
+          "day_of_week",
+          "month",
+          "is_weekend",
+          "is_public_holiday_de",
+          "lag_24h",
+          "lag_168h",
+          "lag_8760h",
+          "rolling_mean_24h",
+          "rolling_std_24h",
+          "rolling_mean_168h",
+          "rolling_std_168h"
+        ],
+        "calendar_timezone": "Europe/Berlin",
+        "training_feature_warmup_hours": 8760,
+        "final_training_rows": 35064,
+        "forecast_method": "recursive median, median-preserving lower/upper quantile rearrangement",
+        "uncertainty": "conditional quantiles on recursive median predictor path"
+      }
+    },
+    {
+      "name": "prophet",
+      "mape_test_pct": 7.48154988432331,
+      "rmse_test_mw": 4808.735257185069,
+      "mae_test_mw": 3721.9416538321425,
+      "mape_jan1_pct": 13.426919400016759,
+      "mape_jan2_to_jan7_pct": 6.490654965041068,
+      "runtime_seconds": 17.987934917007806,
+      "hyperparameters": {
+        "country_holidays": "DE",
+        "daily_seasonality": true,
+        "weekly_seasonality": true,
+        "yearly_seasonality": true,
+        "seasonality_mode": "additive",
+        "changepoint_prior_scale": 0.01,
+        "holidays_prior_scale": 10.0,
+        "uncertainty_samples": 600,
+        "seed": 20200101,
+        "calendar_timezone": "UTC (library-naive timestamps)",
+        "uncertainty": "Prophet predictive samples, MAP parameters, mcmc_samples=0"
+      }
+    },
+    {
+      "name": "patchtst",
+      "mape_test_pct": 11.67681412228473,
+      "rmse_test_mw": 8427.221795559959,
+      "mae_test_mw": 5700.131473259524,
+      "mape_jan1_pct": 39.62902716341548,
+      "mape_jan2_to_jan7_pct": 7.018111948762938,
+      "runtime_seconds": 12.578730999986874,
+      "hyperparameters": {
+        "actual_class": "TransformerModel",
+        "input_chunk_length": 168,
+        "output_chunk_length": 168,
+        "max_epochs": 30,
+        "selected_epochs": 12,
+        "early_stopping_metric": "validation MAPE of rearranged median, all 2208 hours",
+        "early_stopping_patience": 5,
+        "early_stopping_min_delta_pct": 0.01,
+        "training_stride_hours": 168,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "gradient_clip_val": 1.0,
+        "likelihood": "QuantileRegression",
+        "quantiles": [
+          0.025,
+          0.1,
+          0.5,
+          0.9,
+          0.975
+        ],
+        "seed": 20200101,
+        "accelerator": "cpu",
+        "threads": 4,
+        "train_scale_mw": 55820.22849384852,
+        "final_scale_mw": 55859.29504381161,
+        "final_training_windows": 259,
+        "d_model": 32,
+        "nhead": 4,
+        "num_encoder_layers": 2,
+        "num_decoder_layers": 2,
+        "dim_feedforward": 128,
+        "dropout": 0.1,
+        "substitution": "Darts 0.41.0 has no PatchTSTModel; TransformerModel is an actual transformer, not TSMixer."
+      }
+    },
+    {
+      "name": "nbeats",
+      "mape_test_pct": 11.91761725190016,
+      "rmse_test_mw": 8394.512248136452,
+      "mae_test_mw": 5854.502865379166,
+      "mape_jan1_pct": 38.60668411713045,
+      "mape_jan2_to_jan7_pct": 7.469439441028447,
+      "runtime_seconds": 26.871224917005748,
+      "hyperparameters": {
+        "actual_class": "NBEATSModel",
+        "input_chunk_length": 168,
+        "output_chunk_length": 168,
+        "max_epochs": 30,
+        "selected_epochs": 23,
+        "early_stopping_metric": "validation MAPE of rearranged median, all 2208 hours",
+        "early_stopping_patience": 5,
+        "early_stopping_min_delta_pct": 0.01,
+        "training_stride_hours": 168,
+        "batch_size": 32,
+        "learning_rate": 0.001,
+        "gradient_clip_val": 1.0,
+        "likelihood": "QuantileRegression",
+        "quantiles": [
+          0.025,
+          0.1,
+          0.5,
+          0.9,
+          0.975
+        ],
+        "seed": 20200101,
+        "accelerator": "cpu",
+        "threads": 4,
+        "train_scale_mw": 55820.22849384852,
+        "final_scale_mw": 55859.29504381161,
+        "final_training_windows": 259,
+        "generic_architecture": true,
+        "num_stacks": 30,
+        "num_blocks": 1,
+        "num_layers": 4,
+        "layer_widths": 256,
+        "expansion_coefficient_dim": 5
+      }
+    },
+    {
+      "name": "sarima",
+      "mape_test_pct": 12.212029213941584,
+      "rmse_test_mw": 8603.459113609184,
+      "mae_test_mw": 6953.971184560119,
+      "mape_jan1_pct": 5.475964284708936,
+      "mape_jan2_to_jan7_pct": 13.33470670214703,
+      "runtime_seconds": 14.33624270799919,
+      "hyperparameters": {
+        "order": [
+          1,
+          0,
+          0
+        ],
+        "seasonal_order": [
+          1,
+          0,
+          0,
+          24
+        ],
+        "weekly_pre_difference_hours": 168,
+        "fixed_numeric_scale_mw": 10000.0,
+        "trend": "none",
+        "concentrate_scale": true,
+        "final_converged": true,
+        "uncertainty": "Gaussian forecast-error variance; fixed fitted parameters"
+      }
+    },
+    {
+      "name": "naive",
+      "mape_test_pct": 12.780588824669476,
+      "rmse_test_mw": 8808.602996502907,
+      "mae_test_mw": 7237.976190476191,
+      "mape_jan1_pct": 6.51955384895017,
+      "mape_jan2_to_jan7_pct": 13.824094653956026,
+      "runtime_seconds": 0.0016370829835068434,
+      "hyperparameters": {
+        "lag_hours": 168
+      }
+    }
+  ],
+  "winner": "lightgbm",
+  "winner_coverage_80pct": 0.8630952380952381,
+  "winner_coverage_95pct": 0.9880952380952381,
+  "winner_pinball_loss_q10": 460.571272926012,
+  "winner_pinball_loss_q50": 1020.8211165324406,
+  "winner_pinball_loss_q90": 378.2285434986309,
+  "total_runtime_seconds": 85.20925208399422
+}

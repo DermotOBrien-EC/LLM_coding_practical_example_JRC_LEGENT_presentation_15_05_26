@@ -20,10 +20,15 @@ runs then completed. One correction to the pre-registered audit of the May
 2026 L3 run came out of reading the September L3 code beside it (section
 4, and DESIGN.md section 5.2). The write-up was reviewed read-only by
 GPT-5.6-Sol against the repository files (`reviews/`); the fold record is
-beside the review. Extension A (DESIGN.md section 11: GPT-6-Astra,
-GPT-5.6-Sol and GPT-5.5 on the same harness, 27 runs) ran on the night of
-2026-09-05 and is reported in section 8; sections 1 to 7 are the Claude
-arm and are unchanged by it.
+beside the review. Three extensions follow and change nothing in sections 1
+to 7: Extension A (section 8, DESIGN.md section 11), the same prompts given
+to GPT-6-Astra, GPT-5.6-Sol and GPT-5.5 on this harness, 27 runs on the
+night of 2026-09-05; Extension B (section 9, DESIGN.md section 12), the
+twenty of those runs that stopped without a forecast, re-run with one added
+paragraph; and Extension C (section 10, DESIGN.md section 13), the Opus
+family at three runs per level, 24 runs on 2026-09-06. Eighty-three counted
+sessions in all, beside the May 2026 reference runs; void attempts and
+resumes are recorded in DESIGN.md section 9 and counted separately.
 
 ## 1. What was run
 
@@ -622,3 +627,304 @@ The follow-up is pre-registered as Extension B (DESIGN.md section 12): the
 20 runs that stopped, re-run with a one-paragraph note that nobody will
 answer and the job must be finished in the session. It might let those
 runs finish and be scored, or not; its results go to section 9.
+
+## 9. Extension B: the same OpenAI models told that nobody can answer
+
+Pre-registered in DESIGN.md section 12, committed at 00:43 local on
+2026-09-06, nine minutes before the first run started at 00:52; the folds
+from the design review were applied to the working tree before launch, and
+the commit that records them (`635dc00`) is timestamped 01:07, after it.
+The runs went through that night and the following morning. Twenty runs: exactly the twenty
+Extension A cells that ended without a forecast, re-run with one paragraph
+appended to the frozen prompt on stdin. The paragraph says that the session
+is unattended, that nobody can answer a question or approve a plan, that the
+agent should make the most reasonable choice and say what it assumed, and
+that it should finish the whole job in the session. Nothing else changed:
+same prompts, same data, same sandbox, same gateway route, same harness. The
+seven Extension A runs that did write a forecast were not re-run, on the
+owner's instruction, and no Fable 5.1 session was run.
+
+Nine runs were lost to infrastructure and relaunched once each: five to a
+network outage minutes after launch, four to the gateway refusing every
+model once the Codex credentials began cooling down. One L3 run was refused
+after 101 tool calls and was resumed once. The gateway kept refusing until a
+controlled restart cleared its cooldown state (DESIGN.md section 12
+amendment and section 9).
+
+### 9.1 The note removed the stopping
+
+| Model, level | Extension A, frozen prompt | Extension B, same prompt plus the note |
+|---|---|---|
+| GPT-6-Astra, L1 | asked, asked, asked | 2.71, 3.63, 4.47 |
+| GPT-6-Astra, L2 | asked, asked, asked | 4.79, 2.80, 5.08 |
+| GPT-6-Astra, L3 | asked, asked, asked | 3.96, 5.11, 3.91 |
+| GPT-5.6-Sol, L2 | asked, asked, plan | 3.46, 4.03, 3.24 |
+| GPT-5.6-Sol, L3 | asked, plan, plan | 5.31, 5.11, 5.28 |
+| GPT-5.5, L2 | plan, plan, plan | 4.69, 8.50, 4.14 |
+| GPT-5.5, L3 | plan, (not re-run), plan | none\*, 5.46 |
+
+Test-window MAPE, recomputed where the run left a per-hour forecast file and
+agent-reported otherwise. \* GPT-5.5 L3 r1 wrote the whole bake-off, launched
+it, and ended with the models still fitting, so there is nothing to score.
+
+Not one asked a question or presented a plan and stopped. Nineteen of the
+twenty produced a scored headline: sixteen recomputed from a forecast file
+the run left, three taken from the agent's own metrics where no per-hour file
+exists. The twentieth ended while its own bake-off was still fitting, which
+is a harness outcome rather than a refusal to decide. The ambiguity these
+models had been stopping over did not go away; the option of stopping did.
+
+### 9.2 What they did with the ambiguity
+
+The note answers none of the questions Extension A's runs asked. Under it,
+every run resolved them itself and said so: the whole week forecast from a
+single origin, in UTC, with no test-week observation in any feature.
+GPT-6-Astra's L1 runs state the assumption in their README, the L3 runs in
+their transcript. Every L3 run of all three models built the recursive
+forecast that the question had been about, feeding its own predictions into
+the 24-hour lag rather than reading the week's actual loads. Not one took
+the easier rolling reading, and not one asked for permission to.
+
+### 9.3 Accuracy and discipline
+
+- **GPT-6-Astra, L1: 2.71 to 4.47**, spread 1.76, not repeatable in accuracy
+  under the one-point rule; repeatable in kind, all three an ensemble or a
+  blend chosen on historical January hold-outs. All three fitted five or six
+  candidates, validated on earlier Januaries and wrote a README or a report;
+  two produced prediction intervals. None scored itself on the test week at
+  all, so all three numbers here are the operator's, recomputed from the
+  forecasts they left. That is the most disciplined L1 work in the study.
+- **GPT-6-Astra, L2: 2.80 to 5.08**, spread 2.28, not repeatable in accuracy;
+  all three HistGradientBoosting on calendar features, selected on five or
+  six pre-2020 validation weeks, each with a methods document.
+- **GPT-6-Astra, L3: 3.91 to 5.11**, spread 1.20. Three complete six-model
+  bake-offs, all with recursive winners, all reporting interval coverage. The
+  5.11 is the run the gateway interrupted and that was resumed; its two
+  uninterrupted siblings sit at 3.91 and 3.96, the two best honest L3
+  forecasts in the study.
+- **GPT-5.6-Sol, L2: 3.24 to 4.03**, spread 0.78, repeatable in accuracy
+  under the one-point rule; all three tree ensembles. The discipline is
+  thinner than Astra's: validation in all three, no intervals, no methods
+  document, and two of the three leaked at the selection stage (9.4). These
+  are the longest L2 sessions in the study, 41 to 131 minutes, two of them
+  running their own review fan-outs inside the sandbox.
+- **GPT-5.6-Sol, L3: 5.11 to 5.31**, spread 0.21, the tightest L3 cell in
+  the study; three complete bake-offs, recursive winners, intervals wider
+  than nominal (coverage 83 to 85 percent at the 80 percent level and 100
+  percent at the 95).
+- **GPT-5.5, L2: 4.14 to 8.50**, spread 4.37, the widest cell of this
+  extension, though not of the study (GPT-5.5's own L1 cell under the frozen
+  prompt spans 5.28 points and Opus 4.7's L1 cell 4.41). Three ridge
+  regressions of very different care, and two of the three chose something
+  with the target week in view (9.4). **L3**: one complete study at 5.46
+  after several crashes and retries, 104 minutes, and one session that ended
+  mid-bake-off.
+
+Across the twenty runs: 18 used a validation hold-out, 13 wrote a methods
+document and 9 produced prediction intervals. The Claude comparison has to be
+stated carefully, because the Claude arm is not uniformly bare: of its 24 L1
+and L2 runs across all four generations, 8 used a validation hold-out, 4
+produced intervals and 4 wrote a methods document (section 4 and section
+10.4). What is true is the proportion, not an absence: at L1 and L2 the
+one-shot OpenAI runs validated in 11 of 12 and documented in 9 of 12, where
+the Claude runs at those levels did so in 8 and 4 of 24. No Claude run was
+given the one-shot note, so this is a comparison of arms, not of models.
+
+### 9.4 Test-window audit
+
+Under DESIGN.md 5.2 read literally, as the Extension A review established:
+three runs `final_scoring_only`, ten `test_selected`, six `leaked`, one with
+no forecast to audit.
+
+| Class | Runs |
+|---|---|
+| final_scoring_only | the three Astra L1 runs, which never scored themselves at all |
+| test_selected | the three Astra L2 runs and Astra L3 r1 and r2; the three Sol L3 runs; GPT-5.5 L2 r2 and L3 r3 |
+| leaked | GPT-5.5 L2 r1 and r3 (baselines, feature sets, lag sets and ridge penalties swept against the target week before the final choice); Sol L2 r2 and r3 (5 and 33 configurations scored on the test week during tuning); Sol L2 r1 (robustness runs from later origins whose training windows contain the test week); Astra L3 r3 (two SARIMAX models fitted on a window containing the test week to time them) |
+
+The pattern of Extension A repeats: where a run leaks, it leaks while
+choosing or while probing, in work that never appears in the delivered
+script, whose own training split is clean. The delivered code is not evidence
+about how the model was chosen; only the session log is. The three Astra L1
+runs are the cleanest artefacts in the study by this measure, because they
+never looked at the answer at all.
+
+Two of these classes are the orchestrator withdrawing an earlier judgment.
+Astra L3 r3's SARIMAX timing probe and Sol L2 r1's later-origin robustness
+runs were first recorded as not leaks, on the ground that they produced
+nothing the delivered work used. The cross-vendor review of this section
+pointed out that 5.2 as written has no such restriction and that the
+supplement precedent of section 4 already records a leak confined to work
+outside the headline. Both are now `leaked` with a scope that says exactly
+what was and was not affected, which is the honest way to keep the rule
+literal without implying the headline is contaminated.
+
+Two harness observations belong with the numbers. Several agents could not
+import pandas from the sandbox's venv two levels up and built their own
+environment instead, downloading packages into the working directory: in
+Extension B the Astra L1 r2 and L2 r1 runs and GPT-5.5 L2 r1 and r3, and in
+Extension C three Opus 4.8 runs. Those trees are recorded as `vendored_dirs`
+in each run's summary and excluded from the manifests. The behaviour is not
+new to these extensions: Fable 5.1 L2 r3 already attempted package
+installation in the original arm. And the sandbox does not block outbound
+network access, which is how they did it, and which one Extension C run used
+to fetch weather data (10.4).
+
+## 10. Extension C: the Opus family, three runs per level
+
+Pre-registered in DESIGN.md section 13, run on 2026-09-06 on the direct
+route with the frozen prompts unchanged: Opus 4.7 and Opus 4.8 at three runs
+per level, and Opus 5 runs 2 and 3 beside the run 1 of section 2. The point
+of the cell is the one comparison in this study where the model is held
+fixed across the two dates, because Opus 4.7 produced the May 2026
+reference.
+
+Two harness facts to read the numbers with. The machine slept for about two
+and a half hours during this extension, so one run's wall clock (Opus 4.7 L3
+r1, 326 minutes) is not comparable with the others: it covers the sleep, a
+first attempt that reached the three-hour working cap with the study already
+written, and a 29-second resume. And because Extension B and Extension C
+overlapped, up to four L3 sessions ran at once, against the two of section
+7. Six of the L3 launches failed at the harness's build check because the
+CLI's auto-update had pruned the pinned Claude Code 2.1.259 binary; no
+session started, the binary was reinstalled and the six were launched again
+(DESIGN.md section 9).
+
+### 10.1 The May 2026 L1 result does not reproduce; the L3 result does
+
+| Level | May 2026, Opus 4.7, one session | September 2026, Opus 4.7, three sessions |
+|---|---|---|
+| L1, 10 words | 10.76, the best of three naive baselines | 3.60, 3.32 (leaked), 7.73 |
+| L2, 46 words + AGENTS.md | 5.52, GradientBoostingRegressor | 3.47, 2.87, 3.13, all LightGBM, all agent-reported |
+| L3, research-grade | 3.43, test-week inputs | 3.24, 3.52, both the same construction; 4.45, forecast recursively |
+
+In May the ten-word prompt produced three baselines, the best of them a
+day-of-week and hour climatology estimated from the training years, and
+10.76 percent. In September the same model on the same ten words produced a
+LightGBM on calendar, holiday and bridge-period features (3.60), a
+multiplicative day-of-week and hour profile with calendar-day factors and a
+December level correction (3.32) and a weekday-weighted day-of-year average
+with a fitted annual trend (7.73). Two of the three are richer versions of
+the same family May used rather than a different kind of method, so the
+distinction to draw is between what each run estimated, not between learning
+and not learning. Section 2 does not claim that the models improved, and this cell is not
+evidence that they did not: it removes the model as an explanation for the
+May-to-September L1 gap, because the model is held fixed across it.
+Everything else that differs is listed in DESIGN.md section 4: a different
+Claude Code build, headless instead of interactive, a clean sandbox instead
+of the repository, whatever user-level configuration May had, and three
+sessions instead of one. This design separates none of them. The statement
+the evidence supports is the narrow one: one May session is not a
+measurement of what its own model could do on that prompt, and any reading
+of the May-to-September change that runs through the model alone is
+unavailable.
+
+The L3 row is the opposite, and is the more useful finding. Two of the three
+September Opus 4.7 L3 runs build their LightGBM features on the whole series
+and predict the test rows directly, so from the second test hour the rolling
+statistics and from the second test day the 24-hour lag read the test week's
+own actual loads. That is exactly May's construction (DESIGN.md 5.2), and it
+lands on exactly May's number, 3.24 and 3.52 against 3.43. One of the two
+names the risk in its own transcript as further work and reports the number
+anyway; the other asserts that refitting leaks no test-window observation
+into the fit, which is true of the fit and false of the features.
+
+The third run is the closest thing to a control the experiment produced,
+though it is not one. Given the same prompt, the same model wrote a
+walk-forward loop that overwrites each test hour with its own prediction
+before the next hour's lag is read, stated the intent in the code, and
+scored 4.45. Same model, same prompt, same data: 3.24 and 3.52 when the lag
+is filled with the answer, 4.45 when it is not. The three runs also differ in
+other ways (r3 fits 800 trees where r1 fits 600, among other choices), so the
+gap is an association, not an isolated effect of the recursion. It is
+nonetheless the tightest comparison in the study, and it sits inside one
+model and one prompt rather than across prompt levels.
+
+### 10.2 The L3 number got worse because the method got honest
+
+| Model given the 1,673-word prompt | L3 runs | How the winner's 24-hour lag was filled |
+|---|---|---|
+| Opus 4.7, May 2026 | 3.43 | the test week's observed loads |
+| Opus 4.7, September | 3.24, 3.52 | the same |
+| Opus 4.7, September, third run | 4.45 | the model's own predictions |
+| GPT-5.5, frozen prompt (section 8) | 3.77 | the same |
+| Opus 4.8 | 4.83, 4.61 | the model's own predictions |
+| Opus 5 | 5.46, 5.47, 4.99 | the model's own predictions |
+| Fable 5.1 (section 2) | 5.03, 4.99, 5.53 | the model's own predictions |
+| GPT-6-Astra + note (section 9) | 3.96, 5.11, 3.91 | the model's own predictions |
+| GPT-5.6-Sol + note (section 9) | 5.31, 5.11, 5.28 | the model's own predictions |
+
+Every model given this prompt fits LightGBM and puts it first. What its
+number means depends on something the prompt does not specify: whether the
+24-hour lag it prescribes is filled with the model's own predictions or with
+the week's observed loads. Across 19 scored L3 runs, the three that fill it
+with observations score 3.24, 3.52 and 3.77; the sixteen that fill it with
+predictions score 3.91 to 5.53, and the two groups do not overlap. Section 2
+declined to read the L3 cell as specificity costing accuracy and this cell
+supports that caution: the difference between the L3 numbers and the L1
+numbers is confounded with the forecast construction, which the prompt's own
+feature list invites and which the older model adopts. It is not a law that
+recursion costs a point and a half: GPT-6-Astra forecasts recursively and
+reaches 3.91.
+
+### 10.3 Accuracy across the generations at L1 and L2
+
+- **Opus 4.7 L1: 3.32 to 7.73**, spread 4.41, not repeatable in accuracy or
+  in kind (LightGBM, a multiplicative calendar profile, a historical
+  average). **L2: 2.87 to 3.47**, spread 0.60, repeatable in accuracy and in
+  kind, all three LightGBM. **L3: 3.24 to 4.45**, not repeatable in accuracy,
+  and the spread is the construction, not the model (10.1). All three L2 runs wrote a script and a plot but
+  no forecast file, so those numbers are the agents' own.
+- **Opus 4.8 L1: 2.80 to 4.41**, spread 1.61, not repeatable in accuracy;
+  all three tree ensembles. **L2: 2.68 to 3.60**, spread 0.92. The 2.68 is
+  the lowest number recorded anywhere in this study, from a 46-word prompt.
+- **Opus 5 L1: 3.07 and 5.35** over the two runs that produced a forecast,
+  with a third that ended mid-run. **L2: 3.40 to 4.80**. **L3: 4.99 to
+  5.47**, spread 0.48, repeatable in accuracy.
+- Wall clock separates the generations more sharply than accuracy does. Opus
+  4.7 finishes L1 and L2 in 2 to 5 minutes and 10 to 17 turns; Opus 4.8 in 4
+  to 20 minutes; Opus 5 in 31 to 93 minutes and 50 to 92 turns, for numbers
+  in the same range.
+
+### 10.4 Test-window audit and process
+
+Of the twenty-four Extension C runs, five are `final_scoring_only`, twelve
+`test_selected` and seven `leaked`. The leaks
+are of four kinds, and the kind matters more than the label:
+
+1. **The winner reads the test week** (Opus 4.7 L3 r1 and r2): the number is
+   not a week-ahead forecast at all. This is the only kind that makes the
+   headline mean something other than what it says.
+2. **A feature or a hyperparameter was changed after reading a test score**
+   (Opus 4.7 L1 r2, which added a bridge-day factor and then a level
+   correction after successive scoring rounds, moving 4.82 to 3.77 to 3.32).
+3. **The target week was summarised and cited before the design** (Opus 5 L1
+   r2 and r3, L2 r2, whose own notes justify the feature set with the
+   observed load of the week they are forecasting). Extension A recorded two
+   runs as `indeterminate` for summarising the week without a traceable
+   consequence; these are `leaked` because the agent's own reasoning names
+   it.
+4. **A labelled diagnostic reads the week** (Opus 5 L3 r2's teacher-forced
+   variant), which is the Fable 5.1 L3 r3 case and leaves the headline
+   untouched.
+
+Two further findings are recorded rather than reclassified. Opus 4.8 L3 r1
+read SARIMA's 100 percent test MAPE, diagnosed a level-scale bug, fixed the
+code and re-ran it, so a losing model was repaired in response to its test
+score, which the run does not disclose; the winner is untouched by it. And
+the independent reader classed two runs leaked for fits that touched the
+test week but produced nothing used (a SARIMAX timing probe in Astra L3 r3,
+a robustness run from a later origin in Sol L2 r1); the orchestrator does
+not adopt those readings and says so in each entry, because a fit that
+yields no forecast and informs no choice is not part of the chain the rule
+is about. Both disagreements are in `scoring.json` for a reader to overturn.
+
+On process the Opus family behaves like the Claude arm of section 4: at L1
+and L2 almost no run used a validation window to choose between model
+classes, none wrote a methods document, and none produced intervals; at L3
+every complete run validated, produced intervals with measured coverage and
+wrote a transcript, because the prompt requires all three. The contrast with
+Extension B is the sharpest single result of the two extensions. GPT-6-Astra
+given ten words and one paragraph of operator instruction validated, wrote a
+report and produced intervals; no Claude model did any of the three at L1
+under any prompt, in any generation.

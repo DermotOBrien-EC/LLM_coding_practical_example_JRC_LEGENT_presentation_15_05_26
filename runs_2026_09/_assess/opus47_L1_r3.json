@@ -1,0 +1,38 @@
+{
+  "run": "runs_2026_09/opus47_L1_r3",
+  "headline_model": "Weekday-weighted day-of-year/hour historical average with annual-mean linear trend",
+  "headline_chosen_by_agent": true,
+  "models_fitted": [
+    "Weekday-weighted day-of-year/hour historical average with annual-mean linear trend"
+  ],
+  "models_attempted_not_fitted": [],
+  "agent_reported_mape": 7.73,
+  "forecast_file": "forecast_jan_week_2020.csv",
+  "forecast_column": "forecast_MW",
+  "validation_holdout": false,
+  "validation_evidence": "output/forecast.py:15 uses all pre-2020 data for training; lines 52-60 score only the January 2020 test window. session.jsonl:32 confirms this execution; no pre-test validation or candidate selection occurred.",
+  "prediction_intervals": false,
+  "intervals_evidence": "Only forecast.py and forecast_jan_week_2020.csv were produced. CSV columns are utc_timestamp, forecast_MW, actual_MW, error_MW, abs_pct_err; no bounds or figures.",
+  "methods_document": false,
+  "methods_document_path": null,
+  "read_agents_md": "n/a",
+  "agents_md_evidence": "no AGENTS.md in L1",
+  "agents_md_read_before_implementation": null,
+  "test_selection": "final_scoring_only",
+  "n_candidates_compared_on_test": 1,
+  "leak_evidence": "output/forecast.py:15: 'train = df.loc[df.index.year <= 2019].copy()'. Annual means and trend use train (lines 32-37); historical matches use train (line 42). Forecast is completed at line 50 before 'actual = df.loc[target_start:target_end, \"load\"].rename(\"actual_MW\")' at line 52.",
+  "external_data": false,
+  "packages_installed": false,
+  "asked_for_clarification": false,
+  "seeds_or_determinism": "none found",
+  "hyperparameters_summary": "Training years 2015-2019; match day-of-year and UTC hour; same-weekday weight 2 versus 1 otherwise; normalize by annual mean and rescale using degree-1 annual-mean extrapolation to 2020.",
+  "command_failures": 2,
+  "anomalies": [
+    "session.jsonl:19: initial system-python execution failed with ModuleNotFoundError for pandas.",
+    "session.jsonl:26: uv run failed to canonicalize .venv/bin/python3 with 'Operation not permitted'; direct .venv/bin/python execution subsequently succeeded.",
+    "Successful execution emitted a FutureWarning for deprecated frequency 'H'.",
+    "Final message claims a holiday-aware or hour-of-week model would likely halve MAPE, but neither alternative was executed or evaluated.",
+    "CSV contains all 168 requested UTC hours; recomputed MAPE is 7.729417874982277%, consistent with the reported 7.73%."
+  ],
+  "one_line_summary": "Produced one historical-average forecast using pre-2020 training data, reporting 7.73% test MAPE after two environment failures; saved 168 hourly predictions without validation, intervals, or a methods document."
+}

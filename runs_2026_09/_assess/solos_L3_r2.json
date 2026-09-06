@@ -1,0 +1,51 @@
+{
+  "run": "runs_2026_09/solos_L3_r2",
+  "headline_model": "LightGBM",
+  "headline_chosen_by_agent": true,
+  "models_fitted": [
+    "Seasonal naive lag-168h",
+    "SARIMA via Burg autoregression on daily-differenced load",
+    "Prophet",
+    "LightGBM",
+    "N-BEATS",
+    "TSMixer"
+  ],
+  "models_attempted_not_fitted": [
+    "SARIMAX (initial state-space implementation)"
+  ],
+  "agent_reported_mape": 5.1053797189584,
+  "forecast_file": null,
+  "forecast_column": null,
+  "validation_holdout": true,
+  "validation_evidence": "output/code/common.py:15-16,89-91 defines training through 2019-09-30 and validation through 2019-12-31. output/code/lightgbm_features.py:173 scores 'mape_pct(splits.validation, validation_forecast)' and :177 selects 'min(successful, key=lambda item: item[0])'. Executed results in output/metrics.csv record all three candidate validation scores.",
+  "prediction_intervals": true,
+  "intervals_evidence": "output/figures/05_winner_with_intervals.png exists; output/code/reporting.py:254-266 plots test-window bounds at quantiles 0.025/0.975 and 0.1/0.9. metrics.csv reports coverage of 0.8511904761904762 and 1.0.",
+  "methods_document": true,
+  "methods_document_path": "transcript.md",
+  "read_agents_md": "yes",
+  "agents_md_evidence": "session.jsonl:61 Read {\"file_path\":\"/Users/doob/dev/energy_forecast_ws/90bff9/project/runs/90bff9/AGENTS.md\"}. This follows the first Python command at session.jsonl:44.",
+  "agents_md_read_before_implementation": false,
+  "test_selection": "test_selected",
+  "n_candidates_compared_on_test": 6,
+  "leak_evidence": "output/code/common.py:91: 'train_validation = full.loc[:VALIDATION_END]', with VALIDATION_END='2019-12-31 23:00:00' UTC. LightGBM fits this pre-test data at lightgbm_features.py:178-180 and recursively appends predictions at :129. However, reporting.py:549-551 scores all six against splits.test, sorts by mape_test_pct, and selects sorted_rows[0] as winner.",
+  "external_data": false,
+  "packages_installed": false,
+  "asked_for_clarification": false,
+  "seeds_or_determinism": "random_state=2020 in LightGBM, Prophet, N-BEATS and TSMixer; pl.seed_everything(2020, workers=True); neural trainer deterministic='warn'; torch.set_num_threads(1), torch.set_num_interop_threads(1); execution uses OMP_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1.",
+  "hyperparameters_summary": "LightGBM regression_l1: 700 trees, learning_rate=0.03, num_leaves=63, min_child_samples=30, subsample=0.9, colsample_bytree=0.9, reg_lambda=0.5, random_state=2020, n_jobs=5; recursive calendar/holiday, 24/168/8736-hour lag and prior-only rolling features.",
+  "command_failures": 15,
+  "anomalies": [
+    "No hourly forecast CSV survives; metrics.csv contains six aggregate model rows. The agent deleted its forecast cache at session.jsonl:1506, preventing independent MAPE recomputation from retained numeric predictions.",
+    "The final claim that test observations did not enter selection conflicts with explicit test-MAPE winner selection.",
+    "Initial SARIMAX execution exited with code 144; it was replaced by Burg-estimated autoregression after daily differencing.",
+    "N-BEATS repeatedly exited with code 139; subsequent retries switched to CPU, smaller batches, wider training strides, fewer epochs and single-thread execution.",
+    "Two background tasks were explicitly stopped. Prophet initially failed on the unavailable quantile_timeseries API, then succeeded after correction.",
+    "PatchTST was unavailable and was replaced by TSMixer without a PatchTST fit attempt.",
+    "Failure count includes 13 directly failing tool results plus two background shell tracebacks retrieved through Read, at session.jsonl:90 and :636; exit-only background terminations are documented separately.",
+    "Two ps commands were denied with 'operation not permitted', including a retry requesting sandbox bypass. Strict mypy failed three times with an internal error.",
+    "A temporary reporting smoke test constructed synthetic forecasts from test actuals, including a zero-error LightGBM placeholder; these temporary outputs were deleted and are distinct from the final fitted forecasts.",
+    "LightGBM quantile forecasts crossed at 53 test hours and were sorted pointwise before interval reporting.",
+    "output_outside contains a .ruff_cache directory. Reported model runtime of 134.3 seconds excludes failed attempts and retries; harness wall-clock duration was 3330 seconds."
+  ],
+  "one_line_summary": "Compared six forecasts after pre-2020 hyperparameter validation, selected LightGBM on test MAPE of 5.105%, and retained reports and interval plots but no hourly forecast CSV."
+}

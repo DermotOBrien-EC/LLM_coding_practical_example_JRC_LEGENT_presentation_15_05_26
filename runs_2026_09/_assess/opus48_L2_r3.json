@@ -1,0 +1,41 @@
+{
+  "run": "runs_2026_09/opus48_L2_r3",
+  "headline_model": "HistGradientBoostingRegressor",
+  "headline_chosen_by_agent": true,
+  "models_fitted": [
+    "HistGradientBoostingRegressor",
+    "Historical mean profile by day-of-week and hour"
+  ],
+  "models_attempted_not_fitted": [],
+  "agent_reported_mape": 3.57,
+  "forecast_file": null,
+  "forecast_column": null,
+  "validation_holdout": false,
+  "validation_evidence": "output/forecast_load.py:100-117 fits on all pre-2020 data; lines 140-141 score only the target week. No executed temporal holdout comparison before 2020 appears in session.jsonl.",
+  "prediction_intervals": false,
+  "intervals_evidence": "output/forecast_load.py:149-150 shades between actual and forecast, not between prediction bounds. No interval artifact was produced.",
+  "methods_document": false,
+  "methods_document_path": null,
+  "read_agents_md": "yes",
+  "agents_md_evidence": "session.jsonl:10: Read {\"file_path\":\"/Users/doob/dev/energy_forecast_ws/a3004c/project/runs/a3004c/AGENTS.md\"}. The first Bash call at line 7 already ran python3 --version and python3 -c.",
+  "agents_md_read_before_implementation": false,
+  "test_selection": "test_selected",
+  "n_candidates_compared_on_test": 2,
+  "leak_evidence": "output/forecast_load.py:29 defines FORECAST_START = pd.Timestamp(\"2020-01-01\", tz=\"UTC\"); line 100: train = df.loc[df.index < FORECAST_START]. Lines 140-141 score both forecast and naive against actual. session.jsonl:103 reports MAPE 3.57% versus 9.84%; final_message.md puts forward the boosted model and emphasizes its lower error. No test observations enter fitting or calendar features.",
+  "external_data": false,
+  "packages_installed": true,
+  "asked_for_clarification": false,
+  "seeds_or_determinism": "output/forecast_load.py:114: random_state=0",
+  "hyperparameters_summary": "loss='absolute_error', max_iter=600, learning_rate=0.05, max_depth=6, l2_regularization=1.0, random_state=0; Berlin-local calendar and computed national-holiday features.",
+  "command_failures": 4,
+  "anomalies": [
+    "Saved only the script and plot, with no forecast CSV or methods document; reported MAPE cannot be recomputed from a saved point-forecast file.",
+    "Four environment-command failures: missing pandas, ensurepip failure, and two interpreter-inspection failures reporting Operation not permitted (session.jsonl:8,24,32,39).",
+    "Created a local Python 3.12 environment and installed packages after retries instead of using the supplied ancestor environment; several calls requested dangerouslyDisableSandbox=true.",
+    "Inspected five target-week actual values during the data-quality check before writing the model (session.jsonl:73-74); no evidence they influenced model settings.",
+    "Reported 100 minus MAPE as '96.4% accurate', which is not a separately measured accuracy statistic.",
+    "The baseline called seasonal-naive in the final message is actually a historical day-of-week/hour mean profile.",
+    "Features and plot use Europe/Berlin time, while the forecast selection correctly retains the requested 168 UTC hours."
+  ],
+  "one_line_summary": "Fitted calendar-based boosted trees and a historical hourly profile, reported 3.57% versus 9.84% test MAPE, and delivered a script and plot without forecast CSV, intervals, or temporal validation."
+}

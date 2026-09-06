@@ -1,0 +1,12 @@
+[
+  {
+    "path": "forecast.png",
+    "bytes": 167857,
+    "sha256": "f6196aab98ca32e490749dd459a1efbd2c65cbb0cc2cd352424daf60f1923c96"
+  },
+  {
+    "path": "forecast_week.py",
+    "bytes": 5000,
+    "sha256": "091006dabfc31a3b4101326f1baf5b84c35f6317b13bbc17706b7103a4e3792c"
+  }
+]

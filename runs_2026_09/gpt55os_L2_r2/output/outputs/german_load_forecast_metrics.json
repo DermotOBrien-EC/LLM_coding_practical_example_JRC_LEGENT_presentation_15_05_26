@@ -1,0 +1,14 @@
+{
+  "hours": 168.0,
+  "mae_improvement_vs_seasonal_naive_percent": 38.22239110123385,
+  "mae_mw": 4471.448623138194,
+  "mape_percent": 8.503086790902625,
+  "mean_actual_mw": 53399.70238095238,
+  "mean_bias_mw": 1175.814819428033,
+  "mean_forecast_mw": 54575.51720038041,
+  "rmse_mw": 5108.058437517333,
+  "seasonal_naive_mae_mw": 7237.976190476191,
+  "seasonal_naive_rmse_mw": 8808.602996502907,
+  "smape_percent": 8.306816840302531,
+  "wape_percent": 8.373545963307008
+}

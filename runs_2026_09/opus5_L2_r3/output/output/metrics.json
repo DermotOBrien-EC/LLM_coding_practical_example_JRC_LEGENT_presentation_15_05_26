@@ -1,0 +1,69 @@
+{
+  "window_start_local": "2020-01-01 00:00:00+01:00",
+  "primary_model": "Harmonic regression",
+  "lgbm_config": "lgbm(n=800,leaves=63)",
+  "selection_basis": "3 'holiday' fold(s) before the window",
+  "test": {
+    "LightGBM": {
+      "MAPE_pct": 4.951480980004696,
+      "MAE_MW": 2668.8548051205166,
+      "RMSE_MW": 3206.571955537497,
+      "bias_MW": 2648.8556997896426,
+      "max_abs_err_MW": 8139.05535265783,
+      "peak_err_pct": 3.8565625457878663
+    },
+    "Harmonic regression": {
+      "MAPE_pct": 4.8042027480757685,
+      "MAE_MW": 2585.4243245522325,
+      "RMSE_MW": 3290.720483391555,
+      "bias_MW": 1788.75638914728,
+      "max_abs_err_MW": 8524.28629430652,
+      "peak_err_pct": 6.148113630456177
+    },
+    "Seasonal naive": {
+      "MAPE_pct": 12.688515024216496,
+      "MAE_MW": 7186.875,
+      "RMSE_MW": 8773.338931441802,
+      "bias_MW": -6857.422619047619,
+      "max_abs_err_MW": 22403.0,
+      "peak_err_pct": -17.41546098090645
+    }
+  },
+  "per_day": {
+    "2020-01-01": {
+      "MAPE_pct": 6.756,
+      "bias_MW": 2694.921,
+      "actual_peak_MW": 51755.0
+    },
+    "2020-01-02": {
+      "MAPE_pct": 6.141,
+      "bias_MW": 2571.283,
+      "actual_peak_MW": 62923.0
+    },
+    "2020-01-03": {
+      "MAPE_pct": 6.51,
+      "bias_MW": 3741.263,
+      "actual_peak_MW": 63230.0
+    },
+    "2020-01-04": {
+      "MAPE_pct": 3.182,
+      "bias_MW": -1285.52,
+      "actual_peak_MW": 60436.0
+    },
+    "2020-01-05": {
+      "MAPE_pct": 2.238,
+      "bias_MW": -256.433,
+      "actual_peak_MW": 56412.0
+    },
+    "2020-01-06": {
+      "MAPE_pct": 3.645,
+      "bias_MW": 1791.948,
+      "actual_peak_MW": 66215.0
+    },
+    "2020-01-07": {
+      "MAPE_pct": 5.156,
+      "bias_MW": 3263.833,
+      "actual_peak_MW": 70914.0
+    }
+  }
+}

@@ -1,0 +1,182 @@
+{
+  "test_start": "2020-01-01",
+  "test_end": "2020-01-07",
+  "n_test_observations": 168,
+  "models": [
+    {
+      "name": "lightgbm",
+      "mape_test_pct": 5.114978117084735,
+      "rmse_test_mw": 3639.1565522803967,
+      "mae_test_mw": 2774.1124866087775,
+      "mape_jan1_pct": 5.4115990930466396,
+      "mape_jan2_to_jan7_pct": 5.06554128775775,
+      "runtime_seconds": 15.814029750006739,
+      "hyperparameters": {
+        "num_leaves": 31,
+        "n_estimators": 400,
+        "objective": "quantile",
+        "quantiles": [
+          0.025,
+          0.1,
+          0.5,
+          0.9,
+          0.975
+        ],
+        "learning_rate": 0.05,
+        "min_child_samples": 60,
+        "seed": 206,
+        "features": [
+          "hour",
+          "day_of_week",
+          "month",
+          "is_weekend",
+          "is_public_holiday_de",
+          "lag_24h",
+          "lag_168h",
+          "lag_8736h",
+          "mean_24h",
+          "std_24h",
+          "mean_168h",
+          "std_168h"
+        ],
+        "annual_lag_hours": 8736,
+        "point": "recursive conditional-median path",
+        "quantile_recursion": "1000 simulated load paths",
+        "n_paths": 1000,
+        "inverse_cdf": "monotone rearrangement then linear interpolation/extrapolation on normal quantile axis",
+        "innovation_dependence": "independent conditional draws"
+      }
+    },
+    {
+      "name": "prophet",
+      "mape_test_pct": 8.175796144219264,
+      "rmse_test_mw": 4900.137239769996,
+      "mae_test_mw": 4124.5703917482515,
+      "mape_jan1_pct": 14.610999387348464,
+      "mape_jan2_to_jan7_pct": 7.103262270364397,
+      "runtime_seconds": 24.315773165988503,
+      "hyperparameters": {
+        "changepoint_prior_scale": 0.05,
+        "daily_seasonality": 10,
+        "weekly_seasonality": 6,
+        "yearly_seasonality": 10,
+        "country_holidays": "DE",
+        "seasonality_mode": "additive",
+        "uncertainty_samples": 1000,
+        "random_state": 206,
+        "mcmc_samples": 0
+      }
+    },
+    {
+      "name": "nbeats",
+      "mape_test_pct": 10.229039509543643,
+      "rmse_test_mw": 6711.126842901093,
+      "mae_test_mw": 5405.644005952381,
+      "mape_jan1_pct": 8.860731242189225,
+      "mape_jan2_to_jan7_pct": 10.457090887436046,
+      "runtime_seconds": 77.52896854100982,
+      "hyperparameters": {
+        "actual_class": "NBEATSModel",
+        "input_chunk_length": 168,
+        "output_chunk_length": 168,
+        "max_epochs": 30,
+        "selected_epochs": 24,
+        "early_stopping": "hour-weighted rolling-origin validation MAPE; patience=4 epochs",
+        "training_stride_hours": 24,
+        "batch_size": 64,
+        "learning_rate": 0.001,
+        "gradient_clip_val": 1.0,
+        "seed": 206,
+        "likelihood": "GaussianLikelihood",
+        "scaling": "divide by fitting-partition mean, no centering",
+        "accelerator": "cpu",
+        "threads": 4,
+        "generic_architecture": true,
+        "num_stacks": 30,
+        "num_blocks": 1,
+        "num_layers": 4,
+        "layer_widths": 256
+      }
+    },
+    {
+      "name": "patchtst",
+      "mape_test_pct": 10.9867040655449,
+      "rmse_test_mw": 7327.741964262687,
+      "mae_test_mw": 5636.347428571429,
+      "mape_jan1_pct": 19.41648192330682,
+      "mape_jan2_to_jan7_pct": 9.58174108925125,
+      "runtime_seconds": 90.02686362498207,
+      "hyperparameters": {
+        "actual_class": "TransformerModel",
+        "input_chunk_length": 168,
+        "output_chunk_length": 168,
+        "max_epochs": 30,
+        "selected_epochs": 18,
+        "early_stopping": "hour-weighted rolling-origin validation MAPE; patience=4 epochs",
+        "training_stride_hours": 24,
+        "batch_size": 64,
+        "learning_rate": 0.001,
+        "gradient_clip_val": 1.0,
+        "seed": 206,
+        "likelihood": "GaussianLikelihood",
+        "scaling": "divide by fitting-partition mean, no centering",
+        "accelerator": "cpu",
+        "threads": 4,
+        "substitution": "PatchTSTModel unavailable in Darts 0.41.0; TransformerModel used, not TSMixer",
+        "d_model": 32,
+        "nhead": 4,
+        "num_encoder_layers": 2,
+        "num_decoder_layers": 1,
+        "dim_feedforward": 64,
+        "dropout": 0.1
+      }
+    },
+    {
+      "name": "naive",
+      "mape_test_pct": 12.780588824669476,
+      "rmse_test_mw": 8808.602996502907,
+      "mae_test_mw": 7237.976190476191,
+      "mape_jan1_pct": 6.51955384895017,
+      "mape_jan2_to_jan7_pct": 13.824094653956026,
+      "runtime_seconds": 4.900002386420965e-05,
+      "hyperparameters": {
+        "seasonal_lag_hours": 168
+      }
+    },
+    {
+      "name": "sarima",
+      "mape_test_pct": 14.6605917530156,
+      "rmse_test_mw": 9466.38633184203,
+      "mae_test_mw": 8165.121895120878,
+      "mape_jan1_pct": 6.95260491904766,
+      "mape_jan2_to_jan7_pct": 15.945256225343588,
+      "runtime_seconds": 368.7364257920126,
+      "hyperparameters": {
+        "order": [
+          1,
+          0,
+          0
+        ],
+        "seasonal_order": [
+          1,
+          0,
+          0,
+          24
+        ],
+        "trend": "c",
+        "weekly_fourier_harmonics": 3,
+        "candidate_maxiter": 60,
+        "refit_maxiter": 180,
+        "selection": "lowest validation MAPE among converged candidates",
+        "intervals": "Gaussian state-space forecast, fixed estimated parameters"
+      }
+    }
+  ],
+  "winner": "lightgbm",
+  "winner_coverage_80pct": 0.7916666666666666,
+  "winner_coverage_95pct": 0.9761904761904762,
+  "winner_pinball_loss_q10": 470.6273145203225,
+  "winner_pinball_loss_q50": 1213.3277654581107,
+  "winner_pinball_loss_q90": 501.3353538659797,
+  "total_runtime_seconds": 582.1746347089938
+}

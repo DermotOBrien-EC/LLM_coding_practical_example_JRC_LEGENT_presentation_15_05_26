@@ -1,0 +1,12 @@
+[
+  {
+    "path": "forecast_jan2020.png",
+    "bytes": 199842,
+    "sha256": "677539acdfe29735f71f7e3215a2dfc3694925e4bb4d5b0be887e13c5535c6b0"
+  },
+  {
+    "path": "forecast_load.py",
+    "bytes": 6801,
+    "sha256": "a8fcc4a1dc4e56129b7ee5e84c7fad203f6cf280d46b8062d3c232ed6a3747d9"
+  }
+]

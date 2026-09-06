@@ -1,0 +1,19 @@
+START prophet
+Traceback (most recent call last):
+  File "/Users/doob/dev/energy_forecast_ws/206ebc/project/runs/206ebc/code/forecast.py", line 49, in <module>
+    main()
+  File "/Users/doob/dev/energy_forecast_ws/206ebc/project/runs/206ebc/code/forecast.py", line 37, in main
+    result = module.run(pretest)
+             ^^^^^^^^^^^^^^^^^^^
+  File "/Users/doob/dev/energy_forecast_ws/206ebc/project/runs/206ebc/code/prophet.py", line 29, in run
+    model = fit(train, config)
+            ^^^^^^^^^^^^^^^^^^
+  File "/Users/doob/dev/energy_forecast_ws/206ebc/project/runs/206ebc/code/prophet.py", line 16, in fit
+    model.fit(TimeSeries.from_series(series))
+  File "/Users/doob/dev/energy_forecast_ws/206ebc/project/.venv/lib/python3.12/site-packages/darts/models/forecasting/forecasting_model.py", line 3293, in fit
+    return self._fit(series, future_covariates=future_covariates, verbose=verbose)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/doob/dev/energy_forecast_ws/206ebc/project/.venv/lib/python3.12/site-packages/darts/models/forecasting/prophet_model.py", line 241, in _fit
+    self.model = self._model_builder(**self.prophet_kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: Prophet.__init__() got an unexpected keyword argument 'suppress_stdout_stderr'

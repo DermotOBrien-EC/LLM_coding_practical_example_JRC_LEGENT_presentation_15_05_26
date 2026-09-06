@@ -1,0 +1,29 @@
+{
+  "added": [
+    "runs/1f1a93/code",
+    "runs/1f1a93/code/__pycache__",
+    "runs/1f1a93/code/__pycache__/common.cpython-312.pyc",
+    "runs/1f1a93/code/__pycache__/lightgbm_features.cpython-312.pyc",
+    "runs/1f1a93/code/__pycache__/naive.cpython-312.pyc",
+    "runs/1f1a93/code/__pycache__/nbeats.cpython-312.pyc",
+    "runs/1f1a93/code/__pycache__/patchtst.cpython-312.pyc",
+    "runs/1f1a93/code/__pycache__/prophet.cpython-312.pyc",
+    "runs/1f1a93/code/__pycache__/sarima.cpython-312.pyc",
+    "runs/1f1a93/code/common.py",
+    "runs/1f1a93/code/forecast.py",
+    "runs/1f1a93/code/lightgbm_features.py",
+    "runs/1f1a93/code/naive.py",
+    "runs/1f1a93/code/nbeats.py",
+    "runs/1f1a93/code/patchtst.py",
+    "runs/1f1a93/code/prophet.py",
+    "runs/1f1a93/code/sarima.py",
+    "runs/1f1a93/figures"
+  ],
+  "modified": [],
+  "deleted": [],
+  "counts": {
+    "added": 18,
+    "modified": 0,
+    "deleted": 0
+  }
+}

@@ -1,0 +1,37 @@
+[
+  {
+    "path": "forecast_de_load.py",
+    "bytes": 31261,
+    "sha256": "902b059038f15951d7633c2a286c32c34691fc614ee51e2e4f02a2dab9410a53"
+  },
+  {
+    "path": "output/forecast.png",
+    "bytes": 323820,
+    "sha256": "6bf55c702682f0f50c47a9ad3b6655d18b9395a8e5fb345ad7cc4e798303f5fa"
+  },
+  {
+    "path": "output/forecast_dark.png",
+    "bytes": 308867,
+    "sha256": "86821c5e7409efe39f46dd1374f47d1adfc219a105ea6192cf4fd86a864ae0fb"
+  },
+  {
+    "path": "output/forecast_vs_actual.csv",
+    "bytes": 11013,
+    "sha256": "2304cebf666db8bf6b528bb0f889eea237fce321e9c14e08402f0374818fa01e"
+  },
+  {
+    "path": "output/metrics.json",
+    "bytes": 1771,
+    "sha256": "19ffe505b18722fe08c71b38a8efc4aacb82bbe667ff49ad28c9f4e19327d336"
+  },
+  {
+    "path": "output/validation_folds.csv",
+    "bytes": 6488,
+    "sha256": "b62c61f21da24bbd122f01107ddd6896e71860d67024bb72addb9b20cc1d8bd6"
+  },
+  {
+    "path": "test_forecast_de_load.py",
+    "bytes": 5313,
+    "sha256": "f570c8dcb945fdb022c88178e5334b3e568d8262cadd4c080af044d9870d188f"
+  }
+]

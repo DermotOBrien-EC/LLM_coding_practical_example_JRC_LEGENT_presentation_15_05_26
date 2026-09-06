@@ -1,0 +1,62 @@
+[
+  {
+    "path": "README.md",
+    "bytes": 8247,
+    "sha256": "7f18d6c26cd1b38d6d7eb90418fe9603b59b353d38f8111db4aad57af79b5500"
+  },
+  {
+    "path": "backtest_metrics.csv",
+    "bytes": 859,
+    "sha256": "b4105d77b587984e133df8f99fbbaacbf968aba4b17e7da55b060eee7955cae4"
+  },
+  {
+    "path": "backtest_predictions.csv",
+    "bytes": 191612,
+    "sha256": "aec42e639f2b209ad0c06dcff77e85fc6bcf54a0d16987d8ed7dfb121b272de7"
+  },
+  {
+    "path": "daily_forecast.csv",
+    "bytes": 510,
+    "sha256": "bb41d546b77b1cfcfb71a052f19884531ce5d7de7bda4609f278c4462d42d12d"
+  },
+  {
+    "path": "forecast.csv",
+    "bytes": 13340,
+    "sha256": "f12217a0146b48ec0665d793637efdd072dc75bab4ef98a798a0a0e7345560c5"
+  },
+  {
+    "path": "forecast_metadata.json",
+    "bytes": 1964,
+    "sha256": "6664bda1b6cea5e92fc5d315b8096d253c9773869ffe5d7844f9b64eeccec95e"
+  },
+  {
+    "path": "forecast_model.py",
+    "bytes": 13207,
+    "sha256": "4b32ae4c559eebc8dc46c70bccd6a676319ca89a5825dd711fd4cf1e77d64fd7"
+  },
+  {
+    "path": "forecast_run.log",
+    "bytes": 4446,
+    "sha256": "88abb7c236531db15c591233e85d369a4a18c322992aa38b10cff3f8e713543d"
+  },
+  {
+    "path": "model_comparison.csv",
+    "bytes": 283,
+    "sha256": "da8e643cdb5e8f0542a57e3e46851f98e6876db3ddc53cba742192116d3ee74e"
+  },
+  {
+    "path": "review.md",
+    "bytes": 14697,
+    "sha256": "c30263aa2664501d885486248eb3501a8e5ad1225bc07c89e27e627ce7a69c2b"
+  },
+  {
+    "path": "test_forecast.py",
+    "bytes": 2137,
+    "sha256": "8f3cb85d607ffe56d96c20491d78cd4951aa22552ae92fddf3c876dbe170872c"
+  },
+  {
+    "path": "test_forecast_artifacts.py",
+    "bytes": 2975,
+    "sha256": "3b1879429d21c9c411aa09f46c932ecb1052e7954ab21049057bb7ff457f9904"
+  }
+]

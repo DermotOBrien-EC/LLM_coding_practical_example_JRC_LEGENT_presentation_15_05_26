@@ -1,0 +1,268 @@
+{
+  "forecast_start_utc": "2020-01-01 00:00:00+00:00",
+  "forecast_end_inclusive_utc": "2020-01-07 23:00:00+00:00",
+  "hours": 168,
+  "selected_model": "calendar",
+  "model_class": "sklearn.ensemble.HistGradientBoostingRegressor",
+  "model_spec": {
+    "name": "calendar",
+    "use_lags": false,
+    "max_iter": 250,
+    "learning_rate": 0.06,
+    "max_leaf_nodes": 31,
+    "min_samples_leaf": 30,
+    "l2_regularization": 10.0
+  },
+  "other_model_parameters": {
+    "early_stopping": false,
+    "random_state": 2020,
+    "loss": "squared_error",
+    "categorical_features": null,
+    "thread_limit": 2
+  },
+  "calendar_timezone": "Europe/Berlin",
+  "lag_hours": [],
+  "available_history_rows": 43824,
+  "history_start_utc": "2015-01-01 00:00:00+00:00",
+  "history_end_utc": "2019-12-31 23:00:00+00:00",
+  "fitted_rows": 35064,
+  "fitted_start_utc": "2016-01-01 00:00:00+00:00",
+  "fitted_end_utc": "2019-12-31 23:00:00+00:00",
+  "common_warmup_hours": 8760,
+  "model_metrics": {
+    "mae_mw": 1566.40888530745,
+    "rmse_mw": 2050.950248909374,
+    "mape_pct": 2.802359784433126,
+    "wape_pct": 2.93336632128157,
+    "bias_mw": -215.07935118809206
+  },
+  "baseline_metrics": {
+    "mae_mw": 7237.976190476191,
+    "rmse_mw": 8808.602996502907,
+    "mape_pct": 12.780588824669476,
+    "wape_pct": 13.554338072599387,
+    "bias_mw": -6908.523809523809
+  },
+  "baseline_definition": "Same UTC hour 168 hours earlier; forecast fixed before test week.",
+  "mae_improvement_over_baseline_pct": 78.35846866464485,
+  "selection_metric": "Mean MAE across five equally weighted pre-2020 168-hour weeks",
+  "validation_mean_mae_mw": {
+    "calendar": 1690.439775660435,
+    "calendar_lags": 1968.5307698201257
+  },
+  "validation": [
+    {
+      "origin": "2018-01-01 00:00:00+00:00",
+      "model": "calendar",
+      "training_rows": 17544,
+      "mae_mw": 2067.6872527786436,
+      "rmse_mw": 2386.682451490022,
+      "mape_pct": 4.0117204821325965,
+      "wape_pct": 3.769132806517166,
+      "bias_mw": 1774.2867511658662,
+      "baseline_mae_mw": 6895.9047619047615,
+      "baseline_mape_pct": 11.916884443132567
+    },
+    {
+      "origin": "2018-01-01 00:00:00+00:00",
+      "model": "calendar_lags",
+      "training_rows": 17544,
+      "mae_mw": 3212.4473822009604,
+      "rmse_mw": 3584.531683356242,
+      "mape_pct": 6.207216296895067,
+      "wape_pct": 5.855885991071622,
+      "bias_mw": 2872.3708003212396,
+      "baseline_mae_mw": 6895.9047619047615,
+      "baseline_mape_pct": 11.916884443132567
+    },
+    {
+      "origin": "2019-01-01 00:00:00+00:00",
+      "model": "calendar",
+      "training_rows": 26304,
+      "mae_mw": 1419.062489345053,
+      "rmse_mw": 1774.367654767601,
+      "mape_pct": 2.7057265860593374,
+      "wape_pct": 2.5370804491901637,
+      "bias_mw": 557.6595958943985,
+      "baseline_mae_mw": 7053.666666666667,
+      "baseline_mape_pct": 11.707292505056104
+    },
+    {
+      "origin": "2019-01-01 00:00:00+00:00",
+      "model": "calendar_lags",
+      "training_rows": 26304,
+      "mae_mw": 1618.3718168927694,
+      "rmse_mw": 1953.1134801964372,
+      "mape_pct": 3.00707415559681,
+      "wape_pct": 2.8934169756358252,
+      "bias_mw": -1217.6464169015203,
+      "baseline_mae_mw": 7053.666666666667,
+      "baseline_mape_pct": 11.707292505056104
+    },
+    {
+      "origin": "2019-11-04 00:00:00+00:00",
+      "model": "calendar",
+      "training_rows": 33672,
+      "mae_mw": 1565.0151086792819,
+      "rmse_mw": 1785.4938644380109,
+      "mape_pct": 2.689933851359703,
+      "wape_pct": 2.6909082654782726,
+      "bias_mw": -1453.4507783994177,
+      "baseline_mae_mw": 3534.5773809523807,
+      "baseline_mape_pct": 5.950195085117257
+    },
+    {
+      "origin": "2019-11-04 00:00:00+00:00",
+      "model": "calendar_lags",
+      "training_rows": 33672,
+      "mae_mw": 1824.555105682209,
+      "rmse_mw": 2155.9673806253813,
+      "mape_pct": 3.121957406380003,
+      "wape_pct": 3.1371648666345138,
+      "bias_mw": -1761.7550657698052,
+      "baseline_mae_mw": 3534.5773809523807,
+      "baseline_mape_pct": 5.950195085117257
+    },
+    {
+      "origin": "2019-12-02 00:00:00+00:00",
+      "model": "calendar",
+      "training_rows": 34344,
+      "mae_mw": 1452.8920319153272,
+      "rmse_mw": 1708.9122732282249,
+      "mape_pct": 2.4171155393579653,
+      "wape_pct": 2.3794771452826105,
+      "bias_mw": -584.4036850748769,
+      "baseline_mae_mw": 1955.857142857143,
+      "baseline_mape_pct": 3.2760696647236984
+    },
+    {
+      "origin": "2019-12-02 00:00:00+00:00",
+      "model": "calendar_lags",
+      "training_rows": 34344,
+      "mae_mw": 1503.1417408015861,
+      "rmse_mw": 1795.3674632601549,
+      "mape_pct": 2.5319064056116383,
+      "wape_pct": 2.4617737173784278,
+      "bias_mw": -125.61616312190252,
+      "baseline_mae_mw": 1955.857142857143,
+      "baseline_mape_pct": 3.2760696647236984
+    },
+    {
+      "origin": "2019-12-23 00:00:00+00:00",
+      "model": "calendar",
+      "training_rows": 34848,
+      "mae_mw": 1947.54199558387,
+      "rmse_mw": 2490.209998960801,
+      "mape_pct": 4.165889592986486,
+      "wape_pct": 4.187784181044486,
+      "bias_mw": 1223.412989374954,
+      "baseline_mae_mw": 10333.279761904761,
+      "baseline_mape_pct": 22.520767753556424
+    },
+    {
+      "origin": "2019-12-23 00:00:00+00:00",
+      "model": "calendar_lags",
+      "training_rows": 34848,
+      "mae_mw": 1684.1378035231028,
+      "rmse_mw": 2278.849381488646,
+      "mape_pct": 3.547611902085411,
+      "wape_pct": 3.6213882259204566,
+      "bias_mw": 1285.2362660167785,
+      "baseline_mae_mw": 10333.279761904761,
+      "baseline_mape_pct": 22.520767753556424
+    }
+  ],
+  "daily_metrics_utc": [
+    {
+      "date_utc": "2020-01-01",
+      "hours": 24,
+      "mae_mw": 1370.3388590390944,
+      "rmse_mw": 1655.3793429696807,
+      "mape_pct": 3.1557479980904737,
+      "wape_pct": 3.1146041100087096,
+      "bias_mw": 388.8166902868276
+    },
+    {
+      "date_utc": "2020-01-02",
+      "hours": 24,
+      "mae_mw": 1799.819141917775,
+      "rmse_mw": 2020.4473730351363,
+      "mape_pct": 3.173825921097056,
+      "wape_pct": 3.328224360737692,
+      "bias_mw": 1652.3553705344714
+    },
+    {
+      "date_utc": "2020-01-03",
+      "hours": 24,
+      "mae_mw": 1319.9535397299085,
+      "rmse_mw": 1549.8714941224814,
+      "mape_pct": 2.3599924827880923,
+      "wape_pct": 2.373229282658545,
+      "bias_mw": 1310.397124753393
+    },
+    {
+      "date_utc": "2020-01-04",
+      "hours": 24,
+      "mae_mw": 1717.5628758054374,
+      "rmse_mw": 2033.1229533304004,
+      "mape_pct": 3.1534675030074357,
+      "wape_pct": 3.267733385811525,
+      "bias_mw": -1243.6948197512231
+    },
+    {
+      "date_utc": "2020-01-05",
+      "hours": 24,
+      "mae_mw": 518.6179768680589,
+      "rmse_mw": 676.6185403455578,
+      "mape_pct": 1.1223665651571513,
+      "wape_pct": 1.0803772166246337,
+      "bias_mw": 335.93177010792533
+    },
+    {
+      "date_utc": "2020-01-06",
+      "hours": 24,
+      "mae_mw": 793.5120884126906,
+      "rmse_mw": 1030.3500681885707,
+      "mape_pct": 1.3571228526542611,
+      "wape_pct": 1.3955705104046663,
+      "bias_mw": -504.3038788688518
+    },
+    {
+      "date_utc": "2020-01-07",
+      "hours": 24,
+      "mae_mw": 3445.057715379187,
+      "rmse_mw": 3816.6956394722783,
+      "mape_pct": 5.293995168237409,
+      "wape_pct": 5.496197341893941,
+      "bias_mw": -3445.057715379187
+    }
+  ],
+  "bias_definition": "Mean forecast minus actual; positive means overforecast.",
+  "data_audit": {
+    "input_file": "/Users/doob/dev/energy_forecast_ws/57f1d2/project/runs/57f1d2/opsd_de_load.csv",
+    "sha256": "2f20c7560c962c7b5804b1854243c1b27ecd6358e24951238e12ae4336fa529c",
+    "rows": 50400,
+    "start_utc": "2015-01-01 00:00:00+00:00",
+    "end_utc": "2020-09-30 23:00:00+00:00",
+    "missing_hours": 0,
+    "missing_or_invalid_load_values": 0,
+    "duplicate_timestamps": 0,
+    "imputation": "None; invalid or missing data raises an error."
+  },
+  "versions": {
+    "python": "3.12.13",
+    "numpy": "2.4.4",
+    "pandas": "2.3.3",
+    "scikit-learn": "1.7.2",
+    "matplotlib": "3.10.9",
+    "holidays": "0.96"
+  },
+  "limitations": [
+    "Single held-out week; not an estimate of year-round or future performance.",
+    "Retrospective backtest on supplied actuals, not a vintage-aware operational replay.",
+    "No weather forecasts, industrial schedules or predictive intervals.",
+    "National holidays plus Jan 6 flag; other regional holidays are not explicitly modeled.",
+    "365-day lag matches calendar date for this test week, not universally across leap years.",
+    "The previous-week baseline is weak here because its source week includes Christmas."
+  ]
+}

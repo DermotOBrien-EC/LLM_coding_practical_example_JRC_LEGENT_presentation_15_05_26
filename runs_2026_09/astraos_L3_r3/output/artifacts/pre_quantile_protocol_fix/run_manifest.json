@@ -1,0 +1,28 @@
+{
+  "total_runtime_seconds": 619.1356198750145,
+  "seed": 2026,
+  "data_sha256": "2f20c7560c962c7b5804b1854243c1b27ecd6358e24951238e12ae4336fa529c",
+  "uname": "Darwin Dermots-MacBook-Pro-2.local 25.5.0 Darwin Kernel Version 25.5.0: Mon Apr 27 20:41:12 PDT 2026; root:xnu-12377.121.6~2/RELEASE_ARM64_T6050 arm64",
+  "python": "3.12.13",
+  "packages": {
+    "pandas": "2.3.3",
+    "numpy": "2.4.4",
+    "matplotlib": "3.10.9",
+    "statsmodels": "0.14.6",
+    "pmdarima": "2.1.1",
+    "darts": "0.41.0",
+    "lightgbm": "4.6.0",
+    "holidays": "0.96",
+    "torch": "2.10.0",
+    "pytorch-lightning": "2.5.2",
+    "prophet": "1.3.0",
+    "scipy": "1.17.1"
+  },
+  "train_rows": 41616,
+  "validation_rows": 2208,
+  "refit_rows": 43824,
+  "test_rows": 168,
+  "validation_origins": 14,
+  "training_complete_before_test_scoring": true,
+  "rendering_seconds": 1.867317665979499
+}

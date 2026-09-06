@@ -1,0 +1,6 @@
+model,mae_mw,rmse_mw,mape_pct,bias_mw
+calendar_boosting,2155.718,2513.916,3.992,-309.420
+holiday_ensemble,2208.146,2560.362,4.138,-199.343
+lagged_boosting,2428.727,2972.622,4.635,673.120
+calendar_ridge,2689.606,3182.871,4.979,-961.727
+weekly_naive,7823.683,9138.635,13.200,-7359.663

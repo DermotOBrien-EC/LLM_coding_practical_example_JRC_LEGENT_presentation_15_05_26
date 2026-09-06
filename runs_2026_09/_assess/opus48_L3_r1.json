@@ -1,0 +1,49 @@
+{
+  "run": "runs_2026_09/opus48_L3_r1",
+  "headline_model": "LightGBM",
+  "headline_chosen_by_agent": true,
+  "models_fitted": [
+    "seasonal naive lag-168h",
+    "SARIMA",
+    "Prophet",
+    "LightGBM",
+    "NBEATSModel",
+    "TransformerModel"
+  ],
+  "models_attempted_not_fitted": [
+    "TransformerModel (batch_size=1024 rerun abandoned; batch_size=512 completed)"
+  ],
+  "agent_reported_mape": 4.8285,
+  "forecast_file": null,
+  "forecast_column": null,
+  "validation_holdout": true,
+  "validation_evidence": "output/code/common.py:44-46 defines training through 2019-09-30 and validation through 2019-12-31. output/code/lightgbm_features.py:183-190 scores each parameter set using 'val_mape = c.mape(splits.val.to_numpy(), val_point.to_numpy())' and selects 'if val_mape < best_val_mape'. session.jsonl:368 reports all four validation scores and the selected configuration.",
+  "prediction_intervals": true,
+  "intervals_evidence": "output/figures/05_winner_with_intervals.png exists; output/code/forecast.py:259-262 plots test-index quantiles 0.025/0.975 and 0.1/0.9 as 95% and 80% intervals. Final assembly succeeded at session.jsonl:1283.",
+  "methods_document": true,
+  "methods_document_path": "transcript.md",
+  "read_agents_md": "yes",
+  "agents_md_evidence": "session.jsonl:18 Read {\"file_path\":\"/Users/doob/dev/energy_forecast_ws/422d7c/project/runs/422d7c/AGENTS.md\"}.",
+  "agents_md_read_before_implementation": false,
+  "test_selection": "leaked",
+  "n_candidates_compared_on_test": 8,
+  "leak_evidence": "Training timestamps are clean: output/code/common.py:46 sets VAL_END='2019-12-31 23:00', and :159 uses 'trainval=series.loc[:VAL_END].copy()'. However, test results prompted a SARIMA configuration change: session.jsonl:890 says 'SARIMA blew up (100% MAPE ...). Let me diagnose'; :903 decides to replace simple_differencing=True with False; :904 scores another SARIMA configuration on the test window (12.18% at :916), before the final validation-selected SARIMA is scored at :987. Thus test observations influenced configuration during debugging. Separately, output/code/forecast.py:633-634 explicitly selects the winner by test MAPE.",
+  "external_data": false,
+  "packages_installed": false,
+  "asked_for_clarification": false,
+  "seeds_or_determinism": "output/code/common.py:82: 'SEED: int = 42'; LightGBM, Prophet, NBEATSModel and TransformerModel set random_state=c.SEED. transcript.md acknowledges that MPS float32 training is not bit-for-bit deterministic.",
+  "hyperparameters_summary": "LGBMRegressor: objective=regression, num_leaves=63, n_estimators=500, learning_rate=0.05, min_child_samples=20, subsample=1.0, n_jobs=-1, random_state=42; recursive calendar/lag/rolling-feature forecast.",
+  "command_failures": 11,
+  "anomalies": [
+    "No hourly forecast CSV was saved. metrics.csv contains model-level scores; point forecasts are cached in code/_cache/*.pkl.",
+    "Six final model forecasts plus two additional SARIMA configurations were test-scored: initial differenced-scale output at 100.02%, diagnostic corrected output at 12.18%, and final SARIMA at 10.9969%.",
+    "PatchTSTModel was unavailable; TransformerModel was substituted, although artifacts retain the PatchTST label.",
+    "A batch_size=1024 Transformer rerun was stopped after roughly 18 minutes; the agent reverted to batch_size=512 and retained its completed cache.",
+    "N-BEATS encountered a 120-second command timeout and an orchestrator segfault; subprocess isolation enabled completion.",
+    "Other failures included an incorrect venv path, shell quoting, a missing quantile_timeseries API, unsupported MPS float64, Prophet module shadowing, and a missing common import during cache inspection.",
+    "An additional shell quoting failure at session.jsonl:174 had is_error=false and contained neither 'Traceback' nor 'Error:', so it is excluded from the prescribed failure count.",
+    "AGENTS.md was read before code creation but after a successful Python --version invocation.",
+    "Reported fit runtime of 1816 seconds excludes exploratory fits, failed attempts and the abandoned rerun; harness wall time was 6630 seconds."
+  ],
+  "one_line_summary": "Compared six forecasting classes and chose LightGBM at 4.83% test MAPE, with pre-2020 validation and interval plots, but test-informed SARIMA revisions and no hourly forecast CSV."
+}

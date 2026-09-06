@@ -1,0 +1,167 @@
+[
+  {
+    "path": "code/.artifacts/lightgbm_feature_importance.csv",
+    "bytes": 336,
+    "sha256": "5747b2bae832e27a20d44fc4fea92b712a0778291c55b57fe2d121ea3e321881"
+  },
+  {
+    "path": "code/.artifacts/lightgbm_forecast.csv",
+    "bytes": 27827,
+    "sha256": "b0c39726c1fc6f30a1e27f862e1013816e55a503a55a280cec3b9f9592a5d06e"
+  },
+  {
+    "path": "code/.artifacts/lightgbm_metadata.json",
+    "bytes": 256,
+    "sha256": "e2e1ddad44f728692544424214c62f916bb1e77ac1d3d324afbb9bf3a9f8d084"
+  },
+  {
+    "path": "code/.artifacts/naive_forecast.csv",
+    "bytes": 5947,
+    "sha256": "42c5fa9c45f7851a6b189e24ec177456f507426e5c6a25b8f5b5e58851d9c282"
+  },
+  {
+    "path": "code/.artifacts/naive_metadata.json",
+    "bytes": 130,
+    "sha256": "c2e42ad58a0cba315b49d292b68d8435360a59cfb5705193d3772028472c47cf"
+  },
+  {
+    "path": "code/.artifacts/nbeats_forecast.csv",
+    "bytes": 27772,
+    "sha256": "68410871a66cacb741111c0ddfc4732af3d4fa6820aaffc0f9b124f6216abc31"
+  },
+  {
+    "path": "code/.artifacts/nbeats_metadata.json",
+    "bytes": 313,
+    "sha256": "f078d5c3bbcef6518f6f281d765053f73aae92874ebf82c8c72f6898b30084f2"
+  },
+  {
+    "path": "code/.artifacts/patchtst_forecast.csv",
+    "bytes": 27853,
+    "sha256": "ee352d0b1eb619119b5925f9e4b5124ce506cbb8f9202bed459f7f6df105ab16"
+  },
+  {
+    "path": "code/.artifacts/patchtst_metadata.json",
+    "bytes": 608,
+    "sha256": "0d7216e4385ae1a58682b9f0939496f26a22b032d3172d17c66755d789d42c95"
+  },
+  {
+    "path": "code/.artifacts/prophet_forecast.csv",
+    "bytes": 27840,
+    "sha256": "49d96f954a769f6611b816c2488940e569de08c421a461b65bbe50c1d726df36"
+  },
+  {
+    "path": "code/.artifacts/prophet_metadata.json",
+    "bytes": 327,
+    "sha256": "a5a375ef085d5af9883705b3cf6dc4341d3e674d084873c359791a2d0ed6eb04"
+  },
+  {
+    "path": "code/.artifacts/sarima_forecast.csv",
+    "bytes": 27794,
+    "sha256": "b07b0168d360dc96253ccf2e1d9142f1d58bb38f7686f2bd768bac243c6e3a1d"
+  },
+  {
+    "path": "code/.artifacts/sarima_metadata.json",
+    "bytes": 311,
+    "sha256": "d3a5853112eda19f3a22c7aeed588a79c7d848ba183cedcb8f0c05e6b0e2c8ce"
+  },
+  {
+    "path": "code/common.py",
+    "bytes": 9677,
+    "sha256": "97c6eea4b2308b9e82257523909780e8bf6eb4089e81f6eab0b8b2e4f479e11a"
+  },
+  {
+    "path": "code/forecast.py",
+    "bytes": 20782,
+    "sha256": "b1de335648a87ed06e91e496fce3e6709609a13854fdf94e4ee934207dcf053f"
+  },
+  {
+    "path": "code/lightgbm_features.py",
+    "bytes": 3753,
+    "sha256": "953f31dd8392d4e6579650d34c87ee462338020f86902444f463d66a6247f79c"
+  },
+  {
+    "path": "code/naive.py",
+    "bytes": 508,
+    "sha256": "f3dd6b41c15f50b31719767025529e7d9c3b46f65aab56b3c260268736a80704"
+  },
+  {
+    "path": "code/nbeats.py",
+    "bytes": 4360,
+    "sha256": "573c79bec1c942592b7cbea5d2063543029bde2a4c4ada91f700200b17d5b78f"
+  },
+  {
+    "path": "code/patchtst.py",
+    "bytes": 4567,
+    "sha256": "faae5fa7d50e94e42962477103f7956ae8376578b5ee66eac416886f6c5cb277"
+  },
+  {
+    "path": "code/prophet.py",
+    "bytes": 4428,
+    "sha256": "d2ee1386bb4582fd177e444048f5888657a75611b56da1df74301750011b6ae1"
+  },
+  {
+    "path": "code/run_one.py",
+    "bytes": 3427,
+    "sha256": "e3f5cc7cba0c64e8fea7d81dc42587c02251ae156eac10f2b68bd084ba622677"
+  },
+  {
+    "path": "code/sarima.py",
+    "bytes": 3312,
+    "sha256": "ef030197e23ec07f7a225d593dc901c9976926b8dc2ceabfdf4c9ff99b7dd7ad"
+  },
+  {
+    "path": "figures/01_overview.png",
+    "bytes": 289710,
+    "sha256": "18fbfdbaff90eb4d07d997b15c51090e4f564cc9a9f993fa4ab74cc4995c77f4"
+  },
+  {
+    "path": "figures/02_forecast_comparison.png",
+    "bytes": 526191,
+    "sha256": "dde6c752e2b86e4341aa62b0fea99d9b0d2d91a0237d966d5599c773c79bb864"
+  },
+  {
+    "path": "figures/03_metric_comparison.png",
+    "bytes": 160826,
+    "sha256": "dc19fe7d1f05b33652e4e783b83722b183c826480ade7a0da61922565dcb25b2"
+  },
+  {
+    "path": "figures/04_per_day_mape.png",
+    "bytes": 279034,
+    "sha256": "0e3c16434430164b60b96033351da98583d6bf1712bc8b585c53f8de4379d179"
+  },
+  {
+    "path": "figures/05_winner_with_intervals.png",
+    "bytes": 715033,
+    "sha256": "51018db0269f7eb78b06c719c935270cbb1ac99add6ff17254c7efb4069d2e5f"
+  },
+  {
+    "path": "figures/06_residuals.png",
+    "bytes": 198991,
+    "sha256": "bac8c722b78220f79dc6977e38b4999650a091a33e00dcc5eeb5271f50f6f62d"
+  },
+  {
+    "path": "figures/07_feature_importance.png",
+    "bytes": 116795,
+    "sha256": "0ef02524a62b1f9060868842d06737d10fffbc261e7ce0496d0314905fcfb238"
+  },
+  {
+    "path": "figures/08_decomposition.png",
+    "bytes": 208858,
+    "sha256": "88bcb38ce8c709b451385f45512bf58aa3f02d0d0426dad37acbbdd6af4a1448"
+  },
+  {
+    "path": "metrics.csv",
+    "bytes": 1880,
+    "sha256": "0668b081484dce7b7382a75993b55322ed9aa5e5f51270f4f710256882659689"
+  },
+  {
+    "path": "metrics.json",
+    "bytes": 3728,
+    "sha256": "c9a99b11e687ee62a552555a856e341b95b0614b3e1e37931c8f515de5fd857b"
+  },
+  {
+    "path": "transcript.md",
+    "bytes": 4723,
+    "sha256": "36aee4af8a771ef5c5fd1ba92b806020b7b3eeb230bd946068f528af2b45ae3f"
+  }
+]

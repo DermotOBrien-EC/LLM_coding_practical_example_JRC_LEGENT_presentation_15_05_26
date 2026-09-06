@@ -1,0 +1,147 @@
+{
+  "test_start": "2020-01-01",
+  "test_end": "2020-01-07",
+  "n_test_observations": 168,
+  "models": [
+    {
+      "name": "naive",
+      "mape_test_pct": 12.7806,
+      "rmse_test_mw": 8808.603,
+      "mae_test_mw": 7237.976,
+      "mape_jan1_pct": 6.5196,
+      "mape_jan2_to_jan7_pct": 13.8241,
+      "runtime_seconds": 0.0,
+      "hyperparameters": {
+        "lag_hours": 168
+      }
+    },
+    {
+      "name": "sarima",
+      "mape_test_pct": 9.8714,
+      "rmse_test_mw": 6741.405,
+      "mae_test_mw": 5475.292,
+      "mape_jan1_pct": 12.0992,
+      "mape_jan2_to_jan7_pct": 9.5001,
+      "runtime_seconds": 382.77,
+      "hyperparameters": {
+        "order": [
+          2,
+          0,
+          1
+        ],
+        "seasonal_order": [
+          1,
+          1,
+          1,
+          24
+        ],
+        "validation_mape_pct": 10.24306296673106,
+        "candidates_scored": {
+          "(2, 0, 1)x(1, 1, 1, 24)": 10.24306296673106,
+          "(2, 1, 1)x(1, 1, 1, 24)": 17.709811626565784,
+          "(1, 1, 1)x(1, 1, 1, 24)": 17.95517509508077
+        }
+      }
+    },
+    {
+      "name": "prophet",
+      "mape_test_pct": 7.5954,
+      "rmse_test_mw": 4864.562,
+      "mae_test_mw": 3789.297,
+      "mape_jan1_pct": 13.2231,
+      "mape_jan2_to_jan7_pct": 6.6575,
+      "runtime_seconds": 19.77,
+      "hyperparameters": {
+        "country_holidays": "DE",
+        "daily_seasonality": true,
+        "weekly_seasonality": true,
+        "yearly_seasonality": true,
+        "num_samples": 500,
+        "validation_mape_pct": 6.162811518916768
+      }
+    },
+    {
+      "name": "lightgbm",
+      "mape_test_pct": 3.5189,
+      "rmse_test_mw": 2361.391,
+      "mae_test_mw": 1882.709,
+      "mape_jan1_pct": 2.834,
+      "mape_jan2_to_jan7_pct": 3.633,
+      "runtime_seconds": 151.93,
+      "hyperparameters": {
+        "num_leaves": 63,
+        "learning_rate": 0.05,
+        "n_estimators": 800,
+        "min_child_samples": 30,
+        "features": [
+          "hour",
+          "day_of_week",
+          "month",
+          "is_weekend",
+          "is_public_holiday_de",
+          "lag_24h",
+          "lag_168h",
+          "lag_8760h",
+          "roll_mean_24h",
+          "roll_mean_168h",
+          "roll_std_24h",
+          "roll_std_168h"
+        ],
+        "validation_mape_pct_by_num_leaves": {
+          "31": 2.059813960956384,
+          "63": 1.9978006117762972,
+          "127": 2.026483346402388
+        }
+      }
+    },
+    {
+      "name": "nbeats",
+      "mape_test_pct": 11.1763,
+      "rmse_test_mw": 7073.022,
+      "mae_test_mw": 5825.573,
+      "mape_jan1_pct": 5.5532,
+      "mape_jan2_to_jan7_pct": 12.1135,
+      "runtime_seconds": 507.53,
+      "hyperparameters": {
+        "input_chunk_length": 168,
+        "output_chunk_length": 168,
+        "max_epochs": 20,
+        "refit_epochs": 20,
+        "batch_size": 1024,
+        "random_state": 42,
+        "validation_mape_pct": 7.3102295553592445,
+        "residual_sigma_mw": 5345.719633298668,
+        "interval_method": "empirical_normal_from_val_residuals"
+      }
+    },
+    {
+      "name": "patchtst",
+      "mape_test_pct": 7.763,
+      "rmse_test_mw": 5702.449,
+      "mae_test_mw": 4371.917,
+      "mape_jan1_pct": 4.6198,
+      "mape_jan2_to_jan7_pct": 8.2869,
+      "runtime_seconds": 1134.19,
+      "hyperparameters": {
+        "substituted_model": "darts.models.TSMixerModel",
+        "substitution_reason": "PatchTSTModel not exposed by installed darts 0.41.0; TSMixer is the first-listed acceptable substitute in the spec",
+        "input_chunk_length": 168,
+        "output_chunk_length": 168,
+        "max_epochs": 20,
+        "refit_epochs": 20,
+        "batch_size": 1024,
+        "random_state": 42,
+        "validation_mape_pct": 6.968089257697346,
+        "residual_sigma_mw": 5229.566916613723,
+        "interval_method": "empirical_normal_from_val_residuals"
+      }
+    }
+  ],
+  "winner": "lightgbm",
+  "winner_coverage_80pct": 0.7083,
+  "winner_coverage_95pct": 0.9048,
+  "winner_pinball_loss_q10": 385.304,
+  "winner_pinball_loss_q50": 775.486,
+  "winner_pinball_loss_q90": 304.656,
+  "total_runtime_seconds": 2196.87
+}

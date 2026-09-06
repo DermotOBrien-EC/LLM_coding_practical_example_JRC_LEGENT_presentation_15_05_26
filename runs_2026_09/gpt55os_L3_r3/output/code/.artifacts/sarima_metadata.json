@@ -1,0 +1,20 @@
+{
+  "name": "sarima",
+  "runtime_seconds": 30.40143437500228,
+  "hyperparameters": {
+    "order": [
+      2,
+      0,
+      1
+    ],
+    "seasonal_order": [
+      0,
+      0,
+      0,
+      24
+    ],
+    "validation_mape_pct": 15.664590984951088,
+    "selection_method": "statsmodels_grid"
+  },
+  "notes": []
+}

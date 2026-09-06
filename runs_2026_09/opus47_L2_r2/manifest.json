@@ -1,0 +1,12 @@
+[
+  {
+    "path": "forecast.py",
+    "bytes": 4688,
+    "sha256": "39f213e4242239d76f50fb70a1f84230b79c1773b7702c5e4652a814ebc0e53e"
+  },
+  {
+    "path": "forecast_vs_actual.png",
+    "bytes": 158952,
+    "sha256": "46069084d1b9b5662448b15735aa88da68ce9ba3b79f07f586567cd2e5fd5fa1"
+  }
+]

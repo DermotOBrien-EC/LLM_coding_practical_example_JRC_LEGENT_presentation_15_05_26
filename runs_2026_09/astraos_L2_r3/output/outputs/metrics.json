@@ -1,0 +1,74 @@
+{
+  "input_file": "/Users/doob/dev/energy_forecast_ws/2e894c/project/runs/2e894c/opsd_de_load.csv",
+  "input_sha256": "2f20c7560c962c7b5804b1854243c1b27ecd6358e24951238e12ae4336fa529c",
+  "forecast_start_utc": "2020-01-01T00:00:00+00:00",
+  "forecast_end_utc_inclusive": "2020-01-07T23:00:00+00:00",
+  "forecast_hours": 168,
+  "historical_start_utc": "2015-01-01T00:00:00+00:00",
+  "historical_end_utc": "2019-12-31T23:00:00+00:00",
+  "historical_rows": 43824,
+  "fitted_rows": 43152,
+  "fitted_start_utc": "2015-01-29T00:00:00+00:00",
+  "warmup_hours": 672,
+  "selected_model": {
+    "name": "calendar_only",
+    "use_lags": false,
+    "max_leaf_nodes": 31,
+    "max_iter": 300
+  },
+  "selection_rule": "Lowest equally weighted mean RMSE across six pre-2020 168-hour folds; trained models only.",
+  "validation_origins_utc": [
+    "2018-01-01",
+    "2019-01-01",
+    "2019-04-15",
+    "2019-07-01",
+    "2019-10-01",
+    "2019-12-25"
+  ],
+  "validation_mean_rmse_mw": {
+    "calendar_lags": 2152.0923960580194,
+    "calendar_lags_small": 2161.6248073694264,
+    "calendar_only": 1895.9059726736093,
+    "previous_365_days": 6852.073468579601,
+    "previous_52_weeks": 5229.70961649116,
+    "previous_week": 7097.047923215924
+  },
+  "test_scores": {
+    "calendar_only": {
+      "mae_mw": 2810.2669299581326,
+      "rmse_mw": 3447.7283580214103,
+      "mape_percent": 5.0777195982305905,
+      "wape_percent": 5.2627014845696065,
+      "bias_mw": 2720.175663849053
+    },
+    "previous_week": {
+      "mae_mw": 7237.976190476191,
+      "rmse_mw": 8808.602996502907,
+      "mape_percent": 12.780588824669476,
+      "wape_percent": 13.554338072599387,
+      "bias_mw": -6908.523809523809
+    },
+    "previous_52_weeks": {
+      "mae_mw": 5483.214285714285,
+      "rmse_mw": 7253.414419299041,
+      "mape_percent": 10.76146224426965,
+      "wape_percent": 10.268248775240632,
+      "bias_mw": 5483.214285714285
+    },
+    "previous_365_days": {
+      "mae_mw": 4899.869047619048,
+      "rmse_mw": 5910.584062872781,
+      "mape_percent": 9.175490650008738,
+      "wape_percent": 9.175835873884619,
+      "bias_mw": 2533.190476190476
+    }
+  },
+  "dependencies": {
+    "numpy": "2.4.4",
+    "pandas": "2.3.3",
+    "matplotlib": "3.10.9",
+    "scikit-learn": "1.7.2",
+    "holidays": "0.96",
+    "threadpoolctl": "3.6.0"
+  }
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "path": "_fc.npz",
+    "bytes": 4772,
+    "sha256": "8fe482481ea90c71e6adff3485910134d12c451272974a0aea1e80082eca3100"
+  },
+  {
+    "path": "explore.py",
+    "bytes": 1205,
+    "sha256": "e4a6401b16e720527378dad9bb51a532374b4df1e3bb756cea4a190d50ff9d34"
+  },
+  {
+    "path": "forecast.py",
+    "bytes": 6314,
+    "sha256": "b01d10acfe21167a3f2ccd3401fb1f0ecc583ccf5bee2b4e7ba4eb976c10a924"
+  },
+  {
+    "path": "forecast_jan2020.csv",
+    "bytes": 11782,
+    "sha256": "4ac714423ee6e7a998d3407dc82b60cd94f263b1315d74a136c8e7c874221afd"
+  },
+  {
+    "path": "forecast_jan2020.png",
+    "bytes": 114078,
+    "sha256": "b2c552598cd9e689c5a2b0977c5c514e88e3b74a93be1447067cc5b7c0954fdf"
+  },
+  {
+    "path": "plot.py",
+    "bytes": 1950,
+    "sha256": "0a4032c21068de5f189f06c191fccc0a15af636f7eaf21a20a7d8c2834c9ed1b"
+  }
+]

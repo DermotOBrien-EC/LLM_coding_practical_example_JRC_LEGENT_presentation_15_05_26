@@ -1,0 +1,85 @@
+{
+  "input_file": "opsd_de_load.csv",
+  "input_sha256": "2f20c7560c962c7b5804b1854243c1b27ecd6358e24951238e12ae4336fa529c",
+  "source": "Supplied OPSD CSV, DE_load_actual_entsoe_transparency; load in MW",
+  "timestamp_convention": "Hour beginning, UTC; calendar features in Europe/Berlin",
+  "forecast_start_utc": "2020-01-01 00:00:00+00:00",
+  "forecast_end_inclusive_utc": "2020-01-07 23:00:00+00:00",
+  "forecast_hours": 168,
+  "history_start_utc": "2015-01-01 00:00:00+00:00",
+  "history_end_utc": "2019-12-31 23:00:00+00:00",
+  "history_rows": 43824,
+  "training_label_start_utc": "2016-01-01 00:00:00+00:00",
+  "training_label_end_utc": "2019-12-31 23:00:00+00:00",
+  "training_rows": 35064,
+  "lag_warmup_rows": 8760,
+  "ignored_rows_after_forecast_week": 6408,
+  "imputed_loads": 0,
+  "model": "hist_gradient_boosting_15_leaves",
+  "parameters": {
+    "max_leaf_nodes": 15,
+    "max_iter": 200,
+    "learning_rate": 0.07,
+    "min_samples_leaf": 30,
+    "l2_regularization": 10.0,
+    "random_state": 42,
+    "early_stopping": false
+  },
+  "fitted_iterations": 200,
+  "selection": "Minimum mean MAE over five pre-2020 fixed-origin weeks; two HGB candidates only",
+  "validation_mean_mae_mw": {
+    "hist_gradient_boosting_15_leaves": 2214.7057140586685,
+    "hist_gradient_boosting_31_leaves": 2274.671550552237,
+    "previous_52_weeks": 3347.15,
+    "previous_week": 5378.708333333333
+  },
+  "metrics": {
+    "forecast": {
+      "mae_mw": 2592.0622247653146,
+      "rmse_mw": 3190.5386517586026,
+      "mape_percent": 4.794512000245002,
+      "wape_percent": 4.854076163708921,
+      "mean_error_mw": 2534.8144059736696
+    },
+    "previous_week": {
+      "mae_mw": 7237.976190476191,
+      "rmse_mw": 8808.602996502907,
+      "mape_percent": 12.780588824669476,
+      "wape_percent": 13.554338072599387,
+      "mean_error_mw": -6908.523809523809
+    },
+    "previous_52_weeks": {
+      "mae_mw": 5483.214285714285,
+      "rmse_mw": 7253.414419299041,
+      "mape_percent": 10.76146224426965,
+      "wape_percent": 10.268248775240632,
+      "mean_error_mw": 5483.214285714285
+    }
+  },
+  "mae_improvement_percent": {
+    "previous_week": 64.18802498720598,
+    "previous_52_weeks": 52.72732215630247
+  },
+  "error_sign": "forecast minus actual; negative means underprediction",
+  "metric_definitions": {
+    "mae_mw": "mean(abs(forecast - actual))",
+    "rmse_mw": "sqrt(mean((forecast - actual)**2))",
+    "mape_percent": "100 * mean(abs(forecast - actual) / actual)",
+    "wape_percent": "100 * sum(abs(forecast - actual)) / sum(actual)"
+  },
+  "limitations": [
+    "One retrospective week, not an estimate of typical year-round performance.",
+    "No weather, economic predictors, regional load weights, or uncertainty intervals.",
+    "National holidays plus an Epiphany indicator; regional effects and bridge days are approximate.",
+    "Previous-week baseline copies Christmas week; 52-week baseline aligns weekdays, not holidays.",
+    "Fixed-hour annual lags need not align local hours across DST or calendar dates across leap years.",
+    "The supplied historical series may include revisions; publication-time data availability is not known."
+  ],
+  "versions": {
+    "numpy": "2.5.2",
+    "pandas": "3.0.5",
+    "scikit-learn": "1.9.0",
+    "matplotlib": "3.11.1",
+    "holidays": "0.103"
+  }
+}

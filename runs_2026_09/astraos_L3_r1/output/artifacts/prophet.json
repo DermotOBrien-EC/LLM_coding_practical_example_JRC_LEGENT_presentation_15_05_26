@@ -1,0 +1,28 @@
+{
+  "name": "prophet",
+  "runtime_seconds": 17.987934917007806,
+  "hyperparameters": {
+    "country_holidays": "DE",
+    "daily_seasonality": true,
+    "weekly_seasonality": true,
+    "yearly_seasonality": true,
+    "seasonality_mode": "additive",
+    "changepoint_prior_scale": 0.01,
+    "holidays_prior_scale": 10.0,
+    "uncertainty_samples": 600,
+    "seed": 20200101,
+    "calendar_timezone": "UTC (library-naive timestamps)",
+    "uncertainty": "Prophet predictive samples, MAP parameters, mcmc_samples=0"
+  },
+  "validation_candidates": [
+    {
+      "seasonality_mode": "additive",
+      "validation_mape_pct": 5.639192392335421
+    },
+    {
+      "seasonality_mode": "multiplicative",
+      "validation_mape_pct": 5.647452701528267
+    }
+  ],
+  "extras": {}
+}

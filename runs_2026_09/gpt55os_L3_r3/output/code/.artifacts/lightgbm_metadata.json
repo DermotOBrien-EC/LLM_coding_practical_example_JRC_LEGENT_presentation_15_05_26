@@ -1,0 +1,12 @@
+{
+  "name": "lightgbm",
+  "runtime_seconds": 27.48841508300393,
+  "hyperparameters": {
+    "n_estimators": 500,
+    "learning_rate": 0.03,
+    "num_leaves": 63,
+    "min_child_samples": 50,
+    "validation_mape_pct": 4.225626187500889
+  },
+  "notes": []
+}

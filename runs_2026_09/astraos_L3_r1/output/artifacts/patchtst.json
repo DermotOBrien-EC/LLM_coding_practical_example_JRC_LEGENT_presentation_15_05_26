@@ -1,0 +1,112 @@
+{
+  "name": "patchtst",
+  "runtime_seconds": 12.578730999986874,
+  "hyperparameters": {
+    "actual_class": "TransformerModel",
+    "input_chunk_length": 168,
+    "output_chunk_length": 168,
+    "max_epochs": 30,
+    "selected_epochs": 12,
+    "early_stopping_metric": "validation MAPE of rearranged median, all 2208 hours",
+    "early_stopping_patience": 5,
+    "early_stopping_min_delta_pct": 0.01,
+    "training_stride_hours": 168,
+    "batch_size": 32,
+    "learning_rate": 0.001,
+    "gradient_clip_val": 1.0,
+    "likelihood": "QuantileRegression",
+    "quantiles": [
+      0.025,
+      0.1,
+      0.5,
+      0.9,
+      0.975
+    ],
+    "seed": 20200101,
+    "accelerator": "cpu",
+    "threads": 4,
+    "train_scale_mw": 55820.22849384852,
+    "final_scale_mw": 55859.29504381161,
+    "final_training_windows": 259,
+    "d_model": 32,
+    "nhead": 4,
+    "num_encoder_layers": 2,
+    "num_decoder_layers": 2,
+    "dim_feedforward": 128,
+    "dropout": 0.1,
+    "substitution": "Darts 0.41.0 has no PatchTSTModel; TransformerModel is an actual transformer, not TSMixer."
+  },
+  "validation_candidates": [
+    {
+      "epoch": 1,
+      "validation_mape_pct": 76.31680661224888
+    },
+    {
+      "epoch": 2,
+      "validation_mape_pct": 57.28638483600832
+    },
+    {
+      "epoch": 3,
+      "validation_mape_pct": 38.12279951609868
+    },
+    {
+      "epoch": 4,
+      "validation_mape_pct": 24.19700885780562
+    },
+    {
+      "epoch": 5,
+      "validation_mape_pct": 15.439673091293157
+    },
+    {
+      "epoch": 6,
+      "validation_mape_pct": 11.5433539380647
+    },
+    {
+      "epoch": 7,
+      "validation_mape_pct": 9.033587920207605
+    },
+    {
+      "epoch": 8,
+      "validation_mape_pct": 7.943684343743068
+    },
+    {
+      "epoch": 9,
+      "validation_mape_pct": 7.623020927909082
+    },
+    {
+      "epoch": 10,
+      "validation_mape_pct": 7.289746261691496
+    },
+    {
+      "epoch": 11,
+      "validation_mape_pct": 7.056294339887978
+    },
+    {
+      "epoch": 12,
+      "validation_mape_pct": 6.9986888496031945
+    },
+    {
+      "epoch": 13,
+      "validation_mape_pct": 7.079629870388467
+    },
+    {
+      "epoch": 14,
+      "validation_mape_pct": 7.208394154778176
+    },
+    {
+      "epoch": 15,
+      "validation_mape_pct": 7.087537017083939
+    },
+    {
+      "epoch": 16,
+      "validation_mape_pct": 7.1010544169624445
+    },
+    {
+      "epoch": 17,
+      "validation_mape_pct": 7.005586564156737
+    }
+  ],
+  "extras": {
+    "callback_public_predict_equivalence": true
+  }
+}

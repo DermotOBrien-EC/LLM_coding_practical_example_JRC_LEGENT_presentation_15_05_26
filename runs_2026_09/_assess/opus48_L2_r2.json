@@ -1,0 +1,41 @@
+{
+  "run": "runs_2026_09/opus48_L2_r2",
+  "headline_model": "HistGradientBoostingRegressor",
+  "headline_chosen_by_agent": true,
+  "models_fitted": [
+    "HistGradientBoostingRegressor",
+    "seasonal naive lag-168h"
+  ],
+  "models_attempted_not_fitted": [],
+  "agent_reported_mape": 3.6,
+  "forecast_file": null,
+  "forecast_column": null,
+  "validation_holdout": false,
+  "validation_evidence": "output/forecast_load.py:125-127 sets early_stopping=True, validation_fraction=0.1, random_state=0. This is an internal random validation split, not a held-out temporal window. No executed temporal holdout comparison appears.",
+  "prediction_intervals": false,
+  "intervals_evidence": "output/forecast_load.py:153-157 plots actuals, point predictions, and the seasonal baseline; no lower or upper bounds are produced.",
+  "methods_document": false,
+  "methods_document_path": null,
+  "read_agents_md": "yes",
+  "agents_md_evidence": "session.jsonl:11: Read {\"file_path\":\"/Users/doob/dev/energy_forecast_ws/768baf/project/runs/768baf/AGENTS.md\"}.",
+  "agents_md_read_before_implementation": true,
+  "test_selection": "test_selected",
+  "n_candidates_compared_on_test": 2,
+  "leak_evidence": "output/forecast_load.py:111: train = feats.index < FORECAST_START; lines 113-116 construct training and test arrays; lines 136-137 score both model and baseline against test actuals. session.jsonl:132 reports MAPE 3.6% versus 12.8%; final_message.md puts forward the better gradient-boosted forecast. No test observations entered fitting or seasonal-lag features.",
+  "external_data": false,
+  "packages_installed": true,
+  "asked_for_clarification": false,
+  "seeds_or_determinism": "output/forecast_load.py:127: random_state=0",
+  "hyperparameters_summary": "max_iter=600, learning_rate=0.05, max_leaf_nodes=63, l2_regularization=1.0, early_stopping=True, validation_fraction=0.1, random_state=0; calendar features and 168h, 336h, 8736h load lags.",
+  "command_failures": 2,
+  "anomalies": [
+    "Saved only a Python script and PNG; no forecast CSV or methods document.",
+    "Missed the supplied project venv and installed pandas, numpy, scikit-learn, and matplotlib in $HOME/.energy_forecast_venv, outside the sandbox output capture.",
+    "Local venv installation repeatedly failed with Operation not permitted; retries requested dangerouslyDisableSandbox=true. The claimed macOS provenance cause was not established.",
+    "The home-directory installation exceeded the 120-second command timeout, continued in the background, and subsequently succeeded.",
+    "Failure count follows the requested literal matching: two outputs contained Traceback or Error:. Additional lowercase error: installation failures and missing /usr/bin/realpath were not counted.",
+    "Internal early stopping used a random split rather than temporal validation.",
+    "The claim that adding weather would likely reduce MAPE below 3% was unsupported by an experiment."
+  ],
+  "one_line_summary": "Compared gradient boosting with a weekly seasonal baseline, reported 3.6% test MAPE for gradient boosting, and saved a plot and script but no forecast CSV."
+}

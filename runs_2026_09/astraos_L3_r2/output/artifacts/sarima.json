@@ -1,0 +1,53 @@
+{
+  "name": "sarima",
+  "runtime_seconds": 368.7364257920126,
+  "hyperparameters": {
+    "order": [
+      1,
+      0,
+      0
+    ],
+    "seasonal_order": [
+      1,
+      0,
+      0,
+      24
+    ],
+    "trend": "c",
+    "weekly_fourier_harmonics": 3,
+    "candidate_maxiter": 60,
+    "refit_maxiter": 180,
+    "selection": "lowest validation MAPE among converged candidates",
+    "intervals": "Gaussian state-space forecast, fixed estimated parameters"
+  },
+  "validation": [
+    {
+      "order": [
+        1,
+        0,
+        0
+      ],
+      "mape_pct": 6.3219856476913066,
+      "converged": true
+    },
+    {
+      "order": [
+        2,
+        0,
+        0
+      ],
+      "mape_pct": 12.741552527789771,
+      "converged": false
+    }
+  ],
+  "diagnostics": {
+    "refit_converged": true,
+    "refit_iterations": 63
+  },
+  "model_source_sha256": {
+    "__init__.py": "95d136305d22fea62a868714ec3ffa8c8ef448499c5ae665b11bd13156610b7c",
+    "common.py": "7d42cea63d8d9c7d248d43dfd2f2ccfd9b9d909b313c8dbb1b52cf199fb5f116",
+    "sarima.py": "54004cf155040ed06faf7c748dcb24e150be14bd3d2f97d559ab61d08eafe22a"
+  },
+  "input_sha256": "2f20c7560c962c7b5804b1854243c1b27ecd6358e24951238e12ae4336fa529c"
+}

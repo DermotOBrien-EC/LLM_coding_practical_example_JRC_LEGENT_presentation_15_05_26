@@ -56,36 +56,39 @@ outputs `reviews/2026-09-06_astra_*_review.md`): one of the B/C
 pre-registration and harness diff (gates the launches below), one of
 section 8, the 27 scoring entries and the slide. Fold both, then push.
 
-**Extensions B and C, pre-registered (DESIGN.md sections 12 and 13,
-commit b1f1fb4; Astra design review folded, 635dc00), LAUNCHED 00:50 local
-on 2026-09-06.** Drivers: `_logs/extension_b.log` (ext_b_waveA then
-ext_b_waveB), `_logs/extension_c12.log` (ext_c_wave1 then ext_c_wave2), a
-waiter that starts ext_c_wave3 (`_logs/extension_c3.log`) once both have
-written EXTENSION_DONE, and a waiter that runs `ext_b_relaunch`
-(`_logs/ext_b_relaunch.launcher.log`, marker RELAUNCH_DONE) once wave A
-ends: five astraos sessions were killed by a network outage at 00:52 to
-00:58 and are archived under `_void_ext_b_outage_20260906/` under the dated
-amendment in section 12. When every marker is present: summariser, scorer,
-reader fleet on the named new runs, figures (new tags), RESULTS.md sections
-9 and 10, deck, verifier, review, push. Original plan text follows. Owner instructions the same
-night: "change the prompt slightly just to say it should just do it
-without asking questions or presenting plan" (B), "run the full experiment
-for opus 5, 4.8 and 4.7" (C), "do not rerun the fable5.1 again ... it is
-only for the ones that failed to give forecast", and "just do not run
-fable5.1 sessions again at all". B: the 20 Extension A cells that stopped,
-re-run with `prompts/one_shot_suffix.md` appended on stdin (tags `astraos`,
-`solos`, `gpt55os`; frozen prompt files untouched; waves `ext_b_waveA` 12
-runs, `ext_b_waveB` 8 runs). C: `opus47` and `opus48` at three runs per
-level plus `opus5` reps 2 and 3, direct route, frozen prompts, 24 runs
-(waves `ext_c_wave1`, `ext_c_wave2`, `ext_c_wave3`); bills the Anthropic
-plan, so every wave passes the usage gate and the driver waits 15 minutes
-and retries on a closed gate. The driver now takes any number of waves in order. Never launch a Fable
-5.1 run. Afterwards the same post-processing as A: summariser, scorer
-(scoring.json entries), reader fleet on named runs, figure builder (new
-tags need SERIES/OUTCOME_ORDER entries; consider one figure for the Claude
-family and one for the OpenAI arm), RESULTS.md sections 9 and 10, deck,
-verifier, review, push. The Claude runs' and Extension A's derived files
-must diff empty after each step.
+**Extensions B and C, done (2026-09-06 16:00 UTC).** Owner instructions of
+that night: add a paragraph telling the model to just do it (B), run the
+full experiment for Opus 5, 4.8 and 4.7 (C), re-run only the cells that
+failed to give a forecast, and never run Fable 5.1 again. Pre-registered as
+DESIGN.md sections 12 and 13 (b1f1fb4), Astra design review folded (635dc00).
+
+B: 20 runs, the exact cells that stopped in A, with
+`prompts/one_shot_suffix.md` appended on stdin. Nineteen produced a
+forecast; none stopped to ask or to plan. Astra L1 2.71, 3.63, 4.47 (and it
+never scored itself); Astra L2 4.80, 2.80, 5.08; Astra L3 3.96, 5.11, 3.91;
+Sol L2 3.46, 4.03, 3.24; Sol L3 5.31, 5.11, 5.28; GPT-5.5 L2 4.69, 8.50,
+4.14; GPT-5.5 L3 5.46 plus one that ran out of session mid-bake-off.
+
+C: 24 runs. Opus 4.7 L1 3.60, 3.32, 7.73 against May's 10.76 on the same
+model, so the May L1 result does not reproduce; Opus 4.7 L3 3.24, 3.52 with
+May's own leaky construction and 4.45 when the third run forecast
+recursively, which is the cleanest evidence in the study that the L3 "cost"
+is the construction. Opus 4.8 L1 2.92, 2.80, 4.41; L2 2.68, 3.60, 3.57; L3
+4.83, 4.61 plus one incomplete. Opus 5 L1 3.07, none, 5.35; L2 3.40, 4.14,
+4.80; L3 5.46, 5.47, 4.99.
+
+Written up as RESULTS.md sections 9 and 10; DESIGN.md section 9 carries the
+launch record (a network outage, a gateway cooldown that voided four runs,
+a CLI auto-update that pruned the pinned binary, two wall-clock caps, two
+resumes, and about two and a half hours of machine sleep). Deck: three new
+slides plus an extended discipline table and a re-scoped outcomes figure;
+verifier 29 checks. Reader fleet (Astra) ran on every new run; its
+disagreements with my audit classes are recorded inside the scoring
+entries. The cross-vendor review of sections 9 and 10 plus the slides was
+running when this was written
+(`_logs/review_ext_bc_results.events.log`, output
+`reviews/2026-09-06_astra_ext_bc_results_review.md`): fold it, re-verify,
+then push both repos.
 
 Also optional: delete the sandboxes under `~/dev/energy_forecast_ws/`
 after everything is scored, and tell Andres the slides are on

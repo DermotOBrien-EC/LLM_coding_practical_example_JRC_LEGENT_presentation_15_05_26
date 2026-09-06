@@ -1,0 +1,50 @@
+{
+  "run": "runs_2026_09/opus47_L3_r3",
+  "headline_model": "LightGBM",
+  "headline_chosen_by_agent": true,
+  "models_fitted": [
+    "seasonal naive lag-168h",
+    "SARIMA",
+    "Prophet",
+    "LightGBM",
+    "NBEATSModel",
+    "TSMixerModel"
+  ],
+  "models_attempted_not_fitted": [
+    "PatchTSTModel"
+  ],
+  "agent_reported_mape": 4.447706997731814,
+  "forecast_file": null,
+  "forecast_column": null,
+  "validation_holdout": true,
+  "validation_evidence": "output/code/common.py:27-29 fixes training through 2019-09-30 and validation through 2019-12-31. output/code/lightgbm_features.py:135-140: 'pred = model.predict(X_val)', 'm = mape(y_val.values, pred)', 'if m < best_mape: ... best_params = dict(p)'. session.jsonl:139 reports the executed selection's validation MAPE 2.005241614739437 and selected hyperparameters.",
+  "prediction_intervals": true,
+  "intervals_evidence": "output/figures/05_winner_with_intervals.png visibly contains 80% and 95% lower/upper bands throughout the test week; output/code/forecast.py:318-340 draws and saves them.",
+  "methods_document": true,
+  "methods_document_path": "transcript.md",
+  "read_agents_md": "yes",
+  "agents_md_evidence": "session.jsonl:9: Read {'file_path': '/Users/doob/dev/energy_forecast_ws/06fa98/project/runs/06fa98/AGENTS.md'}. First Python shell command follows at line 12; first Write follows at line 68.",
+  "agents_md_read_before_implementation": true,
+  "test_selection": "test_selected",
+  "n_candidates_compared_on_test": 6,
+  "leak_evidence": "output/code/common.py:96-98: 'train = s.loc[: TRAIN_END]', 'val = s.loc[VAL_START:VAL_END]', 'test = s.loc[TEST_START:TEST_END]', with VAL_END = 2019-12-31 23:00 UTC. LightGBM fits split.train_plus_val and masks test observations: 'known.loc[split.test.index] = np.nan' (lightgbm_features.py:178-199). However, forecast.py:660 explicitly selects 'winner = metrics.sort_values(\"mape_test_pct\")[\"name\"].iloc[0]' after scoring all six models.",
+  "external_data": false,
+  "packages_installed": false,
+  "asked_for_clarification": false,
+  "seeds_or_determinism": "common.py:25: RANDOM_SEED = 42; forecast.py:655: np.random.seed(RANDOM_SEED); LightGBM, Prophet, NBEATSModel and TSMixerModel constructors use random_state=RANDOM_SEED. Torch models use CPU and torch.set_float32_matmul_precision(\"medium\").",
+  "hyperparameters_summary": "n_estimators=600, learning_rate=0.05, num_leaves=63, min_child_samples=20, subsample=0.9, subsample_freq=1, colsample_bytree=0.9, random_state=42; recursive lag/calendar/rolling features; separate quantile fits at 0.1, 0.5 and 0.9.",
+  "command_failures": 5,
+  "anomalies": [
+    "No hourly forecast CSV survives. metrics.csv contains model-level metrics only; the agent deleted .forecast_cache.pkl and removed forecast-cache persistence.",
+    "PatchTSTModel import was unavailable; the agent explicitly substituted TSMixerModel.",
+    "The initial 30-epoch TSMixer smoke test was stopped for runtime; the successful configuration used 15 epochs and 100 interval samples.",
+    "Five failed commands are evidenced by two blocked sleep commands (session.jsonl:121,493), two Prophet import tracebacks (170,205; the latter exposed through a Read of background shell output), and a shell '== not found' error (977). Prophet imports were subsequently repaired.",
+    "Two commands exceeded the initial 120-second wait and continued in the background. Monitor timeouts arrived after delivery; final_message.md contains only a timeout acknowledgement, while the substantive answer appears in session.jsonl:1230 and transcript.md.",
+    "The orchestrator was rerun after figure/prose changes and a validation-based reduction of the SARIMA grid.",
+    "transcript.md claims the test week was never used for selection, contradicting the explicit lowest-test-MAPE winner selection.",
+    "LightGBM validation uses observed validation lags for one-step predictions, whereas test forecasting recursively substitutes predictions; its validation score therefore measures a different forecasting setup.",
+    "The methods document overstates tuning: Prophet and the neural models report validation scores without an executed hyperparameter search or early-stopping selection.",
+    "The reported q50 pinball diagnostic uses the regression point forecast rather than the separately fitted median quantile forecast."
+  ],
+  "one_line_summary": "Compared six models, tuned LightGBM on pre-2020 validation, then selected it by test MAPE of 4.45%; saved methods, metrics and interval plots but no hourly forecast CSV."
+}

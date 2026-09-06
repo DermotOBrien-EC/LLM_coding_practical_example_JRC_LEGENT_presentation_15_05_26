@@ -1,0 +1,127 @@
+[
+  {
+    "path": "code/_cache/lightgbm.pkl",
+    "bytes": 24776,
+    "sha256": "c55fdbeabe7951743e6789ade8d7806fe6574d6415290c6934a0d2d03e78b5d5"
+  },
+  {
+    "path": "code/_cache/naive.pkl",
+    "bytes": 5346,
+    "sha256": "0409656df8374251bee314e86a0c93bf120af02ea3a194474b9638ea86c887c8"
+  },
+  {
+    "path": "code/_cache/nbeats.pkl",
+    "bytes": 20410,
+    "sha256": "a2d24a22175ff7c4f727a9db4c5ff23a3471151d027ef52d3b5b3df6569fa698"
+  },
+  {
+    "path": "code/_cache/patchtst.pkl",
+    "bytes": 20555,
+    "sha256": "ad991ee2b407be53baa701a1dcd36d09033998ed0241be728596e0ac890cf54f"
+  },
+  {
+    "path": "code/_cache/prophet.pkl",
+    "bytes": 441586,
+    "sha256": "45195cca0495f09c31c5ec169ff31b965d05ec738ed5b68e493ab90a04044087"
+  },
+  {
+    "path": "code/_cache/sarima.pkl",
+    "bytes": 19492,
+    "sha256": "e02949b36fcca9192b5862f960531243042c69ef9e3b039a6e99d47cc4d54954"
+  },
+  {
+    "path": "code/common.py",
+    "bytes": 13769,
+    "sha256": "56bfef3bcdff9844a41bd4eb9bc286d3d11fc12c6ea08e92f6e43d4513274aab"
+  },
+  {
+    "path": "code/forecast.py",
+    "bytes": 54425,
+    "sha256": "d1b9cbf870ff3ce793b71752698f3368f37312e4c2808603bd38e7e73c0c2c12"
+  },
+  {
+    "path": "code/lightgbm_features.py",
+    "bytes": 9638,
+    "sha256": "239573565ae7c2d0b25b27a774223672c8cac442eb448ad9ed4b89410ba17242"
+  },
+  {
+    "path": "code/naive.py",
+    "bytes": 2025,
+    "sha256": "7342afee738ff295b907545bc0910041459f17ffbad39ee032037700d41784e9"
+  },
+  {
+    "path": "code/nbeats.py",
+    "bytes": 6844,
+    "sha256": "1f5c2d829aac889321f3db10bab19e296369fc68af8af4e4f30819eaa59116d1"
+  },
+  {
+    "path": "code/patchtst.py",
+    "bytes": 6586,
+    "sha256": "a96fb7e4a4ff55904ee8b0138a16fe3ab502cf4909cf294e7a2ea6fc5159e048"
+  },
+  {
+    "path": "code/prophet.py",
+    "bytes": 5972,
+    "sha256": "13319779ea58331cf5559c705815fcdab846b79f8580ee3fb09cb49d3ca9f93f"
+  },
+  {
+    "path": "code/sarima.py",
+    "bytes": 7496,
+    "sha256": "111c1b42eba5bd61eadd8b4fdad8aaa60bba9ba1f8723631f2fbe9cf01d75699"
+  },
+  {
+    "path": "figures/01_overview.png",
+    "bytes": 253439,
+    "sha256": "0390c144cf1074ebe82c2b8207ab54ca560c7984394ec7762ea308797633a447"
+  },
+  {
+    "path": "figures/02_forecast_comparison.png",
+    "bytes": 815671,
+    "sha256": "bd9696ea7915ec0d54ce25f1119f41fa946474cacb3df7e40f71ebf2b47bf213"
+  },
+  {
+    "path": "figures/03_metric_comparison.png",
+    "bytes": 441393,
+    "sha256": "00309c0ce4b352a7a2961de1cd0c1f34601491d472274ef4e522bce1db1b9bf9"
+  },
+  {
+    "path": "figures/04_per_day_mape.png",
+    "bytes": 157294,
+    "sha256": "3888717ebf0f71d33fd1797110aea17e93a1be508355eaa495fda91277b35b10"
+  },
+  {
+    "path": "figures/05_winner_with_intervals.png",
+    "bytes": 514799,
+    "sha256": "8d9025bded84a524e0d2d8f632904145f8cb91e82927d6abcbaddfd637a9ea4e"
+  },
+  {
+    "path": "figures/06_residuals.png",
+    "bytes": 208947,
+    "sha256": "b0d46fc95766ae402ead0d2f4d0ecf09e26031930a6125a6ca53e641a7018191"
+  },
+  {
+    "path": "figures/07_feature_importance.png",
+    "bytes": 150945,
+    "sha256": "7087116bd7a00f1ab4d4a46892c5fe300fe93c795d06d2c4d17694b38237792e"
+  },
+  {
+    "path": "figures/08_decomposition.png",
+    "bytes": 462476,
+    "sha256": "ae4733bfc3f49fb7153db8f74b3357bd4239318383f3c51124bea020ddee033e"
+  },
+  {
+    "path": "metrics.csv",
+    "bytes": 3159,
+    "sha256": "226a0acb4db206ac7435be9a36fa2d0949bec423b9776fa410d180d2c09e33db"
+  },
+  {
+    "path": "metrics.json",
+    "bytes": 4365,
+    "sha256": "528d32fca0df48a9e09efce5489e71ceca1a4bf28a2553e9da8a53b0295a0ece"
+  },
+  {
+    "path": "transcript.md",
+    "bytes": 18914,
+    "sha256": "34000a602ab7d2e6b199ea099b01af0006cfb78fcb5e42816859469d8afe8522"
+  }
+]

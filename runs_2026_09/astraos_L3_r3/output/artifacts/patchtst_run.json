@@ -1,0 +1,48 @@
+{
+  "name": "patchtst",
+  "runtime_seconds": 10.667964416003088,
+  "hyperparameters": {
+    "d_model": 32,
+    "nhead": 4,
+    "num_encoder_layers": 2,
+    "num_decoder_layers": 2,
+    "dim_feedforward": 64,
+    "dropout": 0.1,
+    "implementation": "TransformerModel",
+    "input_chunk_length": 168,
+    "output_chunk_length": 168,
+    "selected_epochs": 2,
+    "maximum_epochs": 2,
+    "selection_epochs_run": 2,
+    "early_stop_patience": 5,
+    "early_stop_min_delta_mape_pct": 0.01,
+    "training_stride_hours": 24,
+    "batch_size": 32,
+    "learning_rate": 0.001,
+    "quantiles": [
+      0.025,
+      0.1,
+      0.5,
+      0.9,
+      0.975
+    ],
+    "scaling": "divide by fit-partition mean",
+    "seed": 2026,
+    "accelerator": "cpu",
+    "torch_threads": 4
+  },
+  "validation": [
+    {
+      "epoch": 1,
+      "mape_validation_pct": 13.599253012911007
+    },
+    {
+      "epoch": 2,
+      "mape_validation_pct": 10.984317514487492
+    }
+  ],
+  "diagnostics": {
+    "public_api_validation_agreement": true,
+    "interval_caveat": "Direct multi-horizon marginal quantile regression; sorted to prevent crossing; no post-hoc calibration."
+  }
+}

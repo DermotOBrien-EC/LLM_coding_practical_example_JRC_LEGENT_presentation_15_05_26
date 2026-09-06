@@ -1,0 +1,43 @@
+{
+  "run": "runs_2026_09/opus48_L1_r2",
+  "headline_model": "HistGradientBoostingRegressor",
+  "headline_chosen_by_agent": true,
+  "models_fitted": [
+    "HistGradientBoostingRegressor",
+    "seasonal naive lag-364d",
+    "seasonal naive lag-168h"
+  ],
+  "models_attempted_not_fitted": [],
+  "agent_reported_mape": 2.8,
+  "forecast_file": "forecast_jan2020_week1.csv",
+  "forecast_column": "forecast_MW",
+  "validation_holdout": false,
+  "validation_evidence": "output/forecast.py:88-90 uses early_stopping=True, validation_fraction=0.1, random_state=42; this is an internal random split, not a held-out temporal window. Lines 115-124 compare forecasts only on the January 2020 test window.",
+  "prediction_intervals": false,
+  "intervals_evidence": "output/forecast.py:126-137 exports point forecasts, actuals and errors only. The plotting command at session.jsonl:136 plots actuals, forecasts and errors without lower or upper bounds.",
+  "methods_document": false,
+  "methods_document_path": null,
+  "read_agents_md": "n/a",
+  "agents_md_evidence": "no AGENTS.md in L1",
+  "agents_md_read_before_implementation": null,
+  "test_selection": "test_selected",
+  "n_candidates_compared_on_test": 3,
+  "leak_evidence": "output/forecast.py:73-79: 'is_target = (df.index >= TARGET_START) & (df.index < TARGET_END)', 'is_train = df.index < TARGET_START', 'train_mask = is_train & X.notna().all(axis=1)'. Lines 115-124 score GBM and two baselines on test actuals; session.jsonl:126 reports 2.80%, 10.76%, 12.78%, and final_message.md puts forward the best-scoring GBM. No test observations entered fitting or lag features.",
+  "external_data": false,
+  "packages_installed": true,
+  "asked_for_clarification": false,
+  "seeds_or_determinism": "output/forecast.py:90: random_state=42",
+  "hyperparameters_summary": "loss=squared_error, max_iter=600, learning_rate=0.05, max_leaf_nodes=63, min_samples_leaf=50, l2_regularization=1.0, early_stopping=True, validation_fraction=0.1, random_state=42; calendar/holiday features and 168-hour/364-day load lags.",
+  "command_failures": 1,
+  "anomalies": [
+    "System Python lacked required packages. Three uv installation attempts reported lowercase 'error:' and 'Operation not permitted' despite is_error=false; these are excluded from the literal case-sensitive command_failures count.",
+    "Created and repeatedly recreated a local .venv, eventually installing packages through pip instead of using the provided ancestor venv.",
+    "Forecast execution exceeded the 120-second command timeout, moved to the background, and subsequently completed successfully.",
+    "GBM was announced before scoring; test_selected reflects the literal three-forecast test comparison and presentation of its winner, with no observed tuning after test scoring.",
+    "Dropping unavailable annual lags made the effective training interval 2015-12-31 through 2019-12-31, narrower than the final message's broad 2015–2019 description.",
+    "Daily summaries use Berlin dates, producing a one-hour January 8 bucket; the CSV correctly contains all 168 requested UTC hours.",
+    "Plot code labels local time but uses DateFormatter without an explicit timezone.",
+    "CSV MAPE recomputes to 2.7988854946098%, consistent with the reported 2.80%."
+  ],
+  "one_line_summary": "Produced a 168-hour gradient-boosted load forecast with 2.80% MAPE, compared against two test-week baselines, using pre-2020 training data and known lags; delivered CSV and plot after environment-installation retries."
+}

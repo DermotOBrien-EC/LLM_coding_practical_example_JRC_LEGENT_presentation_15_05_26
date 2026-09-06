@@ -1,0 +1,40 @@
+{
+  "added": [
+    ".venv/lib/python3.12/site-packages/pandas/core/methods/__pycache__/to_dict.cpython-312.pyc",
+    "runs/c4a4e7/code",
+    "runs/c4a4e7/code/_cache",
+    "runs/c4a4e7/code/_cache/lightgbm.pkl",
+    "runs/c4a4e7/code/_cache/naive.pkl",
+    "runs/c4a4e7/code/_cache/nbeats.pkl",
+    "runs/c4a4e7/code/_cache/patchtst.pkl",
+    "runs/c4a4e7/code/_cache/prophet.pkl",
+    "runs/c4a4e7/code/_cache/sarima.pkl",
+    "runs/c4a4e7/code/common.py",
+    "runs/c4a4e7/code/forecast.py",
+    "runs/c4a4e7/code/lightgbm_features.py",
+    "runs/c4a4e7/code/naive.py",
+    "runs/c4a4e7/code/nbeats.py",
+    "runs/c4a4e7/code/patchtst.py",
+    "runs/c4a4e7/code/prophet.py",
+    "runs/c4a4e7/code/sarima.py",
+    "runs/c4a4e7/figures",
+    "runs/c4a4e7/figures/01_overview.png",
+    "runs/c4a4e7/figures/02_forecast_comparison.png",
+    "runs/c4a4e7/figures/03_metric_comparison.png",
+    "runs/c4a4e7/figures/04_per_day_mape.png",
+    "runs/c4a4e7/figures/05_winner_with_intervals.png",
+    "runs/c4a4e7/figures/06_residuals.png",
+    "runs/c4a4e7/figures/07_feature_importance.png",
+    "runs/c4a4e7/figures/08_decomposition.png",
+    "runs/c4a4e7/metrics.csv",
+    "runs/c4a4e7/metrics.json",
+    "runs/c4a4e7/transcript.md"
+  ],
+  "modified": [],
+  "deleted": [],
+  "counts": {
+    "added": 29,
+    "modified": 0,
+    "deleted": 0
+  }
+}

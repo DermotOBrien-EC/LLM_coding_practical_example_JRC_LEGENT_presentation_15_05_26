@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "forecast_files_checked": 12,
+  "byte_identical_forecast_files": 12,
+  "mismatches": [],
+  "full_command_wall_seconds": 86.24141029201564,
+  "scope": "Two independent full fits, identical saved test points/quantiles and validation points; runtimes may differ."
+}

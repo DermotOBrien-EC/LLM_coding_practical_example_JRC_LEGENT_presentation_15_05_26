@@ -1,0 +1,14 @@
+{
+  "name": "naive",
+  "runtime_seconds": 0.0010916249884758145,
+  "hyperparameters": {
+    "seasonal_lag_hours": 168
+  },
+  "validation": [
+    {
+      "mape_validation_pct": 5.47934258968493,
+      "configuration": "fixed baseline; no selection"
+    }
+  ],
+  "diagnostics": {}
+}

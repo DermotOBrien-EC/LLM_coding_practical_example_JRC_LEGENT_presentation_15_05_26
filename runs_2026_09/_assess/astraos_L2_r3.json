@@ -1,0 +1,43 @@
+{
+  "run": "runs_2026_09/astraos_L2_r3",
+  "headline_model": "HistGradientBoostingRegressor",
+  "headline_chosen_by_agent": true,
+  "models_fitted": [
+    "HistGradientBoostingRegressor",
+    "seasonal naive lag-168h",
+    "seasonal naive lag-8736h",
+    "seasonal naive lag-8760h"
+  ],
+  "models_attempted_not_fitted": [],
+  "agent_reported_mape": 5.08,
+  "forecast_file": "outputs/forecast.csv",
+  "forecast_column": "forecast_mw",
+  "validation_holdout": true,
+  "validation_evidence": "output/forecast_load.py:33-40 defines six validation origins, ending with 2019-12-25; lines 195-198 require every 168-hour fold to finish before the target week. Lines 204-217 score candidates and select 'winner = min(CANDIDATES, key=lambda spec: float(means.loc[spec.name]))'. session.jsonl:119 records all validation scores and 'Selected calendar_only using mean validation RMSE.'",
+  "prediction_intervals": false,
+  "intervals_evidence": "outputs/forecast.csv contains point forecasts, actuals, baselines and errors without bounds. output/forecast_load.py:235-248 plots only actual and forecast lines; outputs/report.md explicitly states there are no calibrated prediction intervals.",
+  "methods_document": true,
+  "methods_document_path": "outputs/report.md",
+  "read_agents_md": "yes",
+  "agents_md_evidence": "session.jsonl:4: Read {\"file_path\":\"/Users/doob/dev/energy_forecast_ws/2e894c/project/runs/2e894c/AGENTS.md\"}; its contents appear at line 5.",
+  "agents_md_read_before_implementation": true,
+  "test_selection": "final_scoring_only",
+  "n_candidates_compared_on_test": 4,
+  "leak_evidence": "output/forecast_load.py:332: 'history = data.loc[data.index < FORECAST_START]'; lines 334-336 select on historical validation and fit the winner before line 338 reads test actuals. fit_predict at line 134 further restricts 'history = data.loc[data.index < origin]'. Lines 339-344 score the selected forecast and three baselines, without changing the selected model.",
+  "external_data": false,
+  "packages_installed": false,
+  "asked_for_clarification": false,
+  "seeds_or_determinism": "output/forecast_load.py:152: random_state=42; line 151: early_stopping=False; line 155: threadpool_limits(limits=2). session.jsonl:206 confirms a byte-identical forecast CSV on rerun.",
+  "hyperparameters_summary": "Calendar-only features; loss=squared_error, learning_rate=0.05, max_iter=300, max_leaf_nodes=31, min_samples_leaf=30, l2_regularization=10.0, early_stopping=False, random_state=42.",
+  "command_failures": 6,
+  "anomalies": [
+    "Four forecasts were scored on the test week, but the headline was selected beforehand using historical validation; the other three were reporting baselines.",
+    "Independent peer-review preflight failed because /Users/doob/cliproxyapi/config.yaml was unreadable; no peer approval was claimed.",
+    "The initial test run intentionally preceded implementation and failed with ModuleNotFoundError. Three mypy attempts failed internally, followed by one reporting typing errors; final tests, lint and typing checks passed.",
+    "Two dependency-inspection commands exceeded their 120-second and 20-second foreground timeouts, moved to the background, and subsequently completed successfully.",
+    "output_outside contains pytest and Ruff caches written outside the working directory; run_meta.json also records 278 changed venv entries.",
+    "Initial inspection printed whole-dataset descriptive statistics, including post-2019 observations; no evidence shows these influenced fitting, features or model selection.",
+    "Recomputed CSV MAPE is 5.07771959823059%, consistent with the reported 5.08%."
+  ],
+  "one_line_summary": "Selected calendar-only histogram gradient boosting using six pre-2020 validation weeks, forecast all 168 target hours, and reported 5.08% MAPE with three baseline comparisons, reproducible artifacts, and no prediction intervals."
+}

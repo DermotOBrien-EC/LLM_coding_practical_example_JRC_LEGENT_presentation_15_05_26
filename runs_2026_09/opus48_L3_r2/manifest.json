@@ -1,0 +1,97 @@
+[
+  {
+    "path": "code/common.py",
+    "bytes": 16874,
+    "sha256": "91305900cb44f628e74a0aee203e2d1b458e996a6466adb439a47f7f9e9087df"
+  },
+  {
+    "path": "code/forecast.py",
+    "bytes": 27104,
+    "sha256": "e5e65bc00070647b59d140455fa89d21aa486230fd30aa255089cc595b9ece3c"
+  },
+  {
+    "path": "code/lightgbm_features.py",
+    "bytes": 7854,
+    "sha256": "0cfe23e07ef44669038b68a903c07c7c209a0b0ae3e822187a41a3161dd475b1"
+  },
+  {
+    "path": "code/naive.py",
+    "bytes": 1525,
+    "sha256": "e50fed5e9f886aeb1f8ad828b10df0c2c2db6577896facdc78dfe68d72d324f2"
+  },
+  {
+    "path": "code/nbeats.py",
+    "bytes": 2074,
+    "sha256": "0d9622b7c1f9e9b24250a11cde7e5838921700ddf16bf27446e28f1d383e3694"
+  },
+  {
+    "path": "code/patchtst.py",
+    "bytes": 2206,
+    "sha256": "a6f6e2796a7c9732181727477ccfd6fa9a950eca3d92805410a87499ca3f9bae"
+  },
+  {
+    "path": "code/prophet.py",
+    "bytes": 3222,
+    "sha256": "9e63f6430ded98bf94a56e94ad03e9de72b44fa2e540a069b67d9ed8fb8c73aa"
+  },
+  {
+    "path": "code/sarima.py",
+    "bytes": 4385,
+    "sha256": "95db4218cd5c0f7ab8aeccee13ee85cb03883cfa4852edd3e1b47fed0d43a30a"
+  },
+  {
+    "path": "figures/01_overview.png",
+    "bytes": 241481,
+    "sha256": "175887fe74ecca3bbea39ef9abcabf1eb0bc20125743f7056a02a58d5a3788b8"
+  },
+  {
+    "path": "figures/02_forecast_comparison.png",
+    "bytes": 688609,
+    "sha256": "c9e5ff2881449a317025f5a12e3c34398c014e01627aef816d142aa810c70766"
+  },
+  {
+    "path": "figures/03_metric_comparison.png",
+    "bytes": 261598,
+    "sha256": "d13b4e0410c986138c2220417e41ad55ba8cbd43ce4ef350a44ea6a21054d4bc"
+  },
+  {
+    "path": "figures/04_per_day_mape.png",
+    "bytes": 203822,
+    "sha256": "26e5e677d4597a01376fb52d7c597cd6ca73a4a542204a183a6275f2b68df527"
+  },
+  {
+    "path": "figures/05_winner_with_intervals.png",
+    "bytes": 689516,
+    "sha256": "f58bcf7521eb2cf79292487c9dbe2b71e3dfbb6908038ea9e5dcda8ec0cf549b"
+  },
+  {
+    "path": "figures/06_residuals.png",
+    "bytes": 168310,
+    "sha256": "c02a8ce2fe8f4cdaa269b0b4ded937a2b768114b85fc6c42f62fce6430baf85f"
+  },
+  {
+    "path": "figures/07_feature_importance.png",
+    "bytes": 121090,
+    "sha256": "56eb300f4a493363f37248818770a36527d9e15cf38116cd4832b2e16bcd47b3"
+  },
+  {
+    "path": "figures/08_decomposition.png",
+    "bytes": 380563,
+    "sha256": "ce83bb0984b6cd356042a5b304c3878765d4478b06fe3cb80f68a8949af8f0c6"
+  },
+  {
+    "path": "metrics.csv",
+    "bytes": 1706,
+    "sha256": "47aa99be2423bc94d7f668af8fe9f7091743466298399972aa5d6634ec5155b7"
+  },
+  {
+    "path": "metrics.json",
+    "bytes": 2925,
+    "sha256": "9474a266f9747b37d905cb650cd0500ff962693b72c781be8f6960163564d96a"
+  },
+  {
+    "path": "transcript.md",
+    "bytes": 8629,
+    "sha256": "74f174d3115aeab6d8148c31de464025a41ac89e92f074cbef3e98d8f197ee53"
+  }
+]

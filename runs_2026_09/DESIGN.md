@@ -436,8 +436,11 @@ the session log before it enters `RESULTS.md`.
   tool's explicit model alias, and `sol L1 r3` tried the operator's gateway
   probe script, which the seatbelt blocked; both are in `RESULTS.md` 8.4
   and in `scoring.json`. Section 11 is not edited.
-- **2026-09-06 00:50 local, Extensions B and C launched** after the Astra
-  design review was folded (commit `635dc00`): `ext_b_waveA` (12 runs,
+- **2026-09-06 00:50 local, Extensions B and C launched.** The
+  pre-registration is commit `b1f1fb4` at 00:43:05, nine minutes before the
+  first session started at 00:52:05. The Astra design review's folds were
+  applied to the working tree before the launch; the commit that records
+  them, `635dc00`, is timestamped 01:07:28, after it. The waves: `ext_b_waveA` (12 runs,
   six at a time) and `ext_c_wave1` (gate: fresh window, last observation
   0.51 with its reset in the past) at 00:50:35, with `ext_c_wave2` to
   follow in the same driver and `ext_c_wave3` held by a waiter until both
@@ -462,8 +465,10 @@ the session log before it enters `RESULTS.md`.
   policy. The gateway kept refusing every model until 10:45 local, when a
   controlled restart of the proxy cleared its cooldown state (the Codex CLI
   itself was answering throughout, so the cooldown was the proxy's own).
-  `solos L3 r3` reached the three-hour cap with its study already complete
-  and was not resumed.
+  `solos L3 r3` reached the three-hour cap with its reported study already
+  on disk and was not resumed; a later regeneration inside that run was
+  still going when the cap hit, so its delivered code and its transcript
+  disagree, which RESULTS.md section 9 records.
 - **2026-09-06, Extension C, how the twenty-four runs were obtained.**
   `ext_c_wave1` and `ext_c_wave2` (16 L1 and L2 runs, four at a time) ran
   00:50 to 02:31 local with the usage gate passing on a fresh window; every
@@ -475,9 +480,10 @@ the session log before it enters `RESULTS.md`.
   reinstalled (and a copy kept beside the versions directory so an update
   cannot strand the harness again), the machine's default `claude` was
   relinked to 2.1.263, and the six runs were launched as `ext_c_wave3b` at
-  10:46 local. `opus47 L3 r1` reached the cap with its study complete and
-  was not resumed; `opus48 L3 r3` ended 27 minutes in with its bake-off
-  still fitting and is counted incomplete.
+  10:46 local. `opus47 L3 r1` reached the cap with its study complete and was
+  resumed once for 29 seconds under the attempt policy (its 326-minute wall
+  clock covers both attempts and the sleep below); `opus48 L3 r3` ended 27
+  minutes in with its bake-off still fitting and is counted incomplete.
 - **2026-09-06, two harness facts to disclose with the results.** The
   machine slept for about two and a half hours between 07:30 and 10:10
   local, which inflates the wall clock of the runs that were live then
@@ -560,6 +566,28 @@ bounded and pre-wave (F5); the reader's brief describes the delivered
 prompt from `run_meta.json` (F6); the mixed GPT-5.5 L3 cell's limits
 carried into section 12 (F10). F7 to F9 were confirmations, with the
 figure-builder update for the new tags noted as pending post-processing.
+
+Extensions B and C results review (GPT-6-Astra, read-only, 2026-09-06 15:00
+local, on RESULTS.md sections 9 and 10, the 44 new scoring entries, the run
+directories, the reader assessments and the slide snapshot;
+`reviews/2026-09-06_astra_ext_bc_results_review.md`, fold record beside it):
+18 findings, 11 major, 5 minor, 2 notes, no blocker. Every major accepted.
+The three most consequential: a session count of 90 that should have been 83
+(F8); a claim that no Claude L1 or L2 run validated, produced intervals or
+wrote a methods document, when 8, 4 and 4 of 24 did (F3); and an undisclosed
+external input, the Opus 5 L1 r3 run having downloaded ERA5 temperature for
+fourteen German cities and used the target week's own weather as a known
+predictor (F10). The review also made the audit rule consistent again: three
+runs the orchestrator had exempted because their test-week fits informed
+nothing are now `leaked` with scopes that say so (F2), and the figure's
+dagger now marks one mechanism instead of every headline-scoped leak (F11).
+Causal wording in section 10 was narrowed and an attribution to section 2
+that section 2 does not make was removed (F4). Corrections of record: the
+pre-registration commit is 00:43:05, nine minutes before the first run, with
+the design-review folds in the working tree at launch and committed at
+01:07; `opus47 L3 r1` was resumed once; `solos L3 r3` is not internally
+consistent; and package installation was not new to these extensions (F15,
+F5, F16).
 
 ## 11. Extension A, pre-registered 2026-09-05 22:30 local: three OpenAI models on the same harness
 

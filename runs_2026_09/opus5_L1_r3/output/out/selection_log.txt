@@ -1,0 +1,33 @@
+done 2017-01-01
+done 2018-01-01
+done 2019-01-01
+done 2017-01-15
+done 2017-01-29
+done 2017-02-12
+done 2017-11-19
+done 2017-12-03
+done 2018-01-15
+done 2018-01-29
+done 2018-02-12
+done 2018-11-19
+done 2018-12-03
+done 2019-01-15
+done 2019-01-29
+done 2019-02-12
+done 2019-11-19
+done 2019-12-03
+
+=== selection table (2017-2019 only; MAPE %) ===
+              mean_all18  worst  mean_NewYear  mean_OtherWinter
+wx_w30_a0.3        2.022  4.105         2.940             1.838
+wx_full_a3         2.069  5.477         3.808             1.721
+wx_full            2.078  5.354         3.832             1.727
+wx_full_run        2.093  5.576         3.872             1.737
+wx_w60_a1          2.148  4.539         3.186             1.940
+wx_w90_a1          2.158  4.695         3.388             1.912
+wx_full_nolc       2.172  5.295         3.784             1.849
+wx_w45_a1          2.180  4.600         3.155             1.985
+cal_full           2.438  5.815         3.978             2.130
+
+RULE: lowest mean over all 18 origins -> WINNER = wx_w30_a0.3
+config: {'weather': True, 'window': 30, 'alpha': 0.3, 'lc': False, 'run_feat': False}

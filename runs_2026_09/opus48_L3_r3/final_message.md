@@ -1,0 +1,1 @@
+The full run is executing (deep models are the long pole). I've set a completion waiter. I'll report results as soon as it finishes.

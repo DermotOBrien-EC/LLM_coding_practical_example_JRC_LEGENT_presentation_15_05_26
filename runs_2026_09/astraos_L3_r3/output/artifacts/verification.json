@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "metric_rows_independently_recomputed": 6,
+  "quantile_forecasts_checked": 5,
+  "figures_checked": [
+    "01_overview.png",
+    "02_forecast_comparison.png",
+    "03_metric_comparison.png",
+    "04_per_day_mape.png",
+    "05_winner_with_intervals.png",
+    "06_residuals.png",
+    "07_feature_importance.png",
+    "08_decomposition.png"
+  ],
+  "discussion_words": 328,
+  "report_words": 988,
+  "successful_runtime_under_30_minutes": true,
+  "data_sha256_verified": true
+}

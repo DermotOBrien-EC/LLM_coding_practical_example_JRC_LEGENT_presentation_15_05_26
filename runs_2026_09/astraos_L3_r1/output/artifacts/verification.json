@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "checks": [
+    "raw grid and source digest",
+    "all six metric rows",
+    "CSV/JSON agreement",
+    "validation argmin and epoch selection",
+    "forecast alignment",
+    "naive lag identity",
+    "monotone quantiles and winner coverage/pinball",
+    "figure dimensions and DPI",
+    "discussion length and substitution disclosure",
+    "prose dash scan"
+  ],
+  "n_figures": 8,
+  "discussion_words": 301,
+  "winner": "lightgbm",
+  "winner_coverage": {
+    "80": 0.8630952380952381,
+    "95": 0.9880952380952381
+  }
+}

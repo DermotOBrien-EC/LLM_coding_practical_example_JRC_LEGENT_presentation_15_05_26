@@ -1,0 +1,32 @@
+[
+  {
+    "path": "forecast_load.py",
+    "bytes": 18376,
+    "sha256": "96910c1dd06707f16b881e56c6416ee38390ca140d8f31b7ff31233dac69a22b"
+  },
+  {
+    "path": "outputs/forecast_metrics.json",
+    "bytes": 1214,
+    "sha256": "b1f866400811f0b0278aebdc2d2c1cac421f749a088be8c9c5040b9d1ac7115f"
+  },
+  {
+    "path": "outputs/forecast_results.csv",
+    "bytes": 15145,
+    "sha256": "b137bbd778a1083f2e07bf6044ad1a74ee4241137ee40ad688b6923dfd2f3033"
+  },
+  {
+    "path": "outputs/forecast_vs_actual.png",
+    "bytes": 238840,
+    "sha256": "e37a907d33deb84df8d2d32a7e9229c7c6fe4e01aba3241c572734d86798d40c"
+  },
+  {
+    "path": "requirements.txt",
+    "bytes": 66,
+    "sha256": "c0d9b6a1804b397bd73be01ed7ae99c28237b9227394a4ecbba61b138d6a5a2f"
+  },
+  {
+    "path": "test_forecast_load.py",
+    "bytes": 3698,
+    "sha256": "a1612cf947299f674bd4395969c475df00837fa4f363b25b832e9f210801c15c"
+  }
+]

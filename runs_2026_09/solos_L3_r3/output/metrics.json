@@ -1,0 +1,335 @@
+{
+  "test_start": "2020-01-01",
+  "test_end": "2020-01-07",
+  "n_test_observations": 168,
+  "models": [
+    {
+      "name": "naive",
+      "mape_test_pct": 12.780588824669476,
+      "rmse_test_mw": 8808.602996502907,
+      "mae_test_mw": 7237.976190476191,
+      "mape_jan1_pct": 6.51955384895017,
+      "mape_jan2_to_jan7_pct": 13.824094653956026,
+      "runtime_seconds": 0.0007922500080894679,
+      "hyperparameters": {
+        "lag_hours": 168
+      }
+    },
+    {
+      "name": "sarima",
+      "mape_test_pct": 12.513950239983732,
+      "rmse_test_mw": 8718.360303039752,
+      "mae_test_mw": 7109.068864582852,
+      "mape_jan1_pct": 5.757467954435214,
+      "mape_jan2_to_jan7_pct": 13.640030620908487,
+      "runtime_seconds": 53.846983458002796,
+      "hyperparameters": {
+        "weekly_difference_hours": 168,
+        "order": [
+          2,
+          0,
+          1
+        ],
+        "seasonal_order": [
+          0,
+          0,
+          1,
+          24
+        ],
+        "trend": "constant",
+        "maxiter": 35,
+        "selection_metric": "validation_mape_pct",
+        "validation_mape_pct": 8.141014839918048,
+        "candidates": [
+          {
+            "order": [
+              1,
+              0,
+              1
+            ],
+            "seasonal_order": [
+              1,
+              0,
+              0,
+              24
+            ],
+            "validation_mape_pct": 8.155111308883303,
+            "converged": true,
+            "aic": 664022.2739637122
+          },
+          {
+            "order": [
+              2,
+              0,
+              1
+            ],
+            "seasonal_order": [
+              0,
+              0,
+              1,
+              24
+            ],
+            "validation_mape_pct": 8.141014839918048,
+            "converged": true,
+            "aic": 664061.8081646704
+          },
+          {
+            "order": [
+              1,
+              0,
+              2
+            ],
+            "seasonal_order": [
+              1,
+              0,
+              0,
+              24
+            ],
+            "validation_mape_pct": 8.172031228624828,
+            "converged": true,
+            "aic": 663584.2756564922
+          }
+        ],
+        "final_converged": true
+      }
+    },
+    {
+      "name": "prophet",
+      "mape_test_pct": 7.60680500244246,
+      "rmse_test_mw": 4877.3896973954925,
+      "mae_test_mw": 3795.0393543691052,
+      "mape_jan1_pct": 13.253527102824522,
+      "mape_jan2_to_jan7_pct": 6.665684652378784,
+      "runtime_seconds": 30.65562370797852,
+      "hyperparameters": {
+        "country_holidays": "DE",
+        "daily_seasonality": true,
+        "weekly_seasonality": true,
+        "yearly_seasonality": true,
+        "changepoint_prior_scale": 0.05,
+        "seasonality_prior_scale": 10.0,
+        "holidays_prior_scale": 10.0,
+        "selection_metric": "validation_mape_pct",
+        "validation_mape_pct": 5.635830073898914,
+        "candidates": [
+          {
+            "changepoint_prior_scale": 0.01,
+            "validation_mape_pct": 5.639192392335421
+          },
+          {
+            "changepoint_prior_scale": 0.05,
+            "validation_mape_pct": 5.635830073898914
+          },
+          {
+            "changepoint_prior_scale": 0.15,
+            "validation_mape_pct": 5.71083390889537
+          }
+        ],
+        "uncertainty_samples": 1000
+      }
+    },
+    {
+      "name": "lightgbm",
+      "mape_test_pct": 5.280589100806071,
+      "rmse_test_mw": 3687.020044023085,
+      "mae_test_mw": 2866.6410004606814,
+      "mape_jan1_pct": 4.833840301388278,
+      "mape_jan2_to_jan7_pct": 5.355047234042369,
+      "runtime_seconds": 113.34303887499846,
+      "hyperparameters": {
+        "n_estimators": 700,
+        "learning_rate": 0.035,
+        "num_leaves": 63,
+        "min_child_samples": 40,
+        "max_depth": -1,
+        "objective_point": "regression_l1",
+        "quantile_objective_levels": [
+          0.025,
+          0.1,
+          0.5,
+          0.9,
+          0.975
+        ],
+        "year_lag_hours": 8736,
+        "selection_metric": "validation_mape_pct",
+        "validation_mape_pct": 4.220450147977226,
+        "validation_forecast_mode": "recursive_without_observed_validation_updates",
+        "test_forecast_mode": "recursive_without_observed_test_updates",
+        "quantile_path_mode": "recursive_each_quantile_path",
+        "candidates": [
+          {
+            "n_estimators": 500,
+            "learning_rate": 0.05,
+            "num_leaves": 31,
+            "min_child_samples": 30,
+            "max_depth": -1,
+            "validation_mape_pct": 4.405003747855704
+          },
+          {
+            "n_estimators": 700,
+            "learning_rate": 0.035,
+            "num_leaves": 63,
+            "min_child_samples": 40,
+            "max_depth": -1,
+            "validation_mape_pct": 4.220450147977226
+          },
+          {
+            "n_estimators": 450,
+            "learning_rate": 0.06,
+            "num_leaves": 31,
+            "min_child_samples": 60,
+            "max_depth": 12,
+            "validation_mape_pct": 4.6997921387908
+          }
+        ]
+      }
+    },
+    {
+      "name": "nbeats",
+      "mape_test_pct": 9.651912500478806,
+      "rmse_test_mw": 6899.579831901933,
+      "mae_test_mw": 5337.499813988095,
+      "mape_jan1_pct": 6.245515506680568,
+      "mape_jan2_to_jan7_pct": 10.219645332778516,
+      "runtime_seconds": 270.7034083339968,
+      "hyperparameters": {
+        "model_class": "darts.models.NBEATSModel",
+        "generic_architecture": true,
+        "num_stacks": 30,
+        "num_blocks": 1,
+        "num_layers": 4,
+        "layer_widths": 256,
+        "expansion_coefficient_dim": 5,
+        "trend_polynomial_degree": 2,
+        "dropout": 0.0,
+        "activation": "ReLU",
+        "input_chunk_length": 168,
+        "output_chunk_length": 168,
+        "epoch_candidates": [
+          6,
+          12,
+          18,
+          24,
+          30
+        ],
+        "selected_epochs": 24,
+        "early_stopping_patience_candidates": 2,
+        "early_stopping_min_delta_pct": 0.01,
+        "early_stopping_monitor": "fixed_origin_recursive_validation_mape_pct",
+        "validation_mape_pct": 10.067220992208595,
+        "validation_candidates": [
+          {
+            "epochs": 6,
+            "validation_mape_pct": 13.995823417023201
+          },
+          {
+            "epochs": 12,
+            "validation_mape_pct": 11.759408250395351
+          },
+          {
+            "epochs": 18,
+            "validation_mape_pct": 13.230144424612005
+          },
+          {
+            "epochs": 24,
+            "validation_mape_pct": 10.067220992208595
+          },
+          {
+            "epochs": 30,
+            "validation_mape_pct": 10.211294115457784
+          }
+        ],
+        "training_stride": 4,
+        "batch_size": 512,
+        "optimizer": "Adam",
+        "learning_rate": 0.001,
+        "scaler": "MaxAbsScaler",
+        "likelihood": "quantile_regression",
+        "quantile_levels": [
+          0.025,
+          0.1,
+          0.5,
+          0.9,
+          0.975
+        ],
+        "probabilistic_output": "direct_quantile_parameters",
+        "accelerator": "cpu"
+      }
+    },
+    {
+      "name": "patchtst",
+      "mape_test_pct": 9.605038616672285,
+      "rmse_test_mw": 7428.019358452196,
+      "mae_test_mw": 5570.325288318452,
+      "mape_jan1_pct": 6.020873132665777,
+      "mape_jan2_to_jan7_pct": 10.202399530673373,
+      "runtime_seconds": 240.23530400000163,
+      "hyperparameters": {
+        "requested_model": "PatchTSTModel",
+        "substitution": "darts.models.TSMixerModel",
+        "substitution_reason": "Darts 0.41.0 does not expose PatchTSTModel",
+        "hidden_size": 64,
+        "ff_size": 64,
+        "num_blocks": 2,
+        "activation": "ReLU",
+        "dropout": 0.1,
+        "norm_type": "LayerNorm",
+        "normalize_before": false,
+        "input_chunk_length": 168,
+        "output_chunk_length": 168,
+        "epoch_candidates": [
+          6,
+          12,
+          18,
+          24,
+          30
+        ],
+        "selected_epochs": 12,
+        "early_stopping_patience_candidates": 2,
+        "early_stopping_min_delta_pct": 0.01,
+        "early_stopping_monitor": "fixed_origin_recursive_validation_mape_pct",
+        "validation_mape_pct": 9.815505986265336,
+        "validation_candidates": [
+          {
+            "epochs": 6,
+            "validation_mape_pct": 13.507779588952262
+          },
+          {
+            "epochs": 12,
+            "validation_mape_pct": 9.815505986265336
+          },
+          {
+            "epochs": 18,
+            "validation_mape_pct": 10.329366242749707
+          },
+          {
+            "epochs": 24,
+            "validation_mape_pct": 11.878841373717789
+          }
+        ],
+        "training_stride": 4,
+        "batch_size": 512,
+        "optimizer": "Adam",
+        "learning_rate": 0.001,
+        "scaler": "MaxAbsScaler",
+        "likelihood": "quantile_regression",
+        "quantile_levels": [
+          0.025,
+          0.1,
+          0.5,
+          0.9,
+          0.975
+        ],
+        "probabilistic_output": "direct_quantile_parameters",
+        "accelerator": "cpu"
+      }
+    }
+  ],
+  "winner": "lightgbm",
+  "winner_coverage_80pct": 0.8333333333333334,
+  "winner_coverage_95pct": 1.0,
+  "winner_pinball_loss_q10": 576.4712049119178,
+  "winner_pinball_loss_q50": 1420.8529660102538,
+  "winner_pinball_loss_q90": 614.4443438256216,
+  "total_runtime_seconds": 713.0223038749828
+}
