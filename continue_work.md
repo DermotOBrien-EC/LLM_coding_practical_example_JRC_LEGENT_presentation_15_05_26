@@ -1,6 +1,6 @@
 # continue_work.md
 
-Updated: 2026-09-06 00:50 local (session that ran Extension A and pre-registered B and C); the
+Updated: 2026-09-06 17:30 local (session that ran Extensions A, B and C end to end); the
 sections below section 0 are the 2026-09-03 handoff and are superseded
 where section 0 says so.
 
@@ -84,15 +84,40 @@ resumes, and about two and a half hours of machine sleep). Deck: three new
 slides plus an extended discipline table and a re-scoped outcomes figure;
 verifier 29 checks. Reader fleet (Astra) ran on every new run; its
 disagreements with my audit classes are recorded inside the scoring
-entries. The cross-vendor review of sections 9 and 10 plus the slides was
-running when this was written
-(`_logs/review_ext_bc_results.events.log`, output
-`reviews/2026-09-06_astra_ext_bc_results_review.md`): fold it, re-verify,
-then push both repos.
+entries. The cross-vendor review of sections 9 and 10 and of the slides is
+done and folded (`reviews/2026-09-06_astra_ext_bc_results_review.md`, fold
+record beside it, recorded in DESIGN.md section 10): 18 findings, 11 major,
+all accepted. Both repositories are committed and pushed, this one to
+`master` (fe29a74) and the deck to `dev_dermot` (6840124). The 39 earlier
+runs and their derived files are diff-empty throughout, as sections 11 to 13
+require, and the deck verifier passes 29 checks.
+
+**For the next agent: what to check first.** The eleven majors are the map
+of where I was wrong before, and the same classes are worth re-testing:
+
+1. Counts and superlatives. I wrote 90 sessions where the arms sum to 83,
+   and called 2.68 the study minimum when Fable L2 r1 is 2.298. Recompute
+   every count, range and superlative in RESULTS.md sections 8 to 10 from
+   `results.csv` and `scoring.json` rather than reading them.
+2. Blanket claims about a whole arm. I asserted that no Claude L1 or L2 run
+   validated, produced intervals or wrote a methods document; 8, 4 and 4 of
+   24 did. Any sentence of the form "none of X did Y" deserves a count.
+3. Undisclosed inputs. Opus 5 L1 r3 downloaded ERA5 temperature and used
+   the target week's own weather as a predictor, which I missed until the
+   review; the sandbox does not block the network, so check every run's
+   session log for outbound fetches before trusting a number as comparable.
+4. The audit rule applied consistently. I had exempted three test-week fits
+   because they informed nothing; DESIGN.md 5.2 has no such exemption and
+   they are now leaks with a stated scope. Look for any remaining exemption
+   I granted myself, and for scopes that overstate or understate.
+5. Causal wording. Section 10 is deliberately associational: the Opus 4.7
+   L3 pair differs in more than the recursion (800 versus 600 trees), and
+   the design separates neither the harness, the date, the configuration
+   nor sampling.
 
 Also optional: delete the sandboxes under `~/dev/energy_forecast_ws/`
-after everything is scored, and tell Andres the slides are on
-`dev_dermot`. The seminar deck still carries the May date on its cover;
+(4.2 GB, nothing scored lives only there), and tell Andres the slides are
+on `dev_dermot`. The seminar deck still carries the May date on its cover;
 the workshop is on 2026-09-11.
 
 The rest of this section is the in-flight record as written at 09:50 and
