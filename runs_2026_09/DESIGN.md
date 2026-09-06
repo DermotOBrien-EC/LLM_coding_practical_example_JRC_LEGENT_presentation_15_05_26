@@ -447,6 +447,44 @@ the session log before it enters `RESULTS.md`.
   first batch (`_void_ext_b_outage_20260906/`, relaunched once as
   `ext_b_relaunch` after wave A); the four Opus 5 sessions retried through
   it and continued.
+- **2026-09-06, Extension B, how the twenty runs were obtained.**
+  `ext_b_waveA` (12 L1 and L2 runs, six at a time) lost five of its first
+  six `astraos` sessions to the network outage described in the section 12
+  amendment; they were archived under `_void_ext_b_outage_20260906/` and
+  relaunched once as `ext_b_relaunch` at 02:55 local, all five completing.
+  `ext_b_waveB` (eight L3 runs, two at a time) ran from 03:10; three
+  completed, one (`astraos L3 r2`) was refused by the gateway with a 429
+  after 101 tool calls and 34 minutes, and four were refused before their
+  first tool call once the Codex subscription's credentials began cooling
+  down. Those four are void under section 11 (f), archived under
+  `_void_ext_b_cooldown_20260906/` and relaunched once as
+  `ext_b_relaunch2`; `astraos L3 r2` is resumed once under the attempt
+  policy. The gateway kept refusing every model until 10:45 local, when a
+  controlled restart of the proxy cleared its cooldown state (the Codex CLI
+  itself was answering throughout, so the cooldown was the proxy's own).
+  `solos L3 r3` reached the three-hour cap with its study already complete
+  and was not resumed.
+- **2026-09-06, Extension C, how the twenty-four runs were obtained.**
+  `ext_c_wave1` and `ext_c_wave2` (16 L1 and L2 runs, four at a time) ran
+  00:50 to 02:31 local with the usage gate passing on a fresh window; every
+  run completed. `ext_c_wave3` (the eight L3 runs) started at 05:17;
+  `opus48 L3 r1` and `opus47 L3 r1` ran, and the other six failed at the
+  harness's build check because the pinned Claude Code 2.1.259 binary had
+  been pruned by the CLI's auto-update to 2.1.263. No session started and
+  no run directory was created, so nothing was voided; 2.1.259 was
+  reinstalled (and a copy kept beside the versions directory so an update
+  cannot strand the harness again), the machine's default `claude` was
+  relinked to 2.1.263, and the six runs were launched as `ext_c_wave3b` at
+  10:46 local. `opus47 L3 r1` reached the cap with its study complete and
+  was not resumed; `opus48 L3 r3` ended 27 minutes in with its bake-off
+  still fitting and is counted incomplete.
+- **2026-09-06, two harness facts to disclose with the results.** The
+  machine slept for about two and a half hours between 07:30 and 10:10
+  local, which inflates the wall clock of the runs that were live then
+  (`opus47 L3 r1` reads 326 minutes against a three-hour working cap).
+  And because Extension B and Extension C overlapped, up to four L3
+  sessions ran at once against the two of section 7; the L3 waves of the
+  two extensions were kept apart, but their tails overlapped.
 
 ## 10. Review record
 
