@@ -71,3 +71,17 @@ runs_2026_09/*/output_outside/**/.ruff_cache/
 runs_2026_09/*/output_outside/**/.mypy_cache/
 # Cross-vendor review transport logs; the brief, the review and the fold record are kept.
 runs_2026_09/reviews/_transport/
+# Environments and package trees the agents downloaded into their sandboxes
+# (Extension B, DESIGN.md section 12): machinery, not the agent's work.
+runs_2026_09/*/output/**/site-packages/
+runs_2026_09/*/output/.venv*/
+runs_2026_09/*/output/.*venv*/
+runs_2026_09/*/output/.packages/
+runs_2026_09/*/output/.python_packages/
+runs_2026_09/*/output/.uvcache/
+runs_2026_09/*/output/.uv-cache/
+runs_2026_09/*/output/.mplconfig/
+runs_2026_09/*/output/.matplotlib/
+runs_2026_09/*/output/.cache/
+runs_2026_09/*/output_outside/**/site-packages/
+runs_2026_09/*/output_outside/.venv*/

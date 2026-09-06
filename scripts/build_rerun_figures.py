@@ -32,6 +32,7 @@ import matplotlib.pyplot as plt  # noqa: E402
 ROOT = Path(__file__).resolve().parent.parent
 RUNS = ROOT / "runs_2026_09"
 OUT_FIG = RUNS / "figures" / "exp-rerun-mape.png"
+OUT_FIG_OPENAI = RUNS / "figures" / "exp-openai-mape.png"
 OUT_TABLE = RUNS / "RESULTS_table.md"
 
 LEVELS = ["L1", "L2", "L3"]
@@ -39,15 +40,36 @@ LEVEL_LABEL = {"L1": "L1, beginner\n10 words", "L2": "L2, average\n46 words + 7-
                "L3": "L3, research-grade\n1,673 words + 113-line AGENTS.md"}
 SERIES = {
     "may2026": ("Opus 4.7, May 2026 (1 run)", "#7f7f7f", "D"),
-    "fable51": ("Fable 5.1, Sep 2026 (3 runs)", "#ff7f0e", "o"),
-    "opus5": ("Opus 5, Sep 2026 (1 run)", "#1f77b4", "s"),
-    # Extension A (DESIGN.md section 11): the OpenAI models on the same harness
-    "astra": ("GPT-6-Astra, Sep 2026 (3 runs)", "#2ca02c", "^"),
-    "sol": ("GPT-5.6-Sol, Sep 2026 (3 runs)", "#9467bd", "v"),
-    "gpt55": ("GPT-5.5, Sep 2026 (3 runs)", "#8c564b", "P"),
+    # the Claude arm (sections 1 to 7) and Extension C (section 13)
+    "opus47": ("Opus 4.7, Sep 2026", "#d62728", "*"),
+    "opus48": ("Opus 4.8, Sep 2026", "#17becf", "X"),
+    "opus5": ("Opus 5, Sep 2026", "#1f77b4", "s"),
+    "fable51": ("Fable 5.1, Sep 2026", "#ff7f0e", "o"),
+    # Extension A (section 11): the OpenAI models on the same harness
+    "astra": ("GPT-6-Astra, frozen prompt", "#2ca02c", "^"),
+    "sol": ("GPT-5.6-Sol, frozen prompt", "#9467bd", "v"),
+    "gpt55": ("GPT-5.5, frozen prompt", "#8c564b", "P"),
+    # Extension B (section 12): the same prompt plus the one-shot note
+    "astraos": ("GPT-6-Astra, + one-shot note", "#2ca02c", "^"),
+    "solos": ("GPT-5.6-Sol, + one-shot note", "#9467bd", "v"),
+    "gpt55os": ("GPT-5.5, + one-shot note", "#8c564b", "P"),
 }
-X_OFFSET = {"may2026": -0.36, "fable51": -0.2, "opus5": -0.04, "astra": 0.1, "sol": 0.24, "gpt55": 0.38}
-THREE_RUN_TAGS = {"fable51", "astra", "sol", "gpt55"}
+# one figure per arm, so a panel never carries more than five series
+CLAUDE_TAGS = ["may2026", "opus47", "opus48", "opus5", "fable51"]
+OPENAI_TAGS = ["astra", "astraos", "sol", "solos", "gpt55", "gpt55os"]
+# Extension B is drawn open-faced so the frozen-prompt and one-shot runs of the
+# same model are told apart at a glance
+ONESHOT_TAGS = {"astraos", "solos", "gpt55os"}
+THREE_RUN_TAGS = {"fable51", "astra", "sol", "gpt55", "astraos", "solos", "gpt55os",
+                  "opus47", "opus48", "opus5"}
+
+
+def offsets(tags: list[str]) -> dict[str, float]:
+    """Spread the series of one panel evenly around each level's tick."""
+    n = len(tags)
+    span = 0.74
+    step = span / max(n - 1, 1)
+    return {t: -span / 2 + i * step for i, t in enumerate(tags)}
 
 
 def may_reference() -> dict[str, float]:
@@ -74,14 +96,16 @@ def load_results() -> list[dict[str, object]]:
     return rows
 
 
-def build_figure(results: list[dict[str, object]], ref: dict[str, float]) -> None:
+def build_figure(results: list[dict[str, object]], ref: dict[str, float], tags: list[str],
+                 out: Path, title: str, footnote: str) -> None:
     scoring = json.loads((RUNS / "scoring.json").read_text())
+    X_OFFSET = offsets(tags)
     fig, ax = plt.subplots(figsize=(11, 5.2))
     xs = {lvl: i for i, lvl in enumerate(LEVELS)}
     # May 2026 reference; the L3 winner fed the test week's own actual loads into
     # its 24 h lag and rolling features (DESIGN.md 5.2, correction of 2026-09-05),
     # so it is drawn hollow with a dagger
-    for lvl, v in ref.items():
+    for lvl, v in (ref.items() if "may2026" in tags else []):
         lab, col, mk = SERIES["may2026"]
         day_ahead = lvl == "L3"
         ax.scatter(xs[lvl] + X_OFFSET["may2026"], v, marker=mk, s=110, zorder=3,
@@ -93,20 +117,21 @@ def build_figure(results: list[dict[str, object]], ref: dict[str, float]) -> Non
     for r in results:
         tag = str(r["model_tag"])
         lvl = str(r["level"])
-        if tag not in SERIES or lvl not in xs or r.get("mape_pct") in (None, ""):
+        if tag not in tags or lvl not in xs or r.get("mape_pct") in (None, ""):
             continue
         v = float(r["mape_pct"])  # type: ignore[arg-type]
         lab, col, mk = SERIES[tag]
         rep = int(r.get("rep") or 1)
-        jitter = (rep - 2) * 0.04 if tag in THREE_RUN_TAGS else 0.0
+        jitter = (rep - 2) * 0.035 if tag in THREE_RUN_TAGS else 0.0
         x = xs[lvl] + X_OFFSET[tag] + jitter
         sc = scoring.get(str(r["run"]), {})
         hollow = str(r.get("source")) != "recomputed"
         incomplete = bool(sc.get("status_note"))
         # a headline that read the test week's own loads (DESIGN.md 5.2) is drawn like May's L3
         leaked = sc.get("test_selection") == "leaked" and str(sc.get("leak_scope", "")).startswith("headline")
+        open_faced = hollow or incomplete or leaked or tag in ONESHOT_TAGS
         ax.scatter(x, v, marker=mk, s=110, zorder=3,
-                   facecolors="white" if (hollow or incomplete or leaked) else col, edgecolors=col, linewidths=1.8,
+                   facecolors="white" if open_faced else col, edgecolors=col, linewidths=1.8,
                    label=lab if tag not in seen else None)
         seen.add(tag)
         ax.annotate(f"{v:.2f}" + ("*" if incomplete else "") + ("†" if leaked else ""), (x, v),
@@ -114,22 +139,17 @@ def build_figure(results: list[dict[str, object]], ref: dict[str, float]) -> Non
     ax.set_xticks(list(xs.values()))
     ax.set_xticklabels([LEVEL_LABEL[l] for l in LEVELS], fontsize=10)
     ax.set_ylabel("Test-window MAPE (%), lower is better")
-    ax.set_title("Same three prompts, same data: May 2026 and September 2026", fontsize=13)
-    ax.set_ylim(0, max([*ref.values(), *[float(r["mape_pct"]) for r in results  # type: ignore[arg-type]
-                                        if r.get("mape_pct") not in (None, "")]] or [12]) * 1.18)
+    ax.set_title(title, fontsize=13)
+    shown = [float(r["mape_pct"]) for r in results  # type: ignore[arg-type]
+             if str(r["model_tag"]) in tags and r.get("mape_pct") not in (None, "")]
+    ax.set_ylim(0, max([*(ref.values() if "may2026" in tags else []), *shown] or [12]) * 1.18)
     ax.grid(axis="y", alpha=0.3)
-    ax.legend(loc="upper right", fontsize=9, frameon=True)
-    fig.text(0.01, 0.012,
-             "Hollow marker with * = session ended before the agent's final step, scored on the forecast it had written.\n"
-             "† = the LightGBM winner read the test week's own actual loads through its rolling features from the 2nd hour and its 24 h lag\n"
-             "from the 2nd day (May's L3, and GPT-5.5 L3 run 2, which wrote no forecast file and is shown as the agent reported it); the\n"
-             "September Claude L3 forecasts are recursive week-ahead forecasts. OpenAI models ran on the same harness (DESIGN.md section 11):\n"
-             "a missing marker is a run that asked a clarifying question or presented a plan and stopped; GPT-6-Astra did so in all nine runs.",
-             fontsize=7.5, color="#555555", va="bottom")
-    fig.tight_layout(rect=(0, 0.11, 1, 1))
-    OUT_FIG.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(OUT_FIG, dpi=300)
-    print(f"wrote {OUT_FIG}")
+    ax.legend(loc="upper right", fontsize=8.5, frameon=True, ncol=2 if len(tags) > 5 else 1)
+    fig.text(0.01, 0.012, footnote, fontsize=7.5, color="#555555", va="bottom")
+    fig.tight_layout(rect=(0, 0.02 + 0.023 * footnote.count("\n"), 1, 1))
+    out.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(out, dpi=300)
+    print(f"wrote {out}")
 
 
 OUT_FIG2 = RUNS / "figures" / "exp-extension-outcomes.png"
@@ -246,10 +266,26 @@ def build_table(results: list[dict[str, object]]) -> None:
     print("\n".join(lines))
 
 
+CLAUDE_FOOT = (
+    "Hollow marker with * = session ended before the agent's final step, scored on the forecast it had written.\n"
+    "† = the LightGBM winner read the test week's own actual loads through its rolling features from the 2nd hour and its\n"
+    "24 h lag from the 2nd day; the other September L3 forecasts are recursive week-ahead forecasts. Opus 4.7, 4.8 and\n"
+    "Opus 5 runs 2 and 3 are Extension C (DESIGN.md section 13); one May 2026 run per level is the reference point.")
+OPENAI_FOOT = (
+    "Filled = the frozen prompt (Extension A). Open = the same prompt plus a one-paragraph note that nobody can answer a\n"
+    "question and the job must be finished in the session (Extension B, DESIGN.md section 12). A missing marker is a run\n"
+    "that wrote no forecast: under the frozen prompt most sessions stopped to ask or to propose a plan. Hollow with * =\n"
+    "session ended before the agent's final step; † = the winner read the test week's own loads through its lag and\n"
+    "rolling features. These models ran on Claude Code through a local gateway: model plus translation layer, described.")
+
+
 def main() -> int:
     ref = may_reference()
     results = load_results()
-    build_figure(results, ref)
+    build_figure(results, ref, CLAUDE_TAGS, OUT_FIG,
+                 "Same three prompts, same data: May 2026 and September 2026", CLAUDE_FOOT)
+    build_figure(results, ref, OPENAI_TAGS, OUT_FIG_OPENAI,
+                 "The same prompts given to three OpenAI models, with and without a one-shot note", OPENAI_FOOT)
     build_outcomes_figure(results)
     build_table(results)
     return 0

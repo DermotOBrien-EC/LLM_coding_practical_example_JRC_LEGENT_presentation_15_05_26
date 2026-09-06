@@ -35,6 +35,16 @@ import shlex
 import sys
 from collections import Counter
 from dataclasses import asdict, dataclass, field
+
+
+def _as_dict(s: "RunSummary") -> dict[str, object]:
+    """asdict, minus fields that are absent for a run: keeping an empty
+    ``vendored_dirs`` out of the file leaves every run that predates
+    Extension B byte-identical."""
+    d = asdict(s)
+    if not d.get("vendored_dirs"):
+        d.pop("vendored_dirs", None)
+    return d
 from datetime import datetime
 from pathlib import Path
 
@@ -49,6 +59,33 @@ HARNESS_ROOT_FILES = {
 HARNESS_ROOT_PATTERNS = (re.compile(r"^session.*\.jsonl$"), re.compile(r"^stderr.*\.log$"))
 SKIP_DIRS = {".claude", "__pycache__", "lightning_logs", "darts_logs", "cache",
              ".darts", ".ruff_cache", ".pytest_cache", "checkpoints", ".venv"}
+# Extension B (DESIGN.md section 12) produced agents that built their own
+# virtual environments and downloaded packages into the working directory
+# instead of using the venv two levels up. Those trees are machinery, not the
+# agent's work: they are excluded from the manifest and the counts, and the
+# directories that carried them are listed in the summary as vendored_dirs.
+# Only downloaded environments and package trees; tool caches such as
+# .mypy_cache stay in the manifest, as they were for every earlier run.
+VENDOR_DIR_NAMES = {"site-packages", ".packages", ".python_packages", ".uvcache",
+                    ".uv-cache", ".uv_cache", ".conda"}
+VENDOR_DIR_RE = re.compile(r"^\.?[\w-]*venv[\w.-]*$", re.I)
+
+
+def vendor_roots(base: Path) -> list[Path]:
+    """Directories under *base* that hold a downloaded environment, as
+    relative paths: any directory with a ``pyvenv.cfg``, any whose name looks
+    like a virtual environment, and the known package or cache directory
+    names."""
+    roots: list[Path] = []
+    for p in sorted(base.rglob("*")):
+        if not p.is_dir():
+            continue
+        rel = p.relative_to(base)
+        if any(r == rel or r in rel.parents for r in roots):
+            continue
+        if (p / "pyvenv.cfg").exists() or VENDOR_DIR_RE.match(p.name) or p.name in VENDOR_DIR_NAMES:
+            roots.append(rel)
+    return roots
 READ_UTILS = {"cat", "head", "tail", "sed", "less", "more", "bat", "nl", "awk", "grep", "rg",
               "egrep", "fgrep", "python", "python3", "open", "strings", "view", "vim", "vi",
               "nano", "cut", "tac", "fold", "pr"}
@@ -97,6 +134,7 @@ class RunSummary:
     status: str = ""
     exit_code: int | None = None
     wallclock_s: int = 0
+    vendored_dirs: list[str] = field(default_factory=list)
     resumed: bool = False
     attempts: list[Attempt] = field(default_factory=list)
     has_result: bool = False
@@ -323,25 +361,31 @@ def parse_attempt(path: Path, work_dir: Path, sandbox_root: Path | None
     return a, final_text, agents_obs, impl_turns, outside
 
 
-def _manifest(run_dir: Path) -> list[dict[str, object]]:
+def _manifest(run_dir: Path) -> tuple[list[dict[str, object]], list[str]]:
     """Everything the agent left behind: output/ (the work dir, minus the
     data file and AGENTS.md) and output_outside/ (files written elsewhere in
     the sandbox)."""
     rows: list[dict[str, object]] = []
+    vendored: list[str] = []
     for sub in ("output", "output_outside"):
         base = run_dir / sub
         if not base.exists():
             continue
+        roots = vendor_roots(base)
+        if roots:
+            vendored.extend(f"{sub}/{r}" for r in map(str, roots))
         for p in sorted(base.rglob("*")):
             rel = p.relative_to(base)
             if any(part in SKIP_DIRS for part in rel.parts):
+                continue
+            if any(r == rel or r in rel.parents for r in roots):
                 continue
             if not p.is_file():
                 continue
             digest = hashlib.sha256(p.read_bytes()).hexdigest()
             rows.append({"path": (str(rel) if sub == "output" else f"[outside] {rel}"),
                          "bytes": p.stat().st_size, "sha256": digest})
-    return rows
+    return rows, vendored
 
 
 def summarise(run_dir: Path) -> RunSummary:
@@ -443,7 +487,8 @@ def summarise(run_dir: Path) -> RunSummary:
         (run_dir / "final_message.md").write_text(final_text, encoding="utf-8")
         s.final_message_chars = len(final_text)
 
-    manifest = _manifest(run_dir)
+    manifest, vendored = _manifest(run_dir)
+    s.vendored_dirs = vendored
     (run_dir / "manifest.json").write_text(json.dumps(manifest, indent=2))
     s.n_files = len(manifest)
     for row in manifest:
@@ -463,7 +508,7 @@ def summarise(run_dir: Path) -> RunSummary:
         elif ext == ".json":
             s.n_json += 1
     s.has_metrics_json = (run_dir / "output" / "metrics.json").exists()
-    (run_dir / "summary.json").write_text(json.dumps(asdict(s), indent=2))
+    (run_dir / "summary.json").write_text(json.dumps(_as_dict(s), indent=2))
     return s
 
 
@@ -475,7 +520,7 @@ def main() -> int:
     for run_dir in sorted(RUNS.iterdir()):
         if run_dir.is_dir() and not run_dir.name.startswith("_") and (run_dir / "session.jsonl").exists():
             rows.append(summarise(run_dir))
-    (RUNS / "summary.json").write_text(json.dumps([asdict(r) for r in rows], indent=2))
+    (RUNS / "summary.json").write_text(json.dumps([_as_dict(r) for r in rows], indent=2))
 
     hdr = ("| run | model | status | stop | turns | tokens in/out (k) | cost $ | wall min | py | png "
            "| img+ | docs | csv | metrics.json | AGENTS.md read (turn / first impl) | outside refs "

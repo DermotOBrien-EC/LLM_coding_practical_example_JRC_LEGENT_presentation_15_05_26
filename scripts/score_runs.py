@@ -23,6 +23,7 @@ from __future__ import annotations
 
 import csv
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -35,6 +36,13 @@ DATA = ROOT / "data" / "opsd_de_load.csv"
 TEST_START = pd.Timestamp("2020-01-01 00:00", tz="UTC")
 TEST_END = pd.Timestamp("2020-01-07 23:00", tz="UTC")
 SKIP_DIRS = {".claude", "__pycache__", "lightning_logs", "darts_logs", "cache", ".venv"}
+# Extension B agents built their own environments in the working directory; a
+# CSV inside a downloaded package is not a forecast (DESIGN.md section 12).
+VENDOR_DIR_RE = re.compile(r"^\.?[\w-]*venv[\w.-]*$", re.I)
+# Only downloaded environments and package trees; tool caches such as
+# .mypy_cache stay in the manifest, as they were for every earlier run.
+VENDOR_DIR_NAMES = {"site-packages", ".packages", ".python_packages", ".uvcache",
+                    ".uv-cache", ".uv_cache", ".conda"}
 
 
 def actuals() -> pd.Series:
@@ -78,17 +86,25 @@ def _rel(path: Path) -> str:
     return str(path)
 
 
-def _find_time_index(df: pd.DataFrame, naive_tz: str = "UTC") -> pd.DatetimeIndex | None:
+def _find_time_index(df: pd.DataFrame, naive_tz: str = "UTC",
+                     time_col: str | None = None) -> pd.DatetimeIndex | None:
     """Return a UTC DatetimeIndex aligned to df's rows, or None.
 
     Timestamps that carry an offset are converted to UTC. Naive timestamps
     are interpreted in ``naive_tz`` (UTC by default; ``scoring.json`` can
-    override per run when the agent documented local time).
+    override per run when the agent documented local time). Without
+    ``time_col`` the first column that parses is used; a file that carries
+    both a local and a UTC stamp (Extension C, opus5 L1 r3) names the one
+    the agent meant in ``scoring.json``.
     """
     candidates = list(df.columns)
     if df.index.name is not None:
         df = df.reset_index()
         candidates = list(df.columns)
+    if time_col is not None:
+        if time_col not in candidates:
+            return None
+        candidates = [time_col]
     lo, hi = TEST_START - pd.Timedelta(hours=48), TEST_END + pd.Timedelta(hours=48)
     for col in candidates:
         if not (df[col].dtype == object or "datetime" in str(df[col].dtype)):
@@ -116,7 +132,7 @@ def _find_time_index(df: pd.DataFrame, naive_tz: str = "UTC") -> pd.DatetimeInde
 
 
 def score_csv(path: Path, y: pd.Series, base: Path | None = None,
-              naive_tz: str = "UTC") -> list[dict[str, object]]:
+              naive_tz: str = "UTC", time_col: str | None = None) -> list[dict[str, object]]:
     """Score every numeric column of one CSV against the actual load.
 
     With a usable timestamp column the forecast is scored on the 168 hours
@@ -133,7 +149,7 @@ def score_csv(path: Path, y: pd.Series, base: Path | None = None,
     if df.empty:
         return out
     full = full_series()
-    idx = _find_time_index(df, naive_tz)
+    idx = _find_time_index(df, naive_tz, time_col)
     if idx is not None:
         df = df.copy()
         df.index = idx
@@ -191,6 +207,8 @@ def discover() -> int:
                 continue
             if any(part in SKIP_DIRS for part in rel_parts) or csv_path.name == "opsd_de_load.csv":
                 continue
+            if any(VENDOR_DIR_RE.match(part) or part in VENDOR_DIR_NAMES for part in rel_parts):
+                continue
             entry["candidates"].extend(score_csv(csv_path, y, run_dir))  # type: ignore[union-attr]
         mj = out_dir / "metrics.json"
         if mj.exists():
@@ -233,7 +251,8 @@ def final() -> int:
                                   "agent_reported_mape": d.get("agent_reported_mape"),
                                   "reason": d.get("reason")}
         if d.get("file") and d.get("column"):
-            cands = score_csv(RUNS / run / d["file"], y, RUNS / run, d.get("naive_tz", "UTC"))
+            cands = score_csv(RUNS / run / d["file"], y, RUNS / run, d.get("naive_tz", "UTC"),
+                              d.get("time_col"))
             match = [c for c in cands if c.get("column") == d["column"] and "mape_pct" in c]
             if not match:
                 raise SystemExit(f"{run}: column {d['column']} in {d['file']} is not scorable")

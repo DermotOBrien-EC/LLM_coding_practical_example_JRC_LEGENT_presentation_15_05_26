@@ -169,5 +169,27 @@
       "astraos L2 1",
       "astraos L2 3"
     ]
+  },
+  "_ext_b_relaunch2": "Dated amendment 2026-09-06 05:20 local (DESIGN.md section 12): L3 sessions of ext_b_waveB refused by the gateway with 429 (all Codex credentials for the model cooling down) before any tool call are void under section 11 (f), archived under _void_ext_b_cooldown_20260906/ and relaunched once here after the credentials came back.",
+  "ext_b_relaunch2": {
+    "concurrency": 2,
+    "runs": [
+      "solos L3 2",
+      "gpt55os L3 3",
+      "astraos L3 3",
+      "solos L3 3"
+    ]
+  },
+  "_ext_c_wave3b": "Dated amendment 2026-09-06 10:50 local (DESIGN.md section 13): the six ext_c_wave3 launches of 10:43 local failed at the harness's build check because the pinned Claude Code 2.1.259 binary had been pruned by the CLI's auto-update (no session started, no run directory created); the binary was reinstalled and the six runs are launched here, two at a time, through the usage gate.",
+  "ext_c_wave3b": {
+    "concurrency": 2,
+    "runs": [
+      "opus5 L3 2",
+      "opus48 L3 2",
+      "opus47 L3 2",
+      "opus5 L3 3",
+      "opus48 L3 3",
+      "opus47 L3 3"
+    ]
   }
 }
