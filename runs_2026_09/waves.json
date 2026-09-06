@@ -158,5 +158,16 @@
       "opus48 L3 3",
       "opus47 L3 3"
     ]
+  },
+  "_ext_b_relaunch": "Dated amendment 2026-09-06 01:15 local (DESIGN.md section 12): five astraos L1/L2 sessions were ended by exhausted API retries on the gateway's 503 auth_unavailable during a network outage of about 00:52 to 00:58 local; archived under _void_ext_b_outage_20260906/ as infrastructure failures and relaunched once, after ext_b_waveA has finished.",
+  "ext_b_relaunch": {
+    "concurrency": 5,
+    "runs": [
+      "astraos L1 1",
+      "astraos L1 2",
+      "astraos L1 3",
+      "astraos L2 1",
+      "astraos L2 3"
+    ]
   }
 }

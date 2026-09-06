@@ -56,8 +56,18 @@ outputs `reviews/2026-09-06_astra_*_review.md`): one of the B/C
 pre-registration and harness diff (gates the launches below), one of
 section 8, the 27 scoring entries and the slide. Fold both, then push.
 
-**Extensions B and C, pre-registered 01:20 local (DESIGN.md sections 12 and
-13, commit b1f1fb4), not yet launched.** Owner instructions the same
+**Extensions B and C, pre-registered (DESIGN.md sections 12 and 13,
+commit b1f1fb4; Astra design review folded, 635dc00), LAUNCHED 00:50 local
+on 2026-09-06.** Drivers: `_logs/extension_b.log` (ext_b_waveA then
+ext_b_waveB), `_logs/extension_c12.log` (ext_c_wave1 then ext_c_wave2), a
+waiter that starts ext_c_wave3 (`_logs/extension_c3.log`) once both have
+written EXTENSION_DONE, and a waiter that runs `ext_b_relaunch`
+(`_logs/ext_b_relaunch.launcher.log`, marker RELAUNCH_DONE) once wave A
+ends: five astraos sessions were killed by a network outage at 00:52 to
+00:58 and are archived under `_void_ext_b_outage_20260906/` under the dated
+amendment in section 12. When every marker is present: summariser, scorer,
+reader fleet on the named new runs, figures (new tags), RESULTS.md sections
+9 and 10, deck, verifier, review, push. Original plan text follows. Owner instructions the same
 night: "change the prompt slightly just to say it should just do it
 without asking questions or presenting plan" (B), "run the full experiment
 for opus 5, 4.8 and 4.7" (C), "do not rerun the fable5.1 again ... it is
@@ -69,13 +79,7 @@ runs, `ext_b_waveB` 8 runs). C: `opus47` and `opus48` at three runs per
 level plus `opus5` reps 2 and 3, direct route, frozen prompts, 24 runs
 (waves `ext_c_wave1`, `ext_c_wave2`, `ext_c_wave3`); bills the Anthropic
 plan, so every wave passes the usage gate and the driver waits 15 minutes
-and retries on a closed gate. Launch, after the design review is folded:
-`nohup bash scripts/launch_extension.sh ext_b_waveA ext_b_waveB > runs_2026_09/_logs/extension_b.log 2>&1 &`
-and, concurrently, a C driver: wave1 then wave2 then wave3 (the driver
-takes two waves; run it as `ext_c_wave1 ext_c_wave2` and then
-`ext_c_wave3` alone as both arguments of a second invocation is wrong,
-so run wave3 with `bash scripts/launch_wave.sh ext_c_wave3` after the
-first driver ends, or extend the driver to n waves). Never launch a Fable
+and retries on a closed gate. The driver now takes any number of waves in order. Never launch a Fable
 5.1 run. Afterwards the same post-processing as A: summariser, scorer
 (scoring.json entries), reader fleet on named runs, figure builder (new
 tags need SERIES/OUTCOME_ORDER entries; consider one figure for the Claude
