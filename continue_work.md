@@ -1,6 +1,6 @@
 # continue_work.md
 
-Updated: 2026-09-05 16:45 local (session that completed wave 2); the
+Updated: 2026-09-06 00:50 local (session that ran Extension A and pre-registered B and C); the
 sections below section 0 are the 2026-09-03 handoff and are superseded
 where section 0 says so.
 
@@ -12,7 +12,7 @@ state that are not in them.
 
 ---
 
-## 0. State on 2026-09-05 evening (read first)
+## 0. State on 2026-09-06, small hours (read first)
 
 **Done.** The owner asked (09:30 local) to "continue, finish off this work
 and have my presentation ready, then commit and push to my dermot branch".
@@ -34,30 +34,57 @@ now sums a session's result events (Opus 5 L2's turn and token counts
 changed). Fable L3 r3 is recorded `leaked` for a labelled supplement with
 its headline untouched (`leak_scope` in `scoring.json`).
 
-**Extension A, in flight from 2026-09-05 22:30 local.** The owner asked
-(22:10) for "the full experiment" with GPT-5.5, GPT-5.6-Sol and
-GPT-6-Astra "using the same harness using poly with codex models", and
-said the workshop is on the 11th. Pre-registered as DESIGN.md section 11
-(commit 8144202): the same harness, routed to the local gateway
-(`sol-proxy.sh`, 127.0.0.1:8317) with the `poly` launcher's environment,
-tags `astra`, `sol`, `gpt55`, three runs per level each, 27 runs. Order:
-Astra read-only review of section 11 and the harness diff
-(`runs_2026_09/reviews/2026-09-05_astra_extension_design_review*.md`),
-fold, then `bash scripts/launch_wave.sh ext_canary` (astra L1 r1, inspect
-by hand: tool calls, classifier, result event, harvest), then
-`nohup bash scripts/launch_extension.sh > runs_2026_09/_logs/extension.log`
-(ext_waveA, 17 light runs six at a time; then ext_waveB, nine L3 runs two
-at a time, roughly nine hours; marker `EXTENSION_DONE`). Afterwards:
-`assess_fleet.sh` per run (the reader fleet is Astra now), `score_runs.py
-discover` then `scoring.json` entries then `final`, `build_rerun_figures.py`
-(the figure has six series; consider a second figure for the OpenAI arm),
-a RESULTS.md section 8 for the extension, the deck (a new slide or two;
-the verifier needs extending for the new tags), review, push. Codex quota
-is the only cost; a gateway 429 shows up as an API error in the session
-log (void for L1 and L2, one resume for L3).
+**Extension A, done (2026-09-06 00:19 local).** The owner asked (22:10 on
+the 5th) for "the full experiment" with GPT-5.5, GPT-5.6-Sol and
+GPT-6-Astra on the same harness through the local gateway (DESIGN.md
+section 11, commit 8144202; Astra design review folded, e68abb2). All 27
+runs completed, none voided or resumed; scored, read by the Astra reader
+fleet (`_assess/`, named runs only), written up as `RESULTS.md` section 8,
+figures rebuilt (`exp-rerun-mape.png` with the extension points,
+`exp-extension-outcomes.png` new), deck slide "Same prompts, OpenAI models:
+most stopped to ask" added and the accuracy caption extended (verifier 21
+OK). Committed in this repo as 0e7f0d1. Finding: 20 of 27 OpenAI sessions
+ended on a question or a plan with no forecast (Astra 9 of 9); 0 of 12
+Claude sessions did. Seven forecasts: Sol L1 3.56, 2.41 (leaked at the
+selection stage), 3.45; GPT-5.5 L1 4.20, 4.58, 9.48 (leaked intermediate
+file); GPT-5.5 L3 3.77 agent-reported, leaked headline (May's construction).
+`sol_L1_r2` spawned a Fable subagent via the Agent tool's model alias;
+`sol_L1_r3` tried the operator's gateway probe (blocked by the seatbelt).
+Two read-only Astra reviews were launched at 00:44 local (logs
+`_logs/review_ext_bc_design.events.log`, `_logs/review_ext_a_results.events.log`,
+outputs `reviews/2026-09-06_astra_*_review.md`): one of the B/C
+pre-registration and harness diff (gates the launches below), one of
+section 8, the 27 scoring entries and the slide. Fold both, then push.
+
+**Extensions B and C, pre-registered 01:20 local (DESIGN.md sections 12 and
+13, commit b1f1fb4), not yet launched.** Owner instructions the same
+night: "change the prompt slightly just to say it should just do it
+without asking questions or presenting plan" (B), "run the full experiment
+for opus 5, 4.8 and 4.7" (C), "do not rerun the fable5.1 again ... it is
+only for the ones that failed to give forecast", and "just do not run
+fable5.1 sessions again at all". B: the 20 Extension A cells that stopped,
+re-run with `prompts/one_shot_suffix.md` appended on stdin (tags `astraos`,
+`solos`, `gpt55os`; frozen prompt files untouched; waves `ext_b_waveA` 12
+runs, `ext_b_waveB` 8 runs). C: `opus47` and `opus48` at three runs per
+level plus `opus5` reps 2 and 3, direct route, frozen prompts, 24 runs
+(waves `ext_c_wave1`, `ext_c_wave2`, `ext_c_wave3`); bills the Anthropic
+plan, so every wave passes the usage gate and the driver waits 15 minutes
+and retries on a closed gate. Launch, after the design review is folded:
+`nohup bash scripts/launch_extension.sh ext_b_waveA ext_b_waveB > runs_2026_09/_logs/extension_b.log 2>&1 &`
+and, concurrently, a C driver: wave1 then wave2 then wave3 (the driver
+takes two waves; run it as `ext_c_wave1 ext_c_wave2` and then
+`ext_c_wave3` alone as both arguments of a second invocation is wrong,
+so run wave3 with `bash scripts/launch_wave.sh ext_c_wave3` after the
+first driver ends, or extend the driver to n waves). Never launch a Fable
+5.1 run. Afterwards the same post-processing as A: summariser, scorer
+(scoring.json entries), reader fleet on named runs, figure builder (new
+tags need SERIES/OUTCOME_ORDER entries; consider one figure for the Claude
+family and one for the OpenAI arm), RESULTS.md sections 9 and 10, deck,
+verifier, review, push. The Claude runs' and Extension A's derived files
+must diff empty after each step.
 
 Also optional: delete the sandboxes under `~/dev/energy_forecast_ws/`
-after the extension is scored, and tell Andres the slides are on
+after everything is scored, and tell Andres the slides are on
 `dev_dermot`. The seminar deck still carries the May date on its cover;
 the workshop is on 2026-09-11.
 

@@ -25,7 +25,11 @@ one() {
     *) echo "bad run name: $run" >&2; return 2 ;;
   esac
   brief="$OUT/$run.brief.md"
-  sed -e "s|__RUN__|$run|g" -e "s|__LEVEL__|$level|g" -e "s|__AGENTS_NOTE__|$note|g" \
+  delivery="the prompt in prompts/$level.md, which you may read"
+  if python3 -c "import json,sys; sys.exit(0 if json.load(open(sys.argv[1])).get('one_shot_suffix_sha256') else 1)" "$RUNS/$run/run_meta.json" 2>/dev/null; then
+    delivery="the prompt in prompts/$level.md followed by the note in prompts/one_shot_suffix.md, both of which you may read (Extension B, DESIGN.md section 12)"
+  fi
+  sed -e "s|__RUN__|$run|g" -e "s|__LEVEL__|$level|g" -e "s|__AGENTS_NOTE__|$note|g" -e "s|__DELIVERY__|$delivery|g" \
       "$ROOT/scripts/assess_brief_template.md" > "$brief"
   cat "$brief" | perl -e 'alarm shift; exec @ARGV' 1500 \
     codex exec -c 'model_reasoning_effort="high"' -s read-only --skip-git-repo-check \

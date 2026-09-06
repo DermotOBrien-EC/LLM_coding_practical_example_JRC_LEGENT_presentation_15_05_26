@@ -413,15 +413,16 @@ the session log before it enters `RESULTS.md`.
   was started at 22:30.
 - **2026-09-05 22:29 to 23:00 local, `ext_waveA`, 17 runs, all counted.**
   Six at a time through the gateway; every run ended with a result event
-  and exit 0, no void, no API error, no rate limit. Twelve of the seventeen
+  and exit 0, no void, no API error, no rate limit. Eleven of the seventeen
   ended on a clarifying question or a plan with no forecast written (all
   five remaining Astra runs, Sol L2 r1 to r3, GPT-5.5 L2 r1 to r3); the six
   L1 runs of Sol and GPT-5.5 wrote a forecast. `RESULTS.md` section 8.
 - **2026-09-05 23:00 to 2026-09-06 00:19 local, `ext_waveB`, 9 L3 runs,
   all counted.** Two at a time, interleaved by model. Eight ended on a
   question or a plan (Astra r1 and r2 after no tool call, 23 and 24
-  seconds; Astra r3, Sol r1 to r3 and GPT-5.5 r1 and r3 after verifying
-  the data); GPT-5.5 r2 completed the study in 61 minutes. No resume was
+  seconds; Astra r3, Sol r1 to r3 and GPT-5.5 r1 after verifying the
+  data; GPT-5.5 r3 after no tool call); GPT-5.5 r2 completed the study in
+  61 minutes. No resume was
   needed. `RESULTS.md` section 8.
 - **2026-09-06 00:30 to 02:00 local, post-processing.** Summariser, scorer
   (27 `scoring.json` entries), independent reader on the 27 named
@@ -480,7 +481,43 @@ permission mode, concurrency and effort wording (F7); the figure footnote
 scoped to the Claude L3 runs until the extension audit (F8); the
 post-processing scope stated (F9). F10 and F11 were confirmations.
 
+Extension A results review (GPT-6-Astra, read-only, 2026-09-06 00:44 local,
+on the working tree at commit `0e7f0d1` plus the slide snapshot;
+`reviews/2026-09-06_astra_ext_a_results_review.md`, fold record beside it):
+15 findings, 6 major, 5 minor, 4 notes, no blocker. Every major accepted:
+two audit classes corrected to `indeterminate` (F1); the six blocked steps
+were classifier unavailability, not decisions, and the model-id claim
+narrowed (F2); the Sol L1 range and the slide's comparison corrected (F3);
+the Claude-arm recap restored to three leaked headlines (F4); candidate
+counts redefined as test-scored forecasts, with the SARIMA re-scoring in
+GPT-5.5 L3 r2 disclosed (F5); the agent-reported L3 study distinguished
+from the six saved forecasts in the figure and text (F6). Minor findings
+folded: Astra maxima, AGENTS.md read positions, the bundled-skill counts,
+the wave A stopped count and the GPT-5.5 L3 r3 verification claim, the
+pre-registration timestamp, cells versus runs, the May reference, and the
+three over-statements (F7 to F11). The principal numbers reproduced (F12);
+the leak scopes and the subagent account were confirmed (F13).
+
+Extensions B and C design review (GPT-6-Astra, read-only, 2026-09-06 00:44
+local, on `git diff 0e7f0d1 b1f1fb4` and sections 12 and 13;
+`reviews/2026-09-06_astra_ext_bc_design_review.md`, fold record beside
+it): 10 findings, 3 major, 3 minor, 4 notes, no blocker. Folded before
+launch: the driver takes an ordered list of waves, validates them, and
+fails closed on a completion-count error (F1, F4); the chance-bound
+sentence removed from section 13 (F2); the machine and quota dependencies
+between B and C stated, and the two L3 waves kept apart (F3); gate-parser
+failures no longer look like a closed gate, and the retry described as
+bounded and pre-wave (F5); the reader's brief describes the delivered
+prompt from `run_meta.json` (F6); the mixed GPT-5.5 L3 cell's limits
+carried into section 12 (F10). F7 to F9 were confirmations, with the
+figure-builder update for the new tags noted as pending post-processing.
+
 ## 11. Extension A, pre-registered 2026-09-05 22:30 local: three OpenAI models on the same harness
+
+(Correction 2026-09-06: the commit that registered this section is
+timestamped 22:19:09 local, the review fold 22:27:35, the canary's start
+22:27:44; the heading's 22:30 was the time as written, not the commit
+time. Nothing else in the section is changed.)
 
 Written before any extension run was launched; the numbers go to
 `RESULTS.md` afterwards. Nothing above this section changes.
@@ -590,7 +627,12 @@ changed.
   forecast"), and no Fable 5.1 session is run for any reason (owner
   instruction, same day). A GPT-5.5 L3 cell read across the two
   extensions therefore mixes one Extension A run with two Extension B runs
-  and is reported that way, never as three of one kind.
+  and is reported that way, never as three of one kind; that cell cannot
+  become a three-run B cell, and its retained A run is agent-reported and
+  leaked, so it cannot meet section 6's recoverability requirement for
+  accuracy repeatability. B is a set of fresh attempts on the cells that
+  produced no forecast in A, not an isolated estimate of what the note
+  does: the cells were selected on their A outcome.
 - **The one change.** The runner appends `prompts/one_shot_suffix.md`
   (pinned in `pins.sha256`; a blank line, then one paragraph: "Note from
   the operator: this session is unattended. Nobody can answer a question
@@ -652,14 +694,21 @@ changed.
 - **Quota.** These runs bill the operator's Anthropic plan, unlike
   Extensions A and B. Every wave passes the usage gate of section 3, and
   the driver waits fifteen minutes and retries when the gate is closed
-  (`launch_extension.sh`, GATE_WAIT), so the extension paces itself
-  through the five-hour windows instead of failing on them. A session the
-  API refuses is void or counted as it stands by the wave 2 rule of
-  section 3 and section 11 (f). Waves: `ext_c_wave1` and `ext_c_wave2`,
-  eight L1 and L2 runs each, four at a time; `ext_c_wave3`, the eight L3
-  runs two at a time, interleaved by model. Extension B runs concurrently
-  on the gateway; the two share the machine (both under the concurrency
-  caps used in Extension A) and nothing else.
+  (`launch_extension.sh`, GATE_WAIT): a bounded pre-wave retry (the gate
+  is read once before each wave, not between batches), so a window
+  exhausted during a wave still refuses sessions, which are then void or
+  counted as they stand by the wave 2 rule of section 3 and section 11
+  (f). Waves: `ext_c_wave1` and `ext_c_wave2`, eight L1 and L2 runs each,
+  four at a time; `ext_c_wave3`, the eight L3 runs two at a time,
+  interleaved by model. Extension B runs concurrently on the gateway for
+  the light waves (up to ten light sessions on the machine at once, more
+  than Extension A's six); the two L3 waves are not run together, so no
+  more than two L3 sessions train at once (section 7). The two extensions
+  are not independent in every resource: B's permission classifier runs on
+  a Claude model through the gateway's Claude credentials, and a B session
+  can spawn a Claude subagent the same way (RESULTS.md 8.4); whether that
+  pool is the same five-hour window C bills is not established here and is
+  disclosed rather than assumed.
 - **Reading rules.** Section 6 per cell (range, repeatability, process,
   audit class), and three side-by-side readings, all descriptive: Opus
   4.7 September against Opus 4.7 May (same model, same prompts, different
@@ -667,8 +716,10 @@ changed.
   the three Opus generations against each other; and the Opus 5 cell of
   three against the Fable 5.1 cell of three. The May-versus-September
   Opus 4.7 comparison is the one place where a difference cannot be a
-  model difference; it can be harness, date, or chance, and the three
-  reps bound the chance part within September only.
+  model difference; it can be harness, date, configuration or sampling,
+  none of which this design separates, and May's L3 keeps its different
+  forecast construction (section 5.2). The three September reps show the
+  observed September spread; they do not bound stochastic variation.
 - **Post-processing scope.** As sections 11 and 12; in addition the
   `opus5` entries of `scoring.json` for rep 1 and its derived rows must
   diff empty. The figure builder gains the three tags; the MAPE figure is

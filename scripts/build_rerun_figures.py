@@ -145,6 +145,8 @@ def outcome_of(run: str, scoring: dict[str, dict[str, object]], results: dict[st
         return "plan"
     if sc.get("status_note"):
         return "incomplete"
+    if str(results.get(run, {}).get("source")) == "agent_reported":
+        return "reported"
     return "forecast"
 
 
@@ -152,11 +154,13 @@ def build_outcomes_figure(results: list[dict[str, object]]) -> None:
     """One cell per run: did the session end with a forecast, a question, or a plan?"""
     scoring = json.loads((RUNS / "scoring.json").read_text())
     by_run = {str(r["run"]): r for r in results}
-    colours = {"forecast": "#2b8a3e", "incomplete": "#94d82d", "asked": "#e8590c", "plan": "#fab005"}
-    labels = {"forecast": "wrote a forecast", "incomplete": "forecast written, session ended early",
+    colours = {"forecast": "#2b8a3e", "incomplete": "#94d82d", "reported": "#1c7ed6",
+               "asked": "#e8590c", "plan": "#fab005"}
+    labels = {"forecast": "wrote a forecast file", "incomplete": "forecast file written, session ended early",
+              "reported": "finished; accuracy as the agent reported it (no forecast file)",
               "asked": "asked a clarifying question and stopped", "plan": "presented a plan and stopped"}
     rows = [t for t in OUTCOME_ORDER if any(str(r["model_tag"]) == t for r in results)]
-    fig, ax = plt.subplots(figsize=(11, 3.6))
+    fig, ax = plt.subplots(figsize=(11, 3.9))
     for yi, tag in enumerate(rows):
         for xi, lvl in enumerate(LEVELS):
             reps = sorted(int(r.get("rep") or 1) for r in results if str(r["model_tag"]) == tag and str(r["level"]) == lvl)
@@ -172,7 +176,8 @@ def build_outcomes_figure(results: list[dict[str, object]]) -> None:
                     if sc.get("test_selection") == "leaked" and str(sc.get("leak_scope", "")).startswith("headline"):
                         txt += "†"
                 ax.text(x + 0.45, yi + 0.45, txt, ha="center", va="center", fontsize=9,
-                        color="white" if oc in ("forecast", "asked") else "#333333")
+                        color="white" if oc in ("forecast", "asked", "reported") else "#333333",
+                        fontstyle="italic" if oc == "reported" else "normal")
     ax.set_xlim(-0.3, 3 * 3.6 - 0.4)
     ax.set_ylim(-0.2, len(rows) + 0.1)
     ax.set_xticks([xi * 3.6 + 1.4 for xi in range(3)])
@@ -183,8 +188,9 @@ def build_outcomes_figure(results: list[dict[str, object]]) -> None:
     for side in ("top", "right", "left", "bottom"):
         ax.spines[side].set_visible(False)
     ax.tick_params(length=0)
-    handles = [plt.Rectangle((0, 0), 1, 1, color=colours[k]) for k in ("forecast", "incomplete", "asked", "plan")]
-    ax.legend(handles, [labels[k] for k in ("forecast", "incomplete", "asked", "plan")], loc="upper center",
+    order = ("forecast", "incomplete", "reported", "asked", "plan")
+    handles = [plt.Rectangle((0, 0), 1, 1, color=colours[k]) for k in order]
+    ax.legend(handles, [labels[k] for k in order], loc="upper center",
               bbox_to_anchor=(0.5, -0.22), ncol=2, fontsize=8, frameon=False)
     ax.set_title("How each headless session ended (one cell per run; number = test MAPE %, † = headline read test-week loads)",
                  fontsize=10.5)

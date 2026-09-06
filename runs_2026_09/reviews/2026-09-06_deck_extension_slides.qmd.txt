@@ -1,0 +1,93 @@
+## Four months later: the same three prompts, run again {.tight}
+
+::: {.smaller}
+- **September 2026.** Same frozen prompts, same data file, same `AGENTS.md` files, Claude Code 2.1.259 run headless (L1 and L2 on 3 September, L3 on 5 September).
+- **Fable 5.1**: three fresh sessions per level. **Opus 5**: one per level. May 2026 (Opus 4.7) kept as the reference point.
+- Each session alone in a seatbelt-confined sandbox: the data file, a Python venv, the level's `AGENTS.md` (L2, L3) and for L3 the prompt file; no repository context. Every forecast re-scored from what the agent left on disk (one exception, marked).
+- **Questions:** does specificity still change the result, and where? Does the same prompt give the same answer three times? What does a second model do with it?
+- **Extension, same night:** the same nine cells, 27 runs (three per level) for **GPT-6-Astra, GPT-5.6-Sol and GPT-5.5**, run through Claude Code's harness via a local gateway. Descriptive only: model plus translation layer.
+:::
+
+::: {.source}
+Pre-registered design, harness, session logs and independent per-run assessments: `runs_2026_09/` in the repository above (design reviewed twice by GPT-5.6-Sol before launch; the extension once by GPT-6-Astra).
+:::
+
+## Accuracy: the beginner prompt caught up {.tight}
+
+![](figures/exp-rerun-mape.png){.bigfig}
+
+::: {.belowtext .center}
+May: **10.8, 5.5, 3.4†**. Fable 5.1, same 10 words: **3.3 to 4.5**. L2: **2.3 to 5.4**. L3: **5.0 to 5.5** (Opus 5: 5.5). OpenAI models, where they wrote a forecast: L1 **2.4 to 9.5**, L3 **3.8†** (one run, agent-reported).<br>
+† The LightGBM winner read the test week's actual loads through its rolling features from hour 2 and its 24-hour lag from day 2 (May, and the one GPT-5.5 L3 study). Every September Claude L3 run forecast the week from its own predictions; one also scored itself the May way: 3.7.
+:::
+
+## What 10 words gets you now {.tight}
+
+![](figures/exp-rerun-l1-fable.png){.figtop}
+
+::: {.belowtext .center}
+Fable 5.1, run 2 of 3, prompt unchanged: **LightGBM** with holiday and lag features, a **p10 to p90 band**, a 2019 backtest, **MAPE 3.3%**.<br>
+In May the same 10 words produced three naive baselines and 10.8%.
+:::
+
+## What the prompt still had to buy: the discipline {.tight}
+
+::: {.smaller}
+| Level (runs) | Validation decided a choice | Prediction intervals | Written methods | Target week entered the headline | Session finished |
+|---|---|---|---|---|---|
+| Fable 5.1, L1 (3) | 1 of 3 | 2 of 3 | 0 of 3 | 1 of 3 | 3 of 3 |
+| Fable 5.1, L2 (3) | 0 of 3 | 0 of 3 | 1 of 3 | 0 of 3 | 2 of 3 |
+| Fable 5.1, L3 (3) | 3 of 3 | 3 of 3 | 3 of 3 | 0 of 3 | 3 of 3 |
+| Opus 5, L1 / L2 / L3 | yes / yes / yes | yes / no / yes | yes / no / yes | yes / yes / no | yes / no / yes |
+| May 2026, L1 / L2 / L3 | no / no / yes | no / no / yes | no / no / yes | no / no / yes† | yes / yes / yes |
+:::
+
+::: {.takeaway}
+No L1 or L2 session used a validation window to choose between model classes, and three of eight let the test week into a decision. Every L3 session validated inside each model class, produced intervals and measured their coverage, wrote a methods document, and kept the test week out of its headline forecast. The test week decided only the class ranking, which the L3 prompt itself asks for.
+:::
+
+::: {.source}
+Every L2 and L3 session read `AGENTS.md` within its first seven commands. † May's L3 model had the test week's observed history in its inputs (found in September). One Fable L3 run scored a labelled May-style supplement on the test week; its headline is clean. Opus 5 L3 was resumed once after a harness cut-off; the resume is disclosed in the design record.
+:::
+
+## Same prompts, OpenAI models: most stopped to ask {.tight}
+
+![](figures/exp-extension-outcomes.png){.nostretch width="76%" fig-align="center"}
+
+::: {.belowtext .center}
+**20 of 27** sessions ended on a clarifying question or a plan awaiting approval, no forecast written; the Claude arm: **0 of 12**. GPT-6-Astra asked in **9 of 9**, at L3 about the exact ambiguity May's run got wrong. Headless, nobody answers.<br>
+Six saved L1 forecasts sit with the Claude ones, one baseline apart (9.5); the one finished L3 study left no forecast file and reproduced May's leak. Same harness, other vendor: model plus translation layer, described, not ranked.
+:::
+
+::: {.source}
+Extension A, pre-registered in `runs_2026_09/DESIGN.md` section 11, results in `RESULTS.md` section 8. One Sol L1 run called a Claude subagent to review its method; one tried the operator's gateway probe and was blocked by the sandbox. Both disclosed.
+:::
+
+## Three things the logs taught us {.tight}
+
+:::: {.tipgrid .cols-3}
+::: {#rerun01 .tipcard}
+#### ACCURACY
+
+Specificity no longer buys accuracy here
+
+Ten words got a frontier model to 3 to 4 percent. The 1,673 words scored 5: honest, week-ahead, and worse. The runs differ in strategy: the prompt's May-era feature list (a 24-hour lag) led every L3 run to recursive forecasting, where errors compound; the ten-word runs chose weekly lags and forecast directly. What specificity still buys: validation, intervals with measured coverage, a write-up, and no test-week inputs.
+:::
+
+::: {#rerun02 .tipcard}
+#### REPEATABILITY
+
+Same model class every time; the number moves by 0.5 to 3 points
+
+Three L1 runs: LightGBM, LightGBM, LightGBM, MAPE 3.3 to 4.5. Three L2 runs: 2.3 to 5.4. Three L3 runs: LightGBM won every six-model bake-off, 5.0 to 5.5, Prophet second twice. Two of eight L1 and L2 sessions parked themselves on a background job; a one-line harness fix kept all four L3 sessions alive to the end, 71 to 129 minutes.
+:::
+
+::: {#rerun03 .tipcard .accent}
+#### A SECOND MODEL
+
+Harder work is not cleaner work, until the prompt says so
+
+Opus 5 spent 81 and 93 minutes where Fable 5.1 spent 6 to 44, built more (a README, 449 tuning origins), and let the test week into a decision in both L1 and L2. Given the L3 prompt its headline was clean, like every Fable L3 headline, and both models caught the leak the May run had missed. The DO NOT block is for the strong models too.
+:::
+::::
+

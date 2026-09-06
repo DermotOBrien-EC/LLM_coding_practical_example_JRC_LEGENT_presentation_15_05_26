@@ -83,9 +83,12 @@ PY
 )"; GATE_RC=$?
 fi
 echo "usage gate: $GATE"
-if [ "$GATE_RC" != 0 ]; then
-  echo "refusing to launch wave $WAVE" >&2
+if [ "$GATE_RC" = 5 ]; then
+  echo "refusing to launch wave $WAVE (gate closed)" >&2
   exit 5
+elif [ "$GATE_RC" != 0 ]; then
+  echo "refusing to launch wave $WAVE (gate check failed, exit $GATE_RC; not a closed gate)" >&2
+  exit 6
 fi
 
 # --- validate every run before launching anything --------------------------
